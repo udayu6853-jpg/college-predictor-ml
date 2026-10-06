@@ -1,0 +1,561 @@
+College Name,Branch,Cutoff Rank,Rating,Location,Management Fees,Kcet Fees,Hostel Fees,State,Image,Latitude,Longitude,Website
+Reva University,CSE,18732,4.2,Bengaluru,340000,143748,145000,Karnataka,static/images/Reva University - Copy.jpg,13.1168916,77.63456731,https://www.reva.edu.in/
+Reva University,AIML,70961,4.2,Bengaluru,340000,125000,145000,Karnataka,static/images/Reva University - Copy.jpg,13.1168916,77.63456731,https://www.reva.edu.in/
+Reva University,ISE,102859,4.2,Bengaluru,340000,140000,145000,Karnataka,static/images/Reva University - Copy.jpg,13.1168916,77.63456731,https://www.reva.edu.in/
+Reva University,ECE,102859,4.2,Bengaluru,340000,201960,145000,Karnataka,static/images/Reva University - Copy.jpg,13.1168916,77.63456731,https://www.reva.edu.in/
+HKBK College Of  Engineering,CSE,50454,3.6,Bengaluru,450000,100000,100000,Karnataka,static/images/hkbk college engineering.jpg,,,https://www.hkbk.edu.in/
+HKBK College Of  Engineering,AIML,42983,3.6,Bengaluru,400000,100000,100000,Karnataka,static/images/hkbk college engineering.jpg,,,https://www.hkbk.edu.in/
+HKBK College Of  Engineering,ISE,60808,3.6,Bengaluru,250000,100000,100000,Karnataka,static/images/hkbk college engineering.jpg,,,https://www.hkbk.edu.in/
+HKBK College Of  Engineering,ECE,67799,3.6,Bengaluru,22000,100000,100000,Karnataka,static/images/hkbk college engineering.jpg,,,https://www.hkbk.edu.in/
+MS Engineering  College,CSE,76888,3.8,Bengaluru,206111,104000,75000,Karnataka,static/images/MS Engineering  College.jpg,,,https://msec.ac.in/
+MS Engineering  College,AIML,91193,3.8,Bengaluru,220000,104000,75000,Karnataka,static/images/MS Engineering  College.jpg,,,https://msec.ac.in/
+MS Engineering  College,ISE,101467,3.8,Bengaluru,206000,104000,75000,Karnataka,static/images/MS Engineering  College.jpg,,,https://msec.ac.in/
+MS Engineering  College,ECE,97675,3.8,Bengaluru,206000,104000,75000,Karnataka,static/images/MS Engineering  College.jpg,,,https://msec.ac.in/
+Sri Venkateshwara College Of Engineering Autonomous,CSE,53292,4.1,Bengaluru,360000,104000,80000,Karnataka,static/images/Sri Venkateshwara College Of  Engineering  Autonomous.jpg,,,https://www.svcengg.edu.in/
+Sri Venkateshwara College Of Engineering Autonomous,AIML,43037,4.1,Bengaluru,360000,104000,80000,Karnataka,static/images/Sri Venkateshwara College Of  Engineering  Autonomous.jpg,,,https://www.svcengg.edu.in/
+Sri Venkateshwara College Of Engineering Autonomous,ISE,61839,4.1,Bengaluru,360000,104000,80000,Karnataka,static/images/Sri Venkateshwara College Of  Engineering  Autonomous.jpg,,,https://www.svcengg.edu.in/
+Sri Venkateshwara College Of Engineering Autonomous,ECE,71033,4.1,Bengaluru,360000,104000,80000,Karnataka,static/images/Sri Venkateshwara College Of  Engineering  Autonomous.jpg,,,https://www.svcengg.edu.in/
+Ramaiah Institute Of  Technology,CSE,2076,4.3,Bengaluru,875000,134500,170000,Karnataka,static/images/Ramaiah Institute Of  Technology.jpg,,,https://www.msrit.edu/
+Ramaiah Institute Of  Technology,AIML,2791,4.3,Bengaluru,550000,134500,170000,Karnataka,static/images/Ramaiah Institute Of  Technology.jpg,,,https://www.msrit.edu/
+Ramaiah Institute Of  Technology,ISE,3196,4.3,Bengaluru,550000,134500,170000,Karnataka,static/images/Ramaiah Institute Of  Technology.jpg,,,https://www.msrit.edu/
+Ramaiah Institute Of  Technology,ECE,4080,4.3,Bengaluru,300000,134500,170000,Karnataka,static/images/Ramaiah Institute Of  Technology.jpg,,,https://www.msrit.edu/
+Cambridge Institute Of  Technology,CSE,25169,4.1,Bengaluru,600000,107495,140000,Karnataka,static/images/Cambridge Institute Of  Technology.jpg,,,https://engg.cambridge.edu.in/
+Cambridge Institute Of  Technology,AIML,24142,4.1,Bengaluru,550000,107495,140000,Karnataka,static/images/Cambridge Institute Of  Technology.jpg,,,https://engg.cambridge.edu.in/
+Cambridge Institute Of  Technology,ISE,33082,4.1,Bengaluru,450000,107495,140000,Karnataka,static/images/Cambridge Institute Of  Technology.jpg,,,https://engg.cambridge.edu.in/
+Cambridge Institute Of  Technology,ECE,32671,4.1,Bengaluru,300000,107495,140000,Karnataka,static/images/Cambridge Institute Of  Technology.jpg,,,https://engg.cambridge.edu.in/
+MVJ College Of  Engineering,CSE,20402,4.1,Bengaluru,335000,120000,150000,Karnataka,static/images/MVJ College Of  Engineering.jpg,,,https://mvjce.edu.in/
+MVJ College Of  Engineering,AIML,19218,4.1,Bengaluru,335000,120000,150000,Karnataka,static/images/MVJ College Of  Engineering.jpg,,,https://mvjce.edu.in/
+MVJ College Of  Engineering,ISE,24957,4.1,Bengaluru,335000,120000,150000,Karnataka,static/images/MVJ College Of  Engineering.jpg,,,https://mvjce.edu.in/
+MVJ College Of  Engineering,ECE,27812,4.1,Bengaluru,335000,120000,150000,Karnataka,static/images/MVJ College Of  Engineering.jpg,,,https://mvjce.edu.in/
+Dayananda Sagar College Of  Engineering,CSE,6500,4.2,Bengaluru,550000,114000,150000,Karnataka,static/images/Dayananda Sagar College Of  Engineering.jpg,,,https://www.dsce.edu.in/
+Dayananda Sagar College Of  Engineering,AIML,7800,4.2,Bengaluru,550000,114000,150000,Karnataka,static/images/Dayananda Sagar College Of  Engineering.jpg,,,https://www.dsce.edu.in/
+Dayananda Sagar College Of  Engineering,ISE,9100,4.2,Bengaluru,550000,114000,150000,Karnataka,static/images/Dayananda Sagar College Of  Engineering.jpg,,,https://www.dsce.edu.in/
+Dayananda Sagar College Of  Engineering,ECE,10700,4.2,Bengaluru,425000,114000,150000,Karnataka,static/images/Dayananda Sagar College Of  Engineering.jpg,,,https://www.dsce.edu.in/
+RV College Of  Engineering,CSE,234,4.3,Bengaluru,1600000,114199,158500,Karnataka,static/images/RV College Of  Engineering.jpg,,,https://rvce.edu.in/
+RV College Of  Engineering,AIML,429,4.3,Bengaluru,1200000,114199,158500,Karnataka,static/images/RV College Of  Engineering.jpg,,,https://rvce.edu.in/
+RV College Of  Engineering,ISE,360,4.3,Bengaluru,980000,114199,158500,Karnataka,static/images/RV College Of  Engineering.jpg,,,https://rvce.edu.in/
+RV College Of  Engineering,ECE,573,4.3,Bengaluru,500000,114199,158500,Karnataka,static/images/RV College Of  Engineering.jpg,,,https://rvce.edu.in/
+AMC Engineering  College,CSE,49072,4.1,Bengaluru,389000,137000,129000,Karnataka,static/images/AMC Engineering  College.jpg,,,https://www.amcgroup.edu.in/
+AMC Engineering  College,AIML,42593,4.1,Bengaluru,374000,137000,129000,Karnataka,static/images/AMC Engineering  College.jpg,,,https://www.amcgroup.edu.in/
+AMC Engineering  College,ISE,42593,4.1,Bengaluru,150000,137000,129000,Karnataka,static/images/AMC Engineering  College.jpg,,,https://www.amcgroup.edu.in/
+AMC Engineering  College,ECE,65678,4.1,Bengaluru,380000,137000,129000,Karnataka,static/images/AMC Engineering  College.jpg,,,https://www.amcgroup.edu.in/
+BMS College Of  Engineering,CSE,3870,4.4,Bengaluru,350000,107000,145000,Karnataka,static/images/BMS College Of  Engineering.jpg,,,https://www.bmsce.ac.in/
+BMS College Of  Engineering,AIML,5087,4.4,Bengaluru,300000,107000,145000,Karnataka,static/images/BMS College Of  Engineering.jpg,,,https://www.bmsce.ac.in/
+BMS College Of  Engineering,ISE,1749,4.4,Bengaluru,250000,107000,145000,Karnataka,static/images/BMS College Of  Engineering.jpg,,,https://www.bmsce.ac.in/
+BMS College Of  Engineering,ECE,4794,4.4,Bengaluru,210000,107000,145000,Karnataka,static/images/BMS College Of  Engineering.jpg,,,https://www.bmsce.ac.in/
+New Horizon College Of  Engineering,CSE,12192,4.1,Bengaluru,850000,122300,190000,Karnataka,static/images/New Horizon College Of  Engineering.jpg,,,https://newhorizoncollegeofengineering.in/
+New Horizon College Of  Engineering,AIML,13050,4.1,Bengaluru,750000,122300,190000,Karnataka,static/images/New Horizon College Of  Engineering.jpg,,,https://newhorizoncollegeofengineering.in/
+New Horizon College Of  Engineering,ISE,13050,4.1,Bengaluru,750000,122300,190000,Karnataka,static/images/New Horizon College Of  Engineering.jpg,,,https://newhorizoncollegeofengineering.in/
+New Horizon College Of  Engineering,ECE,16162,4.1,Bengaluru,650000,122300,190000,Karnataka,static/images/New Horizon College Of  Engineering.jpg,,,https://newhorizoncollegeofengineering.in/
+Vemana Institute Of  Technology,CSE,60418,3.9,Bengaluru,363790,129790,80000,Karnataka,static/images/Vemana Institute Of  Technology.jpg,,,https://vemanait.edu.in/
+Vemana Institute Of  Technology,AIML,64561,3.9,Bengaluru,363790,129790,80000,Karnataka,static/images/Vemana Institute Of  Technology.jpg,,,https://vemanait.edu.in/
+Vemana Institute Of  Technology,ISE,91155,3.9,Bengaluru,288790,129790,80000,Karnataka,static/images/Vemana Institute Of  Technology.jpg,,,https://vemanait.edu.in/
+Vemana Institute Of  Technology,ECE,236706,3.9,Bengaluru,188790,129790,80000,Karnataka,static/images/Vemana Institute Of  Technology.jpg,,,https://vemanait.edu.in/
+Acharya Institute Of  Technology,CSE,19409,4.1,Bengaluru,301000,91000,140000,Karnataka,static/images/Acharya Institute Of  Technology.jpg,,,https://www.acharya.ac.in/
+Acharya Institute Of  Technology,AIML,20271,4.1,Bengaluru,301000,10000,140000,Karnataka,static/images/Acharya Institute Of  Technology.jpg,,,https://www.acharya.ac.in/
+Acharya Institute Of  Technology,ISE,24077,4.1,Bengaluru,281000,91000,140000,Karnataka,static/images/Acharya Institute Of  Technology.jpg,,,https://www.acharya.ac.in/
+Acharya Institute Of  Technology,ECE,26681,4.1,Bengaluru,281000,75000,140000,Karnataka,static/images/Acharya Institute Of  Technology.jpg,,,https://www.acharya.ac.in/
+Nitte Meenakshi Institute Of  Technology,CSE,12227,4.1,Bengaluru,750000,106745,135000,Karnataka,static/images/Nitte Meenakshi Institute Of  Technology.jpg,,,https://nitte.edu.in/nmit/
+Nitte Meenakshi Institute Of  Technology,AIML,13535,4.1,Bengaluru,700000,106745,135000,Karnataka,static/images/Nitte Meenakshi Institute Of  Technology.jpg,,,https://nitte.edu.in/nmit/
+Nitte Meenakshi Institute Of  Technology,ISE,15586,4.1,Bengaluru,700000,106745,135000,Karnataka,static/images/Nitte Meenakshi Institute Of  Technology.jpg,,,https://nitte.edu.in/nmit/
+Nitte Meenakshi Institute Of  Technology,ECE,17159,4.1,Bengaluru,450000,106745,135000,Karnataka,static/images/Nitte Meenakshi Institute Of  Technology.jpg,,,https://nitte.edu.in/nmit/
+GITAM University,CSE,67896,4.1,Bengaluru,346000,98000,170000,Karnataka,static/images/GITAM University.jpg,,,https://www.gitam.edu/
+GITAM University,AIML,66233,4.1,Bengaluru,346000,98000,170000,Karnataka,static/images/GITAM University.jpg,,,https://www.gitam.edu/
+GITAM University,ISE,66233,4.1,Bengaluru,346000,98000,170000,Karnataka,static/images/GITAM University.jpg,,,https://www.gitam.edu/
+GITAM University,ECE,89215,4.1,Bengaluru,270000,98000,170000,Karnataka,static/images/GITAM University.jpg,,,https://www.gitam.edu/
+Sapthagiri College Of Engineering,CSE,61732,3.7,Bengaluru,275000,121610,130000,Karnataka,static/images/Sapthagiri College Of Engineering.jpg,,,https://www.sapthagiri.edu.in/
+Sapthagiri College Of Engineering,AIML,54994,3.7,Bengaluru,275000,121610,130000,Karnataka,static/images/Sapthagiri College Of Engineering.jpg,,,https://www.sapthagiri.edu.in/
+Sapthagiri College Of Engineering,ISE,35000,3.7,Bengaluru,235000,121610,130000,Karnataka,static/images/Sapthagiri College Of Engineering.jpg,,,https://www.sapthagiri.edu.in/
+Sapthagiri College Of Engineering,ECE,52943,3.7,Bengaluru,235000,121610,130000,Karnataka,static/images/Sapthagiri College Of Engineering.jpg,,,https://www.sapthagiri.edu.in/
+Jain College Of Engineering,CSE,41893,4.1,Belgaum,325000,122360,90000,Karnataka,static/images/Visvesvaraya Technological University.jpg,,,https://www.jce.ac.in/
+Jain College Of Engineering,AIML,41012,4.1,Belgaum,400000,122360,90000,Karnataka,static/images/Visvesvaraya Technological University.jpg,,,https://www.jce.ac.in/
+Jain College Of Engineering,ISE,41012,4.1,Belgaum,400000,122360,90000,Karnataka,static/images/Visvesvaraya Technological University.jpg,,,https://www.jce.ac.in/
+Jain College Of Engineering,ECE,59661,4.1,Belgaum,300000,122360,90000,Karnataka,static/images/Visvesvaraya Technological University.jpg,,,https://www.jce.ac.in/
+KLS Gogte Institute Of Technology,CSE,16368,4.4,Belgaum,700000,127495,70000,Karnataka,static/images/Jain College Of Engineering.jpg,,,https://www.git.edu/
+KLS Gogte Institute Of Technology,AIML,15720,4.4,Belgaum,500000,127495,70000,Karnataka,static/images/Jain College Of Engineering.jpg,,,https://www.git.edu/
+KLS Gogte Institute Of Technology,ISE,15720,4.4,Belgaum,500000,127495,70000,Karnataka,static/images/Jain College Of Engineering.jpg,,,https://www.git.edu/
+KLS Gogte Institute Of Technology,ECE,21865,4.4,Belgaum,400000,127495,70000,Karnataka,static/images/Jain College Of Engineering.jpg,,,https://www.git.edu/
+KLE Technological University,CSE,18233,4.2,Belgaum,264000,107495,72000,Karnataka,static/images/KLE Technological University.jpg,,,https://www.kletech.ac.in/belagavi/
+KLE Technological University,AIML,19959,4.2,Belgaum,264000,107495,72000,Karnataka,static/images/KLE Technological University.jpg,,,https://www.kletech.ac.in/belagavi/
+KLE Technological University,ISE,19959,4.2,Belgaum,264000,107495,72000,Karnataka,static/images/KLE Technological University.jpg,,,https://www.kletech.ac.in/belagavi/
+KLE Technological University,ECE,21977,4.2,Belgaum,264000,107495,72000,Karnataka,static/images/KLE Technological University.jpg,,,https://www.kletech.ac.in/belagavi/
+Angadi Institute Of  Technology  And Management,CSE,83747,3.9,Belgaum,219000,121610,72000,Karnataka,static/images/Angadi Institute Of  Technology  And Management.jpg,,,https://aitmbgm.ac.in/
+Angadi Institute Of  Technology  And Management,AIML,78949,3.9,Belgaum,219000,121610,72000,Karnataka,static/images/Angadi Institute Of  Technology  And Management.jpg,,,https://aitmbgm.ac.in/
+Angadi Institute Of  Technology  And Management,ISE,78949,3.9,Belgaum,219000,121610,72000,Karnataka,static/images/Angadi Institute Of  Technology  And Management.jpg,,,https://aitmbgm.ac.in/
+Angadi Institute Of  Technology  And Management,ECE,117111,3.9,Belgaum,219000,121610,72000,Karnataka,static/images/Angadi Institute Of  Technology  And Management.jpg,,,https://aitmbgm.ac.in/
+SG Balekundri Institute Of Technology,CSE,48359,4.1,Belgaum,190610,107000,80000,Karnataka,static/images/SG Balekundri Institute Of Technology.jpg,,,https://www.sgbit.edu.in/
+SG Balekundri Institute Of Technology,AIML,56484,4.1,Belgaum,190610,107000,80000,Karnataka,static/images/SG Balekundri Institute Of Technology.jpg,,,https://www.sgbit.edu.in/
+SG Balekundri Institute Of Technology,ECE,63277,4.1,Belgaum,175610,107000,80000,Karnataka,static/images/SG Balekundri Institute Of Technology.jpg,,,https://www.sgbit.edu.in/
+Maratha Mandal's Engineering College,CSE,71254,3.9,Belgaum,125000,122300,52000,Karnataka,static/images/Maratha Mandal's Engineering College.jpg,,,https://mmec.edu.in/
+Maratha Mandal's Engineering College,AIML,71254,3.9,Belgaum,125000,122300,52000,Karnataka,static/images/Maratha Mandal's Engineering College.jpg,,,https://mmec.edu.in/
+Maratha Mandal's Engineering College,ECE,93272,3.9,Belgaum,125000,122300,52000,Karnataka,static/images/Maratha Mandal's Engineering College.jpg,,,https://mmec.edu.in/
+Hirasugar Institute Of Technology,CSE,80183,4.2,Belgaum,225000,112000,40000,Karnataka,static/images/Hirasugar Institute Of Technology.jpg,,,https://hsit.ac.in/
+Hirasugar Institute Of Technology,AIML,80183,4.2,Belgaum,225000,112000,40000,Karnataka,static/images/Hirasugar Institute Of Technology.jpg,,,https://hsit.ac.in/
+Hirasugar Institute Of Technology,ECE,146775,4.2,Belgaum,112000,112000,40000,Karnataka,static/images/Hirasugar Institute Of Technology.jpg,,,https://hsit.ac.in/
+K.L.E College Of Engineering Technology,CSE,63122,4.1,Belgaum,206000,76135,40000,Karnataka,static/images/K.L.E College Of Engineering Technology.jpg,,,https://www.kletech.ac.in/belagavi/
+K.L.E College Of Engineering Technology,AIML,55499,4.1,Belgaum,206000,76135,40000,Karnataka,static/images/K.L.E College Of Engineering Technology.jpg,,,https://www.kletech.ac.in/belagavi/
+K.L.E College Of Engineering Technology,ECE,99144,4.1,Belgaum,206000,76135,40000,Karnataka,static/images/K.L.E College Of Engineering Technology.jpg,,,https://www.kletech.ac.in/belagavi/
+Kishkinda University,CSE,89855,4.5,Ballari,225000,111574,81000,Karnataka,static/images/Kishkinda University.jpg,,,https://www.kishkindauniversity.edu.in/
+Kishkinda University,AIML,78311,4.5,Ballari,225000,111574,81000,Karnataka,static/images/Kishkinda University.jpg,,,https://www.kishkindauniversity.edu.in/
+Kishkinda University,ECE,97607,4.5,Ballari,175000,111574,81000,Karnataka,static/images/Kishkinda University.jpg,,,https://www.kishkindauniversity.edu.in/
+Government Engineering College,CSE,84444,4.1,Ballari,Not Available,44200,60000,Karnataka,static/images/Government Engineering College.jpg,,,https://gec.karnataka.gov.in/gechuvinahadagali/public/en
+Government Engineering College,ECE,254848,4.1,Ballari,Not Available,44200,60000,Karnataka,static/images/Government Engineering College.jpg,,,https://gec.karnataka.gov.in/gechuvinahadagali/public/en
+Rao Bahadur Y.Mahabaleswarappa Engineering College,CSE,66964,4.2,Ballari,225000,96574,85000,Karnataka,static/images/Rao Bahadur Y.Mahabaleswarappa Engineering College.jpg,,,https://rymec.edu.in/
+Rao Bahadur Y.Mahabaleswarappa Engineering College,AIML,77878,4.2,Ballari,186000,96574,85000,Karnataka,static/images/Rao Bahadur Y.Mahabaleswarappa Engineering College.jpg,,,https://rymec.edu.in/
+Rao Bahadur Y.Mahabaleswarappa Engineering College,ISE,96200,4.2,Ballari,150000,96574,85000,Karnataka,static/images/Rao Bahadur Y.Mahabaleswarappa Engineering College.jpg,,,https://rymec.edu.in/
+Rao Bahadur Y.Mahabaleswarappa Engineering College,ECE,99011,4.2,Ballari,160000,96574,85000,Karnataka,static/images/Rao Bahadur Y.Mahabaleswarappa Engineering College.jpg,,,https://rymec.edu.in/
+Ballari Institute Of Technology and Management(BITM),CSE,30270,3.8,Ballari,325000,122495,91000,Karnataka,static/images/Ballari Institute Of Technology and Management(BITM).jpg,,,https://www.bitm.edu.in/
+Ballari Institute Of Technology and Management(BITM),AIML,48756,3.8,Ballari,275000,122495,91000,Karnataka,static/images/Ballari Institute Of Technology and Management(BITM).jpg,,,https://www.bitm.edu.in/
+Ballari Institute Of Technology and Management(BITM),ECE,72183,3.8,Ballari,200000,122495,91000,Karnataka,static/images/Ballari Institute Of Technology and Management(BITM).jpg,,,https://www.bitm.edu.in/
+Government Engineering College Huvina Hadagali,CSE,79920,3.9,Ballari,Not Available,44200,45000,Karnataka,"static/images/Government Engineering College,Huvina Hadagali.jpg",,,https://gec.karnataka.gov.in/gechuvinahadagali/public/en
+Government Engineering College Huvina Hadagali,ECE,126359,3.9,Ballari,Not Available,44200,45000,Karnataka,"static/images/Government Engineering College,Huvina Hadagali.jpg",,,https://gec.karnataka.gov.in/gechuvinahadagali/public/en
+Basaveshwar Engineering College,CSE,17684,3.9,Bagalkot,280000,104000,60000,Karnataka,static/images/Basaveshwar Engineering College.jpg,,,https://www.becbgk.edu/
+Basaveshwar Engineering College,AIML,31541,3.9,Bagalkot,280000,104000,60000,Karnataka,static/images/Basaveshwar Engineering College.jpg,,,https://www.becbgk.edu/
+Basaveshwar Engineering College,ISE,36564,3.9,Bagalkot,280000,104000,60000,Karnataka,static/images/Basaveshwar Engineering College.jpg,,,https://www.becbgk.edu/
+Basaveshwar Engineering College,ECE,36564,3.9,Bagalkot,280000,104000,60000,Karnataka,static/images/Basaveshwar Engineering College.jpg,,,https://www.becbgk.edu/
+Basavakalyan Engineering College,CSE,247711,3.8,Bidar,200000,175000,70000,Karnataka,static/images/Basavakalyan Engineering College.jpg,,,https://www.betbkec.com/contact
+Basavakalyan Engineering College,AIML,257383,3.8,Bidar,200000,175000,70000,Karnataka,static/images/Basavakalyan Engineering College.jpg,,,https://www.betbkec.com/contact
+Basavakalyan Engineering College,ECE,216428,3.8,Bidar,200000,175000,70000,Karnataka,static/images/Basavakalyan Engineering College.jpg,,,https://www.betbkec.com/contact
+Bheemanna Khandre Institute Of Technology,CSE,60593,4.1,Bidar,250000,110000,47000,Karnataka,static/images/Bheemanna Khandre Institute Of Technology.jpg,,,https://recbhalki.org/
+Bheemanna Khandre Institute Of Technology,AIML,51430,4.1,Bidar,250000,110000,47000,Karnataka,static/images/Bheemanna Khandre Institute Of Technology.jpg,,,https://recbhalki.org/
+Bheemanna Khandre Institute Of Technology,ECE,95033,4.1,Bidar,250000,110000,47000,Karnataka,static/images/Bheemanna Khandre Institute Of Technology.jpg,,,https://recbhalki.org/
+Lingaraj Appa Engineering College Bidar,CSE,87919,3.9,Bidar,166111,96574,60000,Karnataka,static/images/Lingaraj Appa Engineering College Bidar.jpg,,,https://www.lingaraj-appaec.in/
+Lingaraj Appa Engineering College Bidar,AIML,97216,3.9,Bidar,166111,96574,60000,Karnataka,static/images/Lingaraj Appa Engineering College Bidar.jpg,,,https://www.lingaraj-appaec.in/
+Lingaraj Appa Engineering College Bidar,ECE,124458,3.9,Bidar,166111,96574,60000,Karnataka,static/images/Lingaraj Appa Engineering College Bidar.jpg,,,https://www.lingaraj-appaec.in/
+Government Engineering College(GEC) Bidar,CSE,42767,4.6,Bidar,Not Available,44200,40000,Karnataka,static/images/Government Engineering College(GEC).jpg,,,https://gec.karnataka.gov.in/gecbidar/public/en
+Government Engineering College(GEC) Bidar,AIML,47241,4.6,Bidar,Not Available,44200,40000,Karnataka,static/images/Government Engineering College(GEC).jpg,,,https://gec.karnataka.gov.in/gecbidar/public/en
+Government Engineering College(GEC) Bidar,ECE,82398,4.6,Bidar,Not Available,44200,40000,Karnataka,static/images/Government Engineering College(GEC).jpg,,,https://gec.karnataka.gov.in/gecbidar/public/en
+Guru Nanak Dev Engineering College,CSE,42143,4.1,Bidar,250000,112410,72000,Karnataka,static/images/Guru Nanak Dev Engineering College.jpg,,,https://gndecb.ac.in/
+Guru Nanak Dev Engineering College,AIML,48798,4.1,Bidar,200000,112410,72000,Karnataka,static/images/Guru Nanak Dev Engineering College.jpg,,,https://gndecb.ac.in/
+Guru Nanak Dev Engineering College,ISE,91177,4.1,Bidar,200000,112410,72000,Karnataka,static/images/Guru Nanak Dev Engineering College.jpg,,,https://gndecb.ac.in/
+Guru Nanak Dev Engineering College,ECE,97259,4.1,Bidar,125000,96574,72000,Karnataka,static/images/Guru Nanak Dev Engineering College.jpg,,,https://gndecb.ac.in/
+Government Engineering College(GEC) Chamarajanagar,CSE,72997,4.2,Chamarajanagar,Not Available,44200,42000,Karnataka,static/images/Government Engineering College(GEC) Chamarajanagar.jpg,,,https://gec.karnataka.gov.in/gecchamarajanagar/public/en
+Government Engineering College(GEC) Chamarajanagar,ECE,106752,4.2,Chamarajanagar,Not Available,44200,42000,Karnataka,static/images/Government Engineering College(GEC) Chamarajanagar.jpg,,,https://gec.karnataka.gov.in/gecchamarajanagar/public/en
+Ekalavya Institute Of Technology,CSE,72000,3.2,Chamarajanagar,125000,96574,65000,Karnataka,static/images/Ekalavya Institute Of Technology.jpg,,,https://www.ekalavyatech.in/
+Ekalavya Institute Of Technology,AIML,72000,3.2,Chamarajanagar,125000,96574,65000,Karnataka,static/images/Ekalavya Institute Of Technology.jpg,,,https://www.ekalavyatech.in/
+Ekalavya Institute Of Technology,ECE,100000,3.2,Chamarajanagar,125000,96574,65000,Karnataka,static/images/Ekalavya Institute Of Technology.jpg,,,https://www.ekalavyatech.in/
+ATME College Of Engineering,CSE,72451,4.1,Mysore,250000,126785,75000,Karnataka,static/images/ATME College Of Engineering.jpg,,,https://atme.edu.in/
+ATME College Of Engineering,AIML,61818,4.1,Mysore,250000,126785,75000,Karnataka,static/images/ATME College Of Engineering.jpg,,,https://atme.edu.in/
+ATME College Of Engineering,ECE,260899,4.1,Mysore,220000,126785,75000,Karnataka,static/images/ATME College Of Engineering.jpg,,,https://atme.edu.in/
+Mysore College Of Engineering And Management,CSE,73379,4.2,Mysore,189192,96574,125000,Karnataka,static/images/Mysore College Of Engineering And Management.jpg,,,https://www.mycem.edu.in/
+Mysore College Of Engineering And Management,AIML,59692,4.2,Mysore,189000,96574,125000,Karnataka,static/images/Mysore College Of Engineering And Management.jpg,,,https://www.mycem.edu.in/
+Mysore College Of Engineering And Management,ISE,75915,4.2,Mysore,150000,96574,125000,Karnataka,static/images/Mysore College Of Engineering And Management.jpg,,,https://www.mycem.edu.in/
+Mysore College Of Engineering And Management,ECE,70212,4.2,Mysore,150000,96574,125000,Karnataka,static/images/Mysore College Of Engineering And Management.jpg,,,https://www.mycem.edu.in/
+The National Institute Of Engineering South Campus,CSE,8002,4.4,Mysore,350000,112410,85000,Karnataka,static/images/The National Institute Of Engineering South Campus.jpg,,,https://nie.ac.in/
+The National Institute Of Engineering South Campus,AIML,8495,4.4,Mysore,300000,112410,85000,Karnataka,static/images/The National Institute Of Engineering South Campus.jpg,,,https://nie.ac.in/
+The National Institute Of Engineering South Campus,ISE,9025,4.4,Mysore,300000,112410,85000,Karnataka,static/images/The National Institute Of Engineering South Campus.jpg,,,https://nie.ac.in/
+The National Institute Of Engineering South Campus,ECE,8962,4.4,Mysore,250000,44200,85000,Karnataka,static/images/The National Institute Of Engineering South Campus.jpg,,,https://nie.ac.in/
+Maharaja Institute Of Technology Mysore,CSE,35223,3.9,Mysore,350000,135000,80000,Karnataka,static/images/Maharaja Institute Of Technology Mysore.jpg,,,https://mitmysore.in/
+Maharaja Institute Of Technology Mysore,AIML,34949,3.9,Mysore,350000,135000,80000,Karnataka,static/images/Maharaja Institute Of Technology Mysore.jpg,,,https://mitmysore.in/
+Maharaja Institute Of Technology Mysore,ISE,48421,3.9,Mysore,350000,135000,80000,Karnataka,static/images/Maharaja Institute Of Technology Mysore.jpg,,,https://mitmysore.in/
+Maharaja Institute Of Technology Mysore,ECE,50702,3.9,Mysore,350000,135000,80000,Karnataka,static/images/Maharaja Institute Of Technology Mysore.jpg,,,https://mitmysore.in/
+Mysore Royal Institute Of Technology,CSE,76946,4.1,Mysore,265000,105000,75000,Karnataka,static/images/Mysore Royal Institute Of Technology.jpg,,,https://mysururoyal.org/
+Mysore Royal Institute Of Technology,AIML,73536,4.1,Mysore,265000,105000,75000,Karnataka,static/images/Mysore Royal Institute Of Technology.jpg,,,https://mysururoyal.org/
+Mysore Royal Institute Of Technology,ISE,88109,4.1,Mysore,265000,105000,75000,Karnataka,static/images/Mysore Royal Institute Of Technology.jpg,,,https://mysururoyal.org/
+Mysore Royal Institute Of Technology,ECE,96439,4.1,Mysore,265000,105000,75000,Karnataka,static/images/Mysore Royal Institute Of Technology.jpg,,,https://mysururoyal.org/
+JSS Science And Technology University,CSE,4707,4.4,Mysore,500000,126000,86800,Karnataka,static/images/JSS Science And Technology University.jpg,,,https://jssstuniv.in/#/
+JSS Science And Technology University,AIML,5312,4.4,Mysore,450000,126000,86800,Karnataka,static/images/JSS Science And Technology University.jpg,,,https://jssstuniv.in/#/
+JSS Science And Technology University,ISE,5909,4.4,Mysore,400000,126000,86800,Karnataka,static/images/JSS Science And Technology University.jpg,,,https://jssstuniv.in/#/
+JSS Science And Technology University,ECE,6265,4.4,Mysore,350000,126000,86800,Karnataka,static/images/JSS Science And Technology University.jpg,,,https://jssstuniv.in/#/
+Vidyavardhaka College Of Engineering,CSE,16624,4.3,Mysore,375000,107600,95000,Karnataka,static/images/Vidyavardhaka College Of Engineering.jpg,,,https://vvce.ac.in/
+Vidyavardhaka College Of Engineering,AIML,18017,4.3,Mysore,375000,107600,95000,Karnataka,static/images/Vidyavardhaka College Of Engineering.jpg,,,https://vvce.ac.in/
+Vidyavardhaka College Of Engineering,ISE,19847,4.3,Mysore,350000,107600,95000,Karnataka,static/images/Vidyavardhaka College Of Engineering.jpg,,,https://vvce.ac.in/
+Vidyavardhaka College Of Engineering,ECE,22952,4.3,Mysore,350000,107600,95000,Karnataka,static/images/Vidyavardhaka College Of Engineering.jpg,,,https://vvce.ac.in/
+Nagarjuna College Of Engineering & Technology,CSE,72576,4.1,Chikkaballapura,350000,107495,120000,Karnataka,static/images/Nagarjuna College Of Engineering & Technology.jpg,,,https://ncet.co.in/
+Nagarjuna College Of Engineering & Technology,AIML,78461,4.1,Chikkaballapura,350000,107495,120000,Karnataka,static/images/Nagarjuna College Of Engineering & Technology.jpg,,,https://ncet.co.in/
+Nagarjuna College Of Engineering & Technology,ISE,97387,4.1,Chikkaballapura,250000,107495,120000,Karnataka,static/images/Nagarjuna College Of Engineering & Technology.jpg,,,https://ncet.co.in/
+Nagarjuna College Of Engineering & Technology,ECE,108866,4.1,Chikkaballapura,250000,107495,120000,Karnataka,static/images/Nagarjuna College Of Engineering & Technology.jpg,,,https://ncet.co.in/
+Visvesvaraya Institute Of Advanced Technology,CSE,77654,4.4,Chikkaballapura,Not Available,45750,73000,Karnataka,static/images/Visvesvaraya Institute Of Advanced Technology.jpg,,,https://chikkaballapur.nic.in/en/public-utility/visvesvaraya-institute-of-advanced-technology/
+Visvesvaraya Institute Of Advanced Technology,AIML,99827,4.4,Chikkaballapura,Not Available,45750,73000,Karnataka,static/images/Visvesvaraya Institute Of Advanced Technology.jpg,,,https://chikkaballapur.nic.in/en/public-utility/visvesvaraya-institute-of-advanced-technology/
+Visvesvaraya Institute Of Advanced Technology,ISE,125282,4.4,Chikkaballapura,Not Available,45750,73000,Karnataka,static/images/Visvesvaraya Institute Of Advanced Technology.jpg,,,https://chikkaballapur.nic.in/en/public-utility/visvesvaraya-institute-of-advanced-technology/
+Visvesvaraya Institute Of Advanced Technology,ECE,112281,4.4,Chikkaballapura,Not Available,45750,73000,Karnataka,static/images/Visvesvaraya Institute Of Advanced Technology.jpg,,,https://chikkaballapur.nic.in/en/public-utility/visvesvaraya-institute-of-advanced-technology/
+S.J.C Institute Of Technology,CSE,50611,4.2,Cikkaballapura,290000,116000,95000,Karnataka,static/images/S.J.C Institute Of Technology.jpg,,,https://sjcit.ac.in/
+S.J.C Institute Of Technology,AIML,46679,4.2,Chikkaballapura,290000,116000,95000,Karnataka,static/images/S.J.C Institute Of Technology.jpg,,,https://sjcit.ac.in/
+S.J.C Institute Of Technology,ISE,78761,4.2,Chikkaballapura,290000,116000,95000,Karnataka,static/images/S.J.C Institute Of Technology.jpg,,,https://sjcit.ac.in/
+S.J.C Institute Of Technology,ECE,261419,4.2,Chikkaballapura,290000,116000,95000,Karnataka,static/images/S.J.C Institute Of Technology.jpg,,,https://sjcit.ac.in/
+Sri Krishna Institute Of Technology,CSE,105699,4.5,Chikkaballapura,191111,107496,85000,Karnataka,static/images/Sri Krishna Institute Of Technology.jpg,,,https://skit.org.in/
+Sri Krishna Institute Of Technology,AIML,89191,4.5,Chikkaballapura,191111,107496,85000,Karnataka,static/images/Sri Krishna Institute Of Technology.jpg,,,https://skit.org.in/
+Sri Krishna Institute Of Technology,ISE,97101,4.5,Chikkaballapura,191111,107496,85000,Karnataka,static/images/Sri Krishna Institute Of Technology.jpg,,,https://skit.org.in/
+Sri Krishna Institute Of Technology,ECE,197623,4.5,Chikkaballapura,110000,107496,85000,Karnataka,static/images/Sri Krishna Institute Of Technology.jpg,,,https://skit.org.in/
+Sri  MVIT Bangalore,CSE,17016,4.3,Bengaluru,400000,104265,89000,Karnataka,static/images/Sri  MVIT Bangalore.jpg,,,https://www.sirmvit.edu/
+Sri  MVIT Bangalore,AIML,16903,4.3,Bengaluru,400000,104265,89000,Karnataka,static/images/Sri  MVIT Bangalore.jpg,,,https://www.sirmvit.edu/
+Sri  MVIT Bangalore,ISE,20660,4.3,Bengaluru,400000,104265,89000,Karnataka,static/images/Sri  MVIT Bangalore.jpg,,,https://www.sirmvit.edu/
+Sri  MVIT Bangalore,ECE,25151,4.3,Bengaluru,400000,104265,89000,Karnataka,static/images/Sri  MVIT Bangalore.jpg,,,https://www.sirmvit.edu/
+Navkis College Of Engineering Hassan,CSE,67042,4.2,Hassan,200000,98984,86000,Karnataka,static/images/Navkis College Of Engineering Hassan.jpg,,,https://navkisce.com/
+Navkis College Of Engineering Hassan,AIML,63539,4.2,Hassan,194000,98984,86000,Karnataka,static/images/Navkis College Of Engineering Hassan.jpg,,,https://navkisce.com/
+Navkis College Of Engineering Hassan,ISE,73917,4.2,Hassan,194000,98984,86000,Karnataka,static/images/Navkis College Of Engineering Hassan.jpg,,,https://navkisce.com/
+Navkis College Of Engineering Hassan,ECE,89289,4.2,Hassan,194000,98984,86000,Karnataka,static/images/Navkis College Of Engineering Hassan.jpg,,,https://navkisce.com/
+Adichunchanagiri Institute Of Technology(AIT),CSE,48494,4.1,Chikkamagaluru,250000,105000,65000,Karnataka,static/images/Adichunchanagiri Institute Of Technology(AIT).jpg,,,http://aitckm.in/
+Adichunchanagiri Institute Of Technology(AIT),AIML,42330,4.1,Chikkamagaluru,250000,105000,65000,Karnataka,static/images/Adichunchanagiri Institute Of Technology(AIT).jpg,,,http://aitckm.in/
+Adichunchanagiri Institute Of Technology(AIT),ISE,55363,4.1,Chikkamagaluru,230000,105000,65000,Karnataka,static/images/Adichunchanagiri Institute Of Technology(AIT).jpg,,,http://aitckm.in/
+Adichunchanagiri Institute Of Technology(AIT),ECE,73291,4.1,Chikkamagaluru,230000,105000,65000,Karnataka,static/images/Adichunchanagiri Institute Of Technology(AIT).jpg,,,http://aitckm.in/
+SJM Institute Of Technology,CSE,69989,3.9,Chitradurga,230000,112410,80000,Karnataka,static/images/SJM Institute Of Technology.jpg,,,https://sjmit.ac.in/
+SJM Institute Of Technology,AIML,72488,3.9,Chitradurga,75000,112410,80000,Karnataka,static/images/SJM Institute Of Technology.jpg,,,https://sjmit.ac.in/
+SJM Institute Of Technology,ECE,98009,3.9,Chitradurga,160000,112410,80000,Karnataka,static/images/SJM Institute Of Technology.jpg,,,https://sjmit.ac.in/
+SDM Institute Of Technology  (SDMIT) Ujire,CSE,61691,4.2,Dakshina Kannada,250000,121610,64450,Karnataka,static/images/SDM Institute Of Technology  (SDMIT) Ujire.jpg,,,https://sdmit.in/
+SDM Institute Of Technology  (SDMIT) Ujire,AIML,77775,4.2,Dakshina Kannada,250000,121610,64450,Karnataka,static/images/SDM Institute Of Technology  (SDMIT) Ujire.jpg,,,https://sdmit.in/
+SDM Institute Of Technology  (SDMIT) Ujire,ISE,87446,4.2,Dakshina Kannada,250000,121610,64450,Karnataka,static/images/SDM Institute Of Technology  (SDMIT) Ujire.jpg,,,https://sdmit.in/
+SDM Institute Of Technology  (SDMIT) Ujire,ECE,104967,4.2,Dakshina Kannada,250000,121610,64450,Karnataka,static/images/SDM Institute Of Technology  (SDMIT) Ujire.jpg,,,https://sdmit.in/
+Vivekananda College Of Engineering & Technology(VCET),CSE,64126,4.2,Dakshina Kannada,125000,106231,49500,Karnataka,static/images/Vivekananda College Of Engineering & Technology(VCET).jpg,,,http://www.vcetputtur.ac.in/
+Vivekananda College Of Engineering & Technology(VCET),AIML,88825,4.2,Dakshina Kannada,125000,106231,49500,Karnataka,static/images/Vivekananda College Of Engineering & Technology(VCET).jpg,,,http://www.vcetputtur.ac.in/
+Vivekananda College Of Engineering & Technology(VCET),ECE,79829,4.2,Dakshina Kannada,125000,106231,49500,Karnataka,static/images/Vivekananda College Of Engineering & Technology(VCET).jpg,,,http://www.vcetputtur.ac.in/
+P.A College Of Engineering (PACE),CSE,107571,3.9,Dakshina Kannada,150000,104265,60000,Karnataka,static/images/P.A College Of Engineering (PACE).jpg,,,https://www.pace.edu.in/#gsc.tab=0
+P.A College Of Engineering (PACE),AIML,103943,3.9,Dakshina Kannada,150000,104265,60000,Karnataka,static/images/P.A College Of Engineering (PACE).jpg,,,https://www.pace.edu.in/#gsc.tab=0
+P.A College Of Engineering (PACE),ECE,143221,3.9,Dakshina Kannada,150000,104265,60000,Karnataka,static/images/P.A College Of Engineering (PACE).jpg,,,https://www.pace.edu.in/#gsc.tab=0
+Bearys Institute Of Technology(BIT) Mangalore,AIML,93773,4.1,Dakshina Kannada,200000,121610,40000,Karnataka,static/images/Bearys Institute Of Technology(BIT) Mangalore.jpg,,,https://bitmangalore.edu.in/
+Bearys Institute Of Technology(BIT) Mangalore,ECE,116555,4.1,Dakshina Kannada,130000,121610,40000,Karnataka,static/images/Bearys Institute Of Technology(BIT) Mangalore.jpg,,,https://bitmangalore.edu.in/
+Canara Engineering College(CEC),CSE,39604,4.2,Dakshina Kannada,200000,118000,100000,Karnataka,static/images/Canara Engineering College(CEC).jpg,,,https://cec.edu.in/
+Canara Engineering College(CEC),AIML,51253,4.2,Dakshina Kannada,200000,118000,100000,Karnataka,static/images/Canara Engineering College(CEC).jpg,,,https://cec.edu.in/
+Canara Engineering College(CEC),ISE,53779,4.2,Dakshina Kannada,200000,118000,100000,Karnataka,static/images/Canara Engineering College(CEC).jpg,,,https://cec.edu.in/
+Canara Engineering College(CEC),ECE,60221,4.2,Dakshina Kannada,200000,118000,100000,Karnataka,static/images/Canara Engineering College(CEC).jpg,,,https://cec.edu.in/
+Alva's Institute Of Engineering And Technology(AIET),CSE,52988,3.9,Dakshina Kannada,225000,96574,85000,Karnataka,static/images/Alva's Institute Of Engineering And Technology(AIET).jpg,,,https://www.aiet.org.in/
+Alva's Institute Of Engineering And Technology(AIET),AIML,57423,3.9,Dakshina Kannada,220000,96574,85000,Karnataka,static/images/Alva's Institute Of Engineering And Technology(AIET).jpg,,,https://www.aiet.org.in/
+Alva's Institute Of Engineering And Technology(AIET),ISE,66572,3.9,Dakshina Kannada,200000,96574,85000,Karnataka,static/images/Alva's Institute Of Engineering And Technology(AIET).jpg,,,https://www.aiet.org.in/
+Alva's Institute Of Engineering And Technology(AIET),ECE,73787,3.9,Dakshina Kannada,150000,96574,85000,Karnataka,static/images/Alva's Institute Of Engineering And Technology(AIET).jpg,,,https://www.aiet.org.in/
+Yenepoya Institute Of  Technology(YIT),CSE,83278,3.7,Dakshina Kannada,180000,104265,90000,Karnataka,static/images/Yenepoya Institute Of  Technology(YIT).jpg,,,https://yit.edu.in/
+Yenepoya Institute Of  Technology(YIT),AIML,62013,3.7,Dakshina Kannada,180000,104265,90000,Karnataka,static/images/Yenepoya Institute Of  Technology(YIT).jpg,,,https://yit.edu.in/
+Yenepoya Institute Of  Technology(YIT),ISE,103778,3.7,Dakshina Kannada,180000,104265,90000,Karnataka,static/images/Yenepoya Institute Of  Technology(YIT).jpg,,,https://yit.edu.in/
+Yenepoya Institute Of  Technology(YIT),ECE,106334,3.7,Dakshina Kannada,180000,104265,90000,Karnataka,static/images/Yenepoya Institute Of  Technology(YIT).jpg,,,https://yit.edu.in/
+AJ Institute Of Engineering & Technology,CSE,46735,4.1,Dakshina Kannada,200000,96574,85000,Karnataka,static/images/AJ Institute Of Engineering & Technology.jpg,,,
+AJ Institute Of Engineering & Technology,AIML,64639,4.1,Dakshina Kannada,200000,96574,85000,Karnataka,static/images/AJ Institute Of Engineering & Technology.jpg,,,
+AJ Institute Of Engineering & Technology,ISE,69015,4.1,Dakshina Kannada,200000,96574,85000,Karnataka,static/images/AJ Institute Of Engineering & Technology.jpg,,,
+AJ Institute Of Engineering & Technology,ECE,85127,4.1,Dakshina Kannada,175000,96574,85000,Karnataka,static/images/AJ Institute Of Engineering & Technology.jpg,,,
+Srinivas University Institute Of Engineering & Technology SUIET Mukka,CSE,109539,4.4,Dakshina Kannada,150000,107495,78000,Karnataka,static/images/Srinivas University Institute Of Engineering & Technology SUIET Mukka.jpg,,,https://suiet.srinivasuniversity.edu.in/
+Srinivas University Institute Of Engineering & Technology SUIET Mukka,AIML,94024,4.4,Dakshina Kannada,150000,107495,78000,Karnataka,static/images/Srinivas University Institute Of Engineering & Technology SUIET Mukka.jpg,,,https://suiet.srinivasuniversity.edu.in/
+Srinivas University Institute Of Engineering & Technology SUIET Mukka,ISE,109712,4.4,Dakshina Kannada,150000,107495,78000,Karnataka,static/images/Srinivas University Institute Of Engineering & Technology SUIET Mukka.jpg,,,https://suiet.srinivasuniversity.edu.in/
+Srinivas University Institute Of Engineering & Technology SUIET Mukka,ECE,109529,4.4,Dakshina Kannada,150000,107495,78000,Karnataka,static/images/Srinivas University Institute Of Engineering & Technology SUIET Mukka.jpg,,,https://suiet.srinivasuniversity.edu.in/
+Jain Institute Of Technology,CSE,97655,4.1,Davanagere,150000,104260,100000,Karnataka,static/images/Jain Institute Of Technology.jpg,,,https://www.jitd.ac.in/
+Jain Institute Of Technology,AIML,82434,4.1,Davanagere,150000,104260,100000,Karnataka,static/images/Jain Institute Of Technology.jpg,,,https://www.jitd.ac.in/
+Jain Institute Of Technology,ISE,262158,4.1,Davanagere,150000,104260,100000,Karnataka,static/images/Jain Institute Of Technology.jpg,,,https://www.jitd.ac.in/
+Jain Institute Of Technology,ECE,169811,4.1,Davanagere,150000,104260,100000,Karnataka,static/images/Jain Institute Of Technology.jpg,,,https://www.jitd.ac.in/
+BIET Davanagere,CSE,29909,4.2,Davanagere,250000,112610,80000,Karnataka,static/images/BIET Davanagere.jpg,,,https://www.bietdvg.edu/department/UG/BT/home
+BIET Davanagere,AIML,33311,4.2,Davanagere,250000,112610,80000,Karnataka,static/images/BIET Davanagere.jpg,,,https://www.bietdvg.edu/department/UG/BT/home
+BIET Davanagere,ISE,41220,4.2,Davanagere,250000,112610,80000,Karnataka,static/images/BIET Davanagere.jpg,,,https://www.bietdvg.edu/department/UG/BT/home
+BIET Davanagere,ECE,36893,4.2,Davanagere,250000,112610,80000,Karnataka,static/images/BIET Davanagere.jpg,,,https://www.bietdvg.edu/department/UG/BT/home
+University BDT College Of Engineering(UBDT),CSE,21329,4.1,Davanagere,Not Available,102500,43000,Karnataka,static/images/University BDT College Of Engineering(UBDT).jpg,,,https://www.ubdtce.org/
+University BDT College Of Engineering(UBDT),AIML,46930,4.1,Davanagere,Not Available,102500,43000,Karnataka,static/images/University BDT College Of Engineering(UBDT).jpg,,,https://www.ubdtce.org/
+University BDT College Of Engineering(UBDT),ECE,29815,4.1,Davanagere,Not Available,102500,43000,Karnataka,static/images/University BDT College Of Engineering(UBDT).jpg,,,https://www.ubdtce.org/
+GM Institute Of Technology (GMIT),CSE,45137,3.9,Davanagere,260000,106574,80000,Karnataka,static/images/GM Institute Of Technology (GMIT).jpg,,,https://www.gmit.ac.in/
+GM Institute Of Technology (GMIT),AIML,54758,3.9,Davanagere,260000,106574,80000,Karnataka,static/images/GM Institute Of Technology (GMIT).jpg,,,https://www.gmit.ac.in/
+GM Institute Of Technology (GMIT),ISE,54577,3.9,Davanagere,200000,106574,80000,Karnataka,static/images/GM Institute Of Technology (GMIT).jpg,,,https://www.gmit.ac.in/
+GM Institute Of Technology (GMIT),ECE,60096,3.9,Davanagere,200000,106574,80000,Karnataka,static/images/GM Institute Of Technology (GMIT).jpg,,,https://www.gmit.ac.in/
+AGM Rural College Of Engineering And Technology Hubli,CSE,72474,4.1,Dharwad ,200000,107495,50000,Karnataka,static/images/AGM Rural College Of Engineering And Technology Hubli.jpg,,,https://www.agmrcet.ac.in/
+AGM Rural College Of Engineering And Technology Hubli,AIML,66534,4.1,Dharwad ,200000,107495,50000,Karnataka,static/images/AGM Rural College Of Engineering And Technology Hubli.jpg,,,https://www.agmrcet.ac.in/
+AGM Rural College Of Engineering And Technology Hubli,ECE,90419,4.1,Dharwad ,200000,107495,50000,Karnataka,static/images/AGM Rural College Of Engineering And Technology Hubli.jpg,,,https://www.agmrcet.ac.in/
+Jain College Of Engineering & Technology Hubballi,CSE,39306,4.1,Dharwad ,250000,122360,90000,Karnataka,static/images/Jain College Of Engineering & Technology Hubballi.jpg,,,https://jcethbl.edu.in/
+Jain College Of Engineering & Technology Hubballi,AIML,45688,4.1,Dharwad ,250000,122360,90000,Karnataka,static/images/Jain College Of Engineering & Technology Hubballi.jpg,,,https://jcethbl.edu.in/
+Jain College Of Engineering & Technology Hubballi,ECE,47685,4.1,Dharwad ,200000,122360,90000,Karnataka,static/images/Jain College Of Engineering & Technology Hubballi.jpg,,,https://jcethbl.edu.in/
+SDM College Of Engineering And Technology(SDMCET),CSE,13118,4.1,Dharwad ,600000,112410,64450,Karnataka,static/images/SDM College Of Engineering And Technology(SDMCET).jpg,,,https://sdmcet.ac.in/
+SDM College Of Engineering And Technology(SDMCET),AIML,14657,4.1,Dharwad ,450000,112410,64450,Karnataka,static/images/SDM College Of Engineering And Technology(SDMCET).jpg,,,https://sdmcet.ac.in/
+SDM College Of Engineering And Technology(SDMCET),ISE,15237,4.1,Dharwad ,500000,112410,64450,Karnataka,static/images/SDM College Of Engineering And Technology(SDMCET).jpg,,,https://sdmcet.ac.in/
+SDM College Of Engineering And Technology(SDMCET),ECE,16402,4.1,Dharwad ,350000,112410,64450,Karnataka,static/images/SDM College Of Engineering And Technology(SDMCET).jpg,,,https://sdmcet.ac.in/
+Smt Kamala And sri Venkappa M.Agadi College Of Engineering & Technology,CSE,64085,4.1,Gadag,150000,96574,57000,Karnataka,static/images/Smt Kamala And sri Venkappa M.Agadi College Of Engineering & Technology.jpg,,,https://agadiengcollege.com/
+Smt Kamala And sri Venkappa M.Agadi College Of Engineering & Technology,AIML,135074,4.1,Gadag,150000,96574,57000,Karnataka,static/images/Smt Kamala And sri Venkappa M.Agadi College Of Engineering & Technology.jpg,,,https://agadiengcollege.com/
+Smt Kamala And sri Venkappa M.Agadi College Of Engineering & Technology,ISE,75078,4.1,Gadag,150000,90000,57000,Karnataka,static/images/Smt Kamala And sri Venkappa M.Agadi College Of Engineering & Technology.jpg,,,https://agadiengcollege.com/
+Smt Kamala And sri Venkappa M.Agadi College Of Engineering & Technology,ECE,83948,4.1,Gadag,80000,90000,57000,Karnataka,static/images/Smt Kamala And sri Venkappa M.Agadi College Of Engineering & Technology.jpg,,,https://agadiengcollege.com/
+Tontadarya College Of Engineering(TCE),CSE,60918,4.1,Gadag,266000,100000,60000,Karnataka,static/images/Tontadarya College Of Engineering(TCE).jpg,,,https://www.tce.ac.in/
+Tontadarya College Of Engineering(TCE),AIML,64856,4.1,Gadag,266000,100000,60000,Karnataka,static/images/Tontadarya College Of Engineering(TCE).jpg,,,https://www.tce.ac.in/
+Tontadarya College Of Engineering(TCE),ECE,83700,4.1,Gadag,266000,100000,60000,Karnataka,static/images/Tontadarya College Of Engineering(TCE).jpg,,,https://www.tce.ac.in/
+RTE Society's Rural Engineering College,CSE,80290,3.9,Gadag,300000,104265,70000,Karnataka,static/images/RTE Society's Rural Engineering College.jpg,,,https://www.rechulkoti.edu.in/
+RTE Society's Rural Engineering College,AIML,80995,3.9,Gadag,300000,104265,70000,Karnataka,static/images/RTE Society's Rural Engineering College.jpg,,,https://www.rechulkoti.edu.in/
+RTE Society's Rural Engineering College,ECE,100337,3.9,Gadag,300000,104265,70000,Karnataka,static/images/RTE Society's Rural Engineering College.jpg,,,https://www.rechulkoti.edu.in/
+BGS Institute Of Technology(BGSIT),CSE,58086,4.2,Mandya,260000,107000,75000,Karnataka,static/images/BGS Institute Of Technology(BGSIT).jpg,,,https://www.bgsit.ac.in/
+BGS Institute Of Technology(BGSIT),AIML,48897,4.2,Mandya,200000,107000,75000,Karnataka,static/images/BGS Institute Of Technology(BGSIT).jpg,,,https://www.bgsit.ac.in/
+BGS Institute Of Technology(BGSIT),ISE,68920,4.2,Mandya,200000,107000,75000,Karnataka,static/images/BGS Institute Of Technology(BGSIT).jpg,,,https://www.bgsit.ac.in/
+BGS Institute Of Technology(BGSIT),ECE,72239,4.2,Mandya,200000,107000,75000,Karnataka,static/images/BGS Institute Of Technology(BGSIT).jpg,,,https://www.bgsit.ac.in/
+Bahubali College Of Engineering Shravanabelagole,CSE,78042,4.5,Hassan,417000,110000,50000,Karnataka,static/images/Bahubali College Of Engineering Shravanabelagole.jpg,,,https://bce.org.in/
+Bahubali College Of Engineering Shravanabelagole,AIML,82867,4.5,Hassan,417000,110000,50000,Karnataka,static/images/Bahubali College Of Engineering Shravanabelagole.jpg,,,https://bce.org.in/
+Bahubali College Of Engineering Shravanabelagole,ISE,103760,4.5,Hassan,417000,110000,50000,Karnataka,static/images/Bahubali College Of Engineering Shravanabelagole.jpg,,,https://bce.org.in/
+Bahubali College Of Engineering Shravanabelagole,ECE,102367,4.5,Hassan,417000,110000,50000,Karnataka,static/images/Bahubali College Of Engineering Shravanabelagole.jpg,,,https://bce.org.in/
+Kalpataru Institute Of Technology(KIT),CSE,69525,4.4,Hassan,215000,121610,71000,Karnataka,static/images/Kalpataru Institute Of Technology(KIT).jpg,,,https://kittiptur.ac.in/
+Kalpataru Institute Of Technology(KIT),AIML,66346,4.4,Hassan,165000,121610,71000,Karnataka,static/images/Kalpataru Institute Of Technology(KIT).jpg,,,https://kittiptur.ac.in/
+Kalpataru Institute Of Technology(KIT),ISE,85519,4.4,Hassan,165000,121610,71000,Karnataka,static/images/Kalpataru Institute Of Technology(KIT).jpg,,,https://kittiptur.ac.in/
+Kalpataru Institute Of Technology(KIT),ECE,94389,4.4,Hassan,140000,121610,71000,Karnataka,static/images/Kalpataru Institute Of Technology(KIT).jpg,,,https://kittiptur.ac.in/
+Government Engineering College K R Pet,CSE,62411,4.1,Hassan,Not Available,44200,30000,Karnataka,static/images/Government Engineering College K R Pet.jpg,,,https://gec.karnataka.gov.in/geckrpet/public/en
+Government Engineering College K R Pet,ECE,213471,4.1,Hassan,Not Available,44200,30000,Karnataka,static/images/Government Engineering College K R Pet.jpg,,,https://gec.karnataka.gov.in/geckrpet/public/en
+NDRK Institute Of Technology,CSE,142864,3.9,Hassan,150000,104265,90000,Karnataka,static/images/NDRK Institute Of Technology.jpg,,,http://www.ndrkit.ac.in/
+NDRK Institute Of Technology,AIML,111421,3.9,Hassan,150000,104265,90000,Karnataka,static/images/NDRK Institute Of Technology.jpg,,,http://www.ndrkit.ac.in/
+NDRK Institute Of Technology,ISE,98340,3.9,Hassan,130000,104265,90000,Karnataka,static/images/NDRK Institute Of Technology.jpg,,,http://www.ndrkit.ac.in/
+NDRK Institute Of Technology,ECE,82684,3.9,Hassan,130000,104265,90000,Karnataka,static/images/NDRK Institute Of Technology.jpg,,,http://www.ndrkit.ac.in/
+Rajeev Institute Of Technology,CSE,68283,3.9,Hassan,250000,104265,110000,Karnataka,static/images/Rajeev Institute Of Technology.jpg,,,https://rithassan.ac.in/
+Rajeev Institute Of Technology,AIML,60671,3.9,Hassan,250000,104265,110000,Karnataka,static/images/Rajeev Institute Of Technology.jpg,,,https://rithassan.ac.in/
+Rajeev Institute Of Technology,ISE,88356,3.9,Hassan,250000,104265,110000,Karnataka,static/images/Rajeev Institute Of Technology.jpg,,,https://rithassan.ac.in/
+Rajeev Institute Of Technology,ECE,94522,3.9,Hassan,200000,104265,110000,Karnataka,static/images/Rajeev Institute Of Technology.jpg,,,https://rithassan.ac.in/
+Malnad College Of Engineering,CSE,30004,4.1,Hassan,180000,107495,80000,Karnataka,static/images/Malnad College Of Engineering.jpg,,,https://www.mcehassan.ac.in/
+Malnad College Of Engineering,AIML,30036,4.1,Hassan,180000,107495,80000,Karnataka,static/images/Malnad College Of Engineering.jpg,,,https://www.mcehassan.ac.in/
+Malnad College Of Engineering,ISE,41001,4.1,Hassan,150000,107495,80000,Karnataka,static/images/Malnad College Of Engineering.jpg,,,https://www.mcehassan.ac.in/
+Malnad College Of Engineering,ECE,35114,4.1,Hassan,150000,107495,80000,Karnataka,static/images/Malnad College Of Engineering.jpg,,,https://www.mcehassan.ac.in/
+Government Engineering College Devagiri Haveri,CSE,55650,4.1,Haveri,Not Available,45000,36000,Karnataka,static/images/Government Engineering College Devagiri Haveri.jpg,,,https://gec.karnataka.gov.in/gechaveri/public/10/gec-haveri/en
+Government Engineering College Devagiri Haveri,ECE,83662,4.1,Haveri,Not Available,45000,36000,Karnataka,static/images/Government Engineering College Devagiri Haveri.jpg,,,https://gec.karnataka.gov.in/gechaveri/public/10/gec-haveri/en
+Shetty Group Of Institutions,CSE,85389,4.5,Kalaburagi ,250000,104265,90000,Karnataka,static/images/Shetty Group Of Institutions.jpg,,,https://sitgulbarga.org/
+Shetty Group Of Institutions,AIML,66581,4.5,Kalaburagi ,160000,104265,90000,Karnataka,static/images/Shetty Group Of Institutions.jpg,,,https://sitgulbarga.org/
+Shetty Group Of Institutions,ISE,113725,4.5,Kalaburagi ,160000,104265,90000,Karnataka,static/images/Shetty Group Of Institutions.jpg,,,https://sitgulbarga.org/
+Shetty Group Of Institutions,ECE,113725,4.5,Kalaburagi ,160000,104265,90000,Karnataka,static/images/Shetty Group Of Institutions.jpg,,,https://sitgulbarga.org/
+PDA Engineering College,CSE,30538,4.1,Gulbarga,200000,104265,80000,Karnataka,static/images/PDA Engineering College.jpg,,,https://pdacek.ac.in/
+PDA Engineering College,AIML,32796,4.1,Gulbarga,200000,104265,80000,Karnataka,static/images/PDA Engineering College.jpg,,,https://pdacek.ac.in/
+PDA Engineering College,ISE,57029,4.1,Gulbarga,450000,104265,80000,Karnataka,static/images/PDA Engineering College.jpg,,,https://pdacek.ac.in/
+PDA Engineering College,ECE,34741,4.1,Gulbarga,170000,104265,80000,Karnataka,static/images/PDA Engineering College.jpg,,,https://pdacek.ac.in/
+Sharnbasveshwar College Of Science,CSE,45168,4.2,Kalaburagi,150000,96574,60000,Karnataka,static/images/Basaveshwar Engineering College.jpg,,,http://www.sharnscience.org/
+Sharnbasveshwar College Of Science,AIML,45054,4.2,Kalaburagi,150000,96574,60000,Karnataka,static/images/Basaveshwar Engineering College.jpg,,,http://www.sharnscience.org/
+Sharnbasveshwar College Of Science,ISE,123728,4.2,Kalaburagi,150000,96574,60000,Karnataka,static/images/Basaveshwar Engineering College.jpg,,,http://www.sharnscience.org/
+Sharnbasveshwar College Of Science,ECE,55477,4.2,Kalaburagi,150000,96574,60000,Karnataka,static/images/Basaveshwar Engineering College.jpg,,,http://www.sharnscience.org/
+Godutai Engineering College For Women,CSE,32883,3.9,Kalaburagi,386296,96574,50000,Karnataka,static/images/Godutai Engineering College For Women.jpg,,,https://kalaburagi.nic.in/en/public-utility/godutai-engineering-college-for-women-gecw/
+Godutai Engineering College For Women,AIML,41920,3.9,Kalaburagi,386296,96574,50000,Karnataka,static/images/Godutai Engineering College For Women.jpg,,,https://kalaburagi.nic.in/en/public-utility/godutai-engineering-college-for-women-gecw/
+Godutai Engineering College For Women,ECE,77808,3.9,Kalaburagi,386296,96574,50000,Karnataka,static/images/Godutai Engineering College For Women.jpg,,,https://kalaburagi.nic.in/en/public-utility/godutai-engineering-college-for-women-gecw/
+APPA Institute Of Engineering And Technology,CSE,45168,3.9,Gulbarga,150000,106000,90000,Karnataka,static/images/APPA Institute Of Engineering And Technology gulbarg.jpg,,,https://kalaburagi.nic.in/en/public-utility/appa-institute-of-engineering-and-technology-gulbarga/
+APPA Institute Of Engineering And Technology,AIML,46230,3.9,Gulbarga,150000,106000,90000,Karnataka,static/images/APPA Institute Of Engineering And Technology gulbarg.jpg,,,https://kalaburagi.nic.in/en/public-utility/appa-institute-of-engineering-and-technology-gulbarga/
+APPA Institute Of Engineering And Technology,ECE,76757,3.9,Gulbarga,100000,106000,90000,Karnataka,static/images/APPA Institute Of Engineering And Technology gulbarg.jpg,,,https://kalaburagi.nic.in/en/public-utility/appa-institute-of-engineering-and-technology-gulbarga/
+Khaja Bandanawaz University,CSE,53162,4.3,Gulbarga,480000,104265,80000,Karnataka,static/images/Khaja Bandanawaz University.jpg,,,https://www.kbn.university/
+Khaja Bandanawaz University,AIML,53162,4.3,Gulbarga,480000,104265,80000,Karnataka,static/images/Khaja Bandanawaz University.jpg,,,https://www.kbn.university/
+Khaja Bandanawaz University,ISE,53162,4.3,Gulbarga,480000,104265,80000,Karnataka,static/images/Khaja Bandanawaz University.jpg,,,https://www.kbn.university/
+Khaja Bandanawaz University,ECE,83632,4.3,Gulbarga,312000,104265,80000,Karnataka,static/images/Khaja Bandanawaz University.jpg,,,https://www.kbn.university/
+KCT Engineering College,CSE,66758,3.9,Kalaburagi ,450000,112410,90000,Karnataka,static/images/KCT Engineering College.jpg,,,https://kctengineering.edu.in/
+KCT Engineering College,AIML,66758,3.9,Kalaburagi ,450000,112410,90000,Karnataka,static/images/KCT Engineering College.jpg,,,https://kctengineering.edu.in/
+KCT Engineering College,ISE,66758,3.9,Kalaburagi ,450000,112410,90000,Karnataka,static/images/KCT Engineering College.jpg,,,https://kctengineering.edu.in/
+KCT Engineering College,ECE,96268,3.9,Kalaburagi ,386000,112410,90000,Karnataka,static/images/KCT Engineering College.jpg,,,https://kctengineering.edu.in/
+Government Engineering College Kushalnagar,CSE,84566,4.1,Kodagu,Not Available,44200,40000,Karnataka,static/images/Government Engineering College Kushalnagar.jpg,,,https://gec.karnataka.gov.in/geckushalnagar/public/en
+Government Engineering College Kushalnagar,ECE,112837,4.1,Kodagu,Not Available,44200,40000,Karnataka,static/images/Government Engineering College Kushalnagar.jpg,,,https://gec.karnataka.gov.in/geckushalnagar/public/en
+K.V.G College Of Engineering,CSE,102955,3.8,Sullia,150000,96574,90000,Karnataka,static/images/K.V.G College Of Engineering.jpg,,,https://kvgengg.com/
+K.V.G College Of Engineering,AIML,102704,3.8,Sullia,150000,96574,90000,Karnataka,static/images/K.V.G College Of Engineering.jpg,,,https://kvgengg.com/
+K.V.G College Of Engineering,ECE,117089,3.8,Sullia,125000,96574,90000,Karnataka,static/images/K.V.G College Of Engineering.jpg,,,https://kvgengg.com/
+Coorg Institute Of Technology(CIT),CSE,61492,4.3,Kodagu,205000,111574,90000,Karnataka,static/images/Coorg Institute Of Technology(CIT).jpg,,,https://www.citcoorg.edu.in/
+Coorg Institute Of Technology(CIT),AIML,80212,4.3,Kodagu,205000,111574,90000,Karnataka,static/images/Coorg Institute Of Technology(CIT).jpg,,,https://www.citcoorg.edu.in/
+Coorg Institute Of Technology(CIT),ECE,99058,4.3,Kodagu,205000,111574,90000,Karnataka,static/images/Coorg Institute Of Technology(CIT).jpg,,,https://www.citcoorg.edu.in/
+Cauvery Institute Of Technology,CSE,88418,3.9,Mandya,220000,107495,85000,Karnataka,static/images/Cauvery Institute Of Technology.jpg,,,https://citmandya.org/
+Cauvery Institute Of Technology,AIML,98500,3.9,Mandya,220000,107495,85000,Karnataka,static/images/Cauvery Institute Of Technology.jpg,,,https://citmandya.org/
+Cauvery Institute Of Technology,ISE,106855,3.9,Mandya,220000,107495,85000,Karnataka,static/images/Cauvery Institute Of Technology.jpg,,,https://citmandya.org/
+Cauvery Institute Of Technology,ECE,101107,3.9,Mandya,220000,107495,85000,Karnataka,static/images/Cauvery Institute Of Technology.jpg,,,https://citmandya.org/
+PES College Of Engineering,CSE,34483,4.2,Mandya,150000,112000,70000,Karnataka,static/images/PES College Of Engineering.jpg,,,https://pesce.ac.in/
+PES College Of Engineering,AIML,33313,4.2,Mandya,150000,112000,70000,Karnataka,static/images/PES College Of Engineering.jpg,,,https://pesce.ac.in/
+PES College Of Engineering,ISE,44303,4.2,Mandya,135000,112000,70000,Karnataka,static/images/PES College Of Engineering.jpg,,,https://pesce.ac.in/
+PES College Of Engineering,ECE,51247,4.2,Mandya,135000,112000,70000,Karnataka,static/images/PES College Of Engineering.jpg,,,https://pesce.ac.in/
+Govt Engineering College Gangavathi,CSE,68959,4.1,Koppal,Not Available,44200,42000,Karnataka,static/images/Govt Engineering College Gangavathi.jpg,,,https://gec.karnataka.gov.in/gecgangavathi/public/en
+Govt Engineering College Gangavathi,ECE,104767,4.1,Koppal,Not Available,44200,42000,Karnataka,static/images/Govt Engineering College Gangavathi.jpg,,,https://gec.karnataka.gov.in/gecgangavathi/public/en
+Govt Engineering College Ramanagar,CSE,53849,4.1,Ramanagara,Not Available,104265,42000,Karnataka,static/images/Govt Engineering College Gangavathi.jpg,,,
+Govt Engineering College Ramanagar,ECE,82362,4.1,Ramanagara,Not Available,104265,42000,Karnataka,static/images/Govt Engineering College Gangavathi.jpg,,,
+Ghousia College Of Engineering,CSE,67325,4.1,Ramanagara,150000,97500,72000,Karnataka,static/images/Ghousia College Of Engineering.jpg,,,https://www.ghousiaedu.org/
+Ghousia College Of Engineering,AIML,47721,4.1,Ramanagara,150000,97500,72000,Karnataka,static/images/Ghousia College Of Engineering.jpg,,,https://www.ghousiaedu.org/
+Ghousia College Of Engineering,ISE,84398,4.1,Ramanagara,150000,97500,72000,Karnataka,static/images/Ghousia College Of Engineering.jpg,,,https://www.ghousiaedu.org/
+Ghousia College Of Engineering,ECE,84076,4.1,Ramanagara,150000,97500,72000,Karnataka,static/images/Ghousia College Of Engineering.jpg,,,https://www.ghousiaedu.org/
+Navodaya Institute Of Technology(NIT),CSE,85670,3.9,Raichur,220000,107495,80000,Karnataka,static/images/Navodaya Institute Of Technology(NIT).jpg,,,https://www.navodayaengineering.edu.in/
+Navodaya Institute Of Technology(NIT),AIML,85670,3.9,Raichur,220000,107495,80000,Karnataka,static/images/Navodaya Institute Of Technology(NIT).jpg,,,https://www.navodayaengineering.edu.in/
+Navodaya Institute Of Technology(NIT),ECE,150242,3.9,Raichur,220000,107495,80000,Karnataka,static/images/Navodaya Institute Of Technology(NIT).jpg,,,https://www.navodayaengineering.edu.in/
+H.K.E.S's S.L.N College Of Engineering,CSE,97950,3.6,Raichur,150000,96574,90000,Karnataka,static/images/H.K.E.S's S.L.N College Of Engineering.jpg,,,https://www.slnceraichur.com/
+H.K.E.S's S.L.N College Of Engineering,ECE,243836,3.6,Raichur,125000,96574,90000,Karnataka,static/images/H.K.E.S's S.L.N College Of Engineering.jpg,,,https://www.slnceraichur.com/
+PES Institute Of Technology And Management,CSE,64160,4.1,Shivamogga,150000,95000,61000,Karnataka,static/images/PES Institute Of Technology And Management shivamogga.jpg,,,https://pestrust.edu.in/pesitm/
+PES Institute Of Technology And Management,AIML,62523,4.1,Shivamogga,150000,95000,61000,Karnataka,static/images/PES Institute Of Technology And Management shivamogga.jpg,,,https://pestrust.edu.in/pesitm/
+PES Institute Of Technology And Management,ISE,126436,4.1,Shivamogga,150000,95000,61000,Karnataka,static/images/PES Institute Of Technology And Management shivamogga.jpg,,,https://pestrust.edu.in/pesitm/
+PES Institute Of Technology And Management,ECE,127178,4.1,Shivamogga,150000,95000,61000,Karnataka,static/images/PES Institute Of Technology And Management shivamogga.jpg,,,https://pestrust.edu.in/pesitm/
+Jawaharlal Nehru National College Of Engineering,CSE,25276,4.3,Shivamogga,325000,104265,70000,Karnataka,static/images/Jawaharlal Nehru National College Of Engineering.jpg,,,https://jnnce.ac.in/jnndemo/
+Jawaharlal Nehru National College Of Engineering,AIML,31560,4.3,Shivamogga,275000,104265,70000,Karnataka,static/images/Jawaharlal Nehru National College Of Engineering.jpg,,,https://jnnce.ac.in/jnndemo/
+Jawaharlal Nehru National College Of Engineering,ISE,36949,4.3,Shivamogga,206111,104265,70000,Karnataka,static/images/Jawaharlal Nehru National College Of Engineering.jpg,,,https://jnnce.ac.in/jnndemo/
+Jawaharlal Nehru National College Of Engineering,ECE,43835,4.3,Shivamogga,175390,104265,70000,Karnataka,static/images/Jawaharlal Nehru National College Of Engineering.jpg,,,https://jnnce.ac.in/jnndemo/
+Dr.T.Thimmaiah Institute Of Technology Main Gate,CSE,79830,4.3,Kolar,162000,110000,90000,Karnataka,static/images/Dr.T.Thimmaiah Institute Of Technology Main Gate.jpg,,,https://drttit.gvet.edu.in/
+Dr.T.Thimmaiah Institute Of Technology Main Gate,AIML,65120,4.3,Kolar,162000,110000,90000,Karnataka,static/images/Dr.T.Thimmaiah Institute Of Technology Main Gate.jpg,,,https://drttit.gvet.edu.in/
+Dr.T.Thimmaiah Institute Of Technology Main Gate,ECE,96777,4.3,Kolar,137000,110000,90000,Karnataka,static/images/Dr.T.Thimmaiah Institute Of Technology Main Gate.jpg,,,https://drttit.gvet.edu.in/
+Sri Vinayaka Group Of Institutions,CSE,41348,3.6,Kolar,200000,115000,85000,Karnataka,static/images/Sri Vinayaka Group Of Institutions.jpg,,,https://svgi.edu.in/
+Sri Vinayaka Group Of Institutions,AIML,47166,3.6,Kolar,200000,115000,85000,Karnataka,static/images/Sri Vinayaka Group Of Institutions.jpg,,,https://svgi.edu.in/
+Sri Vinayaka Group Of Institutions,ISE,56226,3.6,Kolar,175000,115000,85000,Karnataka,static/images/Sri Vinayaka Group Of Institutions.jpg,,,https://svgi.edu.in/
+Sri Vinayaka Group Of Institutions,ECE,62485,3.6,Kolar,150000,115000,85000,Karnataka,static/images/Sri Vinayaka Group Of Institutions.jpg,,,https://svgi.edu.in/
+C.Byregowda Institute Of Techology (CBIT),CSE,107103,4.1,Kolar,186000,186111,100000,Karnataka,static/images/C.Byregowda Institute Of Techology (CBIT).jpg,,,https://cbitkolar.edu.in/
+C.Byregowda Institute Of Techology (CBIT),AIML,99606,4.1,Kolar,186000,186111,100000,Karnataka,static/images/C.Byregowda Institute Of Techology (CBIT).jpg,,,https://cbitkolar.edu.in/
+C.Byregowda Institute Of Techology (CBIT),ISE,131306,4.1,Kolar,186000,186111,100000,Karnataka,static/images/C.Byregowda Institute Of Techology (CBIT).jpg,,,https://cbitkolar.edu.in/
+C.Byregowda Institute Of Techology (CBIT),ECE,131519,4.1,Kolar,186000,186111,100000,Karnataka,static/images/C.Byregowda Institute Of Techology (CBIT).jpg,,,https://cbitkolar.edu.in/
+Veerappa Nisty Engineering College(VNEC),CSE,259361,4.1,Yadagiri,480000,122300,90000,Karnataka,static/images/Veerappa Nisty Engineering College(VNEC).jpg,,,https://www.veerappanistyecs.org/
+Veerappa Nisty Engineering College(VNEC),ECE,178941,4.1,Yadagiri,360000,122300,90000,Karnataka,static/images/Veerappa Nisty Engineering College(VNEC).jpg,,,https://www.veerappanistyecs.org/
+SECAB Institute Of Engineering & Technology,CSE,77494,3.6,Vijayapura,260000,104265,75000,Karnataka,static/images/SECAB Institute Of Engineering & Technology.jpg,,,https://www.siet.secab.org/
+SECAB Institute Of Engineering & Technology,AIML,75975,3.6,Vijayapura,250000,104265,75000,Karnataka,static/images/SECAB Institute Of Engineering & Technology.jpg,,,https://www.siet.secab.org/
+SECAB Institute Of Engineering & Technology,ECE,91776,3.6,Vijayapura,200000,96574,75000,Karnataka,static/images/SECAB Institute Of Engineering & Technology.jpg,,,https://www.siet.secab.org/
+Bldea's Vachana pitamaha Dr.P.G.Halakatti College Of Engineering & Technology(BLDEACET),CSE,47235,4.2,Vijayapura,360000,112410,63000,Karnataka,static/images/Bldea's Vachana pitamaha Dr.P.G.Halakatti College Of Engineering & Technology(BLDEACET).jpg,,,https://www.bldeacet.ac.in/
+Bldea's Vachana pitamaha Dr.P.G.Halakatti College Of Engineering & Technology(BLDEACET),AIML,44110,4.2,Vijayapura,275000,112410,63000,Karnataka,static/images/Bldea's Vachana pitamaha Dr.P.G.Halakatti College Of Engineering & Technology(BLDEACET).jpg,,,https://www.bldeacet.ac.in/
+Bldea's Vachana pitamaha Dr.P.G.Halakatti College Of Engineering & Technology(BLDEACET),ISE,76418,4.2,Vijayapura,275000,112410,63000,Karnataka,static/images/Bldea's Vachana pitamaha Dr.P.G.Halakatti College Of Engineering & Technology(BLDEACET).jpg,,,https://www.bldeacet.ac.in/
+Bldea's Vachana pitamaha Dr.P.G.Halakatti College Of Engineering & Technology(BLDEACET),ECE,83432,4.2,Vijayapura,275000,112410,63000,Karnataka,static/images/Bldea's Vachana pitamaha Dr.P.G.Halakatti College Of Engineering & Technology(BLDEACET).jpg,,,https://www.bldeacet.ac.in/
+Anjuman Institute Of Technology & Management,CSE,106073,4.7,Uttara Kannada,175000,115956,38000,Karnataka,static/images/Anjuman Institute Of Technology & Management.jpg,,,https://www.aitm.edu.in/
+Anjuman Institute Of Technology & Management,AIML,112154,4.7,Uttara Kannada,175000,115956,38000,Karnataka,static/images/Anjuman Institute Of Technology & Management.jpg,,,https://www.aitm.edu.in/
+Anjuman Institute Of Technology & Management,ECE,120727,4.7,Uttara Kannada,175000,115956,38000,Karnataka,static/images/Anjuman Institute Of Technology & Management.jpg,,,https://www.aitm.edu.in/
+KLS Vishwanathrao Deshpande Institute Of Technology,CSE,48260,3.6,Uttara Kannada,153560,112000,120000,Karnataka,static/images/KLS Vishwanathrao Deshpande Institute Of Technology.jpg,,,https://klsvdit.edu.in/
+KLS Vishwanathrao Deshpande Institute Of Technology,AIML,53381,3.6,Uttara Kannada,153560,112000,120000,Karnataka,static/images/KLS Vishwanathrao Deshpande Institute Of Technology.jpg,,,https://klsvdit.edu.in/
+KLS Vishwanathrao Deshpande Institute Of Technology,ECE,68002,3.6,Uttara Kannada,108560,112000,120000,Karnataka,static/images/KLS Vishwanathrao Deshpande Institute Of Technology.jpg,,,https://klsvdit.edu.in/
+Nitte Mahalinga Adyanataya Memorial Institue Of Technology(NMAMIT),CSE,15000,4.4,Udupi,350000,128000,131100,Karnataka,static/images/Nitte Mahalinga Adyanataya Memorial Institue Of Technology(NMAMIT).jpg,,,https://nitte.edu.in/nmamit/
+Nitte Mahalinga Adyanataya Memorial Institue Of Technology(NMAMIT),AIML,18000,4.4,Udupi,350000,128000,131100,Karnataka,static/images/Nitte Mahalinga Adyanataya Memorial Institue Of Technology(NMAMIT).jpg,,,https://nitte.edu.in/nmamit/
+Nitte Mahalinga Adyanataya Memorial Institue Of Technology(NMAMIT),ISE,20000,4.4,Udupi,350000,128000,131100,Karnataka,static/images/Nitte Mahalinga Adyanataya Memorial Institue Of Technology(NMAMIT).jpg,,,https://nitte.edu.in/nmamit/
+Nitte Mahalinga Adyanataya Memorial Institue Of Technology(NMAMIT),ECE,25000,4.4,Udupi,250000,128000,131100,Karnataka,static/images/Nitte Mahalinga Adyanataya Memorial Institue Of Technology(NMAMIT).jpg,,,https://nitte.edu.in/nmamit/
+Shri Madhwa Vadiraja Institute Of Technology & Management,CSE,51794,4.3,Udupi,200000,96574,56000,Karnataka,static/images/Shri Madhwa Vadiraja Institute Of Technology & Management.jpg,,,https://www.sode-edu.in/
+Shri Madhwa Vadiraja Institute Of Technology & Management,AIML,59257,4.3,Udupi,200000,96574,56000,Karnataka,static/images/Shri Madhwa Vadiraja Institute Of Technology & Management.jpg,,,https://www.sode-edu.in/
+Shri Madhwa Vadiraja Institute Of Technology & Management,ECE,88103,4.3,Udupi,200000,96574,56000,Karnataka,static/images/Shri Madhwa Vadiraja Institute Of Technology & Management.jpg,,,https://www.sode-edu.in/
+Moodlakatte Institute Of Technology & Management(MITK),CSE,95401,4.4,Udupi,210000,104265,90000,Karnataka,static/images/Moodlakatte Institute Of Technology & Management(MITK).jpg,,,https://www.mitkundapura.com/
+Moodlakatte Institute Of Technology & Management(MITK),AIML,90453,4.4,Udupi,225000,104265,90000,Karnataka,static/images/Moodlakatte Institute Of Technology & Management(MITK).jpg,,,https://www.mitkundapura.com/
+Moodlakatte Institute Of Technology & Management(MITK),ISE,108953,4.4,Udupi,180000,104265,90000,Karnataka,static/images/Moodlakatte Institute Of Technology & Management(MITK).jpg,,,https://www.mitkundapura.com/
+Moodlakatte Institute Of Technology & Management(MITK),ECE,120136,4.4,Udupi,175000,104265,90000,Karnataka,static/images/Moodlakatte Institute Of Technology & Management(MITK).jpg,,,https://www.mitkundapura.com/
+Channabasaveshwara Institute Of Technology,CSE,49022,3.8,Tumakuru,250000,115000,85000,Karnataka,static/images/Channabasaveshwara Institute Of Technology.jpg,,,https://www.cittumkur.org/
+Channabasaveshwara Institute Of Technology,AIML,60742,3.8,Tumakuru,250000,115000,85000,Karnataka,static/images/Channabasaveshwara Institute Of Technology.jpg,,,https://www.cittumkur.org/
+Channabasaveshwara Institute Of Technology,ISE,63857,3.8,Tumakuru,250000,115000,85000,Karnataka,static/images/Channabasaveshwara Institute Of Technology.jpg,,,https://www.cittumkur.org/
+Channabasaveshwara Institute Of Technology,ECE,74084,3.8,Tumakuru,250000,115000,85000,Karnataka,static/images/Channabasaveshwara Institute Of Technology.jpg,,,https://www.cittumkur.org/
+HMS Institute Of Technology,CSE,90626,3.6,Tumakuru,150000,104265,80000,Karnataka,static/images/HMS Institute Of Technology.jpg,,,https://ssse.in/
+HMS Institute Of Technology,AIML,54350,3.6,Tumakuru,150000,104265,80000,Karnataka,static/images/HMS Institute Of Technology.jpg,,,https://ssse.in/
+HMS Institute Of Technology,ISE,82438,3.6,Tumakuru,100000,104265,80000,Karnataka,static/images/HMS Institute Of Technology.jpg,,,https://ssse.in/
+HMS Institute Of Technology,ECE,78174,3.6,Tumakuru,100000,104265,80000,Karnataka,static/images/HMS Institute Of Technology.jpg,,,https://ssse.in/
+Shri Siddhartha Institute Of Technology,CSE,27919,4.1,Tumakuru,350000,121000,83000,Karnataka,static/images/Shri Siddhartha Institute Of Technology.jpg,,,https://ssahe.edu.in/ssit/
+Shri Siddhartha Institute Of Technology,AIML,29565,4.1,Tumakuru,350000,121000,83000,Karnataka,static/images/Shri Siddhartha Institute Of Technology.jpg,,,https://ssahe.edu.in/ssit/
+Shri Siddhartha Institute Of Technology,ISE,41276,4.1,Tumakuru,350000,121000,83000,Karnataka,static/images/Shri Siddhartha Institute Of Technology.jpg,,,https://ssahe.edu.in/ssit/
+Shri Siddhartha Institute Of Technology,ECE,47680,4.1,Tumakuru,250000,121000,83000,Karnataka,static/images/Shri Siddhartha Institute Of Technology.jpg,,,https://ssahe.edu.in/ssit/
+Shridevi Institute Of Engineering & Technology,CSE,86454,4.1,Tumakuru,250000,107495,80000,Karnataka,static/images/Shridevi Institute Of Engineering & Technology.jpg,,,https://shrideviengineering.org/
+Shridevi Institute Of Engineering & Technology,AIML,96332,4.1,Tumakuru,220000,107495,80000,Karnataka,static/images/Shridevi Institute Of Engineering & Technology.jpg,,,https://shrideviengineering.org/
+Shridevi Institute Of Engineering & Technology,ISE,101921,4.1,Tumakuru,200000,107495,80000,Karnataka,static/images/Shridevi Institute Of Engineering & Technology.jpg,,,https://shrideviengineering.org/
+Shridevi Institute Of Engineering & Technology,ECE,116421,4.1,Tumakuru,180000,107495,80000,Karnataka,static/images/Shridevi Institute Of Engineering & Technology.jpg,,,https://shrideviengineering.org/
+Akshaya Institute Of Technology,CSE,83705,3.8,Tumakuru,200000,112410,80000,Karnataka,static/images/Akshaya Institute Of Technology.jpg,,,https://ait-tumkur.ac.in/
+Akshaya Institute Of Technology,AIML,87516,3.8,Tumakuru,170000,112410,80000,Karnataka,static/images/Akshaya Institute Of Technology.jpg,,,https://ait-tumkur.ac.in/
+Akshaya Institute Of Technology,ISE,99992,3.8,Tumakuru,170000,112410,80000,Karnataka,static/images/Akshaya Institute Of Technology.jpg,,,https://ait-tumkur.ac.in/
+Akshaya Institute Of Technology,ECE,109104,3.8,Tumakuru,170000,112410,80000,Karnataka,static/images/Akshaya Institute Of Technology.jpg,,,https://ait-tumkur.ac.in/
+Vijaya Vittala Institute Of Technology,CSE,135566,3.9,Bengaluru,250000,850000,75000,Karnataka,static/images/Vijaya Vittala Institute Of Technology.jpg,,,https://www.svvit.org/
+Vijaya Vittala Institute Of Technology,AIML,98417,3.9,Bengaluru,250000,850000,75000,Karnataka,static/images/Vijaya Vittala Institute Of Technology.jpg,,,https://www.svvit.org/
+Vijaya Vittala Institute Of Technology,ECE,111478,3.9,Bengaluru,200000,850000,75000,Karnataka,static/images/Vijaya Vittala Institute Of Technology.jpg,,,https://www.svvit.org/
+BTL Institute Of Technology & Management,CSE,7500,3.9,Bengaluru,200000,47100,110000,Karnataka,static/images/BTL Institute Of Technology & Management.jpg,,,https://bharateducation.org/details.php?view_id=6272
+BTL Institute Of Technology & Management,AIML,8000,3.9,Bengaluru,200000,47100,110000,Karnataka,static/images/BTL Institute Of Technology & Management.jpg,,,https://bharateducation.org/details.php?view_id=6272
+BTL Institute Of Technology & Management,ISE,12000,3.9,Bengaluru,150000,47100,110000,Karnataka,static/images/BTL Institute Of Technology & Management.jpg,,,https://bharateducation.org/details.php?view_id=6272
+BTL Institute Of Technology & Management,ECE,14000,3.9,Bengaluru,100000,47100,110000,Karnataka,static/images/BTL Institute Of Technology & Management.jpg,,,https://bharateducation.org/details.php?view_id=6272
+Sri Sairam College Of Engineering,CSE,90901,4.1,Bengaluru,226721,130320,95000,Karnataka,static/images/Sree Rama Engineering College.jpg,,,https://sairamce.edu.in/
+Sri Sairam College Of Engineering,AIML,77930,4.1,Bengaluru,226721,130320,95000,Karnataka,static/images/Sree Rama Engineering College.jpg,,,https://sairamce.edu.in/
+Sri Sairam College Of Engineering,ISE,74114,4.1,Bengaluru,226721,130320,95000,Karnataka,static/images/Sree Rama Engineering College.jpg,,,https://sairamce.edu.in/
+Sri Sairam College Of Engineering,ECE,170076,4.1,Bengaluru,180610,130320,95000,Karnataka,static/images/Sree Rama Engineering College.jpg,,,https://sairamce.edu.in/
+Sai Vidya Institute Of Technology,CSE,64634,4.6,Bengaluru,325000,107573,85000,Karnataka,static/images/Sai Vidya Institute Of Technology.jpg,,,https://saividya.ac.in/
+Sai Vidya Institute Of Technology,AIML,55657,4.6,Bengaluru,325000,107573,85000,Karnataka,static/images/Sai Vidya Institute Of Technology.jpg,,,https://saividya.ac.in/
+Sai Vidya Institute Of Technology,ISE,72000,4.6,Bengaluru,325000,107573,85000,Karnataka,static/images/Sai Vidya Institute Of Technology.jpg,,,https://saividya.ac.in/
+Sai Vidya Institute Of Technology,ECE,64714,4.6,Bengaluru,225000,107573,85000,Karnataka,static/images/Sai Vidya Institute Of Technology.jpg,,,https://saividya.ac.in/
+City Engineerimg College,CSE,65300,4.1,Bengaluru,225000,113205,85000,Karnataka,static/images/City Engineerimg College.jpg,,,https://cityengineeringcollege.ac.in/
+City Engineerimg College,AIML,61461,4.1,Bengaluru,175000,113205,85000,Karnataka,static/images/City Engineerimg College.jpg,,,https://cityengineeringcollege.ac.in/
+City Engineerimg College,ISE,91290,4.1,Bengaluru,125000,113205,85000,Karnataka,static/images/City Engineerimg College.jpg,,,https://cityengineeringcollege.ac.in/
+City Engineerimg College,ECE,85200,4.1,Bengaluru,160000,113205,85000,Karnataka,static/images/City Engineerimg College.jpg,,,https://cityengineeringcollege.ac.in/
+RNS Institute Of Technology,CSE,10765,4.3,Bengaluru,750000,83526,150000,Karnataka,static/images/RNS Institute Of Technology.jpg,,,
+RNS Institute Of Technology,AIML,11356,4.3,Bengaluru,650000,83526,150000,Karnataka,static/images/RNS Institute Of Technology.jpg,,,
+RNS Institute Of Technology,ISE,10332,4.3,Bengaluru,400000,83526,150000,Karnataka,static/images/RNS Institute Of Technology.jpg,,,
+RNS Institute Of Technology,ECE,11995,4.3,Bengaluru,500000,83526,150000,Karnataka,static/images/RNS Institute Of Technology.jpg,,,
+BNM Institute Of Technology,CSE,8191,3.9,Bengaluru,650000,113000,125000,Karnataka,static/images/BNM Institute Of Technology.jpg,,,https://www.bnmit.org/?utm_source=GMB&utm_medium=organic
+BNM Institute Of Technology,AIML,9941,3.9,Bengaluru,600000,113000,125000,Karnataka,static/images/BNM Institute Of Technology.jpg,,,https://www.bnmit.org/?utm_source=GMB&utm_medium=organic
+BNM Institute Of Technology,ISE,11000,3.9,Bengaluru,600000,113000,125000,Karnataka,static/images/BNM Institute Of Technology.jpg,,,https://www.bnmit.org/?utm_source=GMB&utm_medium=organic
+BNM Institute Of Technology,ECE,10328,3.9,Bengaluru,500000,113000,125000,Karnataka,static/images/BNM Institute Of Technology.jpg,,,https://www.bnmit.org/?utm_source=GMB&utm_medium=organic
+The Oxford College Of Engineering ,CSE,38247,3.6,Bengaluru,350000,112410,126000,Karnataka,static/images/The Oxford College Of Engineering .jpg,,,https://www.theoxford.edu/engineering/
+The Oxford College Of Engineering ,AIML,38518,3.6,Bengaluru,325000,112410,126000,Karnataka,static/images/The Oxford College Of Engineering .jpg,,,https://www.theoxford.edu/engineering/
+The Oxford College Of Engineering ,ISE,49622,3.6,Bengaluru,325000,112410,126000,Karnataka,static/images/The Oxford College Of Engineering .jpg,,,https://www.theoxford.edu/engineering/
+The Oxford College Of Engineering ,ECE,59194,3.6,Bengaluru,220000,112410,126000,Karnataka,static/images/The Oxford College Of Engineering .jpg,,,https://www.theoxford.edu/engineering/
+PES University,CSE,3057,4.1,Bengaluru,1400000,220000,150000,Karnataka,static/images/PES University.jpg,,,https://pes.edu/
+PES University,AIML,3477,4.1,Bengaluru,1400000,220000,150000,Karnataka,static/images/PES University.jpg,,,https://pes.edu/
+PES University,ECE,3345,4.1,Bengaluru,1000000,220000,150000,Karnataka,static/images/PES University.jpg,,,https://pes.edu/
+Don Bosco Institute Of technology,CSE,44977,4.1,Bengaluru,350000,130320,130000,Karnataka,static/images/Don Bosco Institute Of technology.jpg,,,https://www.dbit.edu.in/
+Don Bosco Institute Of technology,AIML,39619,4.1,Bengaluru,210000,130320,130000,Karnataka,static/images/Don Bosco Institute Of technology.jpg,,,https://www.dbit.edu.in/
+Don Bosco Institute Of technology,ISE,100106,4.1,Bengaluru,200000,130320,130000,Karnataka,static/images/Don Bosco Institute Of technology.jpg,,,https://www.dbit.edu.in/
+Don Bosco Institute Of technology,ECE,98777,4.1,Bengaluru,150000,130320,130000,Karnataka,static/images/Don Bosco Institute Of technology.jpg,,,https://www.dbit.edu.in/
+R.R Institute Of Technology,CSE,72230,3.5,Bengaluru,200000,120320,75000,Karnataka,static/images/R.R Institute Of Technology.jpg,,,https://www.rrit.ac.in/
+R.R Institute Of Technology,AIML,61485,3.5,Bengaluru,200000,120320,75000,Karnataka,static/images/R.R Institute Of Technology.jpg,,,https://www.rrit.ac.in/
+R.R Institute Of Technology,ISE,73225,3.5,Bengaluru,200000,120320,75000,Karnataka,static/images/R.R Institute Of Technology.jpg,,,https://www.rrit.ac.in/
+R.R Institute Of Technology,ECE,80103,3.5,Bengaluru,200000,120320,75000,Karnataka,static/images/R.R Institute Of Technology.jpg,,,https://www.rrit.ac.in/
+Aditya Group Of Institutions,CSE,74324,4.2,Bengaluru,150000,120320,130000,Karnataka,static/images/Aditya Group Of Institutions.jpg,,,https://adityaedu.net/
+Aditya Group Of Institutions,AIML,92698,4.2,Bengaluru,150000,120320,130000,Karnataka,static/images/Aditya Group Of Institutions.jpg,,,https://adityaedu.net/
+Aditya Group Of Institutions,ISE,88858,4.2,Bengaluru,125000,120320,130000,Karnataka,static/images/Aditya Group Of Institutions.jpg,,,https://adityaedu.net/
+Aditya Group Of Institutions,ECE,102746,4.2,Bengaluru,135000,120320,130000,Karnataka,static/images/Aditya Group Of Institutions.jpg,,,https://adityaedu.net/
+Alliance College Of Engineering,CSE,36131,4.1,Bengaluru,400000,130320,110000,Karnataka,static/images/Alliance College Of Engineering.jpg,,,https://www.alliance.edu.in/school/school-of-engineering-and-design
+Alliance College Of Engineering,AIML,22762,4.1,Bengaluru,400000,130320,110000,Karnataka,static/images/Alliance College Of Engineering.jpg,,,https://www.alliance.edu.in/school/school-of-engineering-and-design
+Alliance College Of Engineering,ECE,38800,4.1,Bengaluru,300000,130320,110000,Karnataka,static/images/Alliance College Of Engineering.jpg,,,https://www.alliance.edu.in/school/school-of-engineering-and-design
+Bangalore City Group Of Institutions,CSE,89113,4.2,Bengaluru,200000,113205,120000,Karnataka,static/images/Bangalore City Group Of Institutions.jpg,,,https://bgiedu.in/
+Bangalore City Group Of Institutions,AIML,115000,4.2,Bengaluru,175000,113205,120000,Karnataka,static/images/Bangalore City Group Of Institutions.jpg,,,https://bgiedu.in/
+Bangalore City Group Of Institutions,ISE,105000,4.2,Bengaluru,125000,113205,120000,Karnataka,static/images/Bangalore City Group Of Institutions.jpg,,,https://bgiedu.in/
+Bangalore City Group Of Institutions,ECE,82494,4.2,Bengaluru,150000,113205,120000,Karnataka,static/images/Bangalore City Group Of Institutions.jpg,,,https://bgiedu.in/
+T.John Institute Of Technology,CSE,90193,3.9,Bengaluru,300000,121610,90000,Karnataka,static/images/T.John Institute Of Technology.jpg,,,https://www.tjohncollege.com/
+T.John Institute Of Technology,AIML,83095,3.9,Bengaluru,300000,121610,90000,Karnataka,static/images/T.John Institute Of Technology.jpg,,,https://www.tjohncollege.com/
+T.John Institute Of Technology,ISE,112575,3.9,Bengaluru,250000,121610,90000,Karnataka,static/images/T.John Institute Of Technology.jpg,,,https://www.tjohncollege.com/
+T.John Institute Of Technology,ECE,127054,3.9,Bengaluru,200000,121610,90000,Karnataka,static/images/T.John Institute Of Technology.jpg,,,https://www.tjohncollege.com/
+Atria Institute Of Technology,CSE,53500,3.8,Bengaluru,220000,113205,85000,Karnataka,static/images/Atria Institute Of Technology.jpg,,,https://atria.edu.in/
+Atria Institute Of Technology,AIML,65000,3.8,Bengaluru,220000,113205,85000,Karnataka,static/images/Atria Institute Of Technology.jpg,,,https://atria.edu.in/
+Atria Institute Of Technology,ISE,70000,3.8,Bengaluru,220000,113205,85000,Karnataka,static/images/Atria Institute Of Technology.jpg,,,https://atria.edu.in/
+Atria Institute Of Technology,ECE,92500,3.8,Bengaluru,175000,113205,85000,Karnataka,static/images/Atria Institute Of Technology.jpg,,,https://atria.edu.in/
+Dr Ambedkar Institute Of Technology,CSE,8484,4.1,Bengaluru,280000,109554,125000,Karnataka,static/images/Dr Ambedkar Institute Of Technology.jpg,,,https://drait.edu.in/
+Dr Ambedkar Institute Of Technology,AIML,12690,4.1,Bengaluru,280000,109554,125000,Karnataka,static/images/Dr Ambedkar Institute Of Technology.jpg,,,https://drait.edu.in/
+Dr Ambedkar Institute Of Technology,ISE,15113,4.1,Bengaluru,280000,109554,125000,Karnataka,static/images/Dr Ambedkar Institute Of Technology.jpg,,,https://drait.edu.in/
+Dr Ambedkar Institute Of Technology,ECE,17980,4.1,Bengaluru,280000,109554,125000,Karnataka,static/images/Dr Ambedkar Institute Of Technology.jpg,,,https://drait.edu.in/
+Sri Revana Siddeshwara Institute Of Technology,CSE,103313,3.5,Bengaluru,180000,120320,90000,Karnataka,static/images/Sri Revana Siddeshwara Institute Of Technology.jpg,,,https://srsect.edu.in/
+Sri Revana Siddeshwara Institute Of Technology,ECE,126977,3.5,Bengaluru,150000,120320,90000,Karnataka,static/images/Sri Revana Siddeshwara Institute Of Technology.jpg,,,https://srsect.edu.in/
+BGS College Of Engineering And Technology,CSE,27696,4.5,Bengaluru,500000,95000,90000,Karnataka,static/images/BGS College Of Engineering And Technology.jpg,,,https://www.bgscet.ac.in/
+BGS College Of Engineering And Technology,AIML,28300,4.5,Bengaluru,450000,95000,90000,Karnataka,static/images/BGS College Of Engineering And Technology.jpg,,,https://www.bgscet.ac.in/
+BGS College Of Engineering And Technology,ISE,30000,4.5,Bengaluru,400000,95000,90000,Karnataka,static/images/BGS College Of Engineering And Technology.jpg,,,https://www.bgscet.ac.in/
+BGS College Of Engineering And Technology,ECE,30000,4.5,Bengaluru,350000,95000,90000,Karnataka,static/images/BGS College Of Engineering And Technology.jpg,,,https://www.bgscet.ac.in/
+Global Academy Of Technology,CSE,24631,4.2,Bengaluru,600000,120320,100000,Karnataka,static/images/Global Academy Of Technology.jpg,,,https://www.gat.ac.in/
+Global Academy Of Technology,AIML,24971,4.2,Bengaluru,500000,120320,100000,Karnataka,static/images/Global Academy Of Technology.jpg,,,https://www.gat.ac.in/
+Global Academy Of Technology,ISE,28500,4.2,Bengaluru,500000,120320,100000,Karnataka,static/images/Global Academy Of Technology.jpg,,,https://www.gat.ac.in/
+Global Academy Of Technology,ECE,32000,4.2,Bengaluru,400000,120320,100000,Karnataka,static/images/Global Academy Of Technology.jpg,,,https://www.gat.ac.in/
+GKVK College,CSE,1500,4.6,Bengaluru,375000,120320,150000,Karnataka,static/images/GKVK College.jpg,,,
+GKVK College,AIML,3000,4.6,Bengaluru,325000,120320,150000,Karnataka,static/images/GKVK College.jpg,,,
+GKVK College,ISE,3500,4.6,Bengaluru,325000,120320,150000,Karnataka,static/images/GKVK College.jpg,,,
+GKVK College,ECE,7500,4.6,Bengaluru,250000,120320,150000,Karnataka,static/images/GKVK College.jpg,,,
+Bhuvan Group Of Institution,CSE,63137,2.8,Bengaluru,300000,121610,120000,Karnataka,static/images/Bhuvan Group Of Institution.jpg,,,https://www.bhuvaninstitutions.com/lander?oref=https%3A%2F%2Fwww.google.com%2F
+Bhuvan Group Of Institution,AIML,47345,2.8,Bengaluru,280000,121610,120000,Karnataka,static/images/Bhuvan Group Of Institution.jpg,,,https://www.bhuvaninstitutions.com/lander?oref=https%3A%2F%2Fwww.google.com%2F
+Bhuvan Group Of Institution,ECE,77457,2.8,Bengaluru,200000,121610,120000,Karnataka,static/images/Bhuvan Group Of Institution.jpg,,,https://www.bhuvaninstitutions.com/lander?oref=https%3A%2F%2Fwww.google.com%2F
+Biluru Gurubasav Mahaswamji Institute Of Technology,CSE,131231,4.1,Bagalkot,180000,130320,75000,Karnataka,static/images/Biluru Gurubasav Mahaswamji Institute Of Technology.jpg,,,http://www.bgmitm.ac.in/
+Biluru Gurubasav Mahaswamji Institute Of Technology,AIML,114011,4.1,Bagalkot,180000,130320,75000,Karnataka,static/images/Biluru Gurubasav Mahaswamji Institute Of Technology.jpg,,,http://www.bgmitm.ac.in/
+Biluru Gurubasav Mahaswamji Institute Of Technology,ECE,207060,4.1,Bagalkot,180000,130320,75000,Karnataka,static/images/Biluru Gurubasav Mahaswamji Institute Of Technology.jpg,,,http://www.bgmitm.ac.in/
+Bharatesh Institute Of Technology,CSE,97803,4.3,Belgaum,145000,114199,65000,Karnataka,static/images/Bharatesh Institute Of Technology.jpg,,,https://ambit.edu.in/
+Bharatesh Institute Of Technology,AIML,104780,4.3,Belgaum,175000,114199,65000,Karnataka,static/images/Bharatesh Institute Of Technology.jpg,,,https://ambit.edu.in/
+Bharatesh Institute Of Technology,ISE,124457,4.3,Belgaum,175000,114199,65000,Karnataka,static/images/Bharatesh Institute Of Technology.jpg,,,https://ambit.edu.in/
+Bharatesh Institute Of Technology,ECE,130000,4.3,Belgaum,135000,114199,65000,Karnataka,static/images/Bharatesh Institute Of Technology.jpg,,,https://ambit.edu.in/
+VSM's Institute Of Technology,CSE,149409,4.1,Nipani,115000,96574,70000,Karnataka,static/images/VSM's Institute Of Technology.jpg,,,https://www.vsmsrkit.edu.in/
+VSM's Institute Of Technology,AIML,120157,4.1,Nipani,115000,96574,70000,Karnataka,static/images/VSM's Institute Of Technology.jpg,,,https://www.vsmsrkit.edu.in/
+VSM's Institute Of Technology,ECE,153661,4.1,Nipani,115000,96574,70000,Karnataka,static/images/VSM's Institute Of Technology.jpg,,,https://www.vsmsrkit.edu.in/
+SHAIKH Group Of Institutions,CSE,65000,4.3,Belgaum,120000,96574,90000,Karnataka,static/images/SHAIKH Group Of Institutions.jpg,,,https://shaikhgroupofinstitutions.com/
+SHAIKH Group Of Institutions,AIML,85000,4.3,Belgaum,115000,96574,90000,Karnataka,static/images/SHAIKH Group Of Institutions.jpg,,,https://shaikhgroupofinstitutions.com/
+SHAIKH Group Of Institutions,ISE,80000,4.3,Belgaum,115000,96574,90000,Karnataka,static/images/SHAIKH Group Of Institutions.jpg,,,https://shaikhgroupofinstitutions.com/
+SHAIKH Group Of Institutions,ECE,100000,4.3,Belgaum,105000,96574,90000,Karnataka,static/images/SHAIKH Group Of Institutions.jpg,,,https://shaikhgroupofinstitutions.com/
+Govt Engineering College Gangavathi,CSE,83314,4.1,Ballari,Not Available,40860,80000,Karnataka,static/images/Govt Engineering College Gangavathi.jpg,,,https://gec.karnataka.gov.in/gecgangavathi/public/en
+Govt Engineering College Gangavathi,AIML,83314,4.1,Ballari,Not Available,40860,80000,Karnataka,static/images/Govt Engineering College Gangavathi.jpg,,,https://gec.karnataka.gov.in/gecgangavathi/public/en
+Govt Engineering College Gangavathi,ECE,134681,4.1,Ballari,Not Available,40860,80000,Karnataka,static/images/Govt Engineering College Gangavathi.jpg,,,https://gec.karnataka.gov.in/gecgangavathi/public/en
+Proudhadeveraya Institute Of technology,CSE,159413,4.1,Ballari,170000,120320,67000,Karnataka,static/images/Proudhadeveraya Institute Of technology.jpg,,,https://pdit.ac.in/
+Proudhadeveraya Institute Of technology,AIML,157821,4.1,Ballari,170000,120320,67000,Karnataka,static/images/Proudhadeveraya Institute Of technology.jpg,,,https://pdit.ac.in/
+Proudhadeveraya Institute Of technology,ISE,214860,4.1,Ballari,150000,120320,67000,Karnataka,static/images/Proudhadeveraya Institute Of technology.jpg,,,https://pdit.ac.in/
+Walchand Institute Of Technology,CSE,1000,4.3,Vijayapura,350000,32320,60000,Karnataka,static/images/Walchand Institute Of Technology.webp,,,https://www.witsolapur.org/
+Walchand Institute Of Technology,AIML,1000,4.3,Vijayapura,350000,32320,60000,Karnataka,static/images/Walchand Institute Of Technology.webp,,,https://www.witsolapur.org/
+Walchand Institute Of Technology,ISE,1500,4.3,Vijayapura,250000,32320,60000,Karnataka,static/images/Walchand Institute Of Technology.webp,,,https://www.witsolapur.org/
+Walchand Institute Of Technology,ECE,4500,4.3,Vijayapura,250000,32320,60000,Karnataka,static/images/Walchand Institute Of Technology.webp,,,https://www.witsolapur.org/
+Govt Engineering College ,CSE,51159,4.1,Krishnarajpeta,Not Available,38200,30000,Karnataka,static/images/Govt Engineering College.jpg,,,https://gec.karnataka.gov.in/gecchallakere/public/en
+Govt Engineering College ,ECE,73446,4.1,Krishnarajpeta,Not Available,38200,30000,Karnataka,static/images/Govt Engineering College.jpg,,,https://gec.karnataka.gov.in/gecchallakere/public/en
+Govt Engineering College ,CSE,71000,3.9,Challakere,Not Available,47100,50000,Karnataka,static/images/govt engineering college challakere.jpg,,,https://gec.karnataka.gov.in/gecchallakere/public/en
+Govt Engineering College ,AIML,58000,3.9,Challakere,Not Available,47100,50000,Karnataka,static/images/govt engineering college challakere.jpg,,,https://gec.karnataka.gov.in/gecchallakere/public/en
+Govt Engineering College ,ECE,95000,3.9,Challakere,Not Available,47100,50000,Karnataka,static/images/govt engineering college challakere.jpg,,,https://gec.karnataka.gov.in/gecchallakere/public/en
+St.Mary's Group Of Institution,CSE,31127,2.5,Chitradurga,200000,106170,120000,Karnataka,static/images/govt engineering college challakere.jpg,,,https://stmarysgroupofinstitutions.in/
+St.Mary's Group Of Institution,AIML,34246,2.5,Chitradurga,200000,106170,120000,Karnataka,static/images/St.Mary's Group Of Institution.jpg,,,https://stmarysgroupofinstitutions.in/
+St.Mary's Group Of Institution,ECE,34349,2.5,Chitradurga,120000,106170,120000,Karnataka,static/images/St.Mary's Group Of Institution.jpg,,,https://stmarysgroupofinstitutions.in/
+Srinivas Institute Of Technology,CSE,45000,4.4,Mangaluru,228000,121610,120000,Karnataka,static/images/Srinivas Institute Of Technology.jpg,,,https://www.sitmng.ac.in/
+Srinivas Institute Of Technology,AIML,60000,4.4,Mangaluru,228000,121610,120000,Karnataka,static/images/Srinivas Institute Of Technology.jpg,,,https://www.sitmng.ac.in/
+Srinivas Institute Of Technology,ISE,75000,4.4,Mangaluru,228000,121610,120000,Karnataka,static/images/Srinivas Institute Of Technology.jpg,,,https://www.sitmng.ac.in/
+Srinivas Institute Of Technology,ECE,95000,4.4,Mangaluru,125000,121610,120000,Karnataka,static/images/Srinivas Institute Of Technology.jpg,,,https://www.sitmng.ac.in/
+Sahyadri College Of Engineering & Management,CSE,18440,4.3,Mangaluru,340000,113205,110000,Karnataka,static/images/Sahyadri College Of Engineering & Management.jpg,,,https://www.sahyadri.edu.in/
+Sahyadri College Of Engineering & Management,AIML,21176,4.3,Mangaluru,340000,113205,110000,Karnataka,static/images/Sahyadri College Of Engineering & Management.jpg,,,https://www.sahyadri.edu.in/
+Sahyadri College Of Engineering & Management,ISE,33225,4.3,Mangaluru,300000,113205,110000,Karnataka,static/images/Sahyadri College Of Engineering & Management.jpg,,,https://www.sahyadri.edu.in/
+Sahyadri College Of Engineering & Management,ECE,25150,4.3,Mangaluru,220000,113205,110000,Karnataka,static/images/Sahyadri College Of Engineering & Management.jpg,,,https://www.sahyadri.edu.in/
+Shree Devi Institute Of Technology,CSE,91343,4.2,Mangaluru,150000,103800,100000,Karnataka,static/images/Shree Devi Institute Of Technology.jpg,,,https://sdit.ac.in/
+Shree Devi Institute Of Technology,AIML,96490,4.2,Mangaluru,122000,103800,100000,Karnataka,static/images/Shree Devi Institute Of Technology.jpg,,,https://sdit.ac.in/
+Shree Devi Institute Of Technology,ISE,109146,4.2,Mangaluru,122000,103800,100000,Karnataka,static/images/Shree Devi Institute Of Technology.jpg,,,https://sdit.ac.in/
+Shree Devi Institute Of Technology,ECE,221930,4.2,Mangaluru,100000,103800,100000,Karnataka,static/images/Shree Devi Institute Of Technology.jpg,,,https://sdit.ac.in/
+Shri Dharmasthala Manjunatheshwara College Of Engineering And Technology,CSE,15470,4.4,Hubbali,550000,120320,135000,Karnataka,static/images/Shri Dharmasthala Manjunatheshwara College Of Engineering And Technology.jpg,,,https://sdmcet.ac.in/
+Shri Dharmasthala Manjunatheshwara College Of Engineering And Technology,AIML,15706,4.4,Hubbali,450000,120320,135000,Karnataka,static/images/Shri Dharmasthala Manjunatheshwara College Of Engineering And Technology.jpg,,,https://sdmcet.ac.in/
+Shri Dharmasthala Manjunatheshwara College Of Engineering And Technology,ISE,19830,4.4,Hubbali,500000,120320,135000,Karnataka,static/images/Shri Dharmasthala Manjunatheshwara College Of Engineering And Technology.jpg,,,https://sdmcet.ac.in/
+Shri Dharmasthala Manjunatheshwara College Of Engineering And Technology,ECE,40266,4.4,Hubbali,400000,120320,135000,Karnataka,static/images/Shri Dharmasthala Manjunatheshwara College Of Engineering And Technology.jpg,,,https://sdmcet.ac.in/
+Sharnbasa University,CSE,32000,4.2,Kalaburagi,200000,98000,55000,Karnataka,static/images/Sharnbasa University.jpg,,,https://suk.edu.in/
+Sharnbasa University,AIML,32400,4.2,Kalaburagi,150000,98000,55000,Karnataka,static/images/Sharnbasa University.jpg,,,https://suk.edu.in/
+Sharnbasa University,ISE,52000,4.2,Kalaburagi,150000,98000,55000,Karnataka,static/images/Sharnbasa University.jpg,,,https://suk.edu.in/
+Sharnbasa University,ECE,79000,4.2,Kalaburagi,120000,98000,55000,Karnataka,static/images/Sharnbasa University.jpg,,,https://suk.edu.in/
+Shri Tharalabaalu Jagadguru Institute Of Technology,CSE,87670,4.1,Ranebennur,186000,130320,50000,Karnataka,static/images/Shri Tharalabaalu Jagadguru Institute Of Technology.jpeg,,,https://www.stjit.ac.in/
+Shri Tharalabaalu Jagadguru Institute Of Technology,AIML,87670,4.1,Ranebennur,150000,130320,50000,Karnataka,static/images/Shri Tharalabaalu Jagadguru Institute Of Technology.jpeg,,,https://www.stjit.ac.in/
+Shri Tharalabaalu Jagadguru Institute Of Technology,ECE,148214,4.1,Ranebennur,120000,130320,50000,Karnataka,static/images/Shri Tharalabaalu Jagadguru Institute Of Technology.jpeg,,,https://www.stjit.ac.in/
+G.Madegowda Institute Of Technology,CSE,95341,4.1,Mandya,150000,125160,80000,Karnataka,static/images/G.Madegowda Institute Of Technology.jpg,,,https://www.comedk.org/college-g-madegowda-institute-of-technology
+G.Madegowda Institute Of Technology,AIML,89141,4.1,Mandya,175000,125160,80000,Karnataka,static/images/G.Madegowda Institute Of Technology.jpg,,,https://www.comedk.org/college-g-madegowda-institute-of-technology
+G.Madegowda Institute Of Technology,ECE,127444,4.1,Mandya,110000,125160,80000,Karnataka,static/images/G.Madegowda Institute Of Technology.jpg,,,https://www.comedk.org/college-g-madegowda-institute-of-technology
+Vidya Vikas Institute Of Engineering & Technology,CSE,44235,3.8,Mysuru,250000,102400,83000,Karnataka,static/images/Vidya Vikas Institute Of Engineering & Technology.jpg,,,https://vidyavikas.edu.in/
+Vidya Vikas Institute Of Engineering & Technology,AIML,36577,3.8,Mysuru,230000,102400,83000,Karnataka,static/images/Vidya Vikas Institute Of Engineering & Technology.jpg,,,https://vidyavikas.edu.in/
+Vidya Vikas Institute Of Engineering & Technology,ISE,44751,3.8,Mysuru,195000,102400,83000,Karnataka,static/images/Vidya Vikas Institute Of Engineering & Technology.jpg,,,https://vidyavikas.edu.in/
+Vidya Vikas Institute Of Engineering & Technology,ECE,50669,3.8,Mysuru,185000,102400,83000,Karnataka,static/images/Vidya Vikas Institute Of Engineering & Technology.jpg,,,https://vidyavikas.edu.in/
+Tumkur University,CSE,9500,4.2,Tumakur,250000,130320,75000,Karnataka,static/images/Tumkur University.jpg,,,https://tumkuruniversity.ac.in/
+Tumkur University,AIML,9500,4.2,Tumakur,220000,130320,75000,Karnataka,static/images/Tumkur University.jpg,,,https://tumkuruniversity.ac.in/
+Tumkur University,ISE,12000,4.2,Tumakur,200000,130320,75000,Karnataka,static/images/Tumkur University.jpg,,,https://tumkuruniversity.ac.in/
+Tumkur University,ECE,18000,4.2,Tumakur,150000,130320,75000,Karnataka,static/images/Tumkur University.jpg,,,https://tumkuruniversity.ac.in/
+Poornaprajna College(Autonomous),CSE,500,4.1,Udupi,450000,130320,60000,Karnataka,static/images/Poornaprajna College(Autonomous).jpg,,,https://poornaprajna.ac.in/
+Poornaprajna College(Autonomous),AIML,4500,4.1,Udupi,450000,130320,60000,Karnataka,static/images/Poornaprajna College(Autonomous).jpg,,,https://poornaprajna.ac.in/
+Poornaprajna College(Autonomous),ISE,4500,4.1,Udupi,400000,130320,60000,Karnataka,static/images/Poornaprajna College(Autonomous).jpg,,,https://poornaprajna.ac.in/
+Poornaprajna College(Autonomous),ECE,3000,4.1,Udupi,250000,130320,60000,Karnataka,static/images/Poornaprajna College(Autonomous).jpg,,,https://poornaprajna.ac.in/

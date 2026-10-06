@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify Email - College Predictor</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:Arial,sans-serif;background:linear-gradient(135deg,#0066ff,#00a8ff);padding:20px}.card{width:100%;max-width:450px;background:#fff;border-radius:18px;padding:40px;box-shadow:0 20px 50px rgba(0,0,0,.2)}.icon{width:70px;height:70px;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#e8f2ff;font-size:34px}h1{text-align:center;color:#1f2937;margin-bottom:10px;font-size:28px}.description{text-align:center;color:#6b7280;line-height:1.6;margin-bottom:25px}.email{font-weight:bold;color:#2563eb;word-break:break-word}.message{padding:12px 15px;border-radius:8px;margin-bottom:18px;font-size:14px;line-height:1.5}.error{background:#fff0f0;color:#c62828;border:1px solid #f5b5b5}label{display:block;margin-bottom:8px;color:#374151;font-weight:600}input{width:100%;padding:15px;border:1px solid #d1d5db;border-radius:9px;font-size:22px;text-align:center;letter-spacing:8px;outline:none}input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}button{width:100%;margin-top:20px;padding:14px;border:none;border-radius:9px;background:#2563eb;color:#fff;font-size:16px;font-weight:bold;cursor:pointer}button:hover{background:#1d4ed8}.back{display:block;text-align:center;margin-top:20px;color:#2563eb;text-decoration:none;font-size:14px}.back:hover{text-decoration:underline}</style>
+</head>
+<body>
+<div class="card">
+<div class="icon">✉️</div>
+<h1>Verify Your Email</h1>
+<p class="description">We sent a 6-digit verification code to:<br><span class="email">{{ email }}</span></p>
+{% if error %}<div class="message error">{{ error }}</div>{% endif %}
+<form method="POST" action="{{ url_for('verify_otp') }}">
+<input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<input type="hidden" name="email" value="{{ email }}">
+<label for="otp">Verification Code</label>
+<input type="text" id="otp" name="otp" placeholder="000000" maxlength="6" minlength="6" pattern="[0-9]{6}" inputmode="numeric" autocomplete="one-time-code" required>
+<button type="submit">Verify Email</button>
+</form>
+<a href="{{ url_for('signup') }}" class="back">← Back to Sign Up</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Help | College Predictor</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef7ff,
+                    #f8fbff
+                );
+            color: #102a56;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            min-height: 74px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #087cf0,
+                    #0874df
+                );
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 42px;
+
+            color: white;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0, 91, 180, 0.18);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-size: 25px;
+            font-weight: 800;
+        }
+
+        .brand-icon {
+            width: 45px;
+            height: 45px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.15);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+
+            padding: 12px 15px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            background:
+                rgba(255,255,255,0.15);
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 94%;
+            max-width: 1100px;
+
+            margin: 35px auto 50px;
+        }
+
+        .page-header {
+            background: white;
+
+            border:
+                1px solid #dcecff;
+
+            border-radius: 16px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            box-shadow:
+                0 7px 25px
+                rgba(31, 91, 150, 0.07);
+        }
+
+        .page-icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .page-header h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #657994;
+            font-size: 15px;
+        }
+
+        /* HELP GRID */
+
+        .help-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+
+            margin-top: 20px;
+        }
+
+        .help-card {
+            background: white;
+
+            border:
+                1px solid #dcecff;
+
+            border-radius: 14px;
+
+            padding: 24px;
+
+            box-shadow:
+                0 6px 20px
+                rgba(31, 91, 150, 0.06);
+
+            transition: 0.2s;
+        }
+
+        .help-card:hover {
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(31, 91, 150, 0.10);
+        }
+
+        .help-card-icon {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 12px;
+
+            background: #edf6ff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+
+            margin-bottom: 15px;
+        }
+
+        .help-card h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .help-card p {
+            color: #63758f;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* FAQ */
+
+        .faq-section {
+            background: white;
+
+            border:
+                1px solid #dcecff;
+
+            border-radius: 14px;
+
+            padding: 25px;
+
+            margin-top: 20px;
+
+            box-shadow:
+                0 6px 20px
+                rgba(31, 91, 150, 0.06);
+        }
+
+        .faq-section h2 {
+            margin-bottom: 18px;
+        }
+
+        .faq {
+            border-bottom:
+                1px solid #edf2f7;
+
+            padding: 15px 0;
+        }
+
+        .faq:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            color: #17345f;
+            margin-bottom: 7px;
+        }
+
+        .faq-answer {
+            color: #657994;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            color: #7a8da8;
+
+            font-size: 13px;
+
+            padding:
+                10px 0 30px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+
+                padding: 12px 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🎓
+            </div>
+
+            College Predictor
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('dashboard') }}">
+                🏠 Dashboard
+            </a>
+
+            <a href="{{ url_for('colleges') }}">
+                🎓 Colleges
+            </a>
+
+            <a href="{{ url_for('predictor') }}">
+                🤖 Predictor
+            </a>
+
+            <a href="{{ url_for('profile') }}">
+                👤 Profile
+            </a>
+
+            <a href="{{ url_for('about') }}">
+                ℹ️ About
+            </a>
+
+            <a href="{{ url_for('logout') }}">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+
+    <main class="container">
+
+        <section class="page-header">
+
+            <div class="page-icon">
+                ❓
+            </div>
+
+            <h1>
+                How Can We Help?
+            </h1>
+
+            <p>
+                Learn how to use the College Predictor System.
+            </p>
+
+        </section>
+
+
+        <!-- HELP CARDS -->
+
+        <section class="help-grid">
+
+
+            <div class="help-card">
+
+                <div class="help-card-icon">
+                    🎓
+                </div>
+
+                <h2>
+                    Browse Colleges
+                </h2>
+
+                <p>
+                    Open the Colleges page to explore available
+                    KCET and EAMCET colleges. You can search and
+                    filter colleges by exam, branch, state,
+                    rating and management fees.
+                </p>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <div class="help-card-icon">
+                    🤖
+                </div>
+
+                <h2>
+                    College Predictor
+                </h2>
+
+                <p>
+                    Select your entrance exam, enter your rank
+                    and choose your preferred branch. The system
+                    analyzes the available college data and
+                    displays matching colleges.
+                </p>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <div class="help-card-icon">
+                    📊
+                </div>
+
+                <h2>
+                    Prediction Results
+                </h2>
+
+                <p>
+                    Your prediction results show matching colleges,
+                    cutoff information, ratings, fees, locations
+                    and an estimated chance indicator.
+                </p>
+
+            </div>
+
+
+            <div class="help-card">
+
+                <div class="help-card-icon">
+                    🗺️
+                </div>
+
+                <h2>
+                    College Location
+                </h2>
+
+                <p>
+                    Open any college details page to view its
+                    location. The Google Maps option searches
+                    using the college name and location.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- FAQ -->
+
+        <section class="faq-section">
+
+            <h2>
+                Frequently Asked Questions
+            </h2>
+
+
+            <div class="faq">
+
+                <div class="faq-question">
+                    How do I predict colleges?
+                </div>
+
+                <div class="faq-answer">
+                    Open the Predictor page, select KCET or EAMCET,
+                    enter your rank and select a branch. Then click
+                    Predict Colleges.
+                </div>
+
+            </div>
+
+
+            <div class="faq">
+
+                <div class="faq-question">
+                    Can I view both KCET and EAMCET colleges?
+                </div>
+
+                <div class="faq-answer">
+                    Yes. The Colleges page contains records from
+                    both KCET and EAMCET datasets.
+                </div>
+
+            </div>
+
+
+            <div class="faq">
+
+                <div class="faq-question">
+                    How can I see college fees?
+                </div>
+
+                <div class="faq-answer">
+                    Open the college details page. The Fee Structure
+                    section displays management fees, entrance exam
+                    fees and hostel fees when available.
+                </div>
+
+            </div>
+
+
+            <div class="faq">
+
+                <div class="faq-question">
+                    How can I find the college location?
+                </div>
+
+                <div class="faq-answer">
+                    Open College Details and select Open in Google
+                    Maps. The search uses the college name together
+                    with its location and state.
+                </div>
+
+            </div>
+
+
+            <div class="faq">
+
+                <div class="faq-question">
+                    Is the chance percentage a guaranteed admission probability?
+                </div>
+
+                <div class="faq-answer">
+                    No. The chance indicator is an estimate generated
+                    from the available project data and prediction
+                    logic. It should not be treated as a guaranteed
+                    admission probability.
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        © 2026 College Predictor System
+
+    </footer>
+
+</body>
+
+</html>

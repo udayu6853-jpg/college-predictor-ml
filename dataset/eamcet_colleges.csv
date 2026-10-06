@@ -1,0 +1,774 @@
+College Name,Branch,Rating,Cutoff Rank,Management Fees,Eamcet Fees,Hostel Fees,Location,State,Image,Latitude,Longitude,Website,
+Mohan Babu University,CSE,4.3,6576,225000,95400,150000,Tirupati,Andhra Pradesh,static/images/Mohan Babu University.jpg,13.62347312,79.28975997,https://www.mbu.asia/,
+Mohan Babu University,AIML,4.3,9699,225000,95400,150000,Tirupati,Andhra Pradesh,static/images/Mohan Babu University.jpg,13.62347312,79.28975997,https://www.mbu.asia/,
+Mohan Babu University,ECE,4.3,12489,190000,95400,150000,Tirupati,Andhra Pradesh,static/images/Mohan Babu University.jpg,13.62347312,79.28975997,https://www.mbu.asia/,
+Mohan Babu University,ME,4.3,35763,90000,95400,150000,Tirupati,Andhra Pradesh,static/images/Mohan Babu University.jpg,13.62347312,79.28975997,https://www.mbu.asia/,
+Sri Venkatesa Perumal College Of Engineering & Technology,CSE,3.8,40465,102000,43000,85000,Tirupati,Andhra Pradesh,static/images/Sri Venkatesa Perumal College Of Engineering & Technology.jpg,,,https://www.svpcet.org/,
+Sri Venkatesa Perumal College Of Engineering & Technology,AIML,3.8,32694,102000,43000,85000,Tirupati,Andhra Pradesh,static/images/Sri Venkatesa Perumal College Of Engineering & Technology.jpg,,,https://www.svpcet.org/,
+Sri Venkatesa Perumal College Of Engineering & Technology,ECE,3.8,45968,102000,43000,85000,Tirupati,Andhra Pradesh,static/images/Sri Venkatesa Perumal College Of Engineering & Technology.jpg,,,https://www.svpcet.org/,
+Sri Venkatesa Perumal College Of Engineering & Technology,ME,3.8,81219,102000,43000,85000,Tirupati,Andhra Pradesh,static/images/Sri Venkatesa Perumal College Of Engineering & Technology.jpg,,,https://www.svpcet.org/,
+KMM Institute Of Technology and Science,CSE,3.6,68821,70000,40000,50000,Tirupati,Andhra Pradesh,static/images/KMM Institute Of Technology and Science.jpg,,,https://kmmips.ac.in/,
+KMM Institute Of Technology and Science,AIML,3.6,103293,50000,40000,50000,Tirupati,Andhra Pradesh,static/images/KMM Institute Of Technology and Science.jpg,,,https://kmmips.ac.in/,
+Priyadarshini Institute Of Technology,CSE,3.8,93197,80000,35000,50000,Tirupati,Andhra Pradesh,static/images/Priyadarshini Institute Of Technology.jpg,,,https://pitt.ac.in/,
+Priyadarshini Institute Of Technology,AIML,3.8,93197,80000,35000,50000,Tirupati,Andhra Pradesh,static/images/Priyadarshini Institute Of Technology.jpg,,,https://pitt.ac.in/,
+Priyadarshini Institute Of Technology,ECE,3.8,102061,80000,35000,50000,Tirupati,Andhra Pradesh,static/images/Priyadarshini Institute Of Technology.jpg,,,https://pitt.ac.in/,
+Priyadarshini Institute Of Technology,ME,3.8,205639,80000,35000,50000,Tirupati,Andhra Pradesh,static/images/Priyadarshini Institute Of Technology.jpg,,,https://pitt.ac.in/,
+Yogananda Institute Of Technology And Science,CSE,3.4,120490,51000,43000,50000,Tirupati,Andhra Pradesh,static/images/Yogananda Institute Of Technology And Science.jpg,,,https://allegiance-educare.in/college/yogananda-institute-of-technology-and-science-yits,
+Yogananda Institute Of Technology And Science,AIML,3.4,125000,51000,43000,50000,Tirupati,Andhra Pradesh,static/images/Yogananda Institute Of Technology And Science.jpg,,,https://allegiance-educare.in/college/yogananda-institute-of-technology-and-science-yits,
+Yogananda Institute Of Technology And Science,ECE,3.4,126014,51000,43000,50000,Tirupati,Andhra Pradesh,static/images/Yogananda Institute Of Technology And Science.jpg,,,https://allegiance-educare.in/college/yogananda-institute-of-technology-and-science-yits,
+Yogananda Institute Of Technology And Science,ME,3.4,214692,51000,43000,50000,Tirupati,Andhra Pradesh,static/images/Yogananda Institute Of Technology And Science.jpg,,,https://allegiance-educare.in/college/yogananda-institute-of-technology-and-science-yits,
+SV College Of Engineering,CSE,4.3,8500,110000,74500,75000,Tirupati,Andhra Pradesh,static/images/SV College Of Engineering.jpg,,,https://svcolleges.edu.in/,
+SV College Of Engineering,AIML,4.3,16000,110000,74500,75000,Tirupati,Andhra Pradesh,static/images/SV College Of Engineering.jpg,,,https://svcolleges.edu.in/,
+SV College Of Engineering,ECE,4.3,22000,110000,74500,75000,Tirupati,Andhra Pradesh,static/images/SV College Of Engineering.jpg,,,https://svcolleges.edu.in/,
+SV College Of Engineering,ME,4.3,65000,110000,74500,75000,Tirupati,Andhra Pradesh,static/images/SV College Of Engineering.jpg,,,https://svcolleges.edu.in/,
+Sree Rama Engineering College,CSE,3.8,92656,95000,51400,70000,Tirupati,Andhra Pradesh,static/images/Sree Rama Engineering College.jpg,,,https://www.sreerama.ac.in/,
+Sree Rama Engineering College,AIML,3.8,94262,95000,51400,70000,Tirupati,Andhra Pradesh,static/images/Sree Rama Engineering College.jpg,,,https://www.sreerama.ac.in/,
+Sree Rama Engineering College,ECE,3.8,121694,95000,51400,70000,Tirupati,Andhra Pradesh,static/images/Sree Rama Engineering College.jpg,,,https://www.sreerama.ac.in/,
+Sree Rama Engineering College,ME,3.8,179329,95000,51400,70000,Tirupati,Andhra Pradesh,static/images/Sree Rama Engineering College.jpg,,,https://www.sreerama.ac.in/,
+Annamacharya Institute Of Technology & Science,CSE,4.1,12869,180000,43670,80000,Tirupati,Andhra Pradesh,static/images/Annamacharya Institute Of Technology & Science.jpg,,,https://aitsrajampet.ac.in/,
+Annamacharya Institute Of Technology & Science,AIML,4.1,22876,180000,43670,80000,Tirupati,Andhra Pradesh,static/images/Annamacharya Institute Of Technology & Science.jpg,,,https://aitsrajampet.ac.in/,
+Annamacharya Institute Of Technology & Science,ECE,4.1,25736,180000,43670,80000,Tirupati,Andhra Pradesh,static/images/Annamacharya Institute Of Technology & Science.jpg,,,https://aitsrajampet.ac.in/,
+Annamacharya Institute Of Technology & Science,ME,4.1,63000,180000,43670,80000,Tirupati,Andhra Pradesh,static/images/Annamacharya Institute Of Technology & Science.jpg,,,https://aitsrajampet.ac.in/,
+Chadalawada Ramanamma Engineering College,CSE,3.6,47693,100000,55600,90000,Tirupati,Andhra Pradesh,static/images/Chadalawada Ramanamma Engineering College.jpg,,,https://crectirupati.ac.in/,
+Chadalawada Ramanamma Engineering College,AIML,3.6,69212,100000,55600,90000,Tirupati,Andhra Pradesh,static/images/Chadalawada Ramanamma Engineering College.jpg,,,https://crectirupati.ac.in/,
+Chadalawada Ramanamma Engineering College,ECE,3.6,51490,100000,55600,90000,Tirupati,Andhra Pradesh,static/images/Chadalawada Ramanamma Engineering College.jpg,,,https://crectirupati.ac.in/,
+Chadalawada Ramanamma Engineering College,ME,3.6,98908,100000,55600,90000,Tirupati,Andhra Pradesh,static/images/Chadalawada Ramanamma Engineering College.jpg,,,https://crectirupati.ac.in/,
+Sri Sai Institute Of Technology And Science,CSE,4.1,24184,120000,43000,55000,Rayachoty,Andhra Pradesh,static/images/Sri Sai Institute Of Technology And Science.jpg,,,https://ssits.ac.in/,
+Sri Sai Institute Of Technology And Science,AIML,4.1,9879,120000,43000,55000,Rayachoty,Andhra Pradesh,static/images/Sri Sai Institute Of Technology And Science.jpg,,,https://ssits.ac.in/,
+Sri Sai Institute Of Technology And Science,ECE,4.1,139742,120000,43000,55000,Rayachoty,Andhra Pradesh,static/images/Sri Sai Institute Of Technology And Science.jpg,,,https://ssits.ac.in/,
+Sri Sai Institute Of Technology And Science,ME,4.1,170442,120000,43000,55000,Rayachoty,Andhra Pradesh,static/images/Sri Sai Institute Of Technology And Science.jpg,,,https://ssits.ac.in/,
+Bhaskar Institute Of Technology And Science,CSE,4.7,17145,120000,40000,120000,Rayachoty,Andhra Pradesh,static/images/Bhaskar Institute Of Technology And Science.jpg,,,https://bitsrayachoty.in/,
+Bhaskar Institute Of Technology And Science,AIML,4.7,105799,120000,40000,85000,Rayachoty,Andhra Pradesh,static/images/Bhaskar Institute Of Technology And Science.jpg,,,https://bitsrayachoty.in/,
+Bhaskar Institute Of Technology And Science,ECE,4.7,88395,120000,40000,85000,Rayachoty,Andhra Pradesh,static/images/Bhaskar Institute Of Technology And Science.jpg,,,https://bitsrayachoty.in/,
+Bhaskar Institute Of Technology And Science,ME,4.7,1924,120000,40000,85000,Rayachoty,Andhra Pradesh,static/images/Bhaskar Institute Of Technology And Science.jpg,,,https://bitsrayachoty.in/,
+Annamacharya Institute Of Technology & Science,CSE,3.9,12869,190000,56650,55000,Chinthakommadine,Andhra Pradesh,static/images/Annamacharya Institute Of Technology & Science1.jpg,,,https://aitsrajampet.ac.in/,
+Annamacharya Institute Of Technology & Science,AIML,3.9,19290,190000,56650,55000,Chinthakommadine,Andhra Pradesh,static/images/Annamacharya Institute Of Technology & Science1.jpg,,,https://aitsrajampet.ac.in/,
+Annamacharya Institute Of Technology & Science,ECE,3.9,25736,150000,56650,55000,Chinthakommadine,Andhra Pradesh,static/images/Annamacharya Institute Of Technology & Science1.jpg,,,https://aitsrajampet.ac.in/,
+Annamacharya Institute Of Technology & Science,ME,3.9,63487,150000,56650,55000,Chinthakommadine,Andhra Pradesh,static/images/Annamacharya Institute Of Technology & Science1.jpg,,,https://aitsrajampet.ac.in/,
+SV College Of Engineering,CSE,4.1,14523,87000,58000,65000,Kadapa,Andhra Pradesh,static/images/SV College Of Engineering1.jpg,,,https://svcolleges.edu.in/,
+SV College Of Engineering,AIML,4.1,509122,87000,58000,65000,Kadapa,Andhra Pradesh,static/images/SV College Of Engineering1.jpg,,,https://svcolleges.edu.in/,
+SV College Of Engineering,ECE,4.1,55992,87000,58000,65000,Kadapa,Andhra Pradesh,static/images/SV College Of Engineering1.jpg,,,https://svcolleges.edu.in/,
+SV College Of Engineering,ME,4.1,40000,87000,35000,65000,Kadapa,Andhra Pradesh,static/images/SV College Of Engineering1.jpg,,,https://svcolleges.edu.in/,
+SVIST College Of Engineering,CSE,3.5,57227,120000,35000,65000,Pulivendula,Andhra Pradesh,static/images/SVIST College Of Engineering.jpg,,,https://svistkadapa.ac.in/,
+SVIST College Of Engineering,AIML,3.5,78052,120000,35000,65000,Pulivendula,Andhra Pradesh,static/images/SVIST College Of Engineering.jpg,,,https://svistkadapa.ac.in/,
+SVIST College Of Engineering,ECE,3.5,94352,120000,35000,65000,Pulivendula,Andhra Pradesh,static/images/SVIST College Of Engineering.jpg,,,https://svistkadapa.ac.in/,
+SVIST College Of Engineering,ME,3.5,169131,120000,35000,65000,Pulivendula,Andhra Pradesh,static/images/SVIST College Of Engineering.jpg,,,https://svistkadapa.ac.in/,
+KSRM College Of Engineering,CSE,4.3,20686,140000,69600,44000,Kadapa,Andhra Pradesh,static/images/KSRM College Of Engineering.jpg,,,https://www.ksrmce.ac.in/,
+KSRM College Of Engineering,AIML,4.3,14616,140000,69600,44000,Kadapa,Andhra Pradesh,static/images/KSRM College Of Engineering.jpg,,,https://www.ksrmce.ac.in/,
+KSRM College Of Engineering,ECE,4.3,40689,120000,69600,44000,Kadapa,Andhra Pradesh,static/images/KSRM College Of Engineering.jpg,,,https://www.ksrmce.ac.in/,
+KSRM College Of Engineering,ME,4.3,86302,70000,69600,44000,Kadapa,Andhra Pradesh,static/images/KSRM College Of Engineering.jpg,,,https://www.ksrmce.ac.in/,
+Kandula Obul Reddy Memorial College Of Engineering,CSE,3.9,177219,140000,43000,80000,Chinthakommadine,Andhra Pradesh,static/images/Kandula Obul Reddy Memorial College Of Engineering.jpg,,,https://ksrmce.ac.in/,
+Kandula Obul Reddy Memorial College Of Engineering,AIML,3.9,177303,140000,43000,80000,Chinthakommadine,Andhra Pradesh,static/images/Kandula Obul Reddy Memorial College Of Engineering.jpg,,,https://ksrmce.ac.in/,
+Kandula Obul Reddy Memorial College Of Engineering,ECE,3.9,165886,110000,43000,80000,Chinthakommadine,Andhra Pradesh,static/images/Kandula Obul Reddy Memorial College Of Engineering.jpg,,,https://ksrmce.ac.in/,
+Kandula Obul Reddy Memorial College Of Engineering,ME,3.9,170096,70000,43000,80000,Chinthakommadine,Andhra Pradesh,static/images/Kandula Obul Reddy Memorial College Of Engineering.jpg,,,https://ksrmce.ac.in/,
+Chaitanya Bharathi Institute Of Technology,CSE,3.7,7000,200000,54500,98000,Proddatur,Andhra Pradesh,static/images/Chaitanya Bharathi Institute Of Technology.jpg,,,https://cbit.edu.in/,
+Chaitanya Bharathi Institute Of Technology,AIML,3.7,6500,200000,54500,98000,Proddatur,Andhra Pradesh,static/images/Chaitanya Bharathi Institute Of Technology.jpg,,,https://cbit.edu.in/,
+Chaitanya Bharathi Institute Of Technology,ECE,3.7,16500,200000,54500,98000,Proddatur,Andhra Pradesh,static/images/Chaitanya Bharathi Institute Of Technology.jpg,,,https://cbit.edu.in/,
+Chaitanya Bharathi Institute Of Technology,ME,3.7,18000,200000,54500,98000,Proddatur,Andhra Pradesh,static/images/Chaitanya Bharathi Institute Of Technology.jpg,,,https://cbit.edu.in/,
+JNTUA College Of Engineering,CSE,3.9,3954,Not Applicable,18000,42000,Pulivendula,Andhra Pradesh,static/images/JNTUA College Of Engineering.jpg,,,https://jntuacep.ac.in/,
+JNTUA College Of Engineering,AIML,3.9,6533,Not Applicable,18000,42000,Pulivendula,Andhra Pradesh,static/images/JNTUA College Of Engineering.jpg,,,https://jntuacep.ac.in/,
+JNTUA College Of Engineering,ECE,3.9,19418,Not Applicable,18000,42000,Pulivendula,Andhra Pradesh,static/images/JNTUA College Of Engineering.jpg,,,https://jntuacep.ac.in/,
+JNTUA College Of Engineering,ME,3.9,36230,Not Applicable,18000,42000,Pulivendula,Andhra Pradesh,static/images/JNTUA College Of Engineering.jpg,,,https://jntuacep.ac.in/,
+Bharath College Of Engineering And Technology For Women,CSE,4.1,50000,100000,35000,70000,YSR Kadapa,Andhra Pradesh,static/images/Bharath College Of Engineering And Technology For Women.jpg,,,https://bcetfw.org/,
+Bharath College Of Engineering And Technology For Women,AIML,4.1,80000,100000,35000,70000,YSR Kadapa,Andhra Pradesh,static/images/Bharath College Of Engineering And Technology For Women.jpg,,,https://bcetfw.org/,
+Bharath College Of Engineering And Technology For Women,ECE,4.1,100000,85000,35000,70000,YSR Kadapa,Andhra Pradesh,static/images/Bharath College Of Engineering And Technology For Women.jpg,,,https://bcetfw.org/,
+Bharath College Of Engineering And Technology For Women,ME,4.1,100000,70000,35000,70000,YSR Kadapa,Andhra Pradesh,static/images/Bharath College Of Engineering And Technology For Women.jpg,,,https://bcetfw.org/,
+Srinivasa Institute Of Technology,CSE,3.8,71896,55000,43000,80000,YSR Kadapa,Andhra Pradesh,static/images/Srinivasa Institute Of Technology.jpg,,,https://sitskadapa.ac.in/,
+Srinivasa Institute Of Technology,AIML,3.8,167160,55000,43000,80000,YSR Kadapa,Andhra Pradesh,static/images/Srinivasa Institute Of Technology.jpg,,,https://sitskadapa.ac.in/,
+Srinivasa Institute Of Technology,ECE,3.8,97599,55000,43000,80000,YSR Kadapa,Andhra Pradesh,static/images/Srinivasa Institute Of Technology.jpg,,,https://sitskadapa.ac.in/,
+Srinivasa Institute Of Technology,ME,3.8,175000,55000,43000,80000,YSR Kadapa,Andhra Pradesh,static/images/Srinivasa Institute Of Technology.jpg,,,https://sitskadapa.ac.in/,
+Global College Of Engineering And Technology,CSE,4.3,60596,150000,43000,70000,YSR Kadapa,Andhra Pradesh,static/images/Global College Of Engineering And Technology.jpg,,,,
+Global College Of Engineering And Technology,AIML,4.3,60596,150000,43000,70000,YSR Kadapa,Andhra Pradesh,static/images/Global College Of Engineering And Technology.jpg,,,,
+Global College Of Engineering And Technology,ECE,4.3,108859,110000,43000,70000,YSR Kadapa,Andhra Pradesh,static/images/Global College Of Engineering And Technology.jpg,,,,
+Global College Of Engineering And Technology,ME,4.3,124199,75000,43000,70000,YSR Kadapa,Andhra Pradesh,static/images/Global College Of Engineering And Technology.jpg,,,,
+Sai Rajeswari Institute Of Technology & Autonomous,CSE,3.8,53444,150000,75000,75000,YSR Kadapa,Andhra Pradesh,static/images/Sai Rajeswari Institute Of Technology & Autonomous.jpg,,,https://www.srit.edu.in/,
+Sai Rajeswari Institute Of Technology & Autonomous,AIML,3.8,56611,150000,75000,75000,YSR Kadapa,Andhra Pradesh,static/images/Sai Rajeswari Institute Of Technology & Autonomous.jpg,,,https://www.srit.edu.in/,
+Sai Rajeswari Institute Of Technology & Autonomous,ECE,3.8,77768,150000,75000,75000,YSR Kadapa,Andhra Pradesh,static/images/Sai Rajeswari Institute Of Technology & Autonomous.jpg,,,https://www.srit.edu.in/,
+Sai Rajeswari Institute Of Technology & Autonomous,ME,3.8,102228,150000,75000,75000,YSR Kadapa,Andhra Pradesh,static/images/Sai Rajeswari Institute Of Technology & Autonomous.jpg,,,https://www.srit.edu.in/,
+YSR Engineering College Of Yogi Vemana University,CSE,4.1,5401,Not Applicable,62000,30000,Proddatur,Andhra Pradesh,static/images/YSR Engineering College Of Yogi Vemana University.jpg,,,https://ysrec.yvu.edu.in/,
+YSR Engineering College Of Yogi Vemana University,AIML,4.1,5401,Not Applicable,62000,30000,Proddatur,Andhra Pradesh,static/images/YSR Engineering College Of Yogi Vemana University.jpg,,,https://ysrec.yvu.edu.in/,
+YSR Engineering College Of Yogi Vemana University,ECE,4.1,10113,Not Applicable,62000,30000,Proddatur,Andhra Pradesh,static/images/YSR Engineering College Of Yogi Vemana University.jpg,,,https://ysrec.yvu.edu.in/,
+YSR Engineering College Of Yogi Vemana University,ME,4.1,47367,Not Applicable,62000,30000,Proddatur,Andhra Pradesh,static/images/YSR Engineering College Of Yogi Vemana University.jpg,,,https://ysrec.yvu.edu.in/,
+Vaagdevi Institute Of Technology & Science,CSE,3.6,10000,120000,43000,100000,Kadapa,Andhra Pradesh,static/images/Vaagdevi Institute Of Technology & Science.jpg,,,http://www.vitspdtr.ac.in/,
+Vaagdevi Institute Of Technology & Science,AIML,3.6,12000,120000,43000,100000,Kadapa,Andhra Pradesh,static/images/Vaagdevi Institute Of Technology & Science.jpg,,,http://www.vitspdtr.ac.in/,
+Vaagdevi Institute Of Technology & Science,ECE,3.6,20000,90000,43000,100000,Kadapa,Andhra Pradesh,static/images/Vaagdevi Institute Of Technology & Science.jpg,,,http://www.vitspdtr.ac.in/,
+Vaagdevi Institute Of Technology & Science,ME,3.6,50000,80000,43000,100000,Kadapa,Andhra Pradesh,static/images/Vaagdevi Institute Of Technology & Science.jpg,,,http://www.vitspdtr.ac.in/,
+Madanapalli Institute Of Technology And Science,CSE,4.3,18877,225000,69800,90000,Madanapalli,Andhra Pradesh,static/images/Madanapalli Institute Of Technology And Science.jpg,,,https://mits.ac.in/,
+Madanapalli Institute Of Technology And Science,AIML,4.3,23518,225000,69800,90000,Madanapalli,Andhra Pradesh,static/images/Madanapalli Institute Of Technology And Science.jpg,,,https://mits.ac.in/,
+Madanapalli Institute Of Technology And Science,ECE,4.3,35267,200000,69800,90000,Madanapalli,Andhra Pradesh,static/images/Madanapalli Institute Of Technology And Science.jpg,,,https://mits.ac.in/,
+Madanapalli Institute Of Technology And Science,ME,4.3,170965,150000,69800,90000,Madanapalli,Andhra Pradesh,static/images/Madanapalli Institute Of Technology And Science.jpg,,,https://mits.ac.in/,
+Viswam Engineering College,CSE,3.9,13635,129000,43000,60000,Madanapalli,Andhra Pradesh,static/images/Viswam Engineering College.jpg,,,https://viswam.ac.in/,
+Viswam Engineering College,AIML,3.9,39375,129000,43000,60000,Madanapalli,Andhra Pradesh,static/images/Viswam Engineering College.jpg,,,https://viswam.ac.in/,
+Viswam Engineering College,ECE,3.9,67186,70000,43000,60000,Madanapalli,Andhra Pradesh,static/images/Viswam Engineering College.jpg,,,https://viswam.ac.in/,
+Viswam Engineering College,ME,3.9,86348,60000,43000,60000,Madanapalli,Andhra Pradesh,static/images/Viswam Engineering College.jpg,,,https://viswam.ac.in/,
+Aditya College Of Engineering,CSE,3.8,82734,129000,43000,60000,Madanapalli,Andhra Pradesh,static/images/Aditya College Of Engineering.jpg,,,https://acem.ac.in/,
+Aditya College Of Engineering,AIML,3.8,97871,129000,43000,60000,Madanapalli,Andhra Pradesh,static/images/Aditya College Of Engineering.jpg,,,https://acem.ac.in/,
+Aditya College Of Engineering,ECE,3.8,124973,100000,43000,60000,Madanapalli,Andhra Pradesh,static/images/Aditya College Of Engineering.jpg,,,https://acem.ac.in/,
+Aditya College Of Engineering,ME,3.8,160000,100000,43000,60000,Madanapalli,Andhra Pradesh,static/images/Aditya College Of Engineering.jpg,,,https://acem.ac.in/,
+Mother Theresa Institute Of Engineering And Technology,CSE,3.9,26640,229000,57200,60000,Palamaner,Andhra Pradesh,static/images/Mother Theresa Institute Of Engineering And Technology.jpg,,,https://www.mtieat.org/,
+Mother Theresa Institute Of Engineering And Technology,AIML,3.9,39621,229000,57200,60000,Palamaner,Andhra Pradesh,static/images/Mother Theresa Institute Of Engineering And Technology.jpg,,,https://www.mtieat.org/,
+Mother Theresa Institute Of Engineering And Technology,ECE,3.9,61673,229000,57200,60000,Palamaner,Andhra Pradesh,static/images/Mother Theresa Institute Of Engineering And Technology.jpg,,,https://www.mtieat.org/,
+Mother Theresa Institute Of Engineering And Technology,ME,3.9,113940,229000,57200,60000,Palamaner,Andhra Pradesh,static/images/Mother Theresa Institute Of Engineering And Technology.jpg,,,https://www.mtieat.org/,
+Kuppam Engineering College,CSE,3.5,14256,120000,45400,100000,Kuppam,Andhra Pradesh,static/images/Kuppam Engineering College.jpg,,,https://kec.ac.in/,
+Kuppam Engineering College,AIML,3.5,42166,100000,45400,100000,Kuppam,Andhra Pradesh,static/images/Kuppam Engineering College.jpg,,,https://kec.ac.in/,
+Kuppam Engineering College,ECE,3.5,25182,100000,45400,100000,Kuppam,Andhra Pradesh,static/images/Kuppam Engineering College.jpg,,,https://kec.ac.in/,
+Kuppam Engineering College,ME,3.5,109394,60000,45400,100000,Kuppam,Andhra Pradesh,static/images/Kuppam Engineering College.jpg,,,https://kec.ac.in/,
+JNTUA College Of Engineering Kalikiri,CSE,4.1,3210,Not Applicable,47200,60000,Kalikiri,Andhra Pradesh,static/images/JNTUA College Of Engineering Kalikiri.jpg,,,https://www.jntuacek.ac.in/,
+JNTUA College Of Engineering Kalikiri,AIML,4.1,11016,Not Applicable,47200,60000,Kalikiri,Andhra Pradesh,static/images/JNTUA College Of Engineering Kalikiri.jpg,,,https://www.jntuacek.ac.in/,
+JNTUA College Of Engineering Kalikiri,ECE,4.1,46657,Not Applicable,47200,60000,Kalikiri,Andhra Pradesh,static/images/JNTUA College Of Engineering Kalikiri.jpg,,,https://www.jntuacek.ac.in/,
+JNTUA College Of Engineering Kalikiri,ME,4.1,30478,Not Applicable,47200,60000,Kalikiri,Andhra Pradesh,static/images/JNTUA College Of Engineering Kalikiri.jpg,,,https://www.jntuacek.ac.in/,
+MJR College Of Engineering & Technology,CSE,3.7,14256,150000,43000,125000,Piler,Andhra Pradesh,static/images/MJR College Of Engineering & Technology.jpg,,,https://www.mjrcet.org/,
+MJR College Of Engineering & Technology,AIML,3.7,42166,150000,43000,125000,Piler,Andhra Pradesh,static/images/MJR College Of Engineering & Technology.jpg,,,https://www.mjrcet.org/,
+MJR College Of Engineering & Technology,ECE,3.7,82777,150000,43000,125000,Piler,Andhra Pradesh,static/images/MJR College Of Engineering & Technology.jpg,,,https://www.mjrcet.org/,
+MJR College Of Engineering & Technology,ME,3.7,85361,150000,43000,125000,Piler,Andhra Pradesh,static/images/MJR College Of Engineering & Technology.jpg,,,https://www.mjrcet.org/,
+VEMU Institute Of Technology,CSE,4.3,14621,150000,47250,90000,Pakala,Andhra Pradesh,static/images/VEMU Institute Of Technology.jpg,,,http://vemu.org/,
+VEMU Institute Of Technology,AIML,4.3,30942,150000,47250,90000,Pakala,Andhra Pradesh,static/images/VEMU Institute Of Technology.jpg,,,http://vemu.org/,
+VEMU Institute Of Technology,ECE,4.3,30974,100000,47250,90000,Pakala,Andhra Pradesh,static/images/VEMU Institute Of Technology.jpg,,,http://vemu.org/,
+VEMU Institute Of Technology,ME,4.3,112503,100000,47250,90000,Pakala,Andhra Pradesh,static/images/VEMU Institute Of Technology.jpg,,,http://vemu.org/,
+Vijayam Institute Of Technology,CSE,4.2,38872,150000,43000,80000,Chittor,Andhra Pradesh,static/images/Vijayam Institute Of Technology.jpg,,,http://www.vijayamit.com/,
+Vijayam Institute Of Technology,AIML,4.2,52017,150000,43000,80000,Chittor,Andhra Pradesh,static/images/Vijayam Institute Of Technology.jpg,,,http://www.vijayamit.com/,
+Vijayam Institute Of Technology,ECE,4.2,53851,150000,43000,80000,Chittor,Andhra Pradesh,static/images/Vijayam Institute Of Technology.jpg,,,http://www.vijayamit.com/,
+Vijayam Institute Of Technology,ME,4.2,53851,150000,43000,80000,Chittor,Andhra Pradesh,static/images/Vijayam Institute Of Technology.jpg,,,http://www.vijayamit.com/,
+Siddharth Institute Of Engineering And Technology,CSE,3.8,37868,180000,65400,72000,Puttur,Andhra Pradesh,static/images/Siddharth Institute Of Engineering And Technology.jpg,,,https://www.sietk.org/,
+Siddharth Institute Of Engineering And Technology,AIML,3.8,30812,180000,65400,72000,Puttur,Andhra Pradesh,static/images/Siddharth Institute Of Engineering And Technology.jpg,,,https://www.sietk.org/,
+Siddharth Institute Of Engineering And Technology,ECE,3.8,51200,140000,65400,72000,Puttur,Andhra Pradesh,static/images/Siddharth Institute Of Engineering And Technology.jpg,,,https://www.sietk.org/,
+Siddharth Institute Of Engineering And Technology,ME,3.8,86762,100000,65400,72000,Puttur,Andhra Pradesh,static/images/Siddharth Institute Of Engineering And Technology.jpg,,,https://www.sietk.org/,
+Chiranjeevi Reddy Institute Of Engineering And Technology,CSE,3.2,64400,120000,45000,84000,Anantapuramu,Andhra Pradesh,static/images/Chiranjeevi Reddy Institute Of Engineering And Technology.jpg,,,https://www.critatp.in/,
+Chiranjeevi Reddy Institute Of Engineering And Technology,AIML,3.2,130000,120000,35000,84000,Anantapuramu,Andhra Pradesh,static/images/Chiranjeevi Reddy Institute Of Engineering And Technology.jpg,,,https://www.critatp.in/,
+Chiranjeevi Reddy Institute Of Engineering And Technology,ECE,3.2,88900,120000,35000,84000,Anantapuramu,Andhra Pradesh,static/images/Chiranjeevi Reddy Institute Of Engineering And Technology.jpg,,,https://www.critatp.in/,
+Chiranjeevi Reddy Institute Of Engineering And Technology,ME,3.2,127500,45000,32000,84000,Anantapuramu,Andhra Pradesh,static/images/Chiranjeevi Reddy Institute Of Engineering And Technology.jpg,,,https://www.critatp.in/,
+SVES Group Of Institution,CSE,4.9,68238,129000,43000,90000,Anantapuramu,Andhra Pradesh,static/images/SVES Group Of Institution.jpg,,,https://svesinstitutions.com/,
+SVES Group Of Institution,AIML,4.9,74417,129000,43000,90000,Anantapuramu,Andhra Pradesh,static/images/SVES Group Of Institution.jpg,,,https://svesinstitutions.com/,
+SVES Group Of Institution,ECE,4.9,176144,129000,43000,90000,Anantapuramu,Andhra Pradesh,static/images/SVES Group Of Institution.jpg,,,https://svesinstitutions.com/,
+SVES Group Of Institution,ME,4.9,148812,129000,43000,90000,Anantapuramu,Andhra Pradesh,static/images/SVES Group Of Institution.jpg,,,https://svesinstitutions.com/,
+PVKK Institute Of Technology,CSE,4.3,15813,100000,43000,80000,Anantapuramu,Andhra Pradesh,static/images/PVKK Institute Of Technology.jpg,,,https://pvkkit.ac.in/,
+PVKK Institute Of Technology,AIML,4.3,48795,100000,43000,80000,Anantapuramu,Andhra Pradesh,static/images/PVKK Institute Of Technology.jpg,,,https://pvkkit.ac.in/,
+PVKK Institute Of Technology,ECE,4.3,54795,70000,43000,80000,Anantapuramu,Andhra Pradesh,static/images/PVKK Institute Of Technology.jpg,,,https://pvkkit.ac.in/,
+PVKK Institute Of Technology,ME,4.3,99018,60000,43000,80000,Anantapuramu,Andhra Pradesh,static/images/PVKK Institute Of Technology.jpg,,,https://pvkkit.ac.in/,
+Ananthalakshmi Institute Of Technology And Science,CSE,3.9,46999,120000,55000,70000,Anantapuramu,Andhra Pradesh,static/images/Ananthalakshmi Institute Of Technology And Science.jpg,,,http://www.alits.ac.in/,
+Ananthalakshmi Institute Of Technology And Science,AIML,3.9,59221,120000,55000,70000,Anantapuramu,Andhra Pradesh,static/images/Ananthalakshmi Institute Of Technology And Science.jpg,,,http://www.alits.ac.in/,
+Ananthalakshmi Institute Of Technology And Science,ECE,3.9,76878,80000,55000,70000,Anantapuramu,Andhra Pradesh,static/images/Ananthalakshmi Institute Of Technology And Science.jpg,,,http://www.alits.ac.in/,
+Ananthalakshmi Institute Of Technology And Science,ME,3.9,76051,80000,55000,70000,Anantapuramu,Andhra Pradesh,static/images/Ananthalakshmi Institute Of Technology And Science.jpg,,,http://www.alits.ac.in/,
+Sri Krishnadevaraya University,CSE,4.1,6200,150000,40500,49000,Anantapuramu,Andhra Pradesh,static/images/Sri Krishnadevaraya University.jpg,,,https://www.skuniversity.ac.in/,
+Sri Krishnadevaraya University,AIML,4.1,27000,150000,40500,49000,Anantapuramu,Andhra Pradesh,static/images/Sri Krishnadevaraya University.jpg,,,https://www.skuniversity.ac.in/,
+Sri Krishnadevaraya University,ECE,4.1,13000,150000,40500,49000,Anantapuramu,Andhra Pradesh,static/images/Sri Krishnadevaraya University.jpg,,,https://www.skuniversity.ac.in/,
+Sri Krishnadevaraya University,ME,4.1,92500,150000,40500,49000,Anantapuramu,Andhra Pradesh,static/images/Sri Krishnadevaraya University.jpg,,,https://www.skuniversity.ac.in/,
+JNTUA Ananthapur,CSE,4.4,889,Not Applicable,47200,45000,Anantapuramu,Andhra Pradesh,static/images/JNTUA Ananthapur.jpg,,,https://www.jntuacea.ac.in/,
+JNTUA Ananthapur,AIML,4.4,2965,Not Applicable,47200,45000,Anantapuramu,Andhra Pradesh,static/images/JNTUA Ananthapur.jpg,,,https://www.jntuacea.ac.in/,
+JNTUA Ananthapur,ECE,4.4,1458,Not Applicable,47200,45000,Anantapuramu,Andhra Pradesh,static/images/JNTUA Ananthapur.jpg,,,https://www.jntuacea.ac.in/,
+JNTUA Ananthapur,ME,4.4,7490,Not Applicable,47200,45000,Anantapuramu,Andhra Pradesh,static/images/JNTUA Ananthapur.jpg,,,https://www.jntuacea.ac.in/,
+Government College(Autonomous),CSE,4.4,889,Not Applicable,40000,45000,Anantapuramu,Andhra Pradesh,static/images/Government College(Autonomous).jpg,,,https://www.gdcatp.ac.in/,
+Government College(Autonomous),AIML,4.4,2965,Not Applicable,40000,45000,Anantapuramu,Andhra Pradesh,static/images/Government College(Autonomous).jpg,,,https://www.gdcatp.ac.in/,
+Government College(Autonomous),ECE,4.4,1458,Not Applicable,40000,45000,Anantapuramu,Andhra Pradesh,static/images/Government College(Autonomous).jpg,,,https://www.gdcatp.ac.in/,
+Government College(Autonomous),ME,4.4,7490,Not Applicable,40000,45000,Anantapuramu,Andhra Pradesh,static/images/Government College(Autonomous).jpg,,,https://www.gdcatp.ac.in/,
+Srinivasa Ramanujan Institute Of Technology,CSE,4.1,11590,147300,50250,75000,Anantapuramu,Andhra Pradesh,static/images/Srinivasa Ramanujan Institute Of Technology.jpg,,,https://www.srit.ac.in/,
+Srinivasa Ramanujan Institute Of Technology,AIML,4.1,16043,147300,50250,75000,Anantapuramu,Andhra Pradesh,static/images/Srinivasa Ramanujan Institute Of Technology.jpg,,,https://www.srit.ac.in/,
+Srinivasa Ramanujan Institute Of Technology,ECE,4.1,30461,147300,50250,75000,Anantapuramu,Andhra Pradesh,static/images/Srinivasa Ramanujan Institute Of Technology.jpg,,,https://www.srit.ac.in/,
+Srinivasa Ramanujan Institute Of Technology,ME,4.1,93509,147300,50250,75000,Anantapuramu,Andhra Pradesh,static/images/Srinivasa Ramanujan Institute Of Technology.jpg,,,https://www.srit.ac.in/,
+YV Siva Reddy College Of Engineering And Technology,CSE,4.2,127000,85000,35000,75000,Anantapuramu,Andhra Pradesh,static/images/YV Siva Reddy College Of Engineering And Technology.jpg,,,https://allegiance-educare.in/college/y-v-siva-reddy-college-of-engineering-and-technology,
+YV Siva Reddy College Of Engineering And Technology,AIML,4.2,127000,85000,35000,75000,Anantapuramu,Andhra Pradesh,static/images/YV Siva Reddy College Of Engineering And Technology.jpg,,,https://allegiance-educare.in/college/y-v-siva-reddy-college-of-engineering-and-technology,
+YV Siva Reddy College Of Engineering And Technology,ECE,4.2,132000,85000,35000,75000,Anantapuramu,Andhra Pradesh,static/images/YV Siva Reddy College Of Engineering And Technology.jpg,,,https://allegiance-educare.in/college/y-v-siva-reddy-college-of-engineering-and-technology,
+YV Siva Reddy College Of Engineering And Technology,ME,4.2,140000,85000,35000,75000,Anantapuramu,Andhra Pradesh,static/images/YV Siva Reddy College Of Engineering And Technology.jpg,,,https://allegiance-educare.in/college/y-v-siva-reddy-college-of-engineering-and-technology,
+Shri Shirdi Sai Institute Of Science & Engineering,CSE,3.3,45000,Not Applicable,40000,75000,Anantapuramu,Andhra Pradesh,static/images/Shri Shirdi Sai Institute Of Science & Engineering.jpg,,,https://www.shiksha.com/college/shri-shirdi-sai-institute-of-science-and-engineering-sssise-anantapur-46618,
+Shri Shirdi Sai Institute Of Science & Engineering,AIML,3.3,60000,Not Applicable,40000,75000,Anantapuramu,Andhra Pradesh,static/images/Shri Shirdi Sai Institute Of Science & Engineering.jpg,,,https://www.shiksha.com/college/shri-shirdi-sai-institute-of-science-and-engineering-sssise-anantapur-46618,
+Shri Shirdi Sai Institute Of Science & Engineering,ECE,3.3,67000,Not Applicable,40000,75000,Anantapuramu,Andhra Pradesh,static/images/Shri Shirdi Sai Institute Of Science & Engineering.jpg,,,https://www.shiksha.com/college/shri-shirdi-sai-institute-of-science-and-engineering-sssise-anantapur-46618,
+Shri Shirdi Sai Institute Of Science & Engineering,ME,3.3,110000,Not Applicable,40000,75000,Anantapuramu,Andhra Pradesh,static/images/Shri Shirdi Sai Institute Of Science & Engineering.jpg,,,https://www.shiksha.com/college/shri-shirdi-sai-institute-of-science-and-engineering-sssise-anantapur-46618,
+Gates Institute Of Technology,CSE,4.1,39183,Not Applicable,40100,65000,Gooty,Andhra Pradesh,static/images/Gates Institute Of Technology.jpg,,,https://gatesit.ac.in/,
+Gates Institute Of Technology,AIML,4.1,28709,Not Applicable,40100,65000,Gooty,Andhra Pradesh,static/images/Gates Institute Of Technology.jpg,,,https://gatesit.ac.in/,
+Gates Institute Of Technology,ECE,4.1,41986,Not Applicable,40100,65000,Gooty,Andhra Pradesh,static/images/Gates Institute Of Technology.jpg,,,https://gatesit.ac.in/,
+Gates Institute Of Technology,ME,4.1,135086,Not Applicable,40100,65000,Gooty,Andhra Pradesh,static/images/Gates Institute Of Technology.jpg,,,https://gatesit.ac.in/,
+Gokula Krishna College Of Engineering,CSE,3.9,60871,140000,43000,90000,Sullurpet,Andhra Pradesh,static/images/Gokula Krishna College Of Engineering.jpg,,,https://www.gkcesp.com/,
+Gokula Krishna College Of Engineering,AIML,3.9,70555,140000,43000,90000,Sullurpet,Andhra Pradesh,static/images/Gokula Krishna College Of Engineering.jpg,,,https://www.gkcesp.com/,
+Gokula Krishna College Of Engineering,ECE,3.9,86901,140000,43000,90000,Sullurpet,Andhra Pradesh,static/images/Gokula Krishna College Of Engineering.jpg,,,https://www.gkcesp.com/,
+Gokula Krishna College Of Engineering,ME,3.9,117652,140000,43000,90000,Sullurpet,Andhra Pradesh,static/images/Gokula Krishna College Of Engineering.jpg,,,https://www.gkcesp.com/,
+NBRK Institute Of Science And Technology,CSE,4.1,17825,150000,120000,85000,Nellore,Andhra Pradesh,static/images/NBRK Institute Of Science And Technology.jpg,,,https://www.nbkrist.org/,
+NBRK Institute Of Science And Technology,AIML,4.1,25423,150000,120000,85000,Nellore,Andhra Pradesh,static/images/NBRK Institute Of Science And Technology.jpg,,,https://www.nbkrist.org/,
+NBRK Institute Of Science And Technology,ECE,4.1,10903,150000,100000,85000,Nellore,Andhra Pradesh,static/images/NBRK Institute Of Science And Technology.jpg,,,https://www.nbkrist.org/,
+NBRK Institute Of Science And Technology,ME,4.1,97814,125000,70000,85000,Nellore,Andhra Pradesh,static/images/NBRK Institute Of Science And Technology.jpg,,,https://www.nbkrist.org/,
+Narayana Engineering College,CSE,3.7,2349,100000,49500,50000,Gudur,Andhra Pradesh,static/images/Narayana Engineering College.jpg,,,https://necg.ac.in/,
+Narayana Engineering College,AIML,3.7,19868,100000,49500,50000,Gudur,Andhra Pradesh,static/images/Narayana Engineering College.jpg,,,https://necg.ac.in/,
+Narayana Engineering College,ECE,3.7,28012,100000,49500,50000,Gudur,Andhra Pradesh,static/images/Narayana Engineering College.jpg,,,https://necg.ac.in/,
+Narayana Engineering College,ME,3.7,96127,100000,49500,50000,Gudur,Andhra Pradesh,static/images/Narayana Engineering College.jpg,,,https://necg.ac.in/,
+Audisankara University,CSE,4.1,45000,150000,61100,70000,Gudur,Andhra Pradesh,static/images/Audisankara University.jpg,,,https://www.audisankara.ac.in/,
+Audisankara University,AIML,4.1,45997,150000,61100,70000,Gudur,Andhra Pradesh,static/images/Audisankara University.jpg,,,https://www.audisankara.ac.in/,
+Audisankara University,ECE,4.1,64874,150000,61100,70000,Gudur,Andhra Pradesh,static/images/Audisankara University.jpg,,,https://www.audisankara.ac.in/,
+Audisankara University,ME,4.1,72506,150000,61100,70000,Gudur,Andhra Pradesh,static/images/Audisankara University.jpg,,,https://www.audisankara.ac.in/,
+Vikrama Simhapuri University,CSE,3.8,40000,100000,40000,70000,Kakutur,Andhra Pradesh,static/images/Vikrama Simhapuri University.jpg,,,https://audisankarauniversity.edu.in/,
+Vikrama Simhapuri University,AIML,3.8,45000,100000,40000,70000,Kakutur,Andhra Pradesh,static/images/Vikrama Simhapuri University.jpg,,,https://audisankarauniversity.edu.in/,
+Vikrama Simhapuri University,ECE,3.8,50000,100000,40000,70000,Kakutur,Andhra Pradesh,static/images/Vikrama Simhapuri University.jpg,,,https://audisankarauniversity.edu.in/,
+Vikrama Simhapuri University,ME,3.8,70000,100000,40000,70000,Kakutur,Andhra Pradesh,static/images/Vikrama Simhapuri University.jpg,,,https://audisankarauniversity.edu.in/,
+Krishna Chaitanya Institute Of Science And Technology,CSE,3.7,75396,129000,43000,58000,Kakutur,Andhra Pradesh,static/images/Krishna Chaitanya Institute Of Science And Technology.jpg,,,https://kistkakutur.com/,
+Krishna Chaitanya Institute Of Science And Technology,AIML,3.7,34137,129000,43000,58000,Kakutur,Andhra Pradesh,static/images/Krishna Chaitanya Institute Of Science And Technology.jpg,,,https://kistkakutur.com/,
+Krishna Chaitanya Institute Of Science And Technology,ECE,3.7,46373,129000,43000,58000,Kakutur,Andhra Pradesh,static/images/Krishna Chaitanya Institute Of Science And Technology.jpg,,,https://kistkakutur.com/,
+Krishna Chaitanya Institute Of Science And Technology,ME,3.7,186460,129000,43000,58000,Kakutur,Andhra Pradesh,static/images/Krishna Chaitanya Institute Of Science And Technology.jpg,,,https://kistkakutur.com/,
+Geethanjali Institute Of Science And Technology,CSE,4.1,13358,165600,55200,100000,Gangavaram,Andhra Pradesh,static/images/Geethanjali Institute Of Science And Technology.jpg,,,https://gist.edu.in/gist/gist-home/,
+Geethanjali Institute Of Science And Technology,AIML,4.1,31986,165600,55200,100000,Gangavaram,Andhra Pradesh,static/images/Geethanjali Institute Of Science And Technology.jpg,,,https://gist.edu.in/gist/gist-home/,
+Geethanjali Institute Of Science And Technology,ECE,4.1,58800,165600,55200,100000,Gangavaram,Andhra Pradesh,static/images/Geethanjali Institute Of Science And Technology.jpg,,,https://gist.edu.in/gist/gist-home/,
+Geethanjali Institute Of Science And Technology,ME,4.1,20000,165600,55200,100000,Gangavaram,Andhra Pradesh,static/images/Geethanjali Institute Of Science And Technology.jpg,,,https://gist.edu.in/gist/gist-home/,
+KNS Institute Of Technology,CSE,4.4,70000,150000,35000,90000,Kovur,Andhra Pradesh,static/images/KNS Institute Of Technology.jpg,,,https://www.shiksha.com/college/kns-institute-of-technology-yelahanaka-bangalore-33067,
+KNS Institute Of Technology,AIML,4.4,80000,150000,35000,90000,Kovur,Andhra Pradesh,static/images/KNS Institute Of Technology.jpg,,,https://www.shiksha.com/college/kns-institute-of-technology-yelahanaka-bangalore-33067,
+KNS Institute Of Technology,ECE,4.4,90000,150000,35000,90000,Kovur,Andhra Pradesh,static/images/KNS Institute Of Technology.jpg,,,https://www.shiksha.com/college/kns-institute-of-technology-yelahanaka-bangalore-33067,
+KNS Institute Of Technology,ME,4.4,120000,150000,35000,90000,Kovur,Andhra Pradesh,static/images/KNS Institute Of Technology.jpg,,,https://www.shiksha.com/college/kns-institute-of-technology-yelahanaka-bangalore-33067,
+Brahmaiah College Of Engineering,CSE,3.8,96236,160000,40000,90000,Rajupalem,Andhra Pradesh,static/images/Brahmaiah College Of Engineering.jpg,,,https://educationexclusive.com/brahmaiah-college-of-engineering,
+Brahmaiah College Of Engineering,AIML,3.8,86560,160000,40000,90000,Rajupalem,Andhra Pradesh,static/images/Brahmaiah College Of Engineering.jpg,,,https://educationexclusive.com/brahmaiah-college-of-engineering,
+Brahmaiah College Of Engineering,ECE,3.8,179150,160000,40000,90000,Rajupalem,Andhra Pradesh,static/images/Brahmaiah College Of Engineering.jpg,,,https://educationexclusive.com/brahmaiah-college-of-engineering,
+Brahmaiah College Of Engineering,ME,3.8,123815,160000,40000,90000,Rajupalem,Andhra Pradesh,static/images/Brahmaiah College Of Engineering.jpg,,,https://educationexclusive.com/brahmaiah-college-of-engineering,
+Sree Venkateswara College Of Engineering,CSE,3.6,24169,90000,43000,70000,Rajupalem,Andhra Pradesh,static/images/Sree Venkateswara College Of Engineering.jpg,,,https://svcn.ac.in/,
+Sree Venkateswara College Of Engineering,AIML,3.6,23055,90000,43000,70000,Rajupalem,Andhra Pradesh,static/images/Sree Venkateswara College Of Engineering.jpg,,,https://svcn.ac.in/,
+Sree Venkateswara College Of Engineering,ECE,3.6,64592,90000,43000,70000,Rajupalem,Andhra Pradesh,static/images/Sree Venkateswara College Of Engineering.jpg,,,https://svcn.ac.in/,
+Sree Venkateswara College Of Engineering,ME,3.6,85500,90000,43000,70000,Rajupalem,Andhra Pradesh,static/images/Sree Venkateswara College Of Engineering.jpg,,,https://svcn.ac.in/,
+RSR Engineering College,CSE,3.6,18937,180000,45100,80000,Kadanutala,Andhra Pradesh,static/images/RSR Engineering College.jpg,,,https://rsrec.edu.in/,
+RSR Engineering College,AIML,3.6,36438,180000,45100,80000,Kadanutala,Andhra Pradesh,static/images/RSR Engineering College.jpg,,,https://rsrec.edu.in/,
+RSR Engineering College,ECE,3.6,38055,160000,45100,80000,Kadanutala,Andhra Pradesh,static/images/RSR Engineering College.jpg,,,https://rsrec.edu.in/,
+RSR Engineering College,ME,3.6,38055,160000,45100,80000,Kadanutala,Andhra Pradesh,static/images/RSR Engineering College.jpg,,,https://rsrec.edu.in/,
+PBR Visvodaya Institute Of Technology & Science,CSE,3.7,62307,150000,46500,55000,Kavali,Andhra Pradesh,static/images/PBR Visvodaya Institute Of Technology & Science.jpg,,,https://pbrvits.ac.in/,
+PBR Visvodaya Institute Of Technology & Science,AIML,3.7,45306,150000,46500,55000,Kavali,Andhra Pradesh,static/images/PBR Visvodaya Institute Of Technology & Science.jpg,,,https://pbrvits.ac.in/,
+PBR Visvodaya Institute Of Technology & Science,ECE,3.7,53202,100000,46500,55000,Kavali,Andhra Pradesh,static/images/PBR Visvodaya Institute Of Technology & Science.jpg,,,https://pbrvits.ac.in/,
+PBR Visvodaya Institute Of Technology & Science,ME,3.7,109601,80000,46500,55000,Kavali,Andhra Pradesh,static/images/PBR Visvodaya Institute Of Technology & Science.jpg,,,https://pbrvits.ac.in/,
+DBS Institute Of Technology,CSE,3.7,89000,160000,430000,45000,Maddurupadu,Andhra Pradesh,static/images/DBS Institute Of Technology.jpg,,,https://www.dbsinstitutions.com/,
+DBS Institute Of Technology,AIML,3.7,120000,160000,430000,45000,Maddurupadu,Andhra Pradesh,static/images/DBS Institute Of Technology.jpg,,,https://www.dbsinstitutions.com/,
+DBS Institute Of Technology,ECE,3.7,105000,160000,430000,45000,Maddurupadu,Andhra Pradesh,static/images/DBS Institute Of Technology.jpg,,,https://www.dbsinstitutions.com/,
+DBS Institute Of Technology,ME,3.7,71000,160000,430000,45000,Maddurupadu,Andhra Pradesh,static/images/DBS Institute Of Technology.jpg,,,https://www.dbsinstitutions.com/,
+Rajeev Gandhi Memorial College Of Engineering And Technology,CSE,3.9,9481,250000,76010,84000,Nandyala,Andhra Pradesh,static/images/Rajeev Gandhi Memorial College Of Engineering And Technology.jpg,,,https://www.rgmcet.edu.in/,
+Rajeev Gandhi Memorial College Of Engineering And Technology,AIML,3.9,6544,250000,76010,84000,Nandyala,Andhra Pradesh,static/images/Rajeev Gandhi Memorial College Of Engineering And Technology.jpg,,,https://www.rgmcet.edu.in/,
+Rajeev Gandhi Memorial College Of Engineering And Technology,ECE,3.9,9731,250000,76010,84000,Nandyala,Andhra Pradesh,static/images/Rajeev Gandhi Memorial College Of Engineering And Technology.jpg,,,https://www.rgmcet.edu.in/,
+Rajeev Gandhi Memorial College Of Engineering And Technology,ME,3.9,15820,250000,76010,84000,Nandyala,Andhra Pradesh,static/images/Rajeev Gandhi Memorial College Of Engineering And Technology.jpg,,,https://www.rgmcet.edu.in/,
+Bheema Institute Of Technology & Science,CSE,3.9,145097,150000,43000,90000,Adoni,Andhra Pradesh,static/images/Bheema Institute Of Technology & Science.jpg,,,https://bitsadoni.ac.in/,
+Bheema Institute Of Technology & Science,AIML,3.9,150893,150000,43000,90000,Adoni,Andhra Pradesh,static/images/Bheema Institute Of Technology & Science.jpg,,,https://bitsadoni.ac.in/,
+Bheema Institute Of Technology & Science,ECE,3.9,133191,150000,43000,90000,Adoni,Andhra Pradesh,static/images/Bheema Institute Of Technology & Science.jpg,,,https://bitsadoni.ac.in/,
+Bheema Institute Of Technology & Science,ME,3.9,148383,150000,43000,90000,Adoni,Andhra Pradesh,static/images/Bheema Institute Of Technology & Science.jpg,,,https://bitsadoni.ac.in/,
+Brindavan Institute Of Technology And Science,CSE,3.7,177156,200000,43000,55000,Kurnool,Andhra Pradesh,static/images/Brindavan Institute Of Technology And Science.jpg,,,https://www.bitskurnool.edu.in/,
+Brindavan Institute Of Technology And Science,AIML,3.7,160000,200000,43000,55000,Kurnool,Andhra Pradesh,static/images/Brindavan Institute Of Technology And Science.jpg,,,https://www.bitskurnool.edu.in/,
+Brindavan Institute Of Technology And Science,ECE,3.7,145305,200000,43000,55000,Kurnool,Andhra Pradesh,static/images/Brindavan Institute Of Technology And Science.jpg,,,https://www.bitskurnool.edu.in/,
+Brindavan Institute Of Technology And Science,ME,3.7,145305,200000,43000,55000,Kurnool,Andhra Pradesh,static/images/Brindavan Institute Of Technology And Science.jpg,,,https://www.bitskurnool.edu.in/,
+Dr.KV Subba Reddy Institute Of Technology,CSE,4.2,43364,120000,48200,65000,Kurnool,Andhra Pradesh,static/images/Dr.KV Subba Reddy Institute Of Technology.jpg,,,https://www.drkvsrit.ac.in/,
+Dr.KV Subba Reddy Institute Of Technology,AIML,4.2,26670,120000,48200,65000,Kurnool,Andhra Pradesh,static/images/Dr.KV Subba Reddy Institute Of Technology.jpg,,,https://www.drkvsrit.ac.in/,
+Dr.KV Subba Reddy Institute Of Technology,ECE,4.2,77779,80000,48200,65000,Kurnool,Andhra Pradesh,static/images/Dr.KV Subba Reddy Institute Of Technology.jpg,,,https://www.drkvsrit.ac.in/,
+Dr.KV Subba Reddy Institute Of Technology,ME,4.2,111516,50000,48200,65000,Kurnool,Andhra Pradesh,static/images/Dr.KV Subba Reddy Institute Of Technology.jpg,,,https://www.drkvsrit.ac.in/,
+G Pulla Reddy Engineering College,CSE,4.2,3725,252000,84000,85000,Kurnool,Andhra Pradesh,static/images/G Pulla Reddy Engineering College.jpg,,,https://www.gprec.ac.in/,
+G Pulla Reddy Engineering College,AIML,4.2,4052,252000,84000,85000,Kurnool,Andhra Pradesh,static/images/G Pulla Reddy Engineering College.jpg,,,https://www.gprec.ac.in/,
+G Pulla Reddy Engineering College,ECE,4.2,9245,150000,84000,85000,Kurnool,Andhra Pradesh,static/images/G Pulla Reddy Engineering College.jpg,,,https://www.gprec.ac.in/,
+G Pulla Reddy Engineering College,ME,4.2,36958,84000,84000,85000,Kurnool,Andhra Pradesh,static/images/G Pulla Reddy Engineering College.jpg,,,https://www.gprec.ac.in/,
+Rayalaseema University,CSE,3.8,40000,Not Applicable,60000,125000,Kurnool,Andhra Pradesh,static/images/Rayalaseema University.jpg,,,https://rukap.edu.in/,
+Rayalaseema University,AIML,3.8,70000,Not Applicable,60000,125000,Kurnool,Andhra Pradesh,static/images/Rayalaseema University.jpg,,,https://rukap.edu.in/,
+Rayalaseema University,ECE,3.8,31000,Not Applicable,60000,125000,Kurnool,Andhra Pradesh,static/images/Rayalaseema University.jpg,,,https://rukap.edu.in/,
+Rayalaseema University,ME,3.8,105000,Not Applicable,60000,125000,Kurnool,Andhra Pradesh,static/images/Rayalaseema University.jpg,,,https://rukap.edu.in/,
+St.Johns College Of Engineering And Technology,CSE,3.7,40798,62000,43000,125000,Yemmiganur,Andhra Pradesh,static/images/St.Johns College Of Engineering And Technology.jpg,,,https://sjcps.ac.in/,
+St.Johns College Of Engineering And Technology,AIML,3.7,48016,62000,43000,125000,Yemmiganur,Andhra Pradesh,static/images/St.Johns College Of Engineering And Technology.jpg,,,https://sjcps.ac.in/,
+St.Johns College Of Engineering And Technology,ECE,3.7,87409,62000,43000,125000,Yemmiganur,Andhra Pradesh,static/images/St.Johns College Of Engineering And Technology.jpg,,,https://sjcps.ac.in/,
+St.Johns College Of Engineering And Technology,ME,3.7,100616,62000,43000,125000,Yemmiganur,Andhra Pradesh,static/images/St.Johns College Of Engineering And Technology.jpg,,,https://sjcps.ac.in/,
+G.Pullaiah College Of Engineering And Technology,CSE,4.2,9115,250000,60900,78000,Kurnool,Andhra Pradesh,static/images/G.Pullaiah College Of Engineering And Technology.jpg,,,https://www.gpcet.ac.in/,
+G.Pullaiah College Of Engineering And Technology,AIML,4.2,16971,250000,60900,78000,Kurnool,Andhra Pradesh,static/images/G.Pullaiah College Of Engineering And Technology.jpg,,,https://www.gpcet.ac.in/,
+G.Pullaiah College Of Engineering And Technology,ECE,4.2,21192,250000,60900,78000,Kurnool,Andhra Pradesh,static/images/G.Pullaiah College Of Engineering And Technology.jpg,,,https://www.gpcet.ac.in/,
+G.Pullaiah College Of Engineering And Technology,ME,4.2,60860,250000,60900,78000,Kurnool,Andhra Pradesh,static/images/G.Pullaiah College Of Engineering And Technology.jpg,,,https://www.gpcet.ac.in/,
+SVR Engineering College,CSE,3.9,60000,160000,40000,40000,Nandyala,Andhra Pradesh,static/images/SVR Engineering College.jpg,,,https://svrec.ac.in/,
+SVR Engineering College,AIML,3.9,48000,160000,40000,40000,Nandyala,Andhra Pradesh,static/images/SVR Engineering College.jpg,,,https://svrec.ac.in/,
+SVR Engineering College,ECE,3.9,39000,160000,40000,40000,Nandyala,Andhra Pradesh,static/images/SVR Engineering College.jpg,,,https://svrec.ac.in/,
+SVR Engineering College,ME,3.9,148000,160000,40000,40000,Nandyala,Andhra Pradesh,static/images/SVR Engineering College.jpg,,,https://svrec.ac.in/,
+SVKP Arts And Science College,CSE,4.3,67000,150000,43000,90000,Markapuram,Andhra Pradesh,static/images/SVKP Arts And Science College.jpg,,,https://www.svkp.in/,
+SVKP Arts And Science College,AIML,4.3,60000,150000,43000,90000,Markapuram,Andhra Pradesh,static/images/SVKP Arts And Science College.jpg,,,https://www.svkp.in/,
+SVKP Arts And Science College,ECE,4.3,70000,150000,43000,90000,Markapuram,Andhra Pradesh,static/images/SVKP Arts And Science College.jpg,,,https://www.svkp.in/,
+SVKP Arts And Science College,ME,4.3,110000,150000,43000,90000,Markapuram,Andhra Pradesh,static/images/SVKP Arts And Science College.jpg,,,https://www.svkp.in/,
+Dr.Samuel Gerorge Institute Of Engineering & Technology,CSE,4.1,120268,43000,43000,90000,Markapuram,Andhra Pradesh,static/images/Dr.Samuel Gerorge Institute Of Engineering & Technology.jpg,,,https://drsgiet.ac.in/,
+Dr.Samuel Gerorge Institute Of Engineering & Technology,AIML,4.1,140559,43000,43000,90000,Markapuram,Andhra Pradesh,static/images/Dr.Samuel Gerorge Institute Of Engineering & Technology.jpg,,,https://drsgiet.ac.in/,
+Dr.Samuel Gerorge Institute Of Engineering & Technology,ECE,4.1,129201,43000,43000,90000,Markapuram,Andhra Pradesh,static/images/Dr.Samuel Gerorge Institute Of Engineering & Technology.jpg,,,https://drsgiet.ac.in/,
+Dr.Samuel Gerorge Institute Of Engineering & Technology,ME,4.1,72942,43000,43000,90000,Markapuram,Andhra Pradesh,static/images/Dr.Samuel Gerorge Institute Of Engineering & Technology.jpg,,,https://drsgiet.ac.in/,
+A1 Global Institute Of Engineering & Technology,CSE,3.6,174208,120000,43000,97000,Markapuram,Andhra Pradesh,static/images/A1 Global Institute Of Engineering & Technology.jpg,,,https://a1global.ac.in/,
+A1 Global Institute Of Engineering & Technology,AIML,3.6,176543,120000,43000,97000,Markapuram,Andhra Pradesh,static/images/A1 Global Institute Of Engineering & Technology.jpg,,,https://a1global.ac.in/,
+A1 Global Institute Of Engineering & Technology,ECE,3.6,176969,120000,43000,97000,Markapuram,Andhra Pradesh,static/images/A1 Global Institute Of Engineering & Technology.jpg,,,https://a1global.ac.in/,
+A1 Global Institute Of Engineering & Technology,ME,3.6,86809,120000,43000,97000,Markapuram,Andhra Pradesh,static/images/A1 Global Institute Of Engineering & Technology.jpg,,,https://a1global.ac.in/,
+Bapatla Engineering College,CSE,4.2,6350,Exactly Don't Know,85000,70000,Bapatla,Andhra Pradesh,static/images/Bapatla Engineering College.jpg,,,https://becbapatla.ac.in/,
+Bapatla Engineering College,AIML,4.2,7310,Exactly Don't Know,85000,70000,Bapatla,Andhra Pradesh,static/images/Bapatla Engineering College.jpg,,,https://becbapatla.ac.in/,
+Bapatla Engineering College,ECE,4.2,16805,Exactly Don't Know,85000,70000,Bapatla,Andhra Pradesh,static/images/Bapatla Engineering College.jpg,,,https://becbapatla.ac.in/,
+Bapatla Engineering College,ME,4.2,368950,Exactly Don't Know,85000,70000,Bapatla,Andhra Pradesh,static/images/Bapatla Engineering College.jpg,,,https://becbapatla.ac.in/,
+Chebrolu Engineering College,CSE,3.8,143226,129000,43000,150000,Chebrolu,Andhra Pradesh,static/images/Chebrolu Engineering College.jpg,,,https://rvit.edu.in/,
+Chebrolu Engineering College,AIML,3.8,36331,129000,43000,150000,Chebrolu,Andhra Pradesh,static/images/Chebrolu Engineering College.jpg,,,https://rvit.edu.in/,
+Chebrolu Engineering College,ECE,3.8,89296,129000,43000,150000,Chebrolu,Andhra Pradesh,static/images/Chebrolu Engineering College.jpg,,,https://rvit.edu.in/,
+Chebrolu Engineering College,ME,3.8,123000,129000,43000,150000,Chebrolu,Andhra Pradesh,static/images/Chebrolu Engineering College.jpg,,,https://rvit.edu.in/,
+GVRS College Of Engineering & Technology,CSE,3.4,32448,150000,45000,40000,Guntur,Andhra Pradesh,static/images/GVRS College Of Engineering & Technology.jpg,,,https://gvrs.ac.in/,
+GVRS College Of Engineering & Technology,AIML,3.4,84791,150000,45000,40000,Guntur,Andhra Pradesh,static/images/GVRS College Of Engineering & Technology.jpg,,,https://gvrs.ac.in/,
+GVRS College Of Engineering & Technology,ECE,3.4,53695,150000,45000,40000,Guntur,Andhra Pradesh,static/images/GVRS College Of Engineering & Technology.jpg,,,https://gvrs.ac.in/,
+GVRS College Of Engineering & Technology,ME,3.4,136627,150000,45000,40000,Guntur,Andhra Pradesh,static/images/GVRS College Of Engineering & Technology.jpg,,,https://gvrs.ac.in/,
+Vasireddy Venkatadri International Technology University,CSE,4.1,2495,200000,65000,100000,Guntur,Andhra Pradesh,static/images/Vasireddy Venkatadri International Technology University.jpg,,,https://www.vvitu.ac.in/,
+Vasireddy Venkatadri International Technology University,AIML,4.1,8555,200000,65000,100000,Guntur,Andhra Pradesh,static/images/Vasireddy Venkatadri International Technology University.jpg,,,https://www.vvitu.ac.in/,
+Vasireddy Venkatadri International Technology University,ECE,4.1,7204,200000,65000,100000,Guntur,Andhra Pradesh,static/images/Vasireddy Venkatadri International Technology University.jpg,,,https://www.vvitu.ac.in/,
+Vasireddy Venkatadri International Technology University,ME,4.1,34382,200000,65000,100000,Guntur,Andhra Pradesh,static/images/Vasireddy Venkatadri International Technology University.jpg,,,https://www.vvitu.ac.in/,
+Malineni Lakshmaiah Womens Engineering College,CSE,4.1,6586,156300,52100,60000,Guntur,Andhra Pradesh,static/images/Malineni Lakshmaiah Womens Engineering College.jpg,,,http://mlewguntur.com/,
+Malineni Lakshmaiah Womens Engineering College,AIML,4.1,11735,156300,52100,60000,Guntur,Andhra Pradesh,static/images/Malineni Lakshmaiah Womens Engineering College.jpg,,,http://mlewguntur.com/,
+Malineni Lakshmaiah Womens Engineering College,ECE,4.1,39338,156300,52100,60000,Guntur,Andhra Pradesh,static/images/Malineni Lakshmaiah Womens Engineering College.jpg,,,http://mlewguntur.com/,
+Malineni Lakshmaiah Womens Engineering College,ME,4.1,120000,156300,52100,60000,Guntur,Andhra Pradesh,static/images/Malineni Lakshmaiah Womens Engineering College.jpg,,,http://mlewguntur.com/,
+KKR And KSR Institute Of Technology And Science,CSE,4.1,21237,130000,58100,120000,Guntur,Andhra Pradesh,static/images/KKR And KSR Institute Of Technology And Science.jpg,,,https://www.kitsguntur.ac.in/,
+KKR And KSR Institute Of Technology And Science,AIML,4.1,31416,130000,58100,120000,Guntur,Andhra Pradesh,static/images/KKR And KSR Institute Of Technology And Science.jpg,,,https://www.kitsguntur.ac.in/,
+KKR And KSR Institute Of Technology And Science,ECE,4.1,41237,130000,58100,120000,Guntur,Andhra Pradesh,static/images/KKR And KSR Institute Of Technology And Science.jpg,,,https://www.kitsguntur.ac.in/,
+KKR And KSR Institute Of Technology And Science,ME,4.1,124279,130000,58100,120000,Guntur,Andhra Pradesh,static/images/KKR And KSR Institute Of Technology And Science.jpg,,,https://www.kitsguntur.ac.in/,
+Sri Chundi Ranganayakulu Engineering College,CSE,3.8,110000,140000,43000,90000,Guntur,Andhra Pradesh,static/images/Sri Chundi Ranganayakulu Engineering College.jpg,,,https://crenggcollege.com/,
+Sri Chundi Ranganayakulu Engineering College,AIML,3.8,120000,140000,43000,90000,Guntur,Andhra Pradesh,static/images/Sri Chundi Ranganayakulu Engineering College.jpg,,,https://crenggcollege.com/,
+Sri Chundi Ranganayakulu Engineering College,ECE,3.8,55000,140000,43000,90000,Guntur,Andhra Pradesh,static/images/Sri Chundi Ranganayakulu Engineering College.jpg,,,https://crenggcollege.com/,
+Sri Chundi Ranganayakulu Engineering College,ME,3.8,100000,140000,43000,90000,Guntur,Andhra Pradesh,static/images/Sri Chundi Ranganayakulu Engineering College.jpg,,,https://crenggcollege.com/,
+RVR & JC College Of Engineering,CSE,4.4,6498,420000,105000,48000,Guntur,Andhra Pradesh,static/images/RVR & JC College Of Engineering.jpg,,,https://www.rvrjcce.ac.in/,
+RVR & JC College Of Engineering,AIML,4.4,7445,420000,105000,48000,Guntur,Andhra Pradesh,static/images/RVR & JC College Of Engineering.jpg,,,https://www.rvrjcce.ac.in/,
+RVR & JC College Of Engineering,ECE,4.4,13369,420000,105000,48000,Guntur,Andhra Pradesh,static/images/RVR & JC College Of Engineering.jpg,,,https://www.rvrjcce.ac.in/,
+RVR & JC College Of Engineering,ME,4.4,45501,420000,105000,48000,Guntur,Andhra Pradesh,static/images/RVR & JC College Of Engineering.jpg,,,https://www.rvrjcce.ac.in/,
+Kallam Haranadhareddy Institute Of Technology,CSE,4.1,24400,150000,43000,85000,Guntur,Andhra Pradesh,static/images/Kallam Haranadhareddy Institute Of Technology.jpg,,,https://khitguntur.ac.in/,
+Kallam Haranadhareddy Institute Of Technology,AIML,4.1,13285,150000,43000,85000,Guntur,Andhra Pradesh,static/images/Kallam Haranadhareddy Institute Of Technology.jpg,,,https://khitguntur.ac.in/,
+Kallam Haranadhareddy Institute Of Technology,ECE,4.1,46684,125000,43000,85000,Guntur,Andhra Pradesh,static/images/Kallam Haranadhareddy Institute Of Technology.jpg,,,https://khitguntur.ac.in/,
+Kallam Haranadhareddy Institute Of Technology,ME,4.1,125611,100000,43000,85000,Guntur,Andhra Pradesh,static/images/Kallam Haranadhareddy Institute Of Technology.jpg,,,https://khitguntur.ac.in/,
+Chalapathi Institute Of Engineering And Technology,CSE,3.8,31263,105000,43000,70000,Guntur,Andhra Pradesh,static/images/Chalapathi Institute Of Engineering And Technology.jpg,,,https://city.ac.in/,
+Chalapathi Institute Of Engineering And Technology,AIML,3.8,36962,90000,43000,70000,Guntur,Andhra Pradesh,static/images/Chalapathi Institute Of Engineering And Technology.jpg,,,https://city.ac.in/,
+Chalapathi Institute Of Engineering And Technology,ECE,3.8,29870,70000,43000,70000,Guntur,Andhra Pradesh,static/images/Chalapathi Institute Of Engineering And Technology.jpg,,,https://city.ac.in/,
+Chalapathi Institute Of Engineering And Technology,ME,3.8,172000,70000,43000,70000,Guntur,Andhra Pradesh,static/images/Chalapathi Institute Of Engineering And Technology.jpg,,,https://city.ac.in/,
+Narasaraopeta Engineering College,CSE,4.1,17390,221400,73800,95000,Narasaraopeta,Andhra Pradesh,static/images/Narasaraopeta Engineering College.jpg,,,https://www.nrtec.in/,
+Narasaraopeta Engineering College,AIML,4.1,31075,221400,73800,95000,Narasaraopeta,Andhra Pradesh,static/images/Narasaraopeta Engineering College.jpg,,,https://www.nrtec.in/,
+Narasaraopeta Engineering College,ECE,4.1,31678,147600,73800,95000,Narasaraopeta,Andhra Pradesh,static/images/Narasaraopeta Engineering College.jpg,,,https://www.nrtec.in/,
+Narasaraopeta Engineering College,ME,4.1,93077,738000,73800,95000,Narasaraopeta,Andhra Pradesh,static/images/Narasaraopeta Engineering College.jpg,,,https://www.nrtec.in/,
+KL University,CSE,3.9,170,300000,150000,168975,Guntur,Andhra Pradesh,static/images/KL University.jpg,,,https://www.kluniversity.in/,
+KL University,AIML,3.9,500,300000,150000,168975,Guntur,Andhra Pradesh,static/images/KL University.jpg,,,https://www.kluniversity.in/,
+KL University,ECE,3.9,1000,300000,150000,168975,Guntur,Andhra Pradesh,static/images/KL University.jpg,,,https://www.kluniversity.in/,
+KL University,ME,3.9,3000,300000,150000,168975,Guntur,Andhra Pradesh,static/images/KL University.jpg,,,https://www.kluniversity.in/,
+Sri Vasavi Institute Of Engineering & Technology,CSE,4.3,133769,129000,40000,75000,Pedana,Andhra Pradesh,static/images/Sri Vasavi Institute Of Engineering & Technology.jpg,,,https://www.sviet.edu.in/,
+Sri Vasavi Institute Of Engineering & Technology,AIML,4.3,64259,100000,40000,75000,Pedana,Andhra Pradesh,static/images/Sri Vasavi Institute Of Engineering & Technology.jpg,,,https://www.sviet.edu.in/,
+Sri Vasavi Institute Of Engineering & Technology,ECE,4.3,54644,100000,40000,75000,Pedana,Andhra Pradesh,static/images/Sri Vasavi Institute Of Engineering & Technology.jpg,,,https://www.sviet.edu.in/,
+Sri Vasavi Institute Of Engineering & Technology,ME,4.3,129917,60000,40000,75000,Pedana,Andhra Pradesh,static/images/Sri Vasavi Institute Of Engineering & Technology.jpg,,,https://www.sviet.edu.in/,
+Seshadri Rao Gudlavalleru Engineering College,CSE,4.2,2177,210000,71500,60000,Vijayawada,Andhra Pradesh,static/images/Seshadri Rao Gudlavalleru Engineering College.jpg,,,https://www.gecgudlavalleru.ac.in/,
+Seshadri Rao Gudlavalleru Engineering College,AIML,4.2,8816,170000,71500,60000,Vijayawada,Andhra Pradesh,static/images/Seshadri Rao Gudlavalleru Engineering College.jpg,,,https://www.gecgudlavalleru.ac.in/,
+Seshadri Rao Gudlavalleru Engineering College,ECE,4.2,17918,150000,71500,60000,Vijayawada,Andhra Pradesh,static/images/Seshadri Rao Gudlavalleru Engineering College.jpg,,,https://www.gecgudlavalleru.ac.in/,
+Seshadri Rao Gudlavalleru Engineering College,ME,4.2,31000,120000,71500,60000,Vijayawada,Andhra Pradesh,static/images/Seshadri Rao Gudlavalleru Engineering College.jpg,,,https://www.gecgudlavalleru.ac.in/,
+VKR College Of Engineering,CSE,4.2,39247,Exactly Don't Know,43000,80000,Gudivada,Andhra Pradesh,static/images/VKR College Of Engineering.jpg,,,https://www.vkrvnbcoe.org/,
+VKR College Of Engineering,AIML,4.2,39508,Exactly Don't Know,43000,80000,Gudivada,Andhra Pradesh,static/images/VKR College Of Engineering.jpg,,,https://www.vkrvnbcoe.org/,
+VKR College Of Engineering,ECE,4.2,98482,Exactly Don't Know,43000,80000,Gudivada,Andhra Pradesh,static/images/VKR College Of Engineering.jpg,,,https://www.vkrvnbcoe.org/,
+VKR College Of Engineering,ME,4.2,126620,Exactly Don't Know,43000,80000,Gudivada,Andhra Pradesh,static/images/VKR College Of Engineering.jpg,,,https://www.vkrvnbcoe.org/,
+SRK Institute Of Technology,CSE,4.4,14480,150000,45600,72000,Enikepadu,Andhra Pradesh,static/images/SRK Institute Of Technology.jpg,,,https://srkit.edu.in/,
+SRK Institute Of Technology,AIML,4.4,28238,150000,45600,72000,Enikepadu,Andhra Pradesh,static/images/SRK Institute Of Technology.jpg,,,https://srkit.edu.in/,
+SRK Institute Of Technology,ECE,4.4,46401,100000,45600,72000,Enikepadu,Andhra Pradesh,static/images/SRK Institute Of Technology.jpg,,,https://srkit.edu.in/,
+SRK Institute Of Technology,ME,4.4,83619,80000,45600,72000,Enikepadu,Andhra Pradesh,static/images/SRK Institute Of Technology.jpg,,,https://srkit.edu.in/,
+Usha Rama College Of Engineering And Technology,CSE,3.6,54896,141900,47300,80000,Telaprolu,Andhra Pradesh,static/images/Usha Rama College Of Engineering And Technology.jpg,,,https://usharama.edu.in/,
+Usha Rama College Of Engineering And Technology,AIML,3.6,32696,141900,47300,80000,Telaprolu,Andhra Pradesh,static/images/Usha Rama College Of Engineering And Technology.jpg,,,https://usharama.edu.in/,
+Usha Rama College Of Engineering And Technology,ECE,3.6,75442,141900,47300,80000,Telaprolu,Andhra Pradesh,static/images/Usha Rama College Of Engineering And Technology.jpg,,,https://usharama.edu.in/,
+Usha Rama College Of Engineering And Technology,ME,3.6,52928,141900,47300,80000,Telaprolu,Andhra Pradesh,static/images/Usha Rama College Of Engineering And Technology.jpg,,,https://usharama.edu.in/,
+Ramachandra College Of Engineering,CSE,4.1,15899,100000,60200,90000,Eluru,Andhra Pradesh,static/images/Ramachandra College Of Engineering.jpg,,,https://www.rcee.ac.in/,
+Ramachandra College Of Engineering,AIML,4.1,22846,100000,60200,90000,Eluru,Andhra Pradesh,static/images/Ramachandra College Of Engineering.jpg,,,https://www.rcee.ac.in/,
+Ramachandra College Of Engineering,ECE,4.1,43482,85000,60200,90000,Eluru,Andhra Pradesh,static/images/Ramachandra College Of Engineering.jpg,,,https://www.rcee.ac.in/,
+Ramachandra College Of Engineering,ME,4.1,44097,85000,60200,90000,Eluru,Andhra Pradesh,static/images/Ramachandra College Of Engineering.jpg,,,https://www.rcee.ac.in/,
+Sri CR Reddy College Of Engineering,CSE,4.3,6185,125000,54200,46000,Eluru,Andhra Pradesh,static/images/Sri CR Reddy College Of Engineering.jpg,,,https://www.sircrrengg.ac.in/,
+Sri CR Reddy College Of Engineering,AIML,4.3,14315,125000,54200,46000,Eluru,Andhra Pradesh,static/images/Sri CR Reddy College Of Engineering.jpg,,,https://www.sircrrengg.ac.in/,
+Sri CR Reddy College Of Engineering,ECE,4.3,16563,75000,54200,46000,Eluru,Andhra Pradesh,static/images/Sri CR Reddy College Of Engineering.jpg,,,https://www.sircrrengg.ac.in/,
+Sri CR Reddy College Of Engineering,ME,4.3,71386,54200,54200,46000,Eluru,Andhra Pradesh,static/images/Sri CR Reddy College Of Engineering.jpg,,,https://www.sircrrengg.ac.in/,
+Eluru College Of Engineering,CSE,3.4,24655,100000,43000,125000,Eluru,Andhra Pradesh,static/images/Eluru College Of Engineering.jpg,,,https://www.ecet.ac.in/,
+Eluru College Of Engineering,AIML,3.4,59365,100000,43000,125000,Eluru,Andhra Pradesh,static/images/Eluru College Of Engineering.jpg,,,https://www.ecet.ac.in/,
+Eluru College Of Engineering,ECE,3.4,46905,60000,43000,125000,Eluru,Andhra Pradesh,static/images/Eluru College Of Engineering.jpg,,,https://www.ecet.ac.in/,
+Eluru College Of Engineering,ME,3.4,149502,60000,43000,125000,Eluru,Andhra Pradesh,static/images/Eluru College Of Engineering.jpg,,,https://www.ecet.ac.in/,
+Helapuri Institute Of Technology And Science,CSE,3.9,103046,100000,43000,55000,Eluru,Andhra Pradesh,static/images/Helapuri Institute Of Technology And Science.jpg,,,https://www.helapuri.org.in/,
+Helapuri Institute Of Technology And Science,AIML,3.9,127243,100000,43000,55000,Eluru,Andhra Pradesh,static/images/Helapuri Institute Of Technology And Science.jpg,,,https://www.helapuri.org.in/,
+Helapuri Institute Of Technology And Science,ECE,3.9,128727,100000,43000,55000,Eluru,Andhra Pradesh,static/images/Helapuri Institute Of Technology And Science.jpg,,,https://www.helapuri.org.in/,
+Helapuri Institute Of Technology And Science,ME,3.9,99997,100000,43000,55000,Eluru,Andhra Pradesh,static/images/Helapuri Institute Of Technology And Science.jpg,,,https://www.helapuri.org.in/,
+St.Ann's College Of Engineering & Technology,CSE,3.8,11000,143000,56800,75000,Chirala,Andhra Pradesh,static/images/St.Ann's College Of Engineering & Technology.jpg,,,https://sacet.ac.in/,
+St.Ann's College Of Engineering & Technology,AIML,3.8,24000,100000,56800,75000,Chirala,Andhra Pradesh,static/images/St.Ann's College Of Engineering & Technology.jpg,,,https://sacet.ac.in/,
+St.Ann's College Of Engineering & Technology,ECE,3.8,11928,100000,56800,75000,Chirala,Andhra Pradesh,static/images/St.Ann's College Of Engineering & Technology.jpg,,,https://sacet.ac.in/,
+St.Ann's College Of Engineering & Technology,ME,3.8,72750,50000,56800,75000,Chirala,Andhra Pradesh,static/images/St.Ann's College Of Engineering & Technology.jpg,,,https://sacet.ac.in/,
+Chirala Engineering College,CSE,3.7,30733,180000,49500,80000,Chirala,Andhra Pradesh,static/images/Chirala Engineering College.jpg,,,https://www.cecc.co.in/,
+Chirala Engineering College,AIML,3.7,99511,180000,49500,80000,Chirala,Andhra Pradesh,static/images/Chirala Engineering College.jpg,,,https://www.cecc.co.in/,
+Chirala Engineering College,ECE,3.7,68679,180000,49500,80000,Chirala,Andhra Pradesh,static/images/Chirala Engineering College.jpg,,,https://www.cecc.co.in/,
+Chirala Engineering College,ME,3.7,47685,180000,49500,80000,Chirala,Andhra Pradesh,static/images/Chirala Engineering College.jpg,,,https://www.cecc.co.in/,
+Prakasam Engineering College,CSE,3.8,518,100000,43000,90000,kandukur,Andhra Pradesh,static/images/Prakasam Engineering College.jpg,,,https://www.prakasamec.com/,
+Prakasam Engineering College,AIML,3.8,714,100000,43000,90000,kandukur,Andhra Pradesh,static/images/Prakasam Engineering College.jpg,,,https://www.prakasamec.com/,
+Prakasam Engineering College,ECE,3.8,17898,100000,43000,90000,kandukur,Andhra Pradesh,static/images/Prakasam Engineering College.jpg,,,https://www.prakasamec.com/,
+Prakasam Engineering College,ME,3.8,22060,100000,43000,90000,kandukur,Andhra Pradesh,static/images/Prakasam Engineering College.jpg,,,https://www.prakasamec.com/,
+BVSR Engineering College,CSE,3.8,27107,140000,43000,90000,Prakasam,Andhra Pradesh,static/images/BVSR Engineering College.jpg,,,https://www.bvsr.ac.in/,
+BVSR Engineering College,AIML,3.8,143398,140000,43000,90000,Prakasam,Andhra Pradesh,static/images/BVSR Engineering College.jpg,,,https://www.bvsr.ac.in/,
+BVSR Engineering College,ECE,3.8,109949,140000,43000,90000,Prakasam,Andhra Pradesh,static/images/BVSR Engineering College.jpg,,,https://www.bvsr.ac.in/,
+BVSR Engineering College,ME,3.8,160147,140000,43000,90000,Prakasam,Andhra Pradesh,static/images/BVSR Engineering College.jpg,,,https://www.bvsr.ac.in/,
+Nimra Institute Of Engineering & Technology,CSE,3.8,152533,150000,50000,80000,Ongole,Andhra Pradesh,static/images/Nimra Institute Of Engineering & Technology.jpg,,,https://www.nimra.in/niet/,
+Nimra Institute Of Engineering & Technology,AIML,3.8,143740,150000,50000,80000,Ongole,Andhra Pradesh,static/images/Nimra Institute Of Engineering & Technology.jpg,,,https://www.nimra.in/niet/,
+Nimra Institute Of Engineering & Technology,ECE,3.8,109498,150000,50000,80000,Ongole,Andhra Pradesh,static/images/Nimra Institute Of Engineering & Technology.jpg,,,https://www.nimra.in/niet/,
+Nimra Institute Of Engineering & Technology,ME,3.8,167242,150000,50000,80000,Ongole,Andhra Pradesh,static/images/Nimra Institute Of Engineering & Technology.jpg,,,https://www.nimra.in/niet/,
+QIS College Of Engineering And Technology,CSE,3.9,11189,100000,87600,85000,Ongole,Andhra Pradesh,static/images/QIS College Of Engineering And Technology.jpg,,,https://qiscet.edu.in/qiscet/,
+QIS College Of Engineering And Technology,AIML,3.9,13480,100000,87600,85000,Ongole,Andhra Pradesh,static/images/QIS College Of Engineering And Technology.jpg,,,https://qiscet.edu.in/qiscet/,
+QIS College Of Engineering And Technology,ECE,3.9,31327,100000,87600,85000,Ongole,Andhra Pradesh,static/images/QIS College Of Engineering And Technology.jpg,,,https://qiscet.edu.in/qiscet/,
+QIS College Of Engineering And Technology,ME,3.9,103811,100000,87600,85000,Ongole,Andhra Pradesh,static/images/QIS College Of Engineering And Technology.jpg,,,https://qiscet.edu.in/qiscet/,
+Rao And Naidu Engineering College,CSE,3.8,140000,150000,40000,60000,Ongole,Andhra Pradesh,static/images/Rao And Naidu Engineering College.jpg,,,https://www.kabconsultants.com/InstitutesDetails/4/1/40/Rao-and-Naidu-Engineering-College,
+Rao And Naidu Engineering College,AIML,3.8,145000,140000,40000,60000,Ongole,Andhra Pradesh,static/images/Rao And Naidu Engineering College.jpg,,,https://www.kabconsultants.com/InstitutesDetails/4/1/40/Rao-and-Naidu-Engineering-College,
+Rao And Naidu Engineering College,ECE,3.8,150000,120000,40000,60000,Ongole,Andhra Pradesh,static/images/Rao And Naidu Engineering College.jpg,,,https://www.kabconsultants.com/InstitutesDetails/4/1/40/Rao-and-Naidu-Engineering-College,
+Rao And Naidu Engineering College,ME,3.8,150000,70000,40000,60000,Ongole,Andhra Pradesh,static/images/Rao And Naidu Engineering College.jpg,,,https://www.kabconsultants.com/InstitutesDetails/4/1/40/Rao-and-Naidu-Engineering-College,
+PACE Institute Of Technology & Science,CSE,4.1,43098,130800,43600,75000,Ongole,Andhra Pradesh,static/images/PACE Institute Of Technology & Science.jpg,,,https://pace.ac.in/,
+PACE Institute Of Technology & Science,AIML,4.1,27491,130800,43600,75000,Ongole,Andhra Pradesh,static/images/PACE Institute Of Technology & Science.jpg,,,https://pace.ac.in/,
+PACE Institute Of Technology & Science,ECE,4.1,66554,130800,43600,75000,Ongole,Andhra Pradesh,static/images/PACE Institute Of Technology & Science.jpg,,,https://pace.ac.in/,
+PACE Institute Of Technology & Science,ME,4.1,80815,130800,43600,75000,Ongole,Andhra Pradesh,static/images/PACE Institute Of Technology & Science.jpg,,,https://pace.ac.in/,
+Sri Mittapalli College Of Engineering,CSE,3.5,25690,160000,43000,90000,Guntur,Andhra Pradesh,static/images/Sri Mittapalli College Of Engineering.jpg,,,https://www.smce.ac.in/,
+Sri Mittapalli College Of Engineering,AIML,3.5,51900,160000,43000,90000,Guntur,Andhra Pradesh,static/images/Sri Mittapalli College Of Engineering.jpg,,,https://www.smce.ac.in/,
+Sri Mittapalli College Of Engineering,ECE,3.5,47376,160000,43000,90000,Guntur,Andhra Pradesh,static/images/Sri Mittapalli College Of Engineering.jpg,,,https://www.smce.ac.in/,
+Sri Mittapalli College Of Engineering,ME,3.5,167139,160000,43000,90000,Guntur,Andhra Pradesh,static/images/Sri Mittapalli College Of Engineering.jpg,,,https://www.smce.ac.in/,
+AM Reddy Memorial College Of Engineering And Technology,CSE,3.4,33733,120000,43000,65000,Petlurivaripalem,Andhra Pradesh,static/images/AM Reddy Memorial College Of Engineering And Technology.jpg,,,https://www.amreddyengineering.ac.in/,
+AM Reddy Memorial College Of Engineering And Technology,AIML,3.4,68344,120000,43000,65000,Petlurivaripalem,Andhra Pradesh,static/images/AM Reddy Memorial College Of Engineering And Technology.jpg,,,https://www.amreddyengineering.ac.in/,
+AM Reddy Memorial College Of Engineering And Technology,ECE,3.4,56327,90000,43000,65000,Petlurivaripalem,Andhra Pradesh,static/images/AM Reddy Memorial College Of Engineering And Technology.jpg,,,https://www.amreddyengineering.ac.in/,
+AM Reddy Memorial College Of Engineering And Technology,ME,3.4,126352,70000,43000,65000,Petlurivaripalem,Andhra Pradesh,static/images/AM Reddy Memorial College Of Engineering And Technology.jpg,,,https://www.amreddyengineering.ac.in/,
+Eswar College Of Engineering,CSE,4.1,49692,140000,50200,95000,Narasaraopeta,Andhra Pradesh,static/images/Eswar College Of Engineering.jpg,,,http://eswar.guidecampus.com/esaap/index.action,
+Eswar College Of Engineering,AIML,4.1,81900,140000,50200,95000,Narasaraopeta,Andhra Pradesh,static/images/Eswar College Of Engineering.jpg,,,http://eswar.guidecampus.com/esaap/index.action,
+Eswar College Of Engineering,ECE,4.1,64288,140000,50200,95000,Narasaraopeta,Andhra Pradesh,static/images/Eswar College Of Engineering.jpg,,,http://eswar.guidecampus.com/esaap/index.action,
+Eswar College Of Engineering,ME,4.1,55072,140000,50200,95000,Narasaraopeta,Andhra Pradesh,static/images/Eswar College Of Engineering.jpg,,,http://eswar.guidecampus.com/esaap/index.action,
+Amara Institute Of Engineering & Technology,CSE,3.4,172252,100000,35000,60000,Narasaraopeta,Andhra Pradesh,static/images/Amara Institute Of Engineering & Technology.jpg,,,https://kabconsultants.com/InstitutesDetails/4/4/3979/Amara-Institute-of-Engineering-and-Technology,
+Amara Institute Of Engineering & Technology,AIML,3.4,196214,100000,35000,60000,Narasaraopeta,Andhra Pradesh,static/images/Amara Institute Of Engineering & Technology.jpg,,,https://kabconsultants.com/InstitutesDetails/4/4/3979/Amara-Institute-of-Engineering-and-Technology,
+Amara Institute Of Engineering & Technology,ECE,3.4,186793,100000,35000,60000,Narasaraopeta,Andhra Pradesh,static/images/Amara Institute Of Engineering & Technology.jpg,,,https://kabconsultants.com/InstitutesDetails/4/4/3979/Amara-Institute-of-Engineering-and-Technology,
+Amara Institute Of Engineering & Technology,ME,3.4,150000,100000,35000,60000,Narasaraopeta,Andhra Pradesh,static/images/Amara Institute Of Engineering & Technology.jpg,,,https://kabconsultants.com/InstitutesDetails/4/4/3979/Amara-Institute-of-Engineering-and-Technology,
+Tirumala Engineering College,CSE,3.7,21444,120000,65800,59600,Narasaraopeta,Andhra Pradesh,static/images/Tirumala Engineering College.jpg,,,https://www.tecnrt.org/,
+Tirumala Engineering College,AIML,3.7,27113,120000,65800,59600,Narasaraopeta,Andhra Pradesh,static/images/Tirumala Engineering College.jpg,,,https://www.tecnrt.org/,
+Tirumala Engineering College,ECE,3.7,39190,120000,65800,59600,Narasaraopeta,Andhra Pradesh,static/images/Tirumala Engineering College.jpg,,,https://www.tecnrt.org/,
+Tirumala Engineering College,ME,3.7,129753,120000,65800,59600,Narasaraopeta,Andhra Pradesh,static/images/Tirumala Engineering College.jpg,,,https://www.tecnrt.org/,
+University College Of Engineering JNTUK,CSE,3.7,2570,221400,40000,95000,Narasaraopeta,Andhra Pradesh,static/images/University College Of Engineering JNTUK.jpg,,,https://jntukucen.ac.in/,
+University College Of Engineering JNTUK,AIML,3.7,2570,221400,40000,95000,Narasaraopeta,Andhra Pradesh,static/images/University College Of Engineering JNTUK.jpg,,,https://jntukucen.ac.in/,
+University College Of Engineering JNTUK,ECE,3.7,2270,147600,40000,95000,Narasaraopeta,Andhra Pradesh,static/images/University College Of Engineering JNTUK.jpg,,,https://jntukucen.ac.in/,
+University College Of Engineering JNTUK,ME,3.7,13000,73800,40000,95000,Narasaraopeta,Andhra Pradesh,static/images/University College Of Engineering JNTUK.jpg,,,https://jntukucen.ac.in/,
+MIC College Of Technology,CSE,4.2,11104,150000,43000,60000,Kanchikacherla,Andhra Pradesh,static/images/MIC College Of Technology.jpg,,,https://www.mictech.edu.in/,
+MIC College Of Technology,AIML,4.2,27629,120000,43000,60000,Kanchikacherla,Andhra Pradesh,static/images/MIC College Of Technology.jpg,,,https://www.mictech.edu.in/,
+MIC College Of Technology,ECE,4.2,38258,90000,43000,60000,Kanchikacherla,Andhra Pradesh,static/images/MIC College Of Technology.jpg,,,https://www.mictech.edu.in/,
+MIC College Of Technology,ME,4.2,92858,50000,43000,60000,Kanchikacherla,Andhra Pradesh,static/images/MIC College Of Technology.jpg,,,https://www.mictech.edu.in/,
+RK College Of Engineering,CSE,4.1,37498,Exactly Don't Know,40000,80000,Kanchikacherla,Andhra Pradesh,static/images/RK College Of Engineering.jpg,,,https://www.rkce.ac.in/,
+RK College Of Engineering,AIML,4.1,46806,Exactly Don't Know,40000,80000,Kanchikacherla,Andhra Pradesh,static/images/RK College Of Engineering.jpg,,,https://www.rkce.ac.in/,
+RK College Of Engineering,ECE,4.1,32768,Exactly Don't Know,40000,80000,Kanchikacherla,Andhra Pradesh,static/images/RK College Of Engineering.jpg,,,https://www.rkce.ac.in/,
+RK College Of Engineering,ME,4.1,143809,Exactly Don't Know,40000,80000,Kanchikacherla,Andhra Pradesh,static/images/RK College Of Engineering.jpg,,,https://www.rkce.ac.in/,
+PSCMR College Of Engineering And Technology,CSE,4.1,28664,120000,54000,80000,Vijayawada,Andhra Pradesh,static/images/PSCMR College Of Engineering And Technology.jpg,,,https://www.pscmr.ac.in/,
+PSCMR College Of Engineering And Technology,AIML,4.1,28664,120000,54000,80000,Vijayawada,Andhra Pradesh,static/images/PSCMR College Of Engineering And Technology.jpg,,,https://www.pscmr.ac.in/,
+PSCMR College Of Engineering And Technology,ECE,4.1,76839,100000,54000,80000,Vijayawada,Andhra Pradesh,static/images/PSCMR College Of Engineering And Technology.jpg,,,https://www.pscmr.ac.in/,
+PSCMR College Of Engineering And Technology,ME,4.1,150000,100000,54000,80000,Vijayawada,Andhra Pradesh,static/images/PSCMR College Of Engineering And Technology.jpg,,,https://www.pscmr.ac.in/,
+Vikas College Of Engineering And Technology,CSE,3.5,40642,Exactly Don't Know,59000,72000,Vijayawada,Andhra Pradesh,static/images/Vikas College Of Engineering And Technology.jpg,,,https://vikasinstitutionsnunna.org/,
+Vikas College Of Engineering And Technology,AIML,3.5,91644,Exactly Don't Know,59000,72000,Vijayawada,Andhra Pradesh,static/images/Vikas College Of Engineering And Technology.jpg,,,https://vikasinstitutionsnunna.org/,
+Vikas College Of Engineering And Technology,ECE,3.5,48291,Exactly Don't Know,59000,72000,Vijayawada,Andhra Pradesh,static/images/Vikas College Of Engineering And Technology.jpg,,,https://vikasinstitutionsnunna.org/,
+Vikas College Of Engineering And Technology,ME,3.5,159441,Exactly Don't Know,59000,72000,Vijayawada,Andhra Pradesh,static/images/Vikas College Of Engineering And Technology.jpg,,,https://vikasinstitutionsnunna.org/,
+DJR  College Of Engineering & Technology,CSE,3.3,7574,Exactly Don't Know,45000,50000,Velpuru,Andhra Pradesh,static/images/DJR College Of Engineering & Technology.jpg,,,https://djrcet.edu.in/Default/Pages/default.aspx,
+DJR  College Of Engineering & Technology,AIML,3.3,51693,Exactly Don't Know,45000,50000,Velpuru,Andhra Pradesh,static/images/DJR College Of Engineering & Technology.jpg,,,https://djrcet.edu.in/Default/Pages/default.aspx,
+DJR  College Of Engineering & Technology,ECE,3.3,85325,Exactly Don't Know,45000,50000,Velpuru,Andhra Pradesh,static/images/DJR College Of Engineering & Technology.jpg,,,https://djrcet.edu.in/Default/Pages/default.aspx,
+DJR  College Of Engineering & Technology,ME,3.3,145209,Exactly Don't Know,45000,50000,Velpuru,Andhra Pradesh,static/images/DJR College Of Engineering & Technology.jpg,,,https://djrcet.edu.in/Default/Pages/default.aspx,
+Velagapudi Ramakrishna Siddhartha Engineering College,CSE,4.3,609,250000,72820,85000,Kanuru,Andhra Pradesh,static/images/Velagapudi Ramakrishna Siddhartha Engineering College.jpg,,,https://siddhartha.edu.in/,
+Velagapudi Ramakrishna Siddhartha Engineering College,AIML,4.3,582,250000,72820,85000,Kanuru,Andhra Pradesh,static/images/Velagapudi Ramakrishna Siddhartha Engineering College.jpg,,,https://siddhartha.edu.in/,
+Velagapudi Ramakrishna Siddhartha Engineering College,ECE,4.3,5075,250000,72820,85000,Kanuru,Andhra Pradesh,static/images/Velagapudi Ramakrishna Siddhartha Engineering College.jpg,,,https://siddhartha.edu.in/,
+Velagapudi Ramakrishna Siddhartha Engineering College,ME,4.3,3762,250000,72820,85000,Kanuru,Andhra Pradesh,static/images/Velagapudi Ramakrishna Siddhartha Engineering College.jpg,,,https://siddhartha.edu.in/,
+MVR College Of Engineering & Technology,CSE,3.5,255368,80000,43000,62000,Krishna,Andhra Pradesh,static/images/MVR College Of Engineering & Technology.jpg,,,https://www.mvrcoe.ac.in/,
+MVR College Of Engineering & Technology,AIML,3.5,21005,80000,43000,62000,Krishna,Andhra Pradesh,static/images/MVR College Of Engineering & Technology.jpg,,,https://www.mvrcoe.ac.in/,
+MVR College Of Engineering & Technology,ECE,3.5,41411,80000,43000,62000,Krishna,Andhra Pradesh,static/images/MVR College Of Engineering & Technology.jpg,,,https://www.mvrcoe.ac.in/,
+MVR College Of Engineering & Technology,ME,3.5,107422,80000,43000,62000,Krishna,Andhra Pradesh,static/images/MVR College Of Engineering & Technology.jpg,,,https://www.mvrcoe.ac.in/,
+Sasi Institute Of Technology & Engineering,CSE,3.7,9456,150000,55600,65000,Thadepalligudem,Andhra Pradesh,static/images/Sasi Institute Of Technology & Engineering.jpg,,,https://sasi.ac.in/,
+Sasi Institute Of Technology & Engineering,AIML,3.7,16735,150000,55600,65000,Thadepalligudem,Andhra Pradesh,static/images/Sasi Institute Of Technology & Engineering.jpg,,,https://sasi.ac.in/,
+Sasi Institute Of Technology & Engineering,ECE,3.7,26779,150000,55600,65000,Thadepalligudem,Andhra Pradesh,static/images/Sasi Institute Of Technology & Engineering.jpg,,,https://sasi.ac.in/,
+Sasi Institute Of Technology & Engineering,ME,3.7,63349,150000,55600,65000,Thadepalligudem,Andhra Pradesh,static/images/Sasi Institute Of Technology & Engineering.jpg,,,https://sasi.ac.in/,
+SRKR Engineering College,CSE,4.4,2068,315000,105000,90000,Bhimavaram,Andhra Pradesh,static/images/SRKR Engineering College.jpg,,,https://www.srkrec.ac.in/,
+SRKR Engineering College,AIML,4.4,4485,315000,105000,90000,Bhimavaram,Andhra Pradesh,static/images/SRKR Engineering College.jpg,,,https://www.srkrec.ac.in/,
+SRKR Engineering College,ECE,4.4,5408,180000,105000,90000,Bhimavaram,Andhra Pradesh,static/images/SRKR Engineering College.jpg,,,https://www.srkrec.ac.in/,
+SRKR Engineering College,ME,4.4,27000,105000,105000,90000,Bhimavaram,Andhra Pradesh,static/images/SRKR Engineering College.jpg,,,https://www.srkrec.ac.in/,
+Shri Vishnu Engineering College Autonomous,CSE,4.6,948,300000,77000,138000,Bhimavaram,Andhra Pradesh,static/images/Shri Vishnu Engineering College Autonomous.jpg,,,https://svecw.edu.in/,
+Shri Vishnu Engineering College Autonomous,AIML,4.6,5486,300000,77000,138000,Bhimavaram,Andhra Pradesh,static/images/Shri Vishnu Engineering College Autonomous.jpg,,,https://svecw.edu.in/,
+Shri Vishnu Engineering College Autonomous,ECE,4.6,5415,210000,77000,138000,Bhimavaram,Andhra Pradesh,static/images/Shri Vishnu Engineering College Autonomous.jpg,,,https://svecw.edu.in/,
+Shri Vishnu Engineering College Autonomous,ME,4.6,9966,210000,77000,138000,Bhimavaram,Andhra Pradesh,static/images/Shri Vishnu Engineering College Autonomous.jpg,,,https://svecw.edu.in/,
+BVC Institute Of Technology & Science,CSE,3.9,11629,150000,52800,70000,Amalapuram,Andhra Pradesh,static/images/BVC Institute Of Technology & Science.jpg,,,https://bvcits.edu.in/,
+BVC Institute Of Technology & Science,AIML,3.9,3957,150000,52800,70000,Amalapuram,Andhra Pradesh,static/images/BVC Institute Of Technology & Science.jpg,,,https://bvcits.edu.in/,
+BVC Institute Of Technology & Science,ECE,3.9,18485,150000,52800,70000,Amalapuram,Andhra Pradesh,static/images/BVC Institute Of Technology & Science.jpg,,,https://bvcits.edu.in/,
+BVC Institute Of Technology & Science,ME,3.9,130567,100000,52800,70000,Amalapuram,Andhra Pradesh,static/images/BVC Institute Of Technology & Science.jpg,,,https://bvcits.edu.in/,
+VSM College Of Engineering,CSE,3.7,133503,250000,65800,60000,Ramachandrapuram,Andhra Pradesh,static/images/VSM College Of Engineering.jpg,,,https://www.vsm.edu.in/Sites/vsmdegree/index.php,
+VSM College Of Engineering,AIML,3.7,96574,250000,65800,60000,Ramachandrapuram,Andhra Pradesh,static/images/VSM College Of Engineering.jpg,,,https://www.vsm.edu.in/Sites/vsmdegree/index.php,
+VSM College Of Engineering,ECE,3.7,134414,250000,65800,60000,Ramachandrapuram,Andhra Pradesh,static/images/VSM College Of Engineering.jpg,,,https://www.vsm.edu.in/Sites/vsmdegree/index.php,
+VSM College Of Engineering,ME,3.7,147140,250000,65800,60000,Ramachandrapuram,Andhra Pradesh,static/images/VSM College Of Engineering.jpg,,,https://www.vsm.edu.in/Sites/vsmdegree/index.php,
+Aditya Engineering College,CSE,4.1,3866,300000,60000,105000,Surampalem,Andhra Pradesh,static/images/Aditya Engineering College.jpg,,,https://www.acoe.edu.in/,
+Aditya Engineering College,AIML,4.1,10978,300000,60000,105000,Surampalem,Andhra Pradesh,static/images/Aditya Engineering College.jpg,,,https://www.acoe.edu.in/,
+Aditya Engineering College,ECE,4.1,5544,215000,60000,105000,Surampalem,Andhra Pradesh,static/images/Aditya Engineering College.jpg,,,https://www.acoe.edu.in/,
+Aditya Engineering College,ME,4.1,37722,115000,60000,105000,Surampalem,Andhra Pradesh,static/images/Aditya Engineering College.jpg,,,https://www.acoe.edu.in/,
+GIET Engineering College,CSE,4.2,4253,200000,58700,110000,Rajahmundry,Andhra Pradesh,static/images/GIET Engineering College.jpg,,,https://gietec.ac.in/,
+GIET Engineering College,AIML,4.2,24948,200000,58700,110000,Rajahmundry,Andhra Pradesh,static/images/GIET Engineering College.jpg,,,https://gietec.ac.in/,
+GIET Engineering College,ECE,4.2,30753,200000,58700,110000,Rajahmundry,Andhra Pradesh,static/images/GIET Engineering College.jpg,,,https://gietec.ac.in/,
+GIET Engineering College,ME,4.2,76861,200000,58700,110000,Rajahmundry,Andhra Pradesh,static/images/GIET Engineering College.jpg,,,https://gietec.ac.in/,
+Dadi Institute Of Engineering & Technology,CSE,4.2,31222,150000,47400,60000,Anakapalle,Andhra Pradesh,static/images/Dadi Institute Of Engineering & Technology.jpg,,,https://www.diet.edu.in/,
+Dadi Institute Of Engineering & Technology,AIML,4.2,40849,150000,47400,60000,Anakapalle,Andhra Pradesh,static/images/Dadi Institute Of Engineering & Technology.jpg,,,https://www.diet.edu.in/,
+Dadi Institute Of Engineering & Technology,ECE,4.2,57515,120000,47400,60000,Anakapalle,Andhra Pradesh,static/images/Dadi Institute Of Engineering & Technology.jpg,,,https://www.diet.edu.in/,
+Dadi Institute Of Engineering & Technology,ME,4.2,57515,100000,47400,60000,Anakapalle,Andhra Pradesh,static/images/Dadi Institute Of Engineering & Technology.jpg,,,https://www.diet.edu.in/,
+Andhra University College Of Engineering,CSE,4.4,528,308000,44500,52000,Visakhapatnam,Andhra Pradesh,static/images/Andhra University College Of Engineering.jpg,,,https://www.andhrauniversity.edu.in/college/college-of-engineering/engineering-home.html,
+Andhra University College Of Engineering,AIML,4.4,1048,200000,44500,52000,Visakhapatnam,Andhra Pradesh,static/images/Andhra University College Of Engineering.jpg,,,https://www.andhrauniversity.edu.in/college/college-of-engineering/engineering-home.html,
+Andhra University College Of Engineering,ECE,4.4,2000,150000,44500,52000,Visakhapatnam,Andhra Pradesh,static/images/Andhra University College Of Engineering.jpg,,,https://www.andhrauniversity.edu.in/college/college-of-engineering/engineering-home.html,
+Andhra University College Of Engineering,ME,4.4,3500,130000,44500,52000,Visakhapatnam,Andhra Pradesh,static/images/Andhra University College Of Engineering.jpg,,,https://www.andhrauniversity.edu.in/college/college-of-engineering/engineering-home.html,
+Lendi Institute Of Engineering And Technology,CSE,3.9,11000,150000,62300,90000,Vizianagaram,Andhra Pradesh,static/images/Lendi Institute Of Engineering And Technology.jpg,,,https://lendi.edu.in/,
+Lendi Institute Of Engineering And Technology,AIML,3.9,19000,150000,62300,90000,Vizianagaram,Andhra Pradesh,static/images/Lendi Institute Of Engineering And Technology.jpg,,,https://lendi.edu.in/,
+Lendi Institute Of Engineering And Technology,ECE,3.9,9544,150000,62300,90000,Vizianagaram,Andhra Pradesh,static/images/Lendi Institute Of Engineering And Technology.jpg,,,https://lendi.edu.in/,
+Lendi Institute Of Engineering And Technology,ME,3.9,32332,150000,62300,90000,Vizianagaram,Andhra Pradesh,static/images/Lendi Institute Of Engineering And Technology.jpg,,,https://lendi.edu.in/,
+MVGR College Of Engineering,CSE,4.4,9689,300000,76900,100000,Vizianagaram,Andhra Pradesh,static/images/MVGR College Of Engineering.jpg,,,https://mvgrce.com/,
+MVGR College Of Engineering,AIML,4.4,11392,300000,76900,100000,Vizianagaram,Andhra Pradesh,static/images/MVGR College Of Engineering.jpg,,,https://mvgrce.com/,
+MVGR College Of Engineering,ECE,4.4,12139,300000,76900,100000,Vizianagaram,Andhra Pradesh,static/images/MVGR College Of Engineering.jpg,,,https://mvgrce.com/,
+MVGR College Of Engineering,ME,4.4,21328,300000,76900,100000,Vizianagaram,Andhra Pradesh,static/images/MVGR College Of Engineering.jpg,,,https://mvgrce.com/,
+Satya Institute Of Technology And Management,CSE,3.8,40695,150000,50000,90000,Vizianagaram,Andhra Pradesh,static/images/Satya Institute Of Technology And Management.jpg,,,http://www.sitam.co.in/,
+Satya Institute Of Technology And Management,AIML,3.8,43788,150000,50000,90000,Vizianagaram,Andhra Pradesh,static/images/Satya Institute Of Technology And Management.jpg,,,http://www.sitam.co.in/,
+Satya Institute Of Technology And Management,ECE,3.8,37915,100000,45600,90000,Vizianagaram,Andhra Pradesh,static/images/Satya Institute Of Technology And Management.jpg,,,http://www.sitam.co.in/,
+Satya Institute Of Technology And Management,ME,3.8,88187,80000,45600,90000,Vizianagaram,Andhra Pradesh,static/images/Satya Institute Of Technology And Management.jpg,,,http://www.sitam.co.in/,
+Baba Institute Of Technology & Science,CSE,3.5,18324,120000,43000,75000,Visakhapatnam,Andhra Pradesh,static/images/Baba Institute Of Technology & Science.jpg,,,https://bitsvizag.com/,
+Baba Institute Of Technology & Science,AIML,3.5,77258,120000,43000,75000,Visakhapatnam,Andhra Pradesh,static/images/Baba Institute Of Technology & Science.jpg,,,https://bitsvizag.com/,
+Baba Institute Of Technology & Science,ECE,3.5,44417,120000,43000,75000,Visakhapatnam,Andhra Pradesh,static/images/Baba Institute Of Technology & Science.jpg,,,https://bitsvizag.com/,
+Baba Institute Of Technology & Science,ME,3.5,119000,120000,43000,75000,Visakhapatnam,Andhra Pradesh,static/images/Baba Institute Of Technology & Science.jpg,,,https://bitsvizag.com/,
+Anil Neerukonda Institute Of Technology And Science,CSE,4.1,2623,300000,84100,90000,Visakhapatnam,Andhra Pradesh,static/images/Anil Neerukonda Institute Of Technology And Science.jpg,,,https://www.anits.edu.in/,
+Anil Neerukonda Institute Of Technology And Science,AIML,4.1,4457,300000,84100,90000,Visakhapatnam,Andhra Pradesh,static/images/Anil Neerukonda Institute Of Technology And Science.jpg,,,https://www.anits.edu.in/,
+Anil Neerukonda Institute Of Technology And Science,ECE,4.1,4102,250000,84100,90000,Visakhapatnam,Andhra Pradesh,static/images/Anil Neerukonda Institute Of Technology And Science.jpg,,,https://www.anits.edu.in/,
+Anil Neerukonda Institute Of Technology And Science,ME,4.1,23103,150000,84100,90000,Visakhapatnam,Andhra Pradesh,static/images/Anil Neerukonda Institute Of Technology And Science.jpg,,,https://www.anits.edu.in/,
+Raghu Engineering College,CSE,4.1,2590,242400,80800,93300,Visakhapatnam,Andhra Pradesh,static/images/Raghu Engineering College.jpg,,,https://www.raghuenggcollege.com/,
+Raghu Engineering College,AIML,4.1,9300,242400,80800,93300,Visakhapatnam,Andhra Pradesh,static/images/Raghu Engineering College.jpg,,,https://www.raghuenggcollege.com/,
+Raghu Engineering College,ECE,4.1,13098,150000,80800,93300,Visakhapatnam,Andhra Pradesh,static/images/Raghu Engineering College.jpg,,,https://www.raghuenggcollege.com/,
+Raghu Engineering College,ME,4.1,63402,81000,80800,93300,Visakhapatnam,Andhra Pradesh,static/images/Raghu Engineering College.jpg,,,https://www.raghuenggcollege.com/,
+Vignan's Institute Of Information Technology,CSE,3.7,2105,180000,68700,80000,Gajuwaka,Andhra Pradesh,static/images/Vignan's Institute Of Information Technology.jpg,,,https://vignaniit.edu.in/,
+Vignan's Institute Of Information Technology,AIML,3.7,7372,180000,68700,80000,Gajuwaka,Andhra Pradesh,static/images/Vignan's Institute Of Information Technology.jpg,,,https://vignaniit.edu.in/,
+Vignan's Institute Of Information Technology,ECE,3.7,10500,180000,68700,80000,Gajuwaka,Andhra Pradesh,static/images/Vignan's Institute Of Information Technology.jpg,,,https://vignaniit.edu.in/,
+Vignan's Institute Of Information Technology,ME,3.7,31967,120000,68700,80000,Gajuwaka,Andhra Pradesh,static/images/Vignan's Institute Of Information Technology.jpg,,,https://vignaniit.edu.in/,
+JNTU Kakinada,CSE,4.1,200,Not Applicable,75000,83000,Kakinada,Andhra Pradesh,static/images/JNTU Kakinada.jpg,,,https://www.jntuk.edu.in/,
+JNTU Kakinada,AIML,4.1,2688,Not Applicable,75000,83000,Kakinada,Andhra Pradesh,static/images/JNTU Kakinada.jpg,,,https://www.jntuk.edu.in/,
+JNTU Kakinada,ECE,4.1,500,Not Applicable,45000,83000,Kakinada,Andhra Pradesh,static/images/JNTU Kakinada.jpg,,,https://www.jntuk.edu.in/,
+GMR Institute Of Technology,CSE,4.2,2943,198000,101000,102000,Srikakulam,Andhra Pradesh,static/images/GMR Institute Of Technology.jpg,,,https://gmrit.edu.in/du/,
+GMR Institute Of Technology,AIML,4.2,4757,198000,101000,102000,Srikakulam,Andhra Pradesh,static/images/GMR Institute Of Technology.jpg,,,https://gmrit.edu.in/du/,
+GMR Institute Of Technology,ECE,4.2,4863,198000,101000,102000,Srikakulam,Andhra Pradesh,static/images/GMR Institute Of Technology.jpg,,,https://gmrit.edu.in/du/,
+GMR Institute Of Technology,ME,4.2,18582,90000,101000,102000,Srikakulam,Andhra Pradesh,static/images/GMR Institute Of Technology.jpg,,,https://gmrit.edu.in/du/,
+Aditya Institute Of Technology And Science,CSE,4.3,18337,230000,79600,75000,Tekkali,Andhra Pradesh,static/images/Aditya Institute Of Technology And Science.jpg,,,https://www.adityatekkali.edu.in/,
+Aditya Institute Of Technology And Science,AIML,4.3,14791,230000,79600,75000,Tekkali,Andhra Pradesh,static/images/Aditya Institute Of Technology And Science.jpg,,,https://www.adityatekkali.edu.in/,
+Aditya Institute Of Technology And Science,ECE,4.3,20381,230000,79600,75000,Tekkali,Andhra Pradesh,static/images/Aditya Institute Of Technology And Science.jpg,,,https://www.adityatekkali.edu.in/,
+Aditya Institute Of Technology And Science,ME,4.3,67502,230000,79600,75000,Tekkali,Andhra Pradesh,static/images/Aditya Institute Of Technology And Science.jpg,,,https://www.adityatekkali.edu.in/,
+Sri Venkateswara College Of Engineering & Technology,CSE,3.9,82343,120000,40000,60000,Etcherla,Andhra Pradesh,static/images/Sri Venkateswara College Of Engineering & Technology.jpg,,,,https://www.svcet.net/
+Sri Venkateswara College Of Engineering & Technology,AIML,3.9,75742,110000,40000,60000,Etcherla,Andhra Pradesh,static/images/Sri Venkateswara College Of Engineering & Technology.jpg,,,,https://www.svcet.net/
+Sri Venkateswara College Of Engineering & Technology,ECE,3.9,142299,65000,40000,60000,Etcherla,Andhra Pradesh,static/images/Sri Venkateswara College Of Engineering & Technology.jpg,,,,https://www.svcet.net/
+Sri Venkateswara College Of Engineering & Technology,ME,3.9,121235,45000,40000,60000,Etcherla,Andhra Pradesh,static/images/Sri Venkateswara College Of Engineering & Technology.jpg,,,,https://www.svcet.net/
+RGUKT Srikakulam,CSE,4.1,5500,150000,50000,90000,Srikakulam,Andhra Pradesh,static/images/RGUKT Srikakulam.jpg,,,,https://rguktsklm.ac.in/
+RGUKT Srikakulam,AIML,4.1,1500,130000,50000,90000,Srikakulam,Andhra Pradesh,static/images/RGUKT Srikakulam.jpg,,,,https://rguktsklm.ac.in/
+RGUKT Srikakulam,ECE,4.1,7000,110000,50000,90000,Srikakulam,Andhra Pradesh,static/images/RGUKT Srikakulam.jpg,,,,https://rguktsklm.ac.in/
+RGUKT Srikakulam,ME,4.1,8000,60000,50000,90000,Srikakulam,Andhra Pradesh,static/images/RGUKT Srikakulam.jpg,,,,https://rguktsklm.ac.in/
+Dr.B.R Ambedkar University,CSE,3.8,22344,194000,48500,60000,Etcherla,Andhra Pradesh,static/images/Dr.B.R Ambedkar University.jpg,,,,https://www.brau.edu.in/
+Dr.B.R Ambedkar University,AIML,3.8,35000,194000,48500,60000,Etcherla,Andhra Pradesh,static/images/Dr.B.R Ambedkar University.jpg,,,,https://www.brau.edu.in/
+Dr.B.R Ambedkar University,ECE,3.8,41519,194000,48500,60000,Etcherla,Andhra Pradesh,static/images/Dr.B.R Ambedkar University.jpg,,,,https://www.brau.edu.in/
+Dr.B.R Ambedkar University,ME,3.8,75000,194000,48500,60000,Etcherla,Andhra Pradesh,static/images/Dr.B.R Ambedkar University.jpg,,,,https://www.brau.edu.in/
+Mitra Engineering College ,CSE,3.4,35000,70000,47000,80000,Srikakulam,Andhra Pradesh,static/images/Mitra Engineering College.jpg,,,,https://www.justdial.com/Srikakulam/Mithra-Institute-Of-Technology-Etcherla-Mandalam-Ambedkar-Junction/9999P8942-8942-090730031835-N7D4DC_BZDET
+Mitra Engineering College ,AIML,3.4,45000,70000,47000,80000,Srikakulam,Andhra Pradesh,static/images/Mitra Engineering College.jpg,,,,https://www.justdial.com/Srikakulam/Mithra-Institute-Of-Technology-Etcherla-Mandalam-Ambedkar-Junction/9999P8942-8942-090730031835-N7D4DC_BZDET
+Mitra Engineering College ,ECE,3.4,55000,50000,47000,80000,Srikakulam,Andhra Pradesh,static/images/Mitra Engineering College.jpg,,,,https://www.justdial.com/Srikakulam/Mithra-Institute-Of-Technology-Etcherla-Mandalam-Ambedkar-Junction/9999P8942-8942-090730031835-N7D4DC_BZDET
+Mitra Engineering College ,ME,3.4,80000,50000,47000,80000,Srikakulam,Andhra Pradesh,static/images/Mitra Engineering College.jpg,,,,https://www.justdial.com/Srikakulam/Mithra-Institute-Of-Technology-Etcherla-Mandalam-Ambedkar-Junction/9999P8942-8942-090730031835-N7D4DC_BZDET
+Maharaj Vijayaram Gajapathi Raj College Of Engineering(Autonomous),CSE,4.4,6400,207000,76900,91300,Chintalavalasa,Andhra Pradesh,static/images/Maharaj Vijayaram Gajapathi Raj College Of Engineering(Autonomous).jpg,,,,https://www.mvgrce.edu.in/
+Maharaj Vijayaram Gajapathi Raj College Of Engineering(Autonomous),AIML,4.4,6500,198000,76900,91300,Chintalavalasa,Andhra Pradesh,static/images/Maharaj Vijayaram Gajapathi Raj College Of Engineering(Autonomous).jpg,,,,https://www.mvgrce.edu.in/
+Maharaj Vijayaram Gajapathi Raj College Of Engineering(Autonomous),ECE,4.4,12100,153000,76900,91300,Chintalavalasa,Andhra Pradesh,static/images/Maharaj Vijayaram Gajapathi Raj College Of Engineering(Autonomous).jpg,,,,https://www.mvgrce.edu.in/
+Maharaj Vijayaram Gajapathi Raj College Of Engineering(Autonomous),ME,4.4,11800,96000,76900,91300,Chintalavalasa,Andhra Pradesh,static/images/Maharaj Vijayaram Gajapathi Raj College Of Engineering(Autonomous).jpg,,,,https://www.mvgrce.edu.in/
+Avanthi's St Theressa Institute Of Technology,CSE,4.2,49679,120000,43000,60000,Garividi,Andhra Pradesh,static/images/Avanthi's St Theressa Institute Of Technology.jpg,,,,https://sttheressaengg.ac.in/
+Avanthi's St Theressa Institute Of Technology,AIML,4.2,70230,120000,43000,60000,Garividi,Andhra Pradesh,static/images/Avanthi's St Theressa Institute Of Technology.jpg,,,,https://sttheressaengg.ac.in/
+Avanthi's St Theressa Institute Of Technology,ECE,4.2,34764,110000,43000,60000,Garividi,Andhra Pradesh,static/images/Avanthi's St Theressa Institute Of Technology.jpg,,,,https://sttheressaengg.ac.in/
+Avanthi's St Theressa Institute Of Technology,ME,4.2,93242,105000,43000,60000,Garividi,Andhra Pradesh,static/images/Avanthi's St Theressa Institute Of Technology.jpg,,,,https://sttheressaengg.ac.in/
+Thandra Paparaya Institute Of Science & Technology,CSE,3.9,109806,Not Provide,37300,80000,Bobbili,Andhra Pradesh,static/images/Thandra Paparaya Institute Of Science & Technology.jpg,,,,https://vizianagaram.ap.gov.in/public-utility/thandrapaparaya-institute-of-science-technology/
+Thandra Paparaya Institute Of Science & Technology,AIML,3.9,109806,Not Provide,37300,80000,Bobbili,Andhra Pradesh,static/images/Thandra Paparaya Institute Of Science & Technology.jpg,,,,https://vizianagaram.ap.gov.in/public-utility/thandrapaparaya-institute-of-science-technology/
+Thandra Paparaya Institute Of Science & Technology,ECE,3.9,110720,Not Provide,37300,80000,Bobbili,Andhra Pradesh,static/images/Thandra Paparaya Institute Of Science & Technology.jpg,,,,https://vizianagaram.ap.gov.in/public-utility/thandrapaparaya-institute-of-science-technology/
+Thandra Paparaya Institute Of Science & Technology,ME,3.9,138490,Not Provide,37300,80000,Bobbili,Andhra Pradesh,static/images/Thandra Paparaya Institute Of Science & Technology.jpg,,,,https://vizianagaram.ap.gov.in/public-utility/thandrapaparaya-institute-of-science-technology/
+Pydah College Of Engineering,CSE,3.4,104431,120000,40000,90000,Patavala,Andhra Pradesh,static/images/Pydah College Of Engineering.jpg,,,,https://www.pydah.edu.in/
+Pydah College Of Engineering,AIML,3.4,103831,120000,40000,90000,Patavala,Andhra Pradesh,static/images/Pydah College Of Engineering.jpg,,,,https://www.pydah.edu.in/
+Pydah College Of Engineering,ECE,3.4,140261,120000,40000,90000,Patavala,Andhra Pradesh,static/images/Pydah College Of Engineering.jpg,,,,https://www.pydah.edu.in/
+Pydah College Of Engineering,ME,3.4,147843,120000,40000,90000,Patavala,Andhra Pradesh,static/images/Pydah College Of Engineering.jpg,,,,https://www.pydah.edu.in/
+KIET Group Of Institutions,CSE,3.5,30474,150000,43000,100000,Korangi,Andhra Pradesh,static/images/KIET Group Of Institutions.jpg,,,,https://www.kietgroup.com/
+KIET Group Of Institutions,AIML,3.5,30474,150000,43000,100000,Korangi,Andhra Pradesh,static/images/KIET Group Of Institutions.jpg,,,,https://www.kietgroup.com/
+KIET Group Of Institutions,ECE,3.5,30474,100000,43000,100000,Korangi,Andhra Pradesh,static/images/KIET Group Of Institutions.jpg,,,,https://www.kietgroup.com/
+KIET Group Of Institutions,ME,3.5,30474,100000,43000,100000,Korangi,Andhra Pradesh,static/images/KIET Group Of Institutions.jpg,,,,https://www.kietgroup.com/
+ASK College Of Technology & Management,CSE,3.7,15000,140000,35000,65000,Anakapalle,Andhra Pradesh,static/images/ASK College Of Technology & Management.jpg,,,,https://askctm.in/
+ASK College Of Technology & Management,AIML,3.7,18000,140000,35000,65000,Anakapalle,Andhra Pradesh,static/images/ASK College Of Technology & Management.jpg,,,,https://askctm.in/
+ASK College Of Technology & Management,ECE,3.7,20000,140000,35000,65000,Anakapalle,Andhra Pradesh,static/images/ASK College Of Technology & Management.jpg,,,,https://askctm.in/
+ASK College Of Technology & Management,ME,3.7,25000,140000,35000,65000,Anakapalle,Andhra Pradesh,static/images/ASK College Of Technology & Management.jpg,,,,https://askctm.in/
+Chaitanya Engineering College,CSE,4.2,42946,100000,40000,60000,Kommadi,Andhra Pradesh,static/images/Chaitanya Engineering College.jpg,,,,https://cec.ac.in/
+Chaitanya Engineering College,AIML,4.2,20902,100000,40000,60000,Kommadi,Andhra Pradesh,static/images/Chaitanya Engineering College.jpg,,,,https://cec.ac.in/
+Chaitanya Engineering College,ECE,4.2,56898,70000,40000,60000,Kommadi,Andhra Pradesh,static/images/Chaitanya Engineering College.jpg,,,,https://cec.ac.in/
+Chaitanya Engineering College,ME,4.2,101099,50000,40000,60000,Kommadi,Andhra Pradesh,static/images/Chaitanya Engineering College.jpg,,,,https://cec.ac.in/
+Sanketika Vidya Parishad Engineering College ,CSE,3.8,61300,172000,43000,50000,Visakhapatnam,Andhra Pradesh,static/images/Sanketika Vidya Parishad Engineering College .jpg,,,,https://svpec.info/lander?oref=https%3A%2F%2Fwww.google.com%2F
+Sanketika Vidya Parishad Engineering College ,AIML,3.8,66700,172000,43000,50000,Visakhapatnam,Andhra Pradesh,static/images/Sanketika Vidya Parishad Engineering College .jpg,,,,https://svpec.info/lander?oref=https%3A%2F%2Fwww.google.com%2F
+Sanketika Vidya Parishad Engineering College ,ECE,3.8,69900,172000,43000,50000,Visakhapatnam,Andhra Pradesh,static/images/Sanketika Vidya Parishad Engineering College .jpg,,,,https://svpec.info/lander?oref=https%3A%2F%2Fwww.google.com%2F
+Sanketika Vidya Parishad Engineering College ,ME,3.8,51000,172000,43000,50000,Visakhapatnam,Andhra Pradesh,static/images/Sanketika Vidya Parishad Engineering College .jpg,,,,https://svpec.info/lander?oref=https%3A%2F%2Fwww.google.com%2F
+Visakha Institute Of Engineering &  Technology,CSE,3.9,76324,100000,43000,60000,Visakhapatnam,Andhra Pradesh,static/images/Visakha Institute Of Engineering &  Technology.jpg,,,,https://www.viet.edu.in/
+Visakha Institute Of Engineering &  Technology,AIML,3.9,78709,100000,43000,60000,Visakhapatnam,Andhra Pradesh,static/images/Visakha Institute Of Engineering &  Technology.jpg,,,,https://www.viet.edu.in/
+Visakha Institute Of Engineering &  Technology,ECE,3.9,91679,80000,43000,60000,Visakhapatnam,Andhra Pradesh,static/images/Visakha Institute Of Engineering &  Technology.jpg,,,,https://www.viet.edu.in/
+Visakha Institute Of Engineering &  Technology,ME,3.9,133472,80000,43000,60000,Visakhapatnam,Andhra Pradesh,static/images/Visakha Institute Of Engineering &  Technology.jpg,,,,https://www.viet.edu.in/
+Gayatri Vidya Parishad College Of Engineering,CSE,4.1,1206,105000,105000,90000,Madhuravada,Andhra Pradesh,static/images/Gayatri Vidya Parishad College Of Engineering.jpg,,,,https://www.gvpce.ac.in/
+Gayatri Vidya Parishad College Of Engineering,AIML,4.1,1416,105000,105000,90000,Madhuravada,Andhra Pradesh,static/images/Gayatri Vidya Parishad College Of Engineering.jpg,,,,https://www.gvpce.ac.in/
+Gayatri Vidya Parishad College Of Engineering,ECE,4.1,2208,105000,105000,90000,Madhuravada,Andhra Pradesh,static/images/Gayatri Vidya Parishad College Of Engineering.jpg,,,,https://www.gvpce.ac.in/
+Gayatri Vidya Parishad College Of Engineering,ME,4.1,7844,105000,105000,90000,Madhuravada,Andhra Pradesh,static/images/Gayatri Vidya Parishad College Of Engineering.jpg,,,,https://www.gvpce.ac.in/
+Gandhi Institute Of Technology ,CSE,4.4,40000,382000,40000,100000,Rushikonda,Andhra Pradesh,static/images/Gandhi Institute Of Technology.avif,,,,https://www.gitam.edu/
+Gandhi Institute Of Technology ,AIML,4.4,45000,382000,40000,100000,Rushikonda,Andhra Pradesh,static/images/Gandhi Institute Of Technology.avif,,,,https://www.gitam.edu/
+Gandhi Institute Of Technology ,ECE,4.4,60000,200000,40000,100000,Rushikonda,Andhra Pradesh,static/images/Gandhi Institute Of Technology.avif,,,,https://www.gitam.edu/
+Gandhi Institute Of Technology ,ME,4.4,85000,100700,40000,100000,Rushikonda,Andhra Pradesh,static/images/Gandhi Institute Of Technology.avif,,,,https://www.gitam.edu/
+Dr.Lankapalli Bullayya College Of Engineering,CSE,4.3,47000,186800,47000,60000,Visakhapatnam,Andhra Pradesh,static/images/Dr.Lankapalli Bullayya College Of Engineering.jpg,,,,https://lbce.edu.in/
+Dr.Lankapalli Bullayya College Of Engineering,AIML,4.3,47000,186800,47000,60000,Visakhapatnam,Andhra Pradesh,static/images/Dr.Lankapalli Bullayya College Of Engineering.jpg,,,,https://lbce.edu.in/
+Dr.Lankapalli Bullayya College Of Engineering,ECE,4.3,59000,186800,47000,60000,Visakhapatnam,Andhra Pradesh,static/images/Dr.Lankapalli Bullayya College Of Engineering.jpg,,,,https://lbce.edu.in/
+Dr.Lankapalli Bullayya College Of Engineering,ME,4.3,59000,186800,47000,60000,Visakhapatnam,Andhra Pradesh,static/images/Dr.Lankapalli Bullayya College Of Engineering.jpg,,,,https://lbce.edu.in/
+Wellfare Institute Of Science Technology & management,CSE,4.1,55028,Not Provide,43000,60000,Visakhapatnam,Andhra Pradesh,static/images/Wellfare Institute Of Science Technology & management.jpg,,,,https://wistm.edu.in/
+Wellfare Institute Of Science Technology & management,AIML,4.1,46368,Not Provide,43000,60000,Visakhapatnam,Andhra Pradesh,static/images/Wellfare Institute Of Science Technology & management.jpg,,,,https://wistm.edu.in/
+Wellfare Institute Of Science Technology & management,ECE,4.1,91995,Not Provide,43000,60000,Visakhapatnam,Andhra Pradesh,static/images/Wellfare Institute Of Science Technology & management.jpg,,,,https://wistm.edu.in/
+Wellfare Institute Of Science Technology & management,ME,4.1,139465,Not Provide,43000,60000,Visakhapatnam,Andhra Pradesh,static/images/Wellfare Institute Of Science Technology & management.jpg,,,,https://wistm.edu.in/
+Avanthi Institute Of Engineering & Technology,CSE,3.8,50497,150000,72500,60000,Rachapalle,Andhra Pradesh,static/images/Avanthi Institute Of Engineering & Technology.jpg,,,,https://aietta.ac.in/
+Avanthi Institute Of Engineering & Technology,AIML,3.8,59183,150000,72500,60000,Rachapalle,Andhra Pradesh,static/images/Avanthi Institute Of Engineering & Technology.jpg,,,,https://aietta.ac.in/
+Avanthi Institute Of Engineering & Technology,ECE,3.8,74153,120000,72500,60000,Rachapalle,Andhra Pradesh,static/images/Avanthi Institute Of Engineering & Technology.jpg,,,,https://aietta.ac.in/
+Avanthi Institute Of Engineering & Technology,ME,3.8,95715,120000,72500,60000,Rachapalle,Andhra Pradesh,static/images/Avanthi Institute Of Engineering & Technology.jpg,,,,https://aietta.ac.in/
+Sai Ganapathi Engineering College,CSE,3.8,75000,Not Provide,43000,80000,Visakhapatnam,Andhra Pradesh,static/images/Sai Ganapathi Engineering College.webp,,,,https://mrdu.edu.in/
+Sai Ganapathi Engineering College,AIML,3.8,75000,Not Provide,43000,80000,Visakhapatnam,Andhra Pradesh,static/images/Sai Ganapathi Engineering College.webp,,,,https://mrdu.edu.in/
+Sai Ganapathi Engineering College,ECE,3.8,81000,Not Provide,43000,80000,Visakhapatnam,Andhra Pradesh,static/images/Sai Ganapathi Engineering College.webp,,,,https://mrdu.edu.in/
+Sai Ganapathi Engineering College,ME,3.8,140000,Not Provide,43000,80000,Visakhapatnam,Andhra Pradesh,static/images/Sai Ganapathi Engineering College.webp,,,,https://mrdu.edu.in/
+Behara College Of Engineering And Technology,CSE,4.4,108525,Not Provide,43000,55000,Visakhapatnam,Andhra Pradesh,static/images/Behara College Of Engineering And Technology.webp,,,,https://beharaengg.edu.in/
+Behara College Of Engineering And Technology,AIML,4.4,131456,Not Provide,43000,55000,Visakhapatnam,Andhra Pradesh,static/images/Behara College Of Engineering And Technology.webp,,,,https://beharaengg.edu.in/
+Behara College Of Engineering And Technology,ECE,4.4,150455,Not Provide,43000,55000,Visakhapatnam,Andhra Pradesh,static/images/Behara College Of Engineering And Technology.webp,,,,https://beharaengg.edu.in/
+Behara College Of Engineering And Technology,ME,4.4,162799,Not Provide,43000,55000,Viziayanagaram,Andhra Pradesh,static/images/Behara College Of Engineering And Technology.webp,,,,https://beharaengg.edu.in/
+Coastal Institute Of Technology And Management,CSE,3.1,130056,Not Provide,49000,55000,Viziayanagaram,Andhra Pradesh,static/images/Coastal Institute Of Technology And Management.jpg,,,,https://www.itm.edu/
+Coastal Institute Of Technology And Management,AIML,3.1,130056,Not Provide,49000,55000,Viziayanagaram,Andhra Pradesh,static/images/Coastal Institute Of Technology And Management.jpg,,,,https://www.itm.edu/
+Coastal Institute Of Technology And Management,ECE,3.1,111452,Not Provide,49000,55000,Viziayanagaram,Andhra Pradesh,static/images/Coastal Institute Of Technology And Management.jpg,,,,https://www.itm.edu/
+Coastal Institute Of Technology And Management,ME,3.1,84289,Not Provide,49000,55000,Viziayanagaram,Andhra Pradesh,static/images/Coastal Institute Of Technology And Management.jpg,,,,https://www.itm.edu/
+Nova's Institute Of Technology ,CSE,2.4,40000,70000,35000,60000,Eluru,Andhra Pradesh,static/images/Nova's Institute Of Technology.jpg,,,,http://enggelr.nova.edu.in/
+Nova's Institute Of Technology ,AIML,2.4,60000,65000,35000,60000,Eluru,Andhra Pradesh,static/images/Nova's Institute Of Technology.jpg,,,,http://enggelr.nova.edu.in/
+Nova's Institute Of Technology ,ECE,2.4,85000,45000,35000,60000,Eluru,Andhra Pradesh,static/images/Nova's Institute Of Technology.jpg,,,,http://enggelr.nova.edu.in/
+Nova's Institute Of Technology ,ME,2.4,110000,35000,35000,60000,Eluru,Andhra Pradesh,static/images/Nova's Institute Of Technology.jpg,,,,http://enggelr.nova.edu.in/
+Dr. RVR NRI Institute Of Technology,CSE,4.4,33500,165000,55000,80000,Vijayawada,Andhra Pradesh,static/images/Dr. RVR NRI Institute Of Technology.jpg,,,,https://www.rvrnriuniversity.edu.in/
+Dr. RVR NRI Institute Of Technology,AIML,4.4,24800,165000,55000,80000,Vijayawada,Andhra Pradesh,static/images/Dr. RVR NRI Institute Of Technology.jpg,,,,https://www.rvrnriuniversity.edu.in/
+Dr. RVR NRI Institute Of Technology,ECE,4.4,45700,165000,55000,80000,Vijayawada,Andhra Pradesh,static/images/Dr. RVR NRI Institute Of Technology.jpg,,,,https://www.rvrnriuniversity.edu.in/
+Dr. RVR NRI Institute Of Technology,ME,4.4,76300,55000,55000,80000,Vijayawada,Andhra Pradesh,static/images/Dr. RVR NRI Institute Of Technology.jpg,,,,https://www.rvrnriuniversity.edu.in/
+Amrita Sai Institute Of Science And Techology,CSE,3.6,32666,Not Provide,66800,90000,Vijayawada,Andhra Pradesh,static/images/Amrita Sai Institute Of Science And Techology.jpg,,,,https://amritasai.org.in/
+Amrita Sai Institute Of Science And Techology,AIML,3.6,28656,Not Provide,66800,90000,Vijayawada,Andhra Pradesh,static/images/Amrita Sai Institute Of Science And Techology.jpg,,,,https://amritasai.org.in/
+Amrita Sai Institute Of Science And Techology,ECE,3.6,17385,Not Provide,66800,90000,Vijayawada,Andhra Pradesh,static/images/Amrita Sai Institute Of Science And Techology.jpg,,,,https://amritasai.org.in/
+Amrita Sai Institute Of Science And Techology,ME,3.6,107472,Not Provide,66800,90000,Vijayawada,Andhra Pradesh,static/images/Amrita Sai Institute Of Science And Techology.jpg,,,,https://amritasai.org.in/
+Sree Vidyanikethan Engineering College,CSE,4.1,7000,250000,95000,80000,Tirupathi,Andhra Pradesh,static/images/Sree Vidyanikethan Engineering College.jpg,,,,https://www.svec.education/
+Sree Vidyanikethan Engineering College,AIML,4.1,10000,225000,95000,80000,Tirupathi,Andhra Pradesh,static/images/Sree Vidyanikethan Engineering College.jpg,,,,https://www.svec.education/
+Sree Vidyanikethan Engineering College,ECE,4.1,15000,150000,95000,80000,Tirupathi,Andhra Pradesh,static/images/Sree Vidyanikethan Engineering College.jpg,,,,https://www.svec.education/
+Sree Vidyanikethan Engineering College,ME,4.1,50000,125000,95000,80000,Tirupathi,Andhra Pradesh,static/images/Sree Vidyanikethan Engineering College.jpg,,,,https://www.svec.education/
+Godavari Global University,CSE,4.2,18551,250000,60000,80000,Rajamahendravaram,Andhra Pradesh,static/images/Godavari Global University.jpg,,,,https://admissions.ggu.edu.in/
+Godavari Global University,AIML,4.2,25145,250000,60000,80000,Rajamahendravaram,Andhra Pradesh,static/images/Godavari Global University.jpg,,,,https://admissions.ggu.edu.in/
+Godavari Global University,ECE,4.2,29844,120000,60000,80000,Rajamahendravaram,Andhra Pradesh,static/images/Godavari Global University.jpg,,,,https://admissions.ggu.edu.in/
+Godavari Global University,ME,4.2,69275,80000,60000,80000,Rajamahendravaram,Andhra Pradesh,static/images/Godavari Global University.jpg,,,,https://admissions.ggu.edu.in/
+Rajamahendri Institute Of Engineering & Technology,CSE,3.8,101437,Not Provide,43000,60000,Bhoopalatnam,Andhra Pradesh,static/images/Rajamahendri Institute Of Engineering & Technology.jpg,,,,https://www.rietrjy.co.in/
+Rajamahendri Institute Of Engineering & Technology,AIML,3.8,84503,Not Provide,43000,60000,Bhoopalatnam,Andhra Pradesh,static/images/Rajamahendri Institute Of Engineering & Technology.jpg,,,,https://www.rietrjy.co.in/
+Rajamahendri Institute Of Engineering & Technology,ECE,3.8,117996,Not Provide,43000,60000,Bhoopalatnam,Andhra Pradesh,static/images/Rajamahendri Institute Of Engineering & Technology.jpg,,,,https://www.rietrjy.co.in/
+Rajamahendri Institute Of Engineering & Technology,ME,3.8,148453,Not Provide,43000,60000,Bhoopalatnam,Andhra Pradesh,static/images/Rajamahendri Institute Of Engineering & Technology.jpg,,,,https://www.rietrjy.co.in/
+Pragati Engineering College,CSE,3.8,9853,106850,77800,90000,Surampalem,Andhra Pradesh,static/images/Pragati Engineering College.webp,,,,https://pragati.ac.in/
+Pragati Engineering College,AIML,3.8,9915,106850,77800,90000,Surampalem,Andhra Pradesh,static/images/Pragati Engineering College.webp,,,,https://pragati.ac.in/
+Pragati Engineering College,ECE,3.8,19567,106850,77800,90000,Surampalem,Andhra Pradesh,static/images/Pragati Engineering College.webp,,,,https://pragati.ac.in/
+Pragati Engineering College,ME,3.8,52484,106850,77800,90000,Surampalem,Andhra Pradesh,static/images/Pragati Engineering College.webp,,,,https://pragati.ac.in/
+DNR College Of Engineering,CSE,3.8,61422,Not Provide,35000,60000,Bhimavaram,Andhra Pradesh,static/images/DNR College Of Engineering.webp,,,,https://dnrcet.org/web/
+DNR College Of Engineering,AIML,3.8,86472,Not Provide,35000,60000,Bhimavaram,Andhra Pradesh,static/images/DNR College Of Engineering.webp,,,,https://dnrcet.org/web/
+DNR College Of Engineering,ECE,3.8,139571,Not Provide,35000,60000,Bhimavaram,Andhra Pradesh,static/images/DNR College Of Engineering.webp,,,,https://dnrcet.org/web/
+DNR College Of Engineering,ME,3.8,143829,Not Provide,35000,60000,Bhimavaram,Andhra Pradesh,static/images/DNR College Of Engineering.webp,,,,https://dnrcet.org/web/
+Swarnandhra College Of Engineering And Technology,CSE,4.1,16000,Not Provide,58700,70000,Narsapur,Andhra Pradesh,static/images/Swarnandhra College Of Engineering And Technology.jpg,,,,https://www.swarnandhra.ac.in/
+Swarnandhra College Of Engineering And Technology,AIML,4.1,21000,Not Provide,58700,70000,Narsapur,Andhra Pradesh,static/images/Swarnandhra College Of Engineering And Technology.jpg,,,,https://www.swarnandhra.ac.in/
+Swarnandhra College Of Engineering And Technology,ECE,4.1,59000,Not Provide,58700,70000,Narsapur,Andhra Pradesh,static/images/Swarnandhra College Of Engineering And Technology.jpg,,,,https://www.swarnandhra.ac.in/
+Swarnandhra College Of Engineering And Technology,ME,4.1,67600,Not Provide,58700,70000,Narsapur,Andhra Pradesh,static/images/Swarnandhra College Of Engineering And Technology.jpg,,,,https://www.swarnandhra.ac.in/
+West Godavari Institute Science And Engineering ,CSE,3.9,108041,120000,43000,55000,Tadepalligudem,Andhra Pradesh,static/images/West Godavari Institute Science And Engineering.webp,,,,https://www.wise.ac.in/
+West Godavari Institute Science And Engineering ,AIML,3.9,45762,120000,43000,55000,Tadepalligudem,Andhra Pradesh,static/images/West Godavari Institute Science And Engineering.webp,,,,https://www.wise.ac.in/
+West Godavari Institute Science And Engineering ,ECE,3.9,148724,60000,43000,55000,Tadepalligudem,Andhra Pradesh,static/images/West Godavari Institute Science And Engineering.webp,,,,https://www.wise.ac.in/
+West Godavari Institute Science And Engineering ,ME,3.9,123518,60000,43000,55000,Tadepalligudem,Andhra Pradesh,static/images/West Godavari Institute Science And Engineering.webp,,,,https://www.wise.ac.in/
+AKNU College Of Science And Engineering,CSE,4.1,4751,250000,40000,55000,Rajamahendravaram,Andhra Pradesh,static/images/AKNU College Of Science And Engineering.webp,,,,https://aknu.edu.in/
+AKNU College Of Science And Engineering,AIML,4.1,28000,250000,40000,55000,Rajamahendravaram,Andhra Pradesh,static/images/AKNU College Of Science And Engineering.webp,,,,https://aknu.edu.in/
+AKNU College Of Science And Engineering,ECE,4.1,18612,250000,40000,55000,Rajamahendravaram,Andhra Pradesh,static/images/AKNU College Of Science And Engineering.webp,,,,https://aknu.edu.in/
+AKNU College Of Science And Engineering,ME,4.1,53939,100000,40000,55000,Rajamahendravaram,Andhra Pradesh,static/images/AKNU College Of Science And Engineering.webp,,,,https://aknu.edu.in/
+Lenora College Of Engineering Rampanchodavaram,CSE,3.9,25000,Not Provide,43000,80000,Ramchodavaram,Andhra Pradesh,static/images/Lenora College Of Engineering Rampanchodavaram.jpg,,,,https://www.lce.ac.in/
+Lenora College Of Engineering Rampanchodavaram,AIML,3.9,45000,Not Provide,43000,80000,Ramchodavaram,Andhra Pradesh,static/images/Lenora College Of Engineering Rampanchodavaram.jpg,,,,https://www.lce.ac.in/
+Lenora College Of Engineering Rampanchodavaram,ECE,3.9,80000,Not Provide,43000,80000,Ramchodavaram,Andhra Pradesh,static/images/Lenora College Of Engineering Rampanchodavaram.jpg,,,,https://www.lce.ac.in/
+Lenora College Of Engineering Rampanchodavaram,ME,3.9,95000,Not Provide,43000,80000,Ramchodavaram,Andhra Pradesh,static/images/Lenora College Of Engineering Rampanchodavaram.jpg,,,,https://www.lce.ac.in/
+Bonam Venkata Chalamayya Engineering College,CSE,4.3,56295,150000,48000,100000,Bandamuralanka,Andhra Pradesh,static/images/Bonam Venkata Chalamayya Engineering College.webp,,,,https://bvcec.edu.in/
+Bonam Venkata Chalamayya Engineering College,AIML,4.3,58391,150000,48000,100000,Bandamuralanka,Andhra Pradesh,static/images/Bonam Venkata Chalamayya Engineering College.webp,,,,https://bvcec.edu.in/
+Bonam Venkata Chalamayya Engineering College,ECE,4.3,82990,120000,48000,100000,Bandamuralanka,Andhra Pradesh,static/images/Bonam Venkata Chalamayya Engineering College.webp,,,,https://bvcec.edu.in/
+Bonam Venkata Chalamayya Engineering College,ME,4.3,12637,120000,48000,100000,Bandamuralanka,Andhra Pradesh,static/images/Bonam Venkata Chalamayya Engineering College.webp,,,,https://bvcec.edu.in/
+Adarsh College Of Engineering,CSE,3.9,86687,100000,43000,80000,Chebrolu,Andhra Pradesh,static/images/Adarsh College Of Engineering.webp,,,,https://adarsh.ac.in/
+Adarsh College Of Engineering,AIML,3.9,165048,65000,43000,80000,Chebrolu,Andhra Pradesh,static/images/Adarsh College Of Engineering.webp,,,,https://adarsh.ac.in/
+Adarsh College Of Engineering,ECE,3.9,106603,70000,43000,80000,Chebrolu,Andhra Pradesh,static/images/Adarsh College Of Engineering.webp,,,,https://adarsh.ac.in/
+Adarsh College Of Engineering,ME,3.9,162496,55000,43000,80000,Chebrolu,Andhra Pradesh,static/images/Adarsh College Of Engineering.webp,,,,https://adarsh.ac.in/
+Sri Vatsavai Krishnam Raju College Of Engineering And Technology,CSE,3.6,97598,120000,30000,75000,Gollalakoderu,Andhra Pradesh,static/images/Sri Vatsavai Krishnam Raju College Of Engineering And Technology.webp,,,,https://svkrcsit.webnode.page/
+Sri Vatsavai Krishnam Raju College Of Engineering And Technology,AIML,3.6,97598,120000,30000,75000,Gollalakoderu,Andhra Pradesh,static/images/Sri Vatsavai Krishnam Raju College Of Engineering And Technology.webp,,,,https://svkrcsit.webnode.page/
+Sri Vatsavai Krishnam Raju College Of Engineering And Technology,ECE,3.6,134819,90000,30000,75000,Gollalakoderu,Andhra Pradesh,static/images/Sri Vatsavai Krishnam Raju College Of Engineering And Technology.webp,,,,https://svkrcsit.webnode.page/
+Sri Vatsavai Krishnam Raju College Of Engineering And Technology,ME,3.6,134819,90000,30000,75000,Gollalakoderu,Andhra Pradesh,static/images/Sri Vatsavai Krishnam Raju College Of Engineering And Technology.webp,,,,https://svkrcsit.webnode.page/
+Benaiah Institute Of Technology And Science,CSE,3.5,7500,150000,35000,70000,Burugupudi,Andhra Pradesh,static/images/Benaiah Institute Of Technology And Science.webp,,,,https://www.kabconsultants.com/InstitutesDetails/4/1/13929/Benaiah-Institute-of-Technology-and-Sciences
+Benaiah Institute Of Technology And Science,AIML,3.5,11000,150000,35000,70000,Burugupudi,Andhra Pradesh,static/images/Benaiah Institute Of Technology And Science.webp,,,,https://www.kabconsultants.com/InstitutesDetails/4/1/13929/Benaiah-Institute-of-Technology-and-Sciences
+Benaiah Institute Of Technology And Science,ECE,3.5,10000,100000,35000,70000,Burugupudi,Andhra Pradesh,static/images/Benaiah Institute Of Technology And Science.webp,,,,https://www.kabconsultants.com/InstitutesDetails/4/1/13929/Benaiah-Institute-of-Technology-and-Sciences
+Benaiah Institute Of Technology And Science,ME,3.5,35000,50000,35000,70000,Burugupudi,Andhra Pradesh,static/images/Benaiah Institute Of Technology And Science.webp,,,,https://www.kabconsultants.com/InstitutesDetails/4/1/13929/Benaiah-Institute-of-Technology-and-Sciences
+Dr.Paul Raj Engineering College,CSE,4.4,127779,Not Provide,43000,45000,Yatapaka,Andhra Pradesh,static/images/Dr.Paul Raj Engineering College.webp,,,,https://www.dprec.ac.in/
+Dr.Paul Raj Engineering College,AIML,4.4,127779,Not Provide,43000,45000,Yatapaka,Andhra Pradesh,static/images/Dr.Paul Raj Engineering College.webp,,,,https://www.dprec.ac.in/
+Dr.Paul Raj Engineering College,ECE,4.4,155848,Not Provide,43000,45000,Yatapaka,Andhra Pradesh,static/images/Dr.Paul Raj Engineering College.webp,,,,https://www.dprec.ac.in/
+Dr.Paul Raj Engineering College,ME,4.4,164303,Not Provide,43000,45000,Yatapaka,Andhra Pradesh,static/images/Dr.Paul Raj Engineering College.webp,,,,https://www.dprec.ac.in/
+Vishnu Institute Of Technology,CSE,4.7,4988,180000,103000,79500,Kovvada,Andhra Pradesh,static/images/Vishnu Institute Of Technology.webp,,,,https://vishnu.edu.in/
+Vishnu Institute Of Technology,AIML,4.7,2393,180000,103000,79500,Kovvada,Andhra Pradesh,static/images/Vishnu Institute Of Technology.webp,,,,https://vishnu.edu.in/
+Vishnu Institute Of Technology,ECE,4.7,7911,180000,103000,79500,Kovvada,Andhra Pradesh,static/images/Vishnu Institute Of Technology.webp,,,,https://vishnu.edu.in/
+Vishnu Institute Of Technology,ME,4.7,4372,103000,103000,79500,Kovvada,Andhra Pradesh,static/images/Vishnu Institute Of Technology.webp,,,,https://vishnu.edu.in/
+Guntur Engineering ,CSE,3.5,54000,120000,43000,70000,Yanamadala,Andhra Pradesh,static/images/Guntur Engineering.webp,,,,https://gecg.ac.in/
+Guntur Engineering ,AIML,3.5,50000,120000,43000,70000,Yanamadala,Andhra Pradesh,static/images/Guntur Engineering.webp,,,,https://gecg.ac.in/
+Guntur Engineering ,ECE,3.5,50000,80000,43000,70000,Yanamadala,Andhra Pradesh,static/images/Guntur Engineering.webp,,,,https://gecg.ac.in/
+Guntur Engineering ,ME,3.5,120000,50000,43000,70000,Yanamadala,Andhra Pradesh,static/images/Guntur Engineering.webp,,,,https://gecg.ac.in/
+R.V.R And J.C.College Of Engineering,CSE,4.4,3950,200000,105000,52000,Chowdavaram,Andhra Pradesh,static/images/R.V.R And J.C.College Of Engineering.webp,,,,https://www.rvrjcce.ac.in/
+R.V.R And J.C.College Of Engineering,AIML,4.4,4789,200000,105000,52000,Chowdavaram,Andhra Pradesh,static/images/R.V.R And J.C.College Of Engineering.webp,,,,https://www.rvrjcce.ac.in/
+R.V.R And J.C.College Of Engineering,ECE,4.4,5696,150000,105000,52000,Chowdavaram,Andhra Pradesh,static/images/R.V.R And J.C.College Of Engineering.webp,,,,https://www.rvrjcce.ac.in/
+R.V.R And J.C.College Of Engineering,ME,4.4,18873,75000,105000,52000,Chowdavaram,Andhra Pradesh,static/images/R.V.R And J.C.College Of Engineering.webp,,,,https://www.rvrjcce.ac.in/
+Hindu College Of Engineering And Technology,CSE,4.7,80190,Not Provide,40000,65000,Guntur,Andhra Pradesh,static/images/Hindu College Of Engineering And Technology.webp,,,,https://www.hinduengg.com/
+Hindu College Of Engineering And Technology,AIML,4.7,71543,Not Provide,40000,65000,Guntur,Andhra Pradesh,static/images/Hindu College Of Engineering And Technology.webp,,,,https://www.hinduengg.com/
+Hindu College Of Engineering And Technology,ECE,4.7,116956,Not Provide,40000,65000,Guntur,Andhra Pradesh,static/images/Hindu College Of Engineering And Technology.webp,,,,https://www.hinduengg.com/
+Hindu College Of Engineering And Technology,ME,4.7,116956,Not Provide,40000,65000,Guntur,Andhra Pradesh,static/images/Hindu College Of Engineering And Technology.webp,,,,https://www.hinduengg.com/
+VRIT Engineering College ,CSE,3.4,75000,150000,43000,70000,Guntur,Andhra Pradesh,static/images/VRIT Engineering College.webp,,,,https://www.ngi.ac.in/index.html
+VRIT Engineering College ,AIML,3.4,78000,150000,43000,70000,Guntur,Andhra Pradesh,static/images/VRIT Engineering College.webp,,,,https://www.ngi.ac.in/index.html
+VRIT Engineering College ,ECE,3.4,100000,110000,43000,70000,Guntur,Andhra Pradesh,static/images/VRIT Engineering College.webp,,,,https://www.ngi.ac.in/index.html
+VRIT Engineering College ,ME,3.4,130000,80000,43000,70000,Guntur,Andhra Pradesh,static/images/VRIT Engineering College.webp,,,,https://www.ngi.ac.in/index.html
+NRI Institute Of Technology ,CSE,3.4,72013,165000,55000,90000,Visadala,Andhra Pradesh,static/images/NRI Institute Of Technology.webp,,,,https://nriit.edu.in/
+NRI Institute Of Technology ,AIML,3.4,57886,165000,55000,90000,Visadala,Andhra Pradesh,static/images/NRI Institute Of Technology.webp,,,,https://nriit.edu.in/
+NRI Institute Of Technology ,ECE,3.4,85526,165000,55000,90000,Visadala,Andhra Pradesh,static/images/NRI Institute Of Technology.webp,,,,https://nriit.edu.in/
+NRI Institute Of Technology ,ME,3.4,144000,55000,55000,90000,Visadala,Andhra Pradesh,static/images/NRI Institute Of Technology.webp,,,,https://nriit.edu.in/
+Tenali Engineering College,CSE,3.8,137343,Not Provide,35000,90000,Tenali,Andhra Pradesh,static/images/Tenali Engineering College.avif,,,,https://sites.google.com/a/tec.org.in/www/contact
+Tenali Engineering College,AIML,3.8,145000,Not Provide,35000,90000,Tenali,Andhra Pradesh,static/images/Tenali Engineering College.avif,,,,https://sites.google.com/a/tec.org.in/www/contact
+Tenali Engineering College,ECE,3.8,160000,Not Provide,35000,90000,Tenali,Andhra Pradesh,static/images/Tenali Engineering College.avif,,,,https://sites.google.com/a/tec.org.in/www/contact
+Tenali Engineering College,ME,3.8,180000,Not Provide,35000,90000,Tenali,Andhra Pradesh,static/images/Tenali Engineering College.avif,,,,https://sites.google.com/a/tec.org.in/www/contact
+A.M Reddy Memorial College Of Engineering And Technology,CSE,3.5,99840,105000,43000,55000,Petlurivaripalem,Andhra Pradesh,static/images/A.M Reddy Memorial College Of Engineering And Technology.webp,,,,https://www.amreddyengineering.ac.in/
+A.M Reddy Memorial College Of Engineering And Technology,AIML,3.5,139967,120000,43000,55000,Petlurivaripalem,Andhra Pradesh,static/images/A.M Reddy Memorial College Of Engineering And Technology.webp,,,,https://www.amreddyengineering.ac.in/
+A.M Reddy Memorial College Of Engineering And Technology,ECE,3.5,62156,90000,43000,55000,Petlurivaripalem,Andhra Pradesh,static/images/A.M Reddy Memorial College Of Engineering And Technology.webp,,,,https://www.amreddyengineering.ac.in/
+A.M Reddy Memorial College Of Engineering And Technology,ME,3.5,140000,65000,43000,55000,Petlurivaripalem,Andhra Pradesh,static/images/A.M Reddy Memorial College Of Engineering And Technology.webp,,,,https://www.amreddyengineering.ac.in/
+A.S.N Womens Engineering College,CSE,4.1,209937,Not Provide,35000,72000,Tenali,Andhra Pradesh,static/images/A.S.N Womens Engineering College.webp,,,,http://www.asnwec.in/
+A.S.N Womens Engineering College,AIML,4.1,209937,Not Provide,35000,72000,Tenali,Andhra Pradesh,static/images/A.S.N Womens Engineering College.webp,,,,http://www.asnwec.in/
+A.S.N Womens Engineering College,ECE,4.1,209937,Not Provide,35000,72000,Tenali,Andhra Pradesh,static/images/A.S.N Womens Engineering College.webp,,,,http://www.asnwec.in/
+A.S.N Womens Engineering College,ME,4.1,209937,Not Provide,35000,72000,Tenali,Andhra Pradesh,static/images/A.S.N Womens Engineering College.webp,,,,http://www.asnwec.in/
+RV Institute Of Technology UGC Autonomous,CSE,4.6,78000,120000,43000,80000,Chebrolu,Andhra Pradesh,static/images/RV Institute Of Technology UGC Autonomous.jpg,,,,https://rvit.edu.in/
+RV Institute Of Technology UGC Autonomous,AIML,4.6,81000,110000,43000,80000,Chebrolu,Andhra Pradesh,static/images/RV Institute Of Technology UGC Autonomous.jpg,,,,https://rvit.edu.in/
+RV Institute Of Technology UGC Autonomous,ECE,4.6,52000,80000,43000,80000,Chebrolu,Andhra Pradesh,static/images/RV Institute Of Technology UGC Autonomous.jpg,,,,https://rvit.edu.in/
+RV Institute Of Technology UGC Autonomous,ME,4.6,135000,43000,43000,80000,Chebrolu,Andhra Pradesh,static/images/RV Institute Of Technology UGC Autonomous.jpg,,,,https://rvit.edu.in/
+ABR College Of Engineering And Technology,CSE,3.8,79345,129000,43000,80000,Kanigiri,Andhra Pradesh,static/images/ABR College Of Engineering And Technology.jpg,,,,https://abrcet.edu.in/
+ABR College Of Engineering And Technology,AIML,3.8,179959,129000,43000,80000,Kanigiri,Andhra Pradesh,static/images/ABR College Of Engineering And Technology.jpg,,,,https://abrcet.edu.in/
+ABR College Of Engineering And Technology,ECE,3.8,137241,129000,43000,80000,Kanigiri,Andhra Pradesh,static/images/ABR College Of Engineering And Technology.jpg,,,,https://abrcet.edu.in/
+ABR College Of Engineering And Technology,ME,3.8,160370,129000,43000,80000,Kanigiri,Andhra Pradesh,static/images/ABR College Of Engineering And Technology.jpg,,,,https://abrcet.edu.in/
+Indira Institute Of Technology And Science,CSE,3.8,165958,Not Provide,43000,80000,Idupur,Andhra Pradesh,static/images/Indira Institute Of Technology And Science.jpg,,,,https://iitss.org/
+Indira Institute Of Technology And Science,AIML,3.8,170239,Not Provide,43000,80000,Idupur,Andhra Pradesh,static/images/Indira Institute Of Technology And Science.jpg,,,,https://iitss.org/
+Indira Institute Of Technology And Science,ECE,3.8,143114,Not Provide,43000,80000,Idupur,Andhra Pradesh,static/images/Indira Institute Of Technology And Science.jpg,,,,https://iitss.org/
+Indira Institute Of Technology And Science,ME,3.8,75212,Not Provide,43000,80000,Idupur,Andhra Pradesh,static/images/Indira Institute Of Technology And Science.jpg,,,,https://iitss.org/
+RISE Krishna Sai Prakasam Group Of Institutions ,CSE,3.7,106046,120900,40300,45000,Ongole,Andhra Pradesh,static/images/RISE Krishna Sai Prakasam Group Of Institutions.jpg,,,,https://www.risekrishnasaiprakasam.edu.in/
+RISE Krishna Sai Prakasam Group Of Institutions ,AIML,3.7,38372,120900,40300,45000,Ongole,Andhra Pradesh,static/images/RISE Krishna Sai Prakasam Group Of Institutions.jpg,,,,https://www.risekrishnasaiprakasam.edu.in/
+RISE Krishna Sai Prakasam Group Of Institutions ,ECE,3.7,123109,120900,40300,45000,Ongole,Andhra Pradesh,static/images/RISE Krishna Sai Prakasam Group Of Institutions.jpg,,,,https://www.risekrishnasaiprakasam.edu.in/
+RISE Krishna Sai Prakasam Group Of Institutions ,ME,3.7,125158,40300,40300,45000,Ongole,Andhra Pradesh,static/images/RISE Krishna Sai Prakasam Group Of Institutions.jpg,,,,https://www.risekrishnasaiprakasam.edu.in/
+SSN College Of Engineering & Technology,CSE,4.1,3000,120000,40000,120000,Yendluru,Andhra Pradesh,static/images/SSN College Of Engineering & Technology.png,,,,https://www.ssn.edu.in/
+SSN College Of Engineering & Technology,AIML,4.1,1500,120000,40000,120000,Yendluru,Andhra Pradesh,static/images/SSN College Of Engineering & Technology.png,,,,https://www.ssn.edu.in/
+SSN College Of Engineering & Technology,ECE,4.1,3000,100000,40000,120000,Yendluru,Andhra Pradesh,static/images/SSN College Of Engineering & Technology.png,,,,https://www.ssn.edu.in/
+SSN College Of Engineering & Technology,ME,4.1,8000,70000,40000,120000,Yendluru,Andhra Pradesh,static/images/SSN College Of Engineering & Technology.png,,,,https://www.ssn.edu.in/
+GDMM College Of Engineering & Technology,CSE,3.5,95000,198000,70000,35000,Nandigama,Andhra Pradesh,static/images/GDMM College Of Engineering & Technology.jpg,,,,https://collegedunia.com/college/60683-gdmm-college-of-engineering-and-technology-nandigama
+GDMM College Of Engineering & Technology,AIML,3.5,62164,198000,70000,35000,Nandigama,Andhra Pradesh,static/images/GDMM College Of Engineering & Technology.jpg,,,,https://collegedunia.com/college/60683-gdmm-college-of-engineering-and-technology-nandigama
+GDMM College Of Engineering & Technology,ECE,3.5,73538,198000,70000,35000,Nandigama,Andhra Pradesh,static/images/GDMM College Of Engineering & Technology.jpg,,,,https://collegedunia.com/college/60683-gdmm-college-of-engineering-and-technology-nandigama
+GDMM College Of Engineering & Technology,ME,3.5,125000,198000,70000,35000,Nandigama,Andhra Pradesh,static/images/GDMM College Of Engineering & Technology.jpg,,,,https://collegedunia.com/college/60683-gdmm-college-of-engineering-and-technology-nandigama
+Andhra Loyal Institute Of Engineering And Technology,CSE,4.1,21247,150000,50200,90000,Vijayawada,Andhra Pradesh,static/images/Andhra Loyal Institute Of Engineering And Technology.jpg,,,,http://www.aliet.ac.in/
+Andhra Loyal Institute Of Engineering And Technology,AIML,4.1,25945,130000,50200,90000,Vijayawada,Andhra Pradesh,static/images/Andhra Loyal Institute Of Engineering And Technology.jpg,,,,http://www.aliet.ac.in/
+Andhra Loyal Institute Of Engineering And Technology,ECE,4.1,43371,100000,50200,90000,Vijayawada,Andhra Pradesh,static/images/Andhra Loyal Institute Of Engineering And Technology.jpg,,,,http://www.aliet.ac.in/
+Andhra Loyal Institute Of Engineering And Technology,ME,4.1,64315,60000,50200,90000,Vijayawada,Andhra Pradesh,static/images/Andhra Loyal Institute Of Engineering And Technology.jpg,,,,http://www.aliet.ac.in/
+NVR Collge Of Engineering & Technology,CSE,3.7,73765,Not Provide,43000,60000,Tenali,Andhra Pradesh,static/images/NVR Collge Of Engineering & Technology.webp,,,,https://www.nannapaneni.org/
+NVR Collge Of Engineering & Technology,AIML,3.7,117970,Not Provide,43000,60000,Tenali,Andhra Pradesh,static/images/NVR Collge Of Engineering & Technology.webp,,,,https://www.nannapaneni.org/
+NVR Collge Of Engineering & Technology,ECE,3.7,166442,Not Provide,43000,60000,Tenali,Andhra Pradesh,static/images/NVR Collge Of Engineering & Technology.webp,,,,https://www.nannapaneni.org/
+NVR Collge Of Engineering & Technology,ME,3.7,107539,Not Provide,43000,60000,Tenali,Andhra Pradesh,static/images/NVR Collge Of Engineering & Technology.webp,,,,https://www.nannapaneni.org/
+Dhanekula Institute Of Engineering & Technology,CSE,3.7,24093,Not Provide,40000,65000,Gangur,Andhra Pradesh,static/images/Dhanekula Institute Of Engineering & Technology.webp,,,,https://diet.ac.in/
+Dhanekula Institute Of Engineering & Technology,AIML,3.7,26302,Not Provide,40000,65000,Gangur,Andhra Pradesh,static/images/Dhanekula Institute Of Engineering & Technology.webp,,,,https://diet.ac.in/
+Dhanekula Institute Of Engineering & Technology,ECE,3.7,48945,Not Provide,40000,65000,Gangur,Andhra Pradesh,static/images/Dhanekula Institute Of Engineering & Technology.webp,,,,https://diet.ac.in/
+Dhanekula Institute Of Engineering & Technology,ME,3.7,48945,Not Provide,40000,65000,Gangur,Andhra Pradesh,static/images/Dhanekula Institute Of Engineering & Technology.webp,,,,https://diet.ac.in/
+Lakireddy Bali Reddy College Of Engineering ,CSE,4.3,14500,235800,78600,75000,Mylavaram,Andhra Pradesh,static/images/Lakireddy Bali Reddy College Of Engineering.webp,,,,https://www.lbrce.ac.in/
+Lakireddy Bali Reddy College Of Engineering ,AIML,4.3,21500,200000,78600,75000,Mylavaram,Andhra Pradesh,static/images/Lakireddy Bali Reddy College Of Engineering.webp,,,,https://www.lbrce.ac.in/
+Lakireddy Bali Reddy College Of Engineering ,ECE,4.3,18200,160000,78600,75000,Mylavaram,Andhra Pradesh,static/images/Lakireddy Bali Reddy College Of Engineering.webp,,,,https://www.lbrce.ac.in/
+Lakireddy Bali Reddy College Of Engineering ,ME,4.3,44500,80000,78600,75000,Mylavaram,Andhra Pradesh,static/images/Lakireddy Bali Reddy College Of Engineering.webp,,,,https://www.lbrce.ac.in/
+DJR College Of Engineering & Technology,CSE,3.4,40750,75000,40000,75000,Velpuru,Andhra Pradesh,static/images/DJR College Of Engineering & Technology.jpg,,,,https://djrcet.edu.in/Default/Pages/default.aspx
+DJR College Of Engineering & Technology,AIML,3.4,75000,60000,40000,75000,Velpuru,Andhra Pradesh,static/images/DJR College Of Engineering & Technology.jpg,,,,https://djrcet.edu.in/Default/Pages/default.aspx
+DJR College Of Engineering & Technology,ECE,3.4,106550,60000,40000,75000,Velpuru,Andhra Pradesh,static/images/DJR College Of Engineering & Technology.jpg,,,,https://djrcet.edu.in/Default/Pages/default.aspx
+DJR College Of Engineering & Technology,ME,3.4,140000,60000,40000,75000,Velpuru,Andhra Pradesh,static/images/DJR College Of Engineering & Technology.jpg,,,,https://djrcet.edu.in/Default/Pages/default.aspx
+Emmi Group Of Institution,CSE,4.3,600,200000,47000,100000,Phirangipuram,Andhra Pradesh,static/images/Emmi Group Of Institution.webp,,,,https://www.emmigroup.org/
+Emmi Group Of Institution,AIML,4.3,3000,180000,47000,100000,Phirangipuram,Andhra Pradesh,static/images/Emmi Group Of Institution.webp,,,,https://www.emmigroup.org/
+Emmi Group Of Institution,ECE,4.3,2500,120000,47000,100000,Phirangipuram,Andhra Pradesh,static/images/Emmi Group Of Institution.webp,,,,https://www.emmigroup.org/
+Emmi Group Of Institution,ME,4.3,15000,50000,47000,100000,Phirangipuram,Andhra Pradesh,static/images/Emmi Group Of Institution.webp,,,,https://www.emmigroup.org/
+Pravathaneni Brahmayya Siddhartha College Of  Arts & Science,CSE,4.3,7970,235000,105000,70000,Vijayawada,Andhra Pradesh,static/images/Pravathaneni Brahmayya Siddhartha College Of  Arts & Science.webp,,,,https://pbsiddhartha.ac.in/
+Pravathaneni Brahmayya Siddhartha College Of  Arts & Science,AIML,4.3,9721,235000,105000,70000,Vijayawada,Andhra Pradesh,static/images/Pravathaneni Brahmayya Siddhartha College Of  Arts & Science.webp,,,,https://pbsiddhartha.ac.in/
+Pravathaneni Brahmayya Siddhartha College Of  Arts & Science,ECE,4.3,15265,235000,105000,70000,Vijayawada,Andhra Pradesh,static/images/Pravathaneni Brahmayya Siddhartha College Of  Arts & Science.webp,,,,https://pbsiddhartha.ac.in/
+Pravathaneni Brahmayya Siddhartha College Of  Arts & Science,ME,4.3,63465,200000,105000,70000,Vijayawada,Andhra Pradesh,static/images/Pravathaneni Brahmayya Siddhartha College Of  Arts & Science.webp,,,,https://pbsiddhartha.ac.in/
+Sri Sunflower College Of Engineering And Technology,CSE,3.8,158000,Not Provide,43000,70000,Krishna,Andhra Pradesh,static/images/Sri Sunflower College Of Engineering And Technology.webp,,,,https://www.sunflowercet.edu.in/
+Sri Sunflower College Of Engineering And Technology,AIML,3.8,158000,Not Provide,43000,70000,Krishna,Andhra Pradesh,static/images/Sri Sunflower College Of Engineering And Technology.webp,,,,https://www.sunflowercet.edu.in/
+Sri Sunflower College Of Engineering And Technology,ECE,3.8,127010,Not Provide,43000,70000,Krishna,Andhra Pradesh,static/images/Sri Sunflower College Of Engineering And Technology.webp,,,,https://www.sunflowercet.edu.in/
+Sri Sunflower College Of Engineering And Technology,ME,3.8,140000,Not Provide,43000,70000,Krishna,Andhra Pradesh,static/images/Sri Sunflower College Of Engineering And Technology.webp,,,,https://www.sunflowercet.edu.in/
+Vikas Group Of Institutions,CSE,3.8,87759,Not Provide,59000,100000,Vijayawada,Andhra Pradesh,static/images/Vikas Group Of Institutions.webp,,,,https://vikasgroup.ac.in/
+Vikas Group Of Institutions,AIML,3.8,81719,Not Provide,59000,100000,Vijayawada,Andhra Pradesh,static/images/Vikas Group Of Institutions.webp,,,,https://vikasgroup.ac.in/
+Vikas Group Of Institutions,ECE,3.8,117828,Not Provide,59000,100000,Vijayawada,Andhra Pradesh,static/images/Vikas Group Of Institutions.webp,,,,https://vikasgroup.ac.in/
+Vikas Group Of Institutions,ME,3.8,117265,Not Provide,59000,100000,Vijayawada,Andhra Pradesh,static/images/Vikas Group Of Institutions.webp,,,,https://vikasgroup.ac.in/
+SIMS Group Of Institution,CSE,3.9,44000,250000,47000,100000,Guntur,Andhra Pradesh,static/images/SIMS Group Of Institution.webp,,,,https://www.simscollege.ac.in/
+SIMS Group Of Institution,AIML,3.9,37000,200000,47000,100000,Guntur,Andhra Pradesh,static/images/SIMS Group Of Institution.webp,,,,https://www.simscollege.ac.in/
+SIMS Group Of Institution,ECE,3.9,50000,150000,47000,100000,Guntur,Andhra Pradesh,static/images/SIMS Group Of Institution.webp,,,,https://www.simscollege.ac.in/
+SIMS Group Of Institution,ME,3.9,110000,750000,47000,100000,Guntur,Andhra Pradesh,static/images/SIMS Group Of Institution.webp,,,,https://www.simscollege.ac.in/

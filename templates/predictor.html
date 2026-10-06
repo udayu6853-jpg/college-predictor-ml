@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="College Predictor - Find colleges based on your entrance exam rank and preferred branch."
+    >
+
+    <title>College Predictor</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =====================================================
+           BODY
+        ===================================================== */
+
+        body {
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef6ff 0%,
+                    #ffffff 50%,
+                    #f4f9ff 100%
+                );
+
+            min-height: 100vh;
+
+            color: #1f2937;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+
+            min-height: 70px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #007bff,
+                    #0056d6
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 10px 50px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0, 0, 0, 0.12);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+        }
+
+
+        .logo {
+
+            color: white;
+
+            font-size: 23px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: flex-end;
+
+            gap: 6px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            padding: 9px 12px;
+
+            border-radius: 8px;
+
+            transition:
+                background 0.25s ease,
+                transform 0.25s ease;
+        }
+
+
+        .nav-links a:hover {
+
+            background:
+                rgba(255,255,255,0.18);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .nav-links .active {
+
+            background:
+                rgba(255,255,255,0.22);
+        }
+
+
+        /* =====================================================
+           LOGOUT BUTTON
+        ===================================================== */
+
+        .logout-form {
+
+            display: inline;
+
+            margin: 0;
+        }
+
+
+        .logout-btn {
+
+            color: white;
+
+            background: transparent;
+
+            border:
+                1px solid
+                transparent;
+
+            font-size: 14px;
+
+            font-weight: 500;
+
+            padding: 9px 12px;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-family: inherit;
+
+            transition:
+                background 0.25s ease,
+                transform 0.25s ease;
+        }
+
+
+        .logout-btn:hover {
+
+            background:
+                rgba(255,255,255,0.18);
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
+
+        .main-container {
+
+            width: 90%;
+
+            max-width: 900px;
+
+            margin:
+                45px auto 60px;
+        }
+
+
+        /* =====================================================
+           PAGE HEADER
+        ===================================================== */
+
+        .page-header {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+
+        .page-icon {
+
+            width: 75px;
+
+            height: 75px;
+
+            margin: 0 auto;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #007bff,
+                    #0056d6
+                );
+
+            border-radius: 20px;
+
+            font-size: 38px;
+
+            box-shadow:
+                0 10px 25px
+                rgba(0,123,255,0.20);
+        }
+
+
+        .page-header h1 {
+
+            margin-top: 18px;
+
+            font-size: 34px;
+
+            color: #111827;
+        }
+
+
+        .page-header p {
+
+            margin-top: 8px;
+
+            color: #6b7280;
+
+            font-size: 16px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           PREDICTOR CARD
+        ===================================================== */
+
+        .predictor-card {
+
+            background: white;
+
+            padding: 35px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(0,0,0,0.10);
+        }
+
+
+        /* =====================================================
+           FORM GROUP
+        ===================================================== */
+
+        .form-group {
+
+            margin-bottom: 25px;
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 9px;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            color: #374151;
+        }
+
+
+        .required {
+
+            color: #ef4444;
+        }
+
+
+        /* =====================================================
+           FORM CONTROL
+        ===================================================== */
+
+        .form-control {
+
+            width: 100%;
+
+            padding: 14px 16px;
+
+            border:
+                1px solid
+                #d5deea;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            outline: none;
+
+            background: white;
+
+            color: #1f2937;
+
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .form-control:hover {
+
+            border-color: #b8c7da;
+        }
+
+
+        .form-control:focus {
+
+            border-color: #007bff;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(0,123,255,0.10);
+        }
+
+
+        .form-control:invalid:not(:placeholder-shown) {
+
+            border-color: #f59e0b;
+        }
+
+
+        /* =====================================================
+           EXAM OPTIONS
+        ===================================================== */
+
+        .exam-options {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+
+            margin-top: 5px;
+        }
+
+
+        .exam-option {
+
+            position: relative;
+        }
+
+
+        .exam-option input {
+
+            position: absolute;
+
+            opacity: 0;
+
+            pointer-events: none;
+        }
+
+
+        .exam-label {
+
+            display: block;
+
+            padding: 20px;
+
+            border:
+                2px solid
+                #e5e7eb;
+
+            border-radius: 14px;
+
+            cursor: pointer;
+
+            transition:
+                border-color 0.25s ease,
+                background 0.25s ease,
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+
+            background: #ffffff;
+        }
+
+
+        .exam-label:hover {
+
+            border-color: #007bff;
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 5px 15px
+                rgba(0,123,255,0.08);
+        }
+
+
+        .exam-option input:checked
+        + .exam-label {
+
+            border-color: #007bff;
+
+            background: #eef6ff;
+
+            box-shadow:
+                0 5px 15px
+                rgba(0,123,255,0.10);
+        }
+
+
+        .exam-option input:focus
+        + .exam-label {
+
+            outline:
+                3px solid
+                rgba(0,123,255,0.15);
+        }
+
+
+        .exam-title {
+
+            display: block;
+
+            font-size: 19px;
+
+            font-weight: 700;
+
+            color: #111827;
+        }
+
+
+        .exam-description {
+
+            display: block;
+
+            margin-top: 6px;
+
+            font-size: 13px;
+
+            color: #6b7280;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           HELP TEXT
+        ===================================================== */
+
+        .help-text {
+
+            margin-top: 7px;
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           RANK INPUT
+        ===================================================== */
+
+        .rank-wrapper {
+
+            position: relative;
+        }
+
+
+        .rank-wrapper .form-control {
+
+            padding-right: 75px;
+        }
+
+
+        .rank-label {
+
+            position: absolute;
+
+            right: 15px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            font-size: 12px;
+
+            color: #9ca3af;
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           BRANCH LOADING
+        ===================================================== */
+
+        .branch-status {
+
+            display: none;
+
+            margin-top: 8px;
+
+            font-size: 13px;
+
+            color: #007bff;
+        }
+
+
+        .branch-status.show {
+
+            display: block;
+        }
+
+
+        /* =====================================================
+           PREDICT BUTTON
+        ===================================================== */
+
+        .predict-btn {
+
+            width: 100%;
+
+            border: none;
+
+            padding: 15px;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #007bff,
+                    #0056d6
+                );
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                opacity 0.25s ease;
+
+            margin-top: 5px;
+        }
+
+
+        .predict-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(0,123,255,0.25);
+        }
+
+
+        .predict-btn:active {
+
+            transform:
+                translateY(0);
+        }
+
+
+        .predict-btn:disabled {
+
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        /* =====================================================
+           BACK BUTTON
+        ===================================================== */
+
+        .back-section {
+
+            text-align: center;
+
+            margin-top: 22px;
+        }
+
+
+        .back-btn {
+
+            color: #007bff;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            font-size: 15px;
+        }
+
+
+        .back-btn:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           INFO BOX
+        ===================================================== */
+
+        .info-box {
+
+            margin-top: 30px;
+
+            padding: 20px;
+
+            background: #f8fbff;
+
+            border:
+                1px solid
+                #e1edf9;
+
+            border-radius: 14px;
+        }
+
+
+        .info-box h3 {
+
+            font-size: 17px;
+
+            color: #111827;
+
+            margin-bottom: 10px;
+        }
+
+
+        .info-box p {
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+
+        .info-list {
+
+            margin-top: 12px;
+
+            padding-left: 20px;
+
+            color: #6b7280;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           ERROR MESSAGE
+        ===================================================== */
+
+        .form-error {
+
+            display: none;
+
+            margin-bottom: 20px;
+
+            padding: 12px 15px;
+
+            border-radius: 10px;
+
+            background: #fef2f2;
+
+            border:
+                1px solid
+                #fecaca;
+
+            color: #b91c1c;
+
+            font-size: 14px;
+        }
+
+
+        .form-error.show {
+
+            display: block;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 1000px) {
+
+            .navbar {
+
+                padding:
+                    12px 25px;
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 12px;
+
+                padding:
+                    15px;
+            }
+
+
+            .nav-links {
+
+                justify-content: center;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .main-container {
+
+                width: 94%;
+
+                margin-top: 30px;
+            }
+
+
+            .predictor-card {
+
+                padding: 22px;
+            }
+
+
+            .page-header h1 {
+
+                font-size: 27px;
+            }
+
+
+            .page-header p {
+
+                font-size: 14px;
+            }
+
+
+            .exam-options {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .nav-links {
+
+                gap: 3px;
+            }
+
+
+            .nav-links a,
+            .logout-btn {
+
+                font-size: 13px;
+
+                padding:
+                    7px 8px;
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .logo {
+
+                font-size: 20px;
+            }
+
+
+            .nav-links {
+
+                width: 100%;
+            }
+
+
+            .nav-links a,
+            .logout-btn {
+
+                font-size: 12px;
+
+                padding:
+                    6px 7px;
+            }
+
+
+            .predictor-card {
+
+                padding: 18px;
+            }
+
+
+            .page-icon {
+
+                width: 65px;
+
+                height: 65px;
+
+                font-size: 32px;
+            }
+
+
+            .page-header h1 {
+
+                font-size: 24px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🎓 College Predictor
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+
+        <a href="{{ url_for('colleges') }}">
+            Colleges
+        </a>
+
+
+        <a
+            href="{{ url_for('predictor') }}"
+            class="active"
+        >
+            Predictor
+        </a>
+
+
+        <a href="{{ url_for('prediction_history') }}">
+            🕘 History
+        </a>
+
+
+        <a href="{{ url_for('profile') }}">
+            Profile
+        </a>
+
+
+        <a href="{{ url_for('saved_colleges') }}">
+            Saved
+        </a>
+
+
+        <a href="{{ url_for('compare') }}">
+            Compare
+        </a>
+
+
+        <!-- SECURE LOGOUT -->
+
+        <form
+            method="POST"
+            action="{{ url_for('logout') }}"
+            class="logout-form"
+        >
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ csrf_token() }}"
+            >
+
+
+            <button
+                type="submit"
+                class="logout-btn"
+            >
+                Logout
+            </button>
+
+        </form>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     MAIN CONTAINER
+===================================================== -->
+
+<main class="main-container">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================= -->
+
+    <section class="page-header">
+
+        <div
+            class="page-icon"
+            aria-hidden="true"
+        >
+            🤖
+        </div>
+
+
+        <h1>
+            College Predictor
+        </h1>
+
+
+        <p>
+            Enter your entrance exam details
+            to find colleges matching your rank.
+        </p>
+
+    </section>
+
+
+
+    <!-- =================================================
+         PREDICTOR CARD
+    ================================================= -->
+
+    <section class="predictor-card">
+
+
+        <!-- =================================================
+             FORM ERROR
+        ================================================= -->
+
+        <div
+            id="formError"
+            class="form-error"
+            role="alert"
+        ></div>
+
+
+
+        <!-- =================================================
+             PREDICTOR FORM
+        ================================================= -->
+
+        <form
+            id="predictorForm"
+            action="{{ url_for('predict') }}"
+            method="POST"
+            novalidate
+        >
+
+            <!-- CSRF -->
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ csrf_token() }}"
+            >
+
+
+
+            <!-- =================================================
+                 EXAM
+            ================================================= -->
+
+            <div class="form-group">
+
+                <label>
+                    Select Entrance Exam
+                    <span class="required">*</span>
+                </label>
+
+
+                <div class="exam-options">
+
+
+                    <!-- KCET -->
+
+                    <div class="exam-option">
+
+                        <input
+                            type="radio"
+                            name="exam"
+                            id="kcet"
+                            value="KCET"
+                            checked
+                        >
+
+
+                        <label
+                            for="kcet"
+                            class="exam-label"
+                        >
+
+                            <span class="exam-title">
+                                🎓 KCET
+                            </span>
+
+
+                            <span class="exam-description">
+                                Karnataka Common Entrance Test
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+
+                    <!-- EAMCET -->
+
+                    <div class="exam-option">
+
+                        <input
+                            type="radio"
+                            name="exam"
+                            id="eamcet"
+                            value="EAMCET"
+                        >
+
+
+                        <label
+                            for="eamcet"
+                            class="exam-label"
+                        >
+
+                            <span class="exam-title">
+                                🎓 EAMCET
+                            </span>
+
+
+                            <span class="exam-description">
+                                Engineering entrance examination
+                            </span>
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 RANK
+            ================================================= -->
+
+            <div class="form-group">
+
+                <label for="rank">
+
+                    Enter Your Rank
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+
+                <div class="rank-wrapper">
+
+                    <input
+                        type="number"
+                        id="rank"
+                        name="rank"
+                        class="form-control"
+                        placeholder="Example: 18000"
+                        min="1"
+                        max="99999999"
+                        step="1"
+                        inputmode="numeric"
+                        autocomplete="off"
+                        required
+                    >
+
+
+                    <span class="rank-label">
+                        Rank
+                    </span>
+
+                </div>
+
+
+                <div class="help-text">
+
+                    Enter your entrance examination
+                    rank exactly as shown in your result.
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 BRANCH
+            ================================================= -->
+
+            <div class="form-group">
+
+                <label for="branch">
+
+                    Preferred Branch
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+
+                <select
+                    id="branch"
+                    name="branch"
+                    class="form-control"
+                    required
+                >
+
+                    <option value="">
+                        Select Branch
+                    </option>
+
+                </select>
+
+
+                <div
+                    class="help-text"
+                    id="branchHelp"
+                >
+                    Available KCET branches:
+                    CSE, AIML, ISE and ECE.
+                </div>
+
+
+                <div
+                    id="branchStatus"
+                    class="branch-status"
+                >
+                    Loading branches...
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PREDICT BUTTON
+            ================================================= -->
+
+            <button
+                type="submit"
+                class="predict-btn"
+                id="predictBtn"
+            >
+
+                🔍 Predict Colleges
+
+            </button>
+
+        </form>
+
+
+
+        <!-- =================================================
+             INFORMATION
+        ================================================= -->
+
+        <div class="info-box">
+
+            <h3>
+                💡 How does the predictor work?
+            </h3>
+
+
+            <p>
+
+                Select your entrance examination,
+                enter your rank and choose your
+                preferred engineering branch.
+
+                The system compares your rank
+                with historical college cutoff
+                ranks and uses the machine-learning
+                model to calculate college matching
+                results.
+
+            </p>
+
+
+            <ul class="info-list">
+
+                <li>
+                    Select KCET or EAMCET.
+                </li>
+
+                <li>
+                    Enter your valid examination rank.
+                </li>
+
+                <li>
+                    Select your preferred branch.
+                </li>
+
+                <li>
+                    The system checks matching colleges.
+                </li>
+
+                <li>
+                    Results are displayed with chance information.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         BACK BUTTON
+    ================================================= -->
+
+    <div class="back-section">
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="back-btn"
+        >
+            ← Back to Dashboard
+        </a>
+
+    </div>
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+    "use strict";
+
+
+    /* =====================================================
+       BRANCH CONFIGURATION
+    ===================================================== */
+
+    const examBranches = {
+
+        KCET: [
+            "CSE",
+            "AIML",
+            "ISE",
+            "ECE"
+        ],
+
+        EAMCET: [
+            "CSE",
+            "AIML",
+            "ECE",
+            "ME"
+        ]
+
+    };
+
+
+    /* =====================================================
+       DOM ELEMENTS
+    ===================================================== */
+
+    const branchSelect =
+        document.getElementById("branch");
+
+
+    const branchHelp =
+        document.getElementById("branchHelp");
+
+
+    const branchStatus =
+        document.getElementById("branchStatus");
+
+
+    const predictorForm =
+        document.getElementById("predictorForm");
+
+
+    const rankInput =
+        document.getElementById("rank");
+
+
+    const predictBtn =
+        document.getElementById("predictBtn");
+
+
+    const formError =
+        document.getElementById("formError");
+
+
+
+    /* =====================================================
+       GET SELECTED EXAM
+    ===================================================== */
+
+    function getSelectedExam() {
+
+        const selected =
+            document.querySelector(
+                'input[name="exam"]:checked'
+            );
+
+
+        if (!selected) {
+
+            return "";
+
+        }
+
+
+        return selected.value
+            .toUpperCase()
+            .trim();
+
+    }
+
+
+
+    /* =====================================================
+       UPDATE BRANCHES
+    ===================================================== */
+
+    function updateBranches() {
+
+        if (!branchSelect) {
+
+            return;
+
+        }
+
+
+        const exam =
+            getSelectedExam();
+
+
+        /*
+         * Clear existing options.
+         */
+
+        branchSelect.innerHTML =
+            '<option value="">Select Branch</option>';
+
+
+        /*
+         * Hide status.
+         */
+
+        if (branchStatus) {
+
+            branchStatus.classList.remove("show");
+
+        }
+
+
+        /*
+         * No exam selected.
+         */
+
+        if (!exam) {
+
+            if (branchHelp) {
+
+                branchHelp.textContent =
+                    "Select an entrance examination first.";
+
+            }
+
+            return;
+
+        }
+
+
+        /*
+         * Get branches for selected exam.
+         */
+
+        const branches =
+            examBranches[exam] || [];
+
+
+        /*
+         * Update help text.
+         */
+
+        if (exam === "KCET") {
+
+            if (branchHelp) {
+
+                branchHelp.textContent =
+                    "Available KCET branches: CSE, AIML, ISE and ECE.";
+
+            }
+
+        }
+
+
+        else if (exam === "EAMCET") {
+
+            if (branchHelp) {
+
+                branchHelp.textContent =
+                    "Available EAMCET branches: CSE, AIML, ECE and ME.";
+
+            }
+
+        }
+
+
+        /*
+         * Add branch options.
+         */
+
+        branches.forEach(
+            function(branch) {
+
+                const option =
+                    document.createElement("option");
+
+
+                option.value =
+                    branch;
+
+
+                option.textContent =
+                    branch;
+
+
+                branchSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       SHOW ERROR
+    ===================================================== */
+
+    function showError(message) {
+
+        if (!formError) {
+
+            return;
+
+        }
+
+
+        formError.textContent =
+            message;
+
+
+        formError.classList.add("show");
+
+
+        formError.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+
+
+
+    /* =====================================================
+       HIDE ERROR
+    ===================================================== */
+
+    function hideError() {
+
+        if (!formError) {
+
+            return;
+
+        }
+
+
+        formError.textContent = "";
+
+        formError.classList.remove("show");
+
+    }
+
+
+
+    /* =====================================================
+       RANK VALIDATION
+    ===================================================== */
+
+    function validateRank() {
+
+        if (!rankInput) {
+
+            return false;
+
+        }
+
+
+        const value =
+            rankInput.value.trim();
+
+
+        const rank =
+            Number(value);
+
+
+        if (
+            value === "" ||
+            !Number.isInteger(rank) ||
+            rank <= 0
+        ) {
+
+            showError(
+                "Please enter a valid rank greater than 0."
+            );
+
+            rankInput.focus();
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+
+
+
+    /* =====================================================
+       BRANCH VALIDATION
+    ===================================================== */
+
+    function validateBranch() {
+
+        if (!branchSelect) {
+
+            return false;
+
+        }
+
+
+        const branch =
+            branchSelect.value
+                .toUpperCase()
+                .trim();
+
+
+        if (!branch) {
+
+            showError(
+                "Please select your preferred branch."
+            );
+
+            branchSelect.focus();
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+
+
+
+    /* =====================================================
+       FORM SUBMISSION
+    ===================================================== */
+
+    if (predictorForm) {
+
+        predictorForm.addEventListener(
+            "submit",
+            function(event) {
+
+                hideError();
+
+
+                /*
+                 * Validate exam.
+                 */
+
+                const exam =
+                    getSelectedExam();
+
+
+                if (
+                    !exam ||
+                    !examBranches[exam]
+                ) {
+
+                    event.preventDefault();
+
+                    showError(
+                        "Please select a valid entrance examination."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * Validate rank.
+                 */
+
+                if (!validateRank()) {
+
+                    event.preventDefault();
+
+                    return;
+
+                }
+
+
+                /*
+                 * Validate branch.
+                 */
+
+                if (!validateBranch()) {
+
+                    event.preventDefault();
+
+                    return;
+
+                }
+
+
+                /*
+                 * Prevent accidental double-clicks.
+                 */
+
+                if (predictBtn) {
+
+                    predictBtn.disabled = true;
+
+                    predictBtn.textContent =
+                        "⏳ Finding Colleges...";
+
+                }
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       EXAM CHANGE EVENTS
+    ===================================================== */
+
+    const examInputs =
+        document.querySelectorAll(
+            'input[name="exam"]'
+        );
+
+
+    examInputs.forEach(
+        function(input) {
+
+            input.addEventListener(
+                "change",
+                function() {
+
+                    hideError();
+
+                    updateBranches();
+
+                }
+            );
+
+        }
+    );
+
+
+
+    /* =====================================================
+       RANK INPUT CLEANING
+    ===================================================== */
+
+    if (rankInput) {
+
+        rankInput.addEventListener(
+            "input",
+            function() {
+
+                /*
+                 * Remove decimal values.
+                 */
+
+                this.value =
+                    this.value.replace(
+                        /[^\d]/g,
+                        ""
+                    );
+
+
+                hideError();
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       BRANCH CHANGE
+    ===================================================== */
+
+    if (branchSelect) {
+
+        branchSelect.addEventListener(
+            "change",
+            function() {
+
+                hideError();
+
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       PAGE LOAD
+    ===================================================== */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function() {
+
+            updateBranches();
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

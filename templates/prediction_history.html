@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Prediction History - College Predictor</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4f7fb,
+                    #eaf2ff
+                );
+
+            min-height: 100vh;
+
+            color: #1f2937;
+        }
+
+
+        /* =================================================
+           NAVBAR
+        ================================================= */
+
+        .navbar {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #1d4ed8
+                );
+
+            color: white;
+
+            padding:
+                16px 6%;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+            box-shadow:
+                0 4px 15px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.12
+                );
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+            justify-content: flex-end;
+        }
+
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            padding:
+                9px 12px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .nav-links a:hover {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.16
+                );
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .nav-links a.active {
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.20
+                );
+
+            font-weight: 600;
+        }
+
+
+        .logout {
+
+            background:
+                #ef4444 !important;
+
+            color: white;
+
+            border: none;
+
+            cursor: pointer;
+
+            padding:
+                9px 12px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-family:
+                inherit;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .logout:hover {
+
+            background:
+                #dc2626 !important;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        /* =================================================
+           MAIN CONTAINER
+        ================================================= */
+
+        .container {
+
+            width: 90%;
+
+            max-width: 1200px;
+
+            margin:
+                40px auto 60px;
+        }
+
+
+        /* =================================================
+           PAGE HEADER
+        ================================================= */
+
+        .page-header {
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding: 30px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.08
+                );
+
+            border:
+                1px solid #e5e7eb;
+        }
+
+
+        .page-header h1 {
+
+            font-size: 30px;
+
+            margin-bottom: 8px;
+
+            color: #111827;
+        }
+
+
+        .page-header p {
+
+            color: #6b7280;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =================================================
+           HISTORY COUNT
+        ================================================= */
+
+        .history-count {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-top: 18px;
+
+            padding:
+                8px 14px;
+
+            background:
+                #eff6ff;
+
+            color:
+                #1d4ed8;
+
+            border-radius: 999px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        /* =================================================
+           STATISTICS
+        ================================================= */
+
+        .statistics-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    5,
+                    1fr
+                );
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .stat-card {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 16px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 7px 20px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.07
+                );
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .stat-card:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 12px 28px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.11
+                );
+        }
+
+
+        .stat-icon {
+
+            font-size: 25px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .stat-label {
+
+            color:
+                #6b7280;
+
+            font-size: 12px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                0.5px;
+
+            font-weight: 600;
+
+            margin-bottom: 7px;
+        }
+
+
+        .stat-value {
+
+            color:
+                #111827;
+
+            font-size: 24px;
+
+            font-weight: 800;
+
+            word-break: break-word;
+        }
+
+
+        .stat-description {
+
+            color:
+                #9ca3af;
+
+            font-size: 11px;
+
+            margin-top: 5px;
+        }
+
+
+        /* =================================================
+           SEARCH AND FILTER SECTION
+        ================================================= */
+
+        .history-tools {
+
+            background: white;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 18px;
+
+            padding: 20px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 7px 20px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.07
+                );
+
+            display: grid;
+
+            grid-template-columns:
+                1fr auto;
+
+            gap: 15px;
+
+            align-items: center;
+        }
+
+
+        .search-box {
+
+            position: relative;
+        }
+
+
+        .search-box input {
+
+            width: 100%;
+
+            padding:
+                13px 16px 13px 45px;
+
+            border:
+                1px solid #d1d5db;
+
+            border-radius: 11px;
+
+            font-size: 14px;
+
+            outline: none;
+
+            background:
+                #f9fafb;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .search-box input:focus {
+
+            border-color:
+                #2563eb;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    37,
+                    99,
+                    235,
+                    0.10
+                );
+        }
+
+
+        .search-icon {
+
+            position: absolute;
+
+            left: 15px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            font-size: 17px;
+
+            color:
+                #6b7280;
+
+            pointer-events: none;
+        }
+
+
+        .filter-buttons {
+
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .filter-btn {
+
+            border: none;
+
+            cursor: pointer;
+
+            padding:
+                11px 16px;
+
+            border-radius: 9px;
+
+            background:
+                #f3f4f6;
+
+            color:
+                #374151;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .filter-btn:hover {
+
+            background:
+                #e5e7eb;
+        }
+
+
+        .filter-btn.active {
+
+            background:
+                #2563eb;
+
+            color: white;
+
+            box-shadow:
+                0 4px 10px
+                rgba(
+                    37,
+                    99,
+                    235,
+                    0.20
+                );
+        }
+
+
+        /* =================================================
+           FILTER RESULT COUNT
+        ================================================= */
+
+        .filter-result-count {
+
+            margin-top: 12px;
+
+            color:
+                #6b7280;
+
+            font-size: 13px;
+        }
+
+
+        /* =================================================
+           HISTORY LIST
+        ================================================= */
+
+        .history-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 18px;
+        }
+
+
+        /* =================================================
+           HISTORY CARD
+        ================================================= */
+
+        .history-card {
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding: 24px;
+
+            border:
+                1px solid #e5e7eb;
+
+            box-shadow:
+                0 7px 20px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.07
+                );
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .history-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+
+            top: 0;
+
+            bottom: 0;
+
+            width: 5px;
+
+            background:
+                #2563eb;
+        }
+
+
+        .history-card[data-exam="EAMCET"]::before {
+
+            background:
+                #7c3aed;
+        }
+
+
+        .history-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+                0 14px 32px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.13
+                );
+        }
+
+
+        /* =================================================
+           CARD TOP
+        ================================================= */
+
+        .history-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .exam-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                9px 15px;
+
+            border-radius: 999px;
+
+            background:
+                #eff6ff;
+
+            color:
+                #1d4ed8;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .history-card[data-exam="EAMCET"]
+        .exam-badge {
+
+            background:
+                #f3e8ff;
+
+            color:
+                #6d28d9;
+        }
+
+
+        .date {
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+            background:
+                #f8fafc;
+
+            padding:
+                7px 11px;
+
+            border-radius: 8px;
+
+            border:
+                1px solid #e5e7eb;
+        }
+
+
+        /* =================================================
+           INFORMATION GRID
+        ================================================= */
+
+        .history-info {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    1fr
+                );
+
+            gap: 15px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .info-box {
+
+            background:
+                #f8fafc;
+
+            border:
+                1px solid #e5e7eb;
+
+            border-radius: 12px;
+
+            padding: 16px;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .info-box:hover {
+
+            background:
+                #f1f5f9;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .info-label {
+
+            display: block;
+
+            color:
+                #6b7280;
+
+            font-size: 12px;
+
+            margin-bottom: 7px;
+
+            text-transform:
+                uppercase;
+
+            letter-spacing:
+                0.5px;
+
+            font-weight: 600;
+        }
+
+
+        .info-value {
+
+            font-size: 18px;
+
+            font-weight: 700;
+
+            color:
+                #111827;
+        }
+
+
+        /* =================================================
+           RANK HIGHLIGHT
+        ================================================= */
+
+        .rank-value {
+
+            color:
+                #2563eb;
+
+            font-size: 20px;
+        }
+
+
+        .history-card[data-exam="EAMCET"]
+        .rank-value {
+
+            color:
+                #7c3aed;
+        }
+
+
+        /* =================================================
+           BRANCH BADGE
+        ================================================= */
+
+        .branch-value {
+
+            display: inline-block;
+
+            background:
+                white;
+
+            border:
+                1px solid #dbeafe;
+
+            color:
+                #1d4ed8;
+
+            padding:
+                5px 10px;
+
+            border-radius: 7px;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .history-card[data-exam="EAMCET"]
+        .branch-value {
+
+            border-color:
+                #e9d5ff;
+
+            color:
+                #6d28d9;
+        }
+
+
+        /* =================================================
+           ACTIONS
+        ================================================= */
+
+        .history-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+            padding-top: 18px;
+
+            border-top:
+                1px solid #e5e7eb;
+        }
+
+
+        .btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-decoration: none;
+
+            border: none;
+
+            cursor: pointer;
+
+            padding:
+                10px 16px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .btn-primary {
+
+            background:
+                #2563eb;
+
+            color: white;
+        }
+
+
+        .btn-primary:hover {
+
+            background:
+                #1d4ed8;
+
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 5px 12px
+                rgba(
+                    37,
+                    99,
+                    235,
+                    0.22
+                );
+        }
+
+
+        .btn-danger {
+
+            background:
+                #fee2e2;
+
+            color:
+                #b91c1c;
+        }
+
+
+        .btn-danger:hover {
+
+            background:
+                #fecaca;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        .btn-secondary {
+
+            background:
+                #f3f4f6;
+
+            color:
+                #374151;
+        }
+
+
+        .btn-secondary:hover {
+
+            background:
+                #e5e7eb;
+        }
+
+
+        /* =================================================
+           NO FILTER RESULTS
+        ================================================= */
+
+        .no-results {
+
+            display: none;
+
+            background: white;
+
+            border-radius: 18px;
+
+            padding:
+                45px 25px;
+
+            text-align: center;
+
+            border:
+                1px solid #e5e7eb;
+
+            box-shadow:
+                0 7px 20px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.07
+                );
+        }
+
+
+        .no-results-icon {
+
+            font-size: 38px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .no-results h2 {
+
+            color:
+                #111827;
+
+            font-size: 21px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .no-results p {
+
+            color:
+                #6b7280;
+
+            font-size: 14px;
+        }
+
+
+        /* =================================================
+           EMPTY STATE
+        ================================================= */
+
+        .empty-state {
+
+            background: white;
+
+            border-radius: 20px;
+
+            padding:
+                60px 30px;
+
+            text-align: center;
+
+            border:
+                1px solid #e5e7eb;
+
+            box-shadow:
+                0 8px 25px
+                rgba(
+                    15,
+                    23,
+                    42,
+                    0.07
+                );
+        }
+
+
+        .empty-icon {
+
+            width: 75px;
+
+            height: 75px;
+
+            margin:
+                0 auto 20px;
+
+            border-radius: 50%;
+
+            background:
+                #eff6ff;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 32px;
+        }
+
+
+        .empty-state h2 {
+
+            color:
+                #111827;
+
+            margin-bottom: 10px;
+
+            font-size: 24px;
+        }
+
+
+        .empty-state p {
+
+            color:
+                #6b7280;
+
+            max-width: 500px;
+
+            margin:
+                0 auto 24px;
+
+            line-height: 1.6;
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================= */
+
+        .footer {
+
+            text-align: center;
+
+            color:
+                #6b7280;
+
+            font-size: 13px;
+
+            padding:
+                20px;
+        }
+
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (
+            max-width: 1050px
+        ) {
+
+            .statistics-grid {
+
+                grid-template-columns:
+                    repeat(
+                        3,
+                        1fr
+                    );
+            }
+
+        }
+
+
+        @media (
+            max-width: 800px
+        ) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+
+            .nav-links {
+
+                width: 100%;
+
+                justify-content: flex-start;
+            }
+
+
+            .statistics-grid {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+            }
+
+
+            .history-info {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .history-tools {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .filter-buttons {
+
+                width: 100%;
+            }
+
+
+            .filter-btn {
+
+                flex: 1;
+            }
+
+
+            .nav-links form {
+
+                width: auto;
+            }
+
+        }
+
+
+        @media (
+            max-width: 500px
+        ) {
+
+            .container {
+
+                width: 94%;
+
+                margin-top: 25px;
+            }
+
+
+            .page-header {
+
+                padding: 22px;
+            }
+
+
+            .page-header h1 {
+
+                font-size: 25px;
+            }
+
+
+            .statistics-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .history-card {
+
+                padding: 18px;
+            }
+
+
+            .history-actions {
+
+                flex-direction: column;
+            }
+
+
+            .history-actions .btn {
+
+                width: 100%;
+            }
+
+
+            .filter-buttons {
+
+                flex-direction: column;
+            }
+
+
+            .filter-btn {
+
+                width: 100%;
+            }
+
+
+            .date {
+
+                width: 100%;
+
+                text-align: center;
+            }
+
+
+            .nav-links {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                width: 100%;
+            }
+
+
+            .nav-links a,
+            .nav-links form,
+            .logout {
+
+                width: 100%;
+            }
+
+
+            .logout {
+
+                text-align: left;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        🎓 College Predictor
+    </div>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('dashboard') }}">
+            Dashboard
+        </a>
+
+        <a href="{{ url_for('colleges') }}">
+            Colleges
+        </a>
+
+        <a href="{{ url_for('predictor') }}">
+            Predictor
+        </a>
+
+        <a href="{{ url_for('prediction_history') }}"
+           class="active">
+            History
+        </a>
+
+        <a href="{{ url_for('profile') }}">
+            Profile
+        </a>
+
+        <a href="{{ url_for('saved_colleges') }}">
+            Saved
+        </a>
+
+
+        <!-- =============================================
+             SECURE LOGOUT
+        ============================================== -->
+
+        <form
+            method="POST"
+            action="{{ url_for('logout') }}"
+            style="display: inline; margin: 0;"
+        >
+
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="{{ csrf_token() }}"
+            >
+
+            <button
+                type="submit"
+                class="logout"
+            >
+                Logout
+            </button>
+
+        </form>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+    <!-- =================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <section class="page-header">
+
+        <h1>
+            🕘 Prediction History
+        </h1>
+
+        <p>
+            View your previous college prediction searches
+            and run a prediction again whenever you want.
+        </p>
+
+
+        {% if history %}
+
+            <div class="history-count">
+
+                📊
+
+                <span id="totalHistoryCount">
+                    {{ history|length }}
+                </span>
+
+                {% if history|length == 1 %}
+                    Prediction
+                {% else %}
+                    Predictions
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =================================================
+         PREDICTION STATISTICS
+    ================================================== -->
+
+    {% if history %}
+
+        {% set total_predictions = history|length %}
+
+        {% set kcet_count = namespace(value=0) %}
+
+        {% set eamcet_count = namespace(value=0) %}
+
+
+        {% for record in history %}
+
+            {% if record["exam"]|upper == "KCET" %}
+
+                {% set kcet_count.value =
+                    kcet_count.value + 1 %}
+
+            {% elif record["exam"]|upper == "EAMCET" %}
+
+                {% set eamcet_count.value =
+                    eamcet_count.value + 1 %}
+
+            {% endif %}
+
+        {% endfor %}
+
+
+        <section class="statistics-grid">
+
+
+            <!-- Total Predictions -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📊
+                </div>
+
+                <div class="stat-label">
+                    Total Predictions
+                </div>
+
+                <div class="stat-value">
+                    {{ total_predictions }}
+                </div>
+
+                <div class="stat-description">
+                    All prediction searches
+                </div>
+
+            </div>
+
+
+            <!-- KCET -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🎓
+                </div>
+
+                <div class="stat-label">
+                    KCET
+                </div>
+
+                <div class="stat-value">
+                    {{ kcet_count.value }}
+                </div>
+
+                <div class="stat-description">
+                    KCET predictions
+                </div>
+
+            </div>
+
+
+            <!-- EAMCET -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🎓
+                </div>
+
+                <div class="stat-label">
+                    EAMCET
+                </div>
+
+                <div class="stat-value">
+                    {{ eamcet_count.value }}
+                </div>
+
+                <div class="stat-description">
+                    EAMCET predictions
+                </div>
+
+            </div>
+
+
+            <!-- Most Recent Rank -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔢
+                </div>
+
+                <div class="stat-label">
+                    Recent Rank
+                </div>
+
+                <div class="stat-value">
+
+                    {{ history[0]["rank"] }}
+
+                </div>
+
+                <div class="stat-description">
+                    Latest prediction rank
+                </div>
+
+            </div>
+
+
+            <!-- Most Recent Branch -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🌿
+                </div>
+
+                <div class="stat-label">
+                    Recent Branch
+                </div>
+
+                <div class="stat-value">
+
+                    {% if history[0]["branch"] %}
+
+                        {{ history[0]["branch"] }}
+
+                    {% else %}
+
+                        All
+
+                    {% endif %}
+
+                </div>
+
+                <div class="stat-description">
+                    Latest prediction branch
+                </div>
+
+            </div>
+
+
+        </section>
+
+    {% endif %}
+
+
+    <!-- =================================================
+         SEARCH AND FILTER
+    ================================================== -->
+
+    {% if history %}
+
+        <section class="history-tools">
+
+
+            <!-- Search -->
+
+            <div>
+
+                <div class="search-box">
+
+                    <span class="search-icon">
+                        🔎
+                    </span>
+
+                    <input
+                        type="text"
+                        id="historySearch"
+                        placeholder="Search by exam, rank, or branch..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <div
+                    class="filter-result-count"
+                    id="filterResultCount"
+                >
+                    Showing {{ history|length }} predictions
+                </div>
+
+            </div>
+
+
+            <!-- Filters -->
+
+            <div class="filter-buttons">
+
+                <button
+                    type="button"
+                    class="filter-btn active"
+                    data-filter="all"
+                >
+                    All
+                </button>
+
+                <button
+                    type="button"
+                    class="filter-btn"
+                    data-filter="KCET"
+                >
+                    KCET
+                </button>
+
+                <button
+                    type="button"
+                    class="filter-btn"
+                    data-filter="EAMCET"
+                >
+                    EAMCET
+                </button>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             HISTORY RECORDS
+        ================================================== -->
+
+        <div class="history-list"
+             id="historyList">
+
+
+            {% for record in history %}
+
+                <article
+                    class="history-card"
+                    data-exam="{{ record['exam']|upper }}"
+                    data-search="
+                        {{ record['exam'] }}
+                        {{ record['rank'] }}
+                        {{ record['branch'] }}
+                        {% if record['branch'] %}
+                            {{ record['branch'] }}
+                        {% else %}
+                            All Branches
+                        {% endif %}
+                    "
+                >
+
+
+                    <!-- =================================
+                         CARD TOP
+                    ================================== -->
+
+                    <div class="history-top">
+
+                        <div class="exam-badge">
+
+                            🎓
+
+                            {{ record["exam"] }}
+
+                        </div>
+
+
+                        <div class="date">
+
+                            🕒
+
+                            {{ record["created_at"] }}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         INFORMATION
+                    ================================== -->
+
+                    <div class="history-info">
+
+
+                        <div class="info-box">
+
+                            <span class="info-label">
+                                Entrance Exam
+                            </span>
+
+                            <span class="info-value">
+
+                                {{ record["exam"] }}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <span class="info-label">
+                                Your Rank
+                            </span>
+
+                            <span class="info-value rank-value">
+
+                                #{{ record["rank"] }}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="info-box">
+
+                            <span class="info-label">
+                                Branch
+                            </span>
+
+                            <span class="info-value">
+
+                                <span class="branch-value">
+
+                                    {% if record["branch"] %}
+
+                                        {{ record["branch"] }}
+
+                                    {% else %}
+
+                                        All Branches
+
+                                    {% endif %}
+
+                                </span>
+
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =================================
+                         ACTION BUTTONS
+                    ================================== -->
+
+                    <div class="history-actions">
+
+
+                        <!-- Predict Again -->
+
+                        <a
+                            href="{{ url_for(
+                                'predictor',
+                                exam=record['exam'].lower(),
+                                rank=record['rank'],
+                                branch=record['branch']
+                            ) }}"
+                            class="btn btn-primary"
+                        >
+                            🔄 Predict Again
+                        </a>
+
+
+                        <!-- =================================
+                             SECURE DELETE
+                        ================================= -->
+
+                        <form
+                            method="POST"
+                            action="{{ url_for(
+                                'delete_prediction',
+                                prediction_id=record['id']
+                            ) }}"
+                            style="display: inline; margin: 0;"
+                            onsubmit="return confirm(
+                                'Are you sure you want to delete this prediction history?'
+                            );"
+                        >
+
+                            <input
+                                type="hidden"
+                                name="csrf_token"
+                                value="{{ csrf_token() }}"
+                            >
+
+                            <button
+                                type="submit"
+                                class="btn btn-danger"
+                            >
+                                🗑️ Delete
+                            </button>
+
+                        </form>
+
+
+                    </div>
+
+
+                </article>
+
+            {% endfor %}
+
+
+        </div>
+
+
+        <!-- =================================================
+             NO SEARCH/FILTER RESULTS
+        ================================================== -->
+
+        <section
+            class="no-results"
+            id="noResults"
+        >
+
+            <div class="no-results-icon">
+                🔎
+            </div>
+
+            <h2>
+                No Matching Predictions
+            </h2>
+
+            <p>
+                Try a different search term or select another exam filter.
+            </p>
+
+        </section>
+
+
+    {% else %}
+
+
+        <!-- =================================================
+             EMPTY STATE
+        ================================================== -->
+
+        <section class="empty-state">
+
+
+            <div class="empty-icon">
+
+                🕘
+
+            </div>
+
+
+            <h2>
+                No Prediction History
+            </h2>
+
+
+            <p>
+
+                You haven't made any college predictions yet.
+                Start your first prediction to see it appear
+                here.
+
+            </p>
+
+
+            <a
+                href="{{ url_for('predictor') }}"
+                class="btn btn-primary"
+            >
+
+                🤖 Start College Prediction
+
+            </a>
+
+
+        </section>
+
+
+    {% endif %}
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    College Predictor System
+    © 2026
+
+</footer>
+
+
+<!-- =====================================================
+     SEARCH AND FILTER JAVASCRIPT
+===================================================== -->
+
+{% if history %}
+
+<script>
+
+    const searchInput =
+        document.getElementById("historySearch");
+
+    const historyCards =
+        document.querySelectorAll(".history-card");
+
+    const filterButtons =
+        document.querySelectorAll(".filter-btn");
+
+    const noResults =
+        document.getElementById("noResults");
+
+    const filterResultCount =
+        document.getElementById("filterResultCount");
+
+
+    let selectedFilter = "all";
+
+
+    /* =================================================
+       FILTER FUNCTION
+    ================================================= */
+
+    function filterHistory() {
+
+        const searchText =
+            searchInput.value
+                .toLowerCase()
+                .trim();
+
+
+        let visibleCount = 0;
+
+
+        historyCards.forEach(function(card) {
+
+            const exam =
+                card
+                    .getAttribute("data-exam")
+                    .toLowerCase();
+
+
+            const searchData =
+                card
+                    .getAttribute("data-search")
+                    .toLowerCase();
+
+
+            const matchesExam =
+                selectedFilter === "all" ||
+                exam === selectedFilter.toLowerCase();
+
+
+            const matchesSearch =
+                searchData.includes(searchText);
+
+
+            if (
+                matchesExam &&
+                matchesSearch
+            ) {
+
+                card.style.display =
+                    "block";
+
+                visibleCount++;
+
+            } else {
+
+                card.style.display =
+                    "none";
+
+            }
+
+        });
+
+
+        /* =============================================
+           UPDATE RESULT COUNT
+        ============================================= */
+
+        if (visibleCount === 1) {
+
+            filterResultCount.textContent =
+                "Showing 1 prediction";
+
+        } else {
+
+            filterResultCount.textContent =
+                "Showing " +
+                visibleCount +
+                " predictions";
+
+        }
+
+
+        /* =============================================
+           SHOW / HIDE NO RESULTS
+        ============================================= */
+
+        if (visibleCount === 0) {
+
+            noResults.style.display =
+                "block";
+
+        } else {
+
+            noResults.style.display =
+                "none";
+
+        }
+
+    }
+
+
+    /* =================================================
+       SEARCH EVENT
+    ================================================= */
+
+    searchInput.addEventListener(
+        "input",
+        filterHistory
+    );
+
+
+    /* =================================================
+       FILTER BUTTON EVENTS
+    ================================================= */
+
+    filterButtons.forEach(function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                filterButtons.forEach(
+                    function(item) {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                selectedFilter =
+                    button.getAttribute(
+                        "data-filter"
+                    );
+
+
+                filterHistory();
+
+            }
+        );
+
+    });
+
+
+    /* =================================================
+       INITIAL FILTER
+    ================================================= */
+
+    filterHistory();
+
+</script>
+
+{% endif %}
+
+
+</body>
+
+</html>

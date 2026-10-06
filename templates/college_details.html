@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>
+    {{ college.get('College Name', 'College Details') }}
+    - College Predictor
+</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+
+        font-family:
+            "Segoe UI",
+            Arial,
+            sans-serif;
+
+        background:
+            linear-gradient(
+                135deg,
+                #eef5ff,
+                #f8fbff
+            );
+
+        color: #1f2937;
+
+        min-height: 100vh;
+    }
+
+
+    /* =====================================================
+       NAVBAR
+    ===================================================== */
+
+    .navbar {
+
+        background: #ffffff;
+
+        padding: 16px 35px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        box-shadow:
+            0 3px 15px
+            rgba(0, 0, 0, 0.08);
+
+        position: sticky;
+
+        top: 0;
+
+        z-index: 1000;
+    }
+
+
+    .logo {
+
+        font-size: 22px;
+
+        font-weight: 700;
+
+        color: #2563eb;
+
+        text-decoration: none;
+    }
+
+
+    .nav-links {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 22px;
+
+        flex-wrap: wrap;
+    }
+
+
+    .nav-links a {
+
+        text-decoration: none;
+
+        color: #374151;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        transition: 0.2s;
+    }
+
+
+    .nav-links a:hover {
+
+        color: #2563eb;
+    }
+
+
+    /* =====================================================
+       LOGOUT FORM
+    ===================================================== */
+
+    .logout-form {
+
+        margin: 0;
+
+        padding: 0;
+
+        display: inline;
+    }
+
+
+    .logout {
+
+        background: #ef4444;
+
+        color: white !important;
+
+        padding: 9px 15px;
+
+        border-radius: 8px;
+
+        border: none;
+
+        font-family: inherit;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+    }
+
+
+    .logout:hover {
+
+        background: #dc2626;
+
+        color: white !important;
+    }
+
+
+    /* =====================================================
+       MAIN CONTAINER
+    ===================================================== */
+
+    .container {
+
+        width: 92%;
+
+        max-width: 1150px;
+
+        margin: 35px auto 60px;
+    }
+
+
+    /* =====================================================
+       BACK BUTTON
+    ===================================================== */
+
+    .back-button {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        text-decoration: none;
+
+        color: #2563eb;
+
+        font-weight: 600;
+
+        margin-bottom: 22px;
+
+        transition: 0.2s;
+    }
+
+
+    .back-button:hover {
+
+        transform: translateX(-4px);
+    }
+
+
+    /* =====================================================
+       MAIN COLLEGE CARD
+    ===================================================== */
+
+    .college-card {
+
+        background: white;
+
+        border-radius: 20px;
+
+        overflow: hidden;
+
+        box-shadow:
+            0 10px 35px
+            rgba(0, 0, 0, 0.10);
+    }
+
+
+    /* =====================================================
+       COLLEGE HEADER
+    ===================================================== */
+
+    .college-header {
+
+        display: grid;
+
+        grid-template-columns:
+            380px 1fr;
+
+        min-height: 300px;
+    }
+
+
+    .college-image-container {
+
+        width: 100%;
+
+        height: 100%;
+
+        min-height: 300px;
+
+        background: #e5e7eb;
+
+        overflow: hidden;
+    }
+
+
+    .college-image {
+
+        width: 100%;
+
+        height: 100%;
+
+        min-height: 300px;
+
+        object-fit: cover;
+
+        display: block;
+    }
+
+
+    .college-image-placeholder {
+
+        width: 100%;
+
+        height: 100%;
+
+        min-height: 300px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 70px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #dbeafe,
+                #eff6ff
+            );
+    }
+
+
+    .college-header-content {
+
+        padding: 38px;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+    }
+
+
+    .exam-badge {
+
+        display: inline-block;
+
+        width: fit-content;
+
+        background: #dbeafe;
+
+        color: #1d4ed8;
+
+        padding: 7px 14px;
+
+        border-radius: 20px;
+
+        font-size: 13px;
+
+        font-weight: 700;
+
+        margin-bottom: 15px;
+    }
+
+
+    .college-title {
+
+        font-size: 34px;
+
+        line-height: 1.2;
+
+        color: #111827;
+
+        margin-bottom: 15px;
+    }
+
+
+    .college-location {
+
+        color: #6b7280;
+
+        font-size: 16px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .rating {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        background: #fff7ed;
+
+        color: #c2410c;
+
+        padding: 9px 14px;
+
+        border-radius: 10px;
+
+        width: fit-content;
+
+        font-weight: 700;
+    }
+
+
+    /* =====================================================
+       INFORMATION SECTIONS
+    ===================================================== */
+
+    .content-area {
+
+        padding: 35px;
+    }
+
+
+    .info-section {
+
+        margin-bottom: 35px;
+    }
+
+
+    .info-section h2 {
+
+        font-size: 22px;
+
+        color: #111827;
+
+        margin-bottom: 18px;
+
+        padding-bottom: 10px;
+
+        border-bottom:
+            2px solid #e5e7eb;
+    }
+
+
+    .info-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 16px;
+    }
+
+
+    .info-box {
+
+        background: #f8fafc;
+
+        border: 1px solid #e5e7eb;
+
+        border-radius: 12px;
+
+        padding: 17px;
+
+        min-height: 80px;
+    }
+
+
+    .info-label {
+
+        display: block;
+
+        font-size: 13px;
+
+        color: #6b7280;
+
+        margin-bottom: 7px;
+
+        font-weight: 600;
+    }
+
+
+    .info-value {
+
+        font-size: 16px;
+
+        font-weight: 700;
+
+        color: #111827;
+
+        word-break: break-word;
+    }
+
+
+    /* =====================================================
+       WEBSITE
+    ===================================================== */
+
+    .website-link {
+
+        display: inline-block;
+
+        color: #2563eb;
+
+        font-size: 16px;
+
+        font-weight: 700;
+
+        text-decoration: none;
+
+        word-break: break-all;
+
+        transition: 0.2s;
+    }
+
+
+    .website-link:hover {
+
+        color: #1d4ed8;
+
+        text-decoration: underline;
+    }
+
+
+    .no-website {
+
+        color: #6b7280;
+
+        font-size: 15px;
+    }
+
+
+    /* =====================================================
+       QUICK ACTIONS
+    ===================================================== */
+
+    .actions {
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 12px;
+
+        margin-top: 10px;
+    }
+
+
+    .action-button {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        text-decoration: none;
+
+        padding: 12px 18px;
+
+        border-radius: 10px;
+
+        font-weight: 700;
+
+        font-size: 14px;
+
+        transition:
+            transform 0.2s,
+            box-shadow 0.2s;
+
+        border: none;
+
+        cursor: pointer;
+
+        font-family: inherit;
+    }
+
+
+    .action-button:hover {
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 6px 16px
+            rgba(0, 0, 0, 0.12);
+    }
+
+
+    .primary-button {
+
+        background: #2563eb;
+
+        color: white;
+    }
+
+
+    .primary-button:hover {
+
+        background: #1d4ed8;
+    }
+
+
+    .secondary-button {
+
+        background: #eef2ff;
+
+        color: #3730a3;
+    }
+
+
+    .green-button {
+
+        background: #dcfce7;
+
+        color: #166534;
+    }
+
+
+    .gray-button {
+
+        background: #f3f4f6;
+
+        color: #374151;
+    }
+
+
+    /* =====================================================
+       SAVE FORM
+    ===================================================== */
+
+    .save-form {
+
+        display: inline-flex;
+
+        margin: 0;
+
+        padding: 0;
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 850px) {
+
+        .navbar {
+
+            padding: 15px 20px;
+
+            flex-direction: column;
+
+            gap: 15px;
+
+            align-items: flex-start;
+        }
+
+
+        .nav-links {
+
+            gap: 14px;
+        }
+
+
+        .college-header {
+
+            grid-template-columns: 1fr;
+        }
+
+
+        .college-image-container {
+
+            height: 280px;
+
+            min-height: 280px;
+        }
+
+
+        .college-image {
+
+            min-height: 280px;
+        }
+
+
+        .college-image-placeholder {
+
+            min-height: 280px;
+        }
+
+
+        .college-title {
+
+            font-size: 28px;
+        }
+    }
+
+
+    @media (max-width: 600px) {
+
+        .container {
+
+            width: 94%;
+
+            margin-top: 20px;
+        }
+
+
+        .college-header-content {
+
+            padding: 25px;
+        }
+
+
+        .content-area {
+
+            padding: 22px;
+        }
+
+
+        .info-grid {
+
+            grid-template-columns: 1fr;
+        }
+
+
+        .college-title {
+
+            font-size: 25px;
+        }
+
+
+        .actions {
+
+            flex-direction: column;
+        }
+
+
+        .action-button {
+
+            width: 100%;
+        }
+
+
+        .save-form {
+
+            width: 100%;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav class="navbar">
+
+```
+<a
+    href="{{ url_for('dashboard') }}"
+    class="logo"
+>
+    🎓 College Predictor
+</a>
+
+
+<div class="nav-links">
+
+    <a href="{{ url_for('dashboard') }}">
+        Dashboard
+    </a>
+
+    <a href="{{ url_for('colleges') }}">
+        Colleges
+    </a>
+
+    <a href="{{ url_for('predictor') }}">
+        Predictor
+    </a>
+
+    <a href="{{ url_for('saved_colleges') }}">
+        Saved
+    </a>
+
+    <a href="{{ url_for('compare_colleges') }}">
+        Compare
+    </a>
+
+    <a href="{{ url_for('prediction_history') }}">
+        History
+    </a>
+
+    <a href="{{ url_for('profile') }}">
+        Profile
+    </a>
+
+
+    <!-- SECURE LOGOUT -->
+
+    <form
+        method="POST"
+        action="{{ url_for('logout') }}"
+        class="logout-form"
+    >
+
+        <input
+            type="hidden"
+            name="csrf_token"
+            value="{{ csrf_token() }}"
+        >
+
+        <button
+            type="submit"
+            class="logout"
+        >
+            Logout
+        </button>
+
+    </form>
+
+</div>
+```
+
+</nav>
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<div class="container">
+
+```
+<!-- BACK -->
+
+<a
+    href="{{ request.referrer or url_for('colleges') }}"
+    class="back-button"
+>
+    ← Back to Colleges
+</a>
+
+
+<div class="college-card">
+
+
+    <!-- =================================================
+         COLLEGE HEADER
+    ================================================= -->
+
+    <div class="college-header">
+
+
+        <!-- IMAGE -->
+
+        <div class="college-image-container">
+
+            {% set image =
+                college.get('Image', '')
+            %}
+
+            {% if image
+                  and image|string|lower
+                  not in ['nan', 'none', 'null', ''] %}
+
+                <img
+                    src="{{ url_for('static', filename=image) }}"
+                    alt="{{ college.get('College Name', 'College') }}"
+                    class="college-image"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                >
+
+                <div
+                    class="college-image-placeholder"
+                    style="display:none;"
+                >
+                    🎓
+                </div>
+
+            {% else %}
+
+                <div class="college-image-placeholder">
+                    🎓
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- COLLEGE TITLE -->
+
+        <div class="college-header-content">
+
+
+            {% if exam_name
+                  and exam_name|string|lower
+                  not in ['all colleges', 'all'] %}
+
+                <span class="exam-badge">
+
+                    {{ exam_name }}
+
+                </span>
+
+            {% endif %}
+
+
+            <h1 class="college-title">
+
+                {{ college.get(
+                    'College Name',
+                    'College Details'
+                ) }}
+
+            </h1>
+
+
+            <div class="college-location">
+
+                📍
+                {{ college.get(
+                    'Location',
+                    'Location not available'
+                ) }}
+
+                {% if college.get('State') %}
+
+                    , {{ college.get('State') }}
+
+                {% endif %}
+
+            </div>
+
+
+            {% set rating =
+                college.get('Rating', 'N/A')
+            %}
+
+            <div class="rating">
+
+                ⭐ Rating:
+
+                {% if rating|string|lower
+                      not in ['nan', 'none', 'null', ''] %}
+
+                    {{ rating }}
+
+                {% else %}
+
+                    N/A
+
+                {% endif %}
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         CONTENT
+    ================================================= -->
+
+    <div class="content-area">
+
+
+        <!-- =================================================
+             BASIC INFORMATION
+        ================================================= -->
+
+        <section class="info-section">
+
+            <h2>
+                📋 College Information
+            </h2>
+
+
+            <div class="info-grid">
+
+
+                <!-- BRANCH -->
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Branch
+                    </span>
+
+                    <span class="info-value">
+
+                        {{ college.get(
+                            'Branch',
+                            'N/A'
+                        ) }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- RATING -->
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Rating
+                    </span>
+
+                    <span class="info-value">
+
+                        ⭐
+                        {{ college.get(
+                            'Rating',
+                            'N/A'
+                        ) }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- CUTOFF -->
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Historical Cutoff Rank
+                    </span>
+
+                    <span class="info-value">
+
+                        {{ college.get(
+                            'Cutoff Rank',
+                            'N/A'
+                        ) }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- STATE -->
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        State
+                    </span>
+
+                    <span class="info-value">
+
+                        {{ college.get(
+                            'State',
+                            'N/A'
+                        ) }}
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             LOCATION
+        ================================================= -->
+
+        <section class="info-section">
+
+            <h2>
+                📍 Location
+            </h2>
+
+
+            <div class="info-grid">
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        City / Location
+                    </span>
+
+                    <span class="info-value">
+
+                        {{ college.get(
+                            'Location',
+                            'Location not available'
+                        ) }}
+
+                    </span>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        State
+                    </span>
+
+                    <span class="info-value">
+
+                        {{ college.get(
+                            'State',
+                            'State not available'
+                        ) }}
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             COLLEGE WEBSITE
+        ================================================= -->
+
+        <section class="info-section">
+
+            <h2>
+                🌐 College Website
+            </h2>
+
+
+            {% set website =
+                college.get('Website', '')
+            %}
+
+
+            {% if website
+                  and website|string|lower
+                  not in [
+                      'nan',
+                      'none',
+                      'null',
+                      'na',
+                      'n/a',
+                      ''
+                  ] %}
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Official Website
+                    </span>
+
+
+                    <a
+                        href="{{ website }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="website-link"
+                    >
+                        🌐 Visit Official Website
+                    </a>
+
+                </div>
+
+
+            {% else %}
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Official Website
+                    </span>
+
+                    <span class="no-website">
+
+                        Website information not available
+
+                    </span>
+
+                </div>
+
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================= -->
+
+        <section class="info-section">
+
+            <h2>
+                ⚡ Quick Actions
+            </h2>
+
+
+            <div class="actions">
+
+
+                <!-- =================================================
+                     SECURE SAVE COLLEGE
+                ================================================= -->
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'save_college',
+                        exam=exam,
+                        index=index
+                    ) }}"
+                    class="save-form"
+                >
+
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="{{ csrf_token() }}"
+                    >
+
+                    <button
+                        type="submit"
+                        class="action-button primary-button"
+                    >
+                        ❤️ Save College
+                    </button>
+
+                </form>
+
+
+                <!-- GOOGLE MAPS -->
+
+                {% set college_name =
+                    college.get(
+                        'College Name',
+                        ''
+                    )
+                %}
+
+                {% set location =
+                    college.get(
+                        'Location',
+                        ''
+                    )
+                %}
+
+                {% set state =
+                    college.get(
+                        'State',
+                        ''
+                    )
+                %}
+
+
+                <a
+                    href="https://www.google.com/maps/search/?api=1&query={{ (college_name ~ ' ' ~ location ~ ' ' ~ state)|urlencode }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="action-button secondary-button"
+                >
+                    📍 Open in Google Maps
+                </a>
+
+
+                <!-- WEBSITE -->
+
+                {% if website
+                      and website|string|lower
+                      not in [
+                          'nan',
+                          'none',
+                          'null',
+                          'na',
+                          'n/a',
+                          ''
+                      ] %}
+
+                    <a
+                        href="{{ website }}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="action-button green-button"
+                    >
+                        🌐 Visit Website
+                    </a>
+
+                {% endif %}
+
+
+                <!-- BACK -->
+
+                <a
+                    href="{{ url_for('colleges') }}"
+                    class="action-button gray-button"
+                >
+                    🏫 Browse More Colleges
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+</div>
+```
+
+</div>
+
+</body>
+
+</html>

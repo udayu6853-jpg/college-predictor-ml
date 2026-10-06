@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>About | College Predictor</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef7ff,
+                    #f8fbff
+                );
+
+            color: #102a56;
+        }
+
+        .navbar {
+
+            min-height: 74px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #087cf0,
+                    #0874df
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 42px;
+
+            color: white;
+
+            box-shadow:
+                0 4px 15px
+                rgba(0, 91, 180, 0.18);
+        }
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 25px;
+
+            font-weight: 800;
+        }
+
+        .brand-icon {
+
+            width: 45px;
+            height: 45px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,0.15);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+        }
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+        }
+
+        .nav-links a {
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 12px 15px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        .nav-links a:hover {
+
+            background:
+                rgba(255,255,255,0.15);
+        }
+
+        .container {
+
+            width: 94%;
+
+            max-width: 1050px;
+
+            margin: 35px auto 50px;
+        }
+
+        .hero {
+
+            background: white;
+
+            border:
+                1px solid #dcecff;
+
+            border-radius: 16px;
+
+            padding: 40px;
+
+            text-align: center;
+
+            box-shadow:
+                0 7px 25px
+                rgba(31, 91, 150, 0.07);
+        }
+
+        .hero-icon {
+
+            font-size: 55px;
+
+            margin-bottom: 12px;
+        }
+
+        .hero h1 {
+
+            font-size: 31px;
+
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+
+            color: #657994;
+
+            line-height: 1.7;
+
+            max-width: 750px;
+
+            margin: auto;
+
+            font-size: 15px;
+        }
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-top: 20px;
+        }
+
+        .card {
+
+            background: white;
+
+            border:
+                1px solid #dcecff;
+
+            border-radius: 14px;
+
+            padding: 25px;
+
+            text-align: center;
+
+            box-shadow:
+                0 6px 20px
+                rgba(31, 91, 150, 0.06);
+        }
+
+        .card-icon {
+
+            font-size: 35px;
+
+            margin-bottom: 12px;
+        }
+
+        .card h2 {
+
+            font-size: 18px;
+
+            margin-bottom: 8px;
+        }
+
+        .card p {
+
+            color: #63758f;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+        }
+
+        .technology {
+
+            margin-top: 20px;
+
+            background: white;
+
+            border:
+                1px solid #dcecff;
+
+            border-radius: 14px;
+
+            padding: 28px;
+
+            box-shadow:
+                0 6px 20px
+                rgba(31, 91, 150, 0.06);
+        }
+
+        .technology h2 {
+
+            margin-bottom: 18px;
+        }
+
+        .tech-list {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+        }
+
+        .tech-item {
+
+            background: #f3f8ff;
+
+            border:
+                1px solid #dcecff;
+
+            border-radius: 10px;
+
+            padding: 14px;
+
+            color: #385474;
+
+            font-size: 14px;
+        }
+
+        footer {
+
+            text-align: center;
+
+            color: #7a8da8;
+
+            font-size: 13px;
+
+            padding:
+                10px 0 30px;
+        }
+
+        @media (max-width: 800px) {
+
+            .navbar {
+
+                flex-direction: column;
+
+                gap: 10px;
+
+                padding: 12px 15px;
+            }
+
+            .nav-links {
+
+                flex-wrap: wrap;
+
+                justify-content: center;
+            }
+
+            .cards {
+
+                grid-template-columns: 1fr;
+            }
+
+            .tech-list {
+
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🎓
+            </div>
+
+            College Predictor
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('dashboard') }}">
+                🏠 Dashboard
+            </a>
+
+            <a href="{{ url_for('colleges') }}">
+                🎓 Colleges
+            </a>
+
+            <a href="{{ url_for('predictor') }}">
+                🤖 Predictor
+            </a>
+
+            <a href="{{ url_for('profile') }}">
+                👤 Profile
+            </a>
+
+            <a href="{{ url_for('help_page') }}">
+                ❓ Help
+            </a>
+
+            <a href="{{ url_for('logout') }}">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main class="container">
+
+
+        <section class="hero">
+
+            <div class="hero-icon">
+                🎓
+            </div>
+
+            <h1>
+                About College Predictor
+            </h1>
+
+            <p>
+                College Predictor is a machine-learning-based
+                college recommendation system designed to help
+                students explore colleges based on entrance exam,
+                rank and branch preferences.
+            </p>
+
+        </section>
+
+
+        <section class="cards">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🤖
+                </div>
+
+                <h2>
+                    Machine Learning
+                </h2>
+
+                <p>
+                    The system uses a Random Forest based machine
+                    learning model as part of the college prediction
+                    process.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🎓
+                </div>
+
+                <h2>
+                    College Database
+                </h2>
+
+                <p>
+                    The project combines KCET and EAMCET college
+                    records so students can browse and compare
+                    available information.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🔎
+                </div>
+
+                <h2>
+                    Smart Search
+                </h2>
+
+                <p>
+                    Students can search and filter colleges based
+                    on exam, branch, state, rating and management
+                    fees.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+        <section class="technology">
+
+            <h2>
+                ⚙️ Technologies Used
+            </h2>
+
+
+            <div class="tech-list">
+
+                <div class="tech-item">
+                    🐍 Python
+                </div>
+
+                <div class="tech-item">
+                    🌐 Flask
+                </div>
+
+                <div class="tech-item">
+                    🐼 Pandas
+                </div>
+
+                <div class="tech-item">
+                    🤖 Scikit-learn
+                </div>
+
+                <div class="tech-item">
+                    💾 SQLite
+                </div>
+
+                <div class="tech-item">
+                    🎨 HTML & CSS & JavaScript
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <footer>
+
+        © 2026 College Predictor System
+
+    </footer>
+
+
+</body>
+
+</html>

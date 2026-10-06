@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Profile - College Predictor
+    </title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f8fc;
+            color: #1f2937;
+        }
+
+
+        /* ================= NAVBAR ================= */
+
+        .navbar {
+            width: 100%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0066cc,
+                    #008cff
+                );
+
+            color: white;
+
+            box-shadow:
+                0 4px 18px rgba(0, 80, 160, 0.15);
+
+            position: sticky;
+            top: 0;
+
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            max-width: 1250px;
+
+            min-height: 70px;
+
+            margin: auto;
+
+            padding: 0 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .navbar-brand {
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+        .brand-icon {
+            font-size: 25px;
+        }
+
+        .nav-links {
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+        }
+
+        .nav-links a {
+            color: white;
+
+            text-decoration: none;
+
+            padding: 10px 13px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            transition: 0.2s;
+
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            background:
+                rgba(255,255,255,0.15);
+        }
+
+        .nav-links a.active {
+            background:
+                rgba(255,255,255,0.22);
+
+            font-weight: 700;
+        }
+
+        .logout-link {
+            background:
+                rgba(255,255,255,0.12);
+
+            border:
+                1px solid rgba(255,255,255,0.25);
+
+            color: white;
+
+            padding: 10px 13px;
+
+            border-radius: 9px;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+            white-space: nowrap;
+
+            transition: 0.2s;
+        }
+
+        .logout-link:hover {
+            background:
+                rgba(255,255,255,0.20);
+        }
+
+        .menu-button {
+            display: none;
+
+            width: 42px;
+            height: 42px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background:
+                rgba(255,255,255,0.15);
+
+            color: white;
+
+            font-size: 22px;
+
+            cursor: pointer;
+        }
+
+
+        /* ================= MAIN ================= */
+
+        .container {
+            max-width: 1050px;
+
+            margin: auto;
+
+            padding: 38px 25px 60px;
+        }
+
+
+        /* ================= HEADER ================= */
+
+        .page-header {
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+        .profile-icon {
+            width: 78px;
+            height: 78px;
+
+            margin: 0 auto 15px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #007bff,
+                    #00a2ff
+                );
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 35px;
+
+            box-shadow:
+                0 10px 25px
+                rgba(0,123,255,0.20);
+        }
+
+        .page-header h1 {
+            color: #172033;
+
+            font-size: 31px;
+
+            margin-bottom: 7px;
+        }
+
+        .page-header p {
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+
+        /* ================= PROFILE GRID ================= */
+
+        .profile-grid {
+            display: grid;
+
+            grid-template-columns:
+                0.9fr 1.5fr;
+
+            gap: 22px;
+
+            align-items: start;
+        }
+
+
+        /* ================= CARD ================= */
+
+        .card {
+            background: white;
+
+            border:
+                1px solid #e5edf5;
+
+            border-radius: 18px;
+
+            padding: 26px;
+
+            box-shadow:
+                0 8px 28px
+                rgba(0,60,120,0.07);
+        }
+
+        .card-title {
+            color: #172033;
+
+            font-size: 20px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* ================= USER SUMMARY ================= */
+
+        .user-summary {
+            text-align: center;
+        }
+
+        .large-avatar {
+            width: 92px;
+            height: 92px;
+
+            margin: 5px auto 15px;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #e7f3ff,
+                    #d9edff
+                );
+
+            color: #0066cc;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 38px;
+
+            font-weight: 700;
+        }
+
+        .user-name {
+            color: #172033;
+
+            font-size: 21px;
+
+            font-weight: 700;
+
+            margin-bottom: 5px;
+        }
+
+        .user-email {
+            color: #6b7280;
+
+            font-size: 13px;
+
+            word-break: break-word;
+        }
+
+
+        /* ================= USER INFO ================= */
+
+        .user-info {
+            margin-top: 25px;
+
+            text-align: left;
+        }
+
+        .info-row {
+            padding: 13px 0;
+
+            border-bottom:
+                1px solid #edf1f5;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #7b8794;
+
+            font-size: 11px;
+
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            color: #172033;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            word-break: break-word;
+        }
+
+
+        /* ================= FORM ================= */
+
+        .form-section {
+            margin-bottom: 27px;
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-heading {
+            color: #172033;
+
+            font-size: 17px;
+
+            margin-bottom: 16px;
+
+            padding-bottom: 10px;
+
+            border-bottom:
+                1px solid #edf1f5;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+
+            color: #526477;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            margin-bottom: 7px;
+        }
+
+        .form-input {
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border:
+                1px solid #d8e2ec;
+
+            border-radius: 10px;
+
+            background: #fbfdff;
+
+            color: #172033;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition: 0.2s;
+        }
+
+        .form-input:focus {
+            border-color: #007bff;
+
+            background: white;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(0,123,255,0.09);
+        }
+
+        .password-note {
+            color: #7b8794;
+
+            font-size: 11px;
+
+            line-height: 1.5;
+
+            margin-top: 7px;
+        }
+
+
+        /* ================= BUTTON ================= */
+
+        .save-button {
+            width: 100%;
+
+            border: none;
+
+            border-radius: 10px;
+
+            padding: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #007bff,
+                    #008cff
+                );
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+
+            box-shadow:
+                0 7px 18px
+                rgba(0,123,255,0.18);
+        }
+
+        .save-button:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 10px 23px
+                rgba(0,123,255,0.23);
+        }
+
+
+        /* ================= MESSAGES ================= */
+
+        .message {
+            padding: 12px 15px;
+
+            border-radius: 9px;
+
+            font-size: 13px;
+
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            background: #ecfdf3;
+
+            border:
+                1px solid #bbf7d0;
+
+            color: #166534;
+        }
+
+        .error-message {
+            background: #fff1f2;
+
+            border:
+                1px solid #fecdd3;
+
+            color: #be123c;
+        }
+
+
+        /* ================= SECURITY BOX ================= */
+
+        .security-box {
+            margin-top: 20px;
+
+            padding: 14px;
+
+            background: #f0f7ff;
+
+            border:
+                1px solid #d9ebff;
+
+            border-radius: 10px;
+
+            color: #486581;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        /* ================= FOOTER ================= */
+
+        .footer {
+            text-align: center;
+
+            color: #9ca3af;
+
+            font-size: 12px;
+
+            margin-top: 35px;
+        }
+
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 800px) {
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 750px) {
+
+            .navbar-container {
+                min-height: 65px;
+
+                padding: 10px 18px;
+
+                flex-wrap: wrap;
+            }
+
+            .menu-button {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+
+                width: 100%;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                padding-bottom: 10px;
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+
+                padding: 12px 14px;
+            }
+
+            .nav-links form {
+                width: 100%;
+            }
+
+            .logout-link {
+                width: 100%;
+                text-align: left;
+            }
+
+            .container {
+                padding:
+                    30px 18px 50px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .navbar-brand {
+                font-size: 18px;
+            }
+
+            .brand-icon {
+                font-size: 22px;
+            }
+
+            .page-header h1 {
+                font-size: 27px;
+            }
+
+            .card {
+                padding: 21px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="navbar-container">
+
+        <a
+            href="{{ url_for('dashboard') }}"
+            class="navbar-brand"
+        >
+
+            <span class="brand-icon">
+                🎓
+            </span>
+
+            <span>
+                College Predictor
+            </span>
+
+        </a>
+
+
+        <button
+            type="button"
+            class="menu-button"
+            onclick="toggleMenu()"
+        >
+            ☰
+        </button>
+
+
+        <div
+            class="nav-links"
+            id="navLinks"
+        >
+
+            <a
+                href="{{ url_for('dashboard') }}"
+            >
+                🏠 Dashboard
+            </a>
+
+
+            <a
+                href="{{ url_for('colleges') }}"
+            >
+                🎓 Colleges
+            </a>
+
+
+            <a
+                href="{{ url_for('predictor') }}"
+            >
+                🤖 Predictor
+            </a>
+
+
+            <!-- ================= PREDICTION HISTORY ================= -->
+
+            <a
+                href="{{ url_for('prediction_history') }}"
+            >
+                🕘 History
+            </a>
+
+
+            <a
+                href="{{ url_for('profile') }}"
+                class="active"
+            >
+                👤 Profile
+            </a>
+
+
+            <!-- ================= SECURE LOGOUT ================= -->
+
+            <form
+                method="POST"
+                action="{{ url_for('logout') }}"
+                style="display: inline; margin: 0;"
+            >
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
+                <button
+                    type="submit"
+                    class="logout-link"
+                >
+                    🚪 Logout
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= MAIN ================= -->
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+
+        <div class="profile-icon">
+            👤
+        </div>
+
+        <h1>
+            My Profile
+        </h1>
+
+        <p>
+            Manage your account information and password.
+        </p>
+
+    </div>
+
+
+    <!-- ================= GRID ================= -->
+
+    <div class="profile-grid">
+
+
+        <!-- ================= LEFT PROFILE ================= -->
+
+        <div class="card user-summary">
+
+
+            <div class="large-avatar">
+
+                {% if user['name'] %}
+
+                    {{ user['name'][0] | upper }}
+
+                {% else %}
+
+                    U
+
+                {% endif %}
+
+            </div>
+
+
+            <div class="user-name">
+
+                {{ user['name'] }}
+
+            </div>
+
+
+            <div class="user-email">
+
+                {{ user['email'] }}
+
+            </div>
+
+
+            <div class="user-info">
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        USER ID
+                    </div>
+
+                    <div class="info-value">
+                        #{{ user['id'] }}
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        ACCOUNT CREATED
+                    </div>
+
+                    <div class="info-value">
+
+                        {{ user['created_at'] }}
+
+                    </div>
+
+                </div>
+
+
+                <div class="info-row">
+
+                    <div class="info-label">
+                        ACCOUNT STATUS
+                    </div>
+
+                    <div class="info-value">
+
+                        ✓ Active
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= RIGHT EDIT ================= -->
+
+        <div class="card">
+
+
+            {% if request.args.get('updated') == '1' %}
+
+            <div class="message success-message">
+
+                ✓ Your profile was updated successfully.
+
+            </div>
+
+            {% endif %}
+
+
+            {% if error %}
+
+            <div class="message error-message">
+
+                {{ error }}
+
+            </div>
+
+            {% endif %}
+
+
+            <form
+                action="{{ url_for('update_profile') }}"
+                method="POST"
+            >
+
+                <!-- ================= CSRF PROTECTION ================= -->
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
+
+                <!-- ================= PERSONAL INFO ================= -->
+
+                <div class="form-section">
+
+                    <h2 class="section-heading">
+
+                        ✏️ Personal Information
+
+                    </h2>
+
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            class="form-input"
+                            value="{{ user['name'] }}"
+                            placeholder="Enter your name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-input"
+                            value="{{ user['email'] }}"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= PASSWORD ================= -->
+
+                <div class="form-section">
+
+                    <h2 class="section-heading">
+
+                        🔐 Change Password
+
+                    </h2>
+
+
+                    <div class="form-group">
+
+                        <label for="current_password">
+
+                            Current Password
+
+                        </label>
+
+                        <input
+                            type="password"
+                            id="current_password"
+                            name="current_password"
+                            class="form-input"
+                            placeholder="Enter current password"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="new_password">
+
+                            New Password
+
+                        </label>
+
+                        <input
+                            type="password"
+                            id="new_password"
+                            name="new_password"
+                            class="form-input"
+                            minlength="8"
+                            maxlength="128"
+                            placeholder="Enter new password"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="confirm_new_password">
+
+                            Confirm New Password
+
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirm_new_password"
+                            name="confirm_new_password"
+                            class="form-input"
+                            minlength="8"
+                            maxlength="128"
+                            placeholder="Confirm new password"
+                        >
+
+                        <div class="password-note">
+
+                            Leave all password fields empty if you
+                            do not want to change your password.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ================= SAVE ================= -->
+
+                <button
+                    type="submit"
+                    class="save-button"
+                >
+
+                    💾 Save Profile Changes
+
+                </button>
+
+
+            </form>
+
+
+            <div class="security-box">
+
+                🔒 <strong>Security:</strong>
+
+                Your password is stored securely using
+                password hashing. Your current password
+                is required before changing it.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <div class="footer">
+
+        © 2026 College Predictor System
+
+    </div>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+    function toggleMenu() {
+
+        const navLinks =
+            document.getElementById("navLinks");
+
+        navLinks.classList.toggle("show");
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

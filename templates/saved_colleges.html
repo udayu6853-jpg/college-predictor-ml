@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Colleges - College Predictor</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            min-height: 70px;
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 13px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: 0.25s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .logout-form {
+            display: inline;
+            margin: 0;
+        }
+
+        .logout-button {
+            color: white;
+            padding: 10px 13px;
+            border-radius: 8px;
+            font-size: 14px;
+            background: rgba(220, 38, 38, 0.9);
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .logout-button:hover {
+            background: #dc2626;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1250px;
+            margin: 35px auto 60px;
+        }
+
+        .page-header {
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #64748b;
+            font-size: 15px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 7px 24px rgba(15, 23, 42, 0.06);
+            margin-bottom: 25px;
+        }
+
+        .search-input {
+            width: 100%;
+            border: 1px solid #dbe2ea;
+            background: #f8fafc;
+            border-radius: 11px;
+            padding: 14px 16px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: #2563eb;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .count-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .count-text {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .count-number {
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        .college-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 22px;
+        }
+
+        .college-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
+            transition: transform 0.25s, box-shadow 0.25s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .college-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.12);
+        }
+
+        .college-image {
+            width: 100%;
+            height: 190px;
+            background: #e5e7eb;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .college-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .exam-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(37, 99, 235, 0.95);
+            color: white;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .college-name {
+            font-size: 19px;
+            font-weight: 700;
+            color: #111827;
+            line-height: 1.35;
+            margin-bottom: 8px;
+        }
+
+        .college-location {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+            margin-bottom: 18px;
+        }
+
+        .info-item {
+            background: #f8fafc;
+            border-radius: 9px;
+            padding: 10px;
+        }
+
+        .info-label {
+            display: block;
+            color: #94a3b8;
+            font-size: 11px;
+            margin-bottom: 3px;
+        }
+
+        .info-value {
+            color: #111827;
+            font-size: 13px;
+            font-weight: 650;
+            word-break: break-word;
+        }
+
+        .rating {
+            color: #d97706;
+        }
+
+        .card-actions {
+            margin-top: auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 9px;
+        }
+
+        .card-actions form {
+            margin: 0;
+            width: 100%;
+        }
+
+        .btn {
+            width: 100%;
+            border: none;
+            border-radius: 9px;
+            padding: 11px 10px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 650;
+            cursor: pointer;
+            transition: 0.2s;
+            display: block;
+        }
+
+        .btn-view {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-view:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-remove {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .btn-remove:hover {
+            background: #fecaca;
+        }
+
+        .empty-state,
+        .no-results {
+            background: white;
+            border-radius: 20px;
+            padding: 60px 25px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+        }
+
+        .empty-icon,
+        .no-results-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .empty-state h2,
+        .no-results h3 {
+            color: #111827;
+            margin-bottom: 9px;
+        }
+
+        .empty-state p,
+        .no-results p {
+            color: #64748b;
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+        .browse-btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 12px 22px;
+            border-radius: 10px;
+            font-weight: 650;
+        }
+
+        .no-results {
+            display: none;
+            margin-top: 20px;
+            padding: 45px 20px;
+        }
+
+        .no-results-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 13px;
+            padding: 35px 0 10px;
+        }
+
+        @media (max-width: 900px) {
+            .navbar {
+                padding: 15px 4%;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links {
+                width: 100%;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 3px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 94%;
+                margin-top: 25px;
+            }
+
+            .page-header h1 {
+                font-size: 27px;
+            }
+
+            .college-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .college-image {
+                height: 210px;
+            }
+        }
+
+        @media (max-width: 430px) {
+            .logo {
+                font-size: 19px;
+            }
+
+            .nav-links a,
+            .logout-button {
+                font-size: 13px;
+                padding: 8px 10px;
+            }
+
+            .card-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">🎓 College Predictor</div>
+
+    <div class="nav-links">
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('colleges') }}">Colleges</a>
+        <a href="{{ url_for('predictor') }}">Predictor</a>
+        <a href="{{ url_for('prediction_history') }}">History</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('saved_colleges') }}" class="active">Saved</a>
+        <a href="{{ url_for('compare_colleges') }}">Compare</a>
+
+        <form method="POST"
+              action="{{ url_for('logout') }}"
+              class="logout-form">
+            <input type="hidden"
+                   name="csrf_token"
+                   value="{{ csrf_token() }}">
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+    </div>
+</nav>
+
+<main class="container">
+
+    <div class="page-header">
+        <h1>❤️ Saved Colleges</h1>
+        <p>View and manage the colleges you have saved.</p>
+    </div>
+
+    <div class="search-box">
+        <input type="text"
+               id="searchInput"
+               class="search-input"
+               placeholder="🔍 Search college, branch, location or exam..."
+               oninput="searchColleges()">
+    </div>
+
+    {% if saved_colleges and saved_colleges|length > 0 %}
+
+        <div class="count-row">
+            <div class="count-text">
+                Showing
+                <span id="visibleCount" class="count-number">
+                    {{ saved_colleges|length }}
+                </span>
+                saved college(s)
+            </div>
+        </div>
+
+        <div class="college-grid" id="collegeGrid">
+
+            {% for saved in saved_colleges %}
+
+                {% set exam_value = saved.get('Exam', saved.get('exam', 'KCET'))|string|upper %}
+                {% set college_index = saved.get(
+                    'SourceIndex',
+                    saved.get(
+                        'Original Index',
+                        saved.get(
+                            'college_index',
+                            0
+                        )
+                    )
+                )|int %}
+
+                {% set image_value = saved.get(
+                    'Image',
+                    '/static/images/default.jpg'
+                )|string %}
+
+                {% if image_value.startswith('/static/') %}
+                    {% set image_file = image_value[8:] %}
+                {% elif image_value.startswith('static/') %}
+                    {% set image_file = image_value[7:] %}
+                {% else %}
+                    {% set image_file = image_value %}
+                {% endif %}
+
+                <div class="college-card"
+                     data-search="
+                        {{ saved.get('College Name', '')|string|lower }}
+                        {{ saved.get('Branch', '')|string|lower }}
+                        {{ saved.get('Location', '')|string|lower }}
+                        {{ saved.get('State', '')|string|lower }}
+                        {{ exam_value|lower }}
+                     ">
+
+                    <div class="college-image">
+
+                        <img src="{{ url_for('static', filename=image_file) }}"
+                             alt="{{ saved.get('College Name', 'College') }}"
+                             loading="lazy"
+                             onerror="this.onerror=null;this.src='{{ url_for('static', filename='images/default.jpg') }}';">
+
+                        <span class="exam-badge">
+                            {{ exam_value }}
+                        </span>
+                    </div>
+
+                    <div class="card-body">
+
+                        <h2 class="college-name">
+                            {{ saved.get('College Name', 'College Name') }}
+                        </h2>
+
+                        <p class="college-location">
+                            📍 {{ saved.get('Location', 'Location not available') }}
+                            {% if saved.get('State') %}
+                                , {{ saved.get('State') }}
+                            {% endif %}
+                        </p>
+
+                        <div class="info-grid">
+
+                            <div class="info-item">
+                                <span class="info-label">Branch</span>
+                                <span class="info-value">
+                                    {{ saved.get('Branch', 'N/A') }}
+                                </span>
+                            </div>
+
+                            <div class="info-item">
+                                <span class="info-label">Rating</span>
+                                <span class="info-value rating">
+                                    ⭐ {{ saved.get('Rating', 'N/A') }}
+                                </span>
+                            </div>
+
+                            <div class="info-item">
+                                <span class="info-label">Cutoff</span>
+                                <span class="info-value">
+                                    {{ saved.get('Cutoff Rank', 'N/A') }}
+                                </span>
+                            </div>
+
+                            <div class="info-item">
+                                <span class="info-label">State</span>
+                                <span class="info-value">
+                                    {{ saved.get('State', 'N/A') }}
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="card-actions">
+
+                            <a href="{{ url_for(
+                                'college_details',
+                                exam=exam_value|lower,
+                                index=college_index
+                            ) }}"
+                               class="btn btn-view">
+                                👁️ View College
+                            </a>
+
+                            <form method="POST"
+                                  action="{{ url_for('remove_saved_college') }}"
+                                  onsubmit="return confirm('Remove this college from saved colleges?');">
+
+                                <input type="hidden"
+                                       name="csrf_token"
+                                       value="{{ csrf_token() }}">
+
+                                <input type="hidden"
+                                       name="exam"
+                                       value="{{ exam_value }}">
+
+                                <input type="hidden"
+                                       name="index"
+                                       value="{{ college_index }}">
+
+                                <button type="submit"
+                                        class="btn btn-remove">
+                                    ❌ Remove
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="no-results" id="noResults">
+            <div class="no-results-icon">🔍</div>
+            <h3>No saved colleges found</h3>
+            <p>Try another college name, branch, location or exam.</p>
+        </div>
+
+    {% else %}
+
+        <div class="empty-state">
+            <div class="empty-icon">❤️</div>
+
+            <h2>No Saved Colleges</h2>
+
+            <p>
+                You haven't saved any colleges yet.
+                Explore colleges and save the ones you like.
+            </p>
+
+            <a href="{{ url_for('colleges') }}" class="browse-btn">
+                🏫 Browse Colleges
+            </a>
+        </div>
+
+    {% endif %}
+
+    <div class="footer">
+        © 2026 College Predictor System
+    </div>
+
+</main>
+
+<script>
+function searchColleges() {
+
+    const input = document.getElementById("searchInput");
+    const grid = document.getElementById("collegeGrid");
+    const noResults = document.getElementById("noResults");
+    const visibleCount = document.getElementById("visibleCount");
+
+    if (!grid) {
+        return;
+    }
+
+    const searchText = (input.value || "").toLowerCase().trim();
+    const cards = grid.querySelectorAll(".college-card");
+
+    let count = 0;
+
+    cards.forEach(function(card) {
+
+        const text = (
+            card.getAttribute("data-search") || ""
+        ).toLowerCase();
+
+        if (text.includes(searchText)) {
+            card.style.display = "flex";
+            count++;
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    if (visibleCount) {
+        visibleCount.textContent = count;
+    }
+
+    if (noResults) {
+        noResults.style.display =
+            count === 0 ? "block" : "none";
+    }
+}
+</script>
+
+</body>
+</html>

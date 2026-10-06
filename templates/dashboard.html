@@ -1,0 +1,2838 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard | College Predictor</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eef6ff,
+                    #f8fbff
+                );
+
+            color: #102a56;
+        }
+
+
+        /* =========================================
+           NAVBAR
+        ========================================= */
+
+        .navbar {
+
+            height: 74px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #006fdc,
+                    #087ff5
+                );
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 0 30px;
+
+            color: white;
+
+            box-shadow:
+                0 4px 18px
+                rgba(0, 91, 180, 0.18);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 23px;
+
+            font-weight: 800;
+
+            min-width: 270px;
+        }
+
+
+        .brand-icon {
+
+            width: 46px;
+
+            height: 46px;
+
+            border-radius: 11px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(255, 255, 255, 0.16);
+
+            font-size: 27px;
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            flex: 1;
+        }
+
+
+        .nav-links a {
+
+            text-decoration: none;
+
+            color: white;
+
+            padding: 12px 19px;
+
+            border-radius: 9px;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .nav-links a:hover {
+
+            background:
+                rgba(255, 255, 255, 0.15);
+        }
+
+
+        .nav-links a.active {
+
+            background:
+                rgba(255, 255, 255, 0.20);
+        }
+
+
+        .user-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+
+        .user-avatar {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            color: #0877e8;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+        }
+
+
+        /* =========================================
+           PAGE LAYOUT
+        ========================================= */
+
+        .page-wrapper {
+
+            display: flex;
+
+            min-height:
+                calc(100vh - 74px);
+        }
+
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .sidebar {
+
+            width: 225px;
+
+            background: white;
+
+            border-right:
+                1px solid #dce9f6;
+
+            padding: 28px 15px;
+
+            flex-shrink: 0;
+        }
+
+
+        .sidebar-menu {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+
+        .sidebar-link {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 14px 16px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            color: #355477;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            transition: 0.2s;
+        }
+
+
+        .sidebar-link:hover {
+
+            background: #eef7ff;
+
+            color: #0877e8;
+        }
+
+
+        .sidebar-link.active {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #e1f0ff,
+                    #edf7ff
+                );
+
+            color: #0877e8;
+
+            border:
+                1px solid #d1e6fa;
+        }
+
+
+        .sidebar-icon {
+
+            width: 28px;
+
+            text-align: center;
+
+            font-size: 19px;
+        }
+
+
+        /* =========================================
+           LOGOUT FORM
+        ========================================= */
+
+        .logout-form {
+
+            margin: 0;
+
+            padding: 0;
+        }
+
+
+        .logout-button {
+
+            width: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 14px 16px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: transparent;
+
+            color: #355477;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            font-family: "Segoe UI", Arial, sans-serif;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .logout-button:hover {
+
+            background: #eef7ff;
+
+            color: #0877e8;
+        }
+
+
+        /* =========================================
+           MAIN CONTENT
+        ========================================= */
+
+        .main-content {
+
+            flex: 1;
+
+            padding: 32px;
+
+            min-width: 0;
+        }
+
+
+        .content-container {
+
+            max-width: 1250px;
+
+            margin: 0 auto;
+        }
+
+
+        /* =========================================
+           COMMON CARD
+        ========================================= */
+
+        .card-style {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f4faff
+                );
+
+            border:
+                2px solid #b9d9f8;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 8px 25px
+                rgba(20, 105, 190, 0.08);
+
+            transition:
+                transform 0.2s,
+                box-shadow 0.2s,
+                border-color 0.2s;
+        }
+
+
+        .card-style:hover {
+
+            border-color: #087ff5;
+
+            box-shadow:
+                0 12px 30px
+                rgba(20, 105, 190, 0.14);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* =========================================
+           WELCOME CARD
+        ========================================= */
+
+        .welcome-card {
+
+            min-height: 170px;
+
+            padding: 30px 35px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 30px;
+
+            overflow: hidden;
+
+            position: relative;
+        }
+
+
+        .welcome-content {
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        .welcome-content h1 {
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            color: #102a56;
+
+            margin-bottom: 12px;
+        }
+
+
+        .welcome-content p {
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+            color: #526d8e;
+        }
+
+
+        .welcome-art {
+
+            font-size: 90px;
+
+            padding-right: 30px;
+
+            opacity: 0.95;
+        }
+
+
+        /* =========================================
+           ANALYTICS SECTION
+        ========================================= */
+
+        .analytics-section {
+
+            margin-bottom: 30px;
+        }
+
+
+        .analytics-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+
+        .analytics-card {
+
+            padding: 23px;
+
+            min-height: 145px;
+
+            position: relative;
+
+            overflow: hidden;
+        }
+
+
+        .analytics-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 90px;
+
+            height: 90px;
+
+            border-radius: 50%;
+
+            right: -35px;
+
+            top: -35px;
+
+            background:
+                rgba(8, 119, 232, 0.06);
+        }
+
+
+        .analytics-label {
+
+            color: #7086a1;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-bottom: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.4px;
+        }
+
+
+        .analytics-value {
+
+            font-size: 29px;
+
+            font-weight: 800;
+
+            color: #102a56;
+
+            margin-bottom: 7px;
+        }
+
+
+        .analytics-subtitle {
+
+            color: #68809d;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================================
+           CHART SECTION
+        ========================================= */
+
+        .charts-section {
+
+            margin-bottom: 30px;
+        }
+
+
+        .charts-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 20px;
+        }
+
+
+        .chart-card {
+
+            padding: 23px;
+
+            min-height: 390px;
+
+            position: relative;
+        }
+
+
+        .chart-card h3 {
+
+            color: #102a56;
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+            margin-bottom: 5px;
+        }
+
+
+        .chart-description {
+
+            color: #7187a1;
+
+            font-size: 13px;
+
+            margin-bottom: 18px;
+        }
+
+
+        .chart-container {
+
+            position: relative;
+
+            height: 290px;
+
+            width: 100%;
+        }
+
+
+        .chart-empty {
+
+            height: 290px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-direction: column;
+
+            color: #7086a1;
+
+            text-align: center;
+        }
+
+
+        .chart-empty-icon {
+
+            font-size: 42px;
+
+            margin-bottom: 10px;
+        }
+
+
+        /* =========================================
+           LATEST PREDICTION
+        ========================================= */
+
+        .latest-card {
+
+            padding: 25px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .latest-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .latest-header h2 {
+
+            font-size: 21px;
+
+            color: #102a56;
+
+            font-weight: 800;
+        }
+
+
+        .latest-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .latest-item {
+
+            background: #f5faff;
+
+            border:
+                1px solid #dcecfb;
+
+            border-radius: 12px;
+
+            padding: 17px;
+        }
+
+
+        .latest-item-label {
+
+            display: block;
+
+            color: #7187a1;
+
+            font-size: 12px;
+
+            margin-bottom: 7px;
+
+            font-weight: 600;
+        }
+
+
+        .latest-item-value {
+
+            color: #102a56;
+
+            font-size: 17px;
+
+            font-weight: 800;
+        }
+
+
+        .exam-badge {
+
+            display: inline-block;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: 800;
+        }
+
+
+        .kcet-badge {
+
+            background: #e8f3ff;
+
+            color: #0877e8;
+        }
+
+
+        .eamcet-badge {
+
+            background: #f1eaff;
+
+            color: #7138e8;
+        }
+
+
+        .predict-again-button {
+
+            display: inline-block;
+
+            margin-top: 20px;
+
+            padding: 10px 17px;
+
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0877e8,
+                    #087ff5
+                );
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+
+        .predict-again-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 7px 18px
+                rgba(8,119,232,0.22);
+        }
+
+
+        /* =========================================
+           SECTION HEADER
+        ========================================= */
+
+        .section-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 16px;
+        }
+
+
+        .section-header h2 {
+
+            font-size: 22px;
+
+            color: #102a56;
+
+            font-weight: 800;
+        }
+
+
+        .view-all {
+
+            color: #0877e8;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            padding: 9px 13px;
+
+            border-radius: 8px;
+        }
+
+
+        .view-all:hover {
+
+            background: #eaf5ff;
+        }
+
+
+        /* =========================================
+           RECENT PREDICTIONS
+        ========================================= */
+
+        .recent-predictions {
+
+            margin-bottom: 32px;
+        }
+
+
+        .prediction-list {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 12px;
+        }
+
+
+        .prediction-row {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f7fbff
+                );
+
+            border:
+                2px solid #c8e0f7;
+
+            border-radius: 13px;
+
+            padding: 17px 19px;
+
+            display: grid;
+
+            grid-template-columns:
+                1.2fr
+                0.9fr
+                0.9fr
+                0.9fr
+                auto;
+
+            align-items: center;
+
+            gap: 16px;
+
+            transition:
+                0.2s;
+        }
+
+
+        .prediction-row:hover {
+
+            border-color: #087ff5;
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(20,105,190,0.10);
+        }
+
+
+        .prediction-main {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .prediction-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 20px;
+
+            background: #eaf5ff;
+        }
+
+
+        .prediction-main h3 {
+
+            color: #102a56;
+
+            font-size: 15px;
+
+            margin-bottom: 4px;
+        }
+
+
+        .prediction-main p {
+
+            color: #7a8da5;
+
+            font-size: 12px;
+        }
+
+
+        .prediction-info {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 4px;
+        }
+
+
+        .prediction-info-label {
+
+            color: #7a8da5;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            font-weight: 700;
+        }
+
+
+        .prediction-info-value {
+
+            color: #24466f;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .prediction-rank {
+
+            color: #0877e8;
+
+            font-weight: 800;
+        }
+
+
+        .history-button {
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            color: white;
+
+            background: #0877e8;
+
+            padding: 8px 12px;
+
+            border-radius: 8px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            text-align: center;
+        }
+
+
+        .history-button:hover {
+
+            background: #0669ce;
+        }
+
+
+        /* =========================================
+           NO HISTORY
+        ========================================= */
+
+        .no-history {
+
+            text-align: center;
+
+            padding: 38px 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f7fbff
+                );
+
+            border:
+                2px dashed #c8def2;
+
+            border-radius: 14px;
+        }
+
+
+        .no-history-icon {
+
+            font-size: 42px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .no-history h3 {
+
+            color: #102a56;
+
+            margin-bottom: 7px;
+        }
+
+
+        .no-history p {
+
+            color: #7086a1;
+
+            font-size: 14px;
+
+            margin-bottom: 17px;
+        }
+
+
+        /* =========================================
+           POPULAR COLLEGES
+        ========================================= */
+
+        .college-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+
+        .college-card {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #f7fbff
+                );
+
+            border:
+                2px solid #c4def5;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 7px 20px
+                rgba(30, 100, 180, 0.08);
+
+            transition:
+                transform 0.25s,
+                border-color 0.25s,
+                box-shadow 0.25s;
+        }
+
+
+        .college-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            border-color: #087ff5;
+
+            box-shadow:
+                0 14px 30px
+                rgba(30, 100, 180, 0.15);
+        }
+
+
+        .college-image-wrapper {
+
+            width: 100%;
+
+            height: 165px;
+
+            overflow: hidden;
+
+            background: #edf5fc;
+        }
+
+
+        .college-image {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition:
+                transform 0.3s;
+        }
+
+
+        .college-card:hover .college-image {
+
+            transform:
+                scale(1.04);
+        }
+
+
+        .college-content {
+
+            padding:
+                17px 17px 18px;
+        }
+
+
+        .college-name {
+
+            font-size: 17px;
+
+            font-weight: 800;
+
+            color: #102a56;
+
+            margin-bottom: 11px;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+        }
+
+
+        .college-meta {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 9px;
+        }
+
+
+        .rating {
+
+            color: #e9a019;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .location {
+
+            color: #5f7794;
+
+            font-size: 13px;
+        }
+
+
+        .branch {
+
+            color: #0877e8;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            margin-bottom: 11px;
+        }
+
+
+        .details-button {
+
+            display: inline-block;
+
+            color: #0877e8;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            padding: 7px 0;
+        }
+
+
+        .details-button:hover {
+
+            text-decoration: underline;
+        }
+
+
+        /* =========================================
+           EMPTY STATE
+        ========================================= */
+
+        .empty-state {
+
+            text-align: center;
+
+            padding: 50px 20px;
+        }
+
+
+        .empty-state-icon {
+
+            font-size: 48px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .empty-state h3 {
+
+            margin-bottom: 6px;
+        }
+
+
+        .empty-state p {
+
+            color: #7086a1;
+        }
+
+
+        /* =========================================
+           MOBILE BUTTON
+        ========================================= */
+
+        .mobile-menu-button {
+
+            display: none;
+
+            border: none;
+
+            background: transparent;
+
+            color: white;
+
+            font-size: 25px;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 1100px) {
+
+            .brand {
+
+                min-width: 230px;
+            }
+
+
+            .college-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .sidebar {
+
+                width: 205px;
+            }
+
+
+            .latest-grid {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .prediction-row {
+
+                grid-template-columns:
+                    1.4fr
+                    1fr
+                    1fr
+                    auto;
+            }
+
+
+            .prediction-row .prediction-date {
+
+                display: none;
+            }
+
+        }
+
+
+        @media (max-width: 900px) {
+
+            .analytics-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+
+            .charts-grid {
+
+                grid-template-columns:
+                    1fr;
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .navbar {
+
+                padding: 0 18px;
+            }
+
+
+            .brand {
+
+                min-width: auto;
+
+                flex: 1;
+
+                font-size: 19px;
+            }
+
+
+            .nav-links {
+
+                display: none;
+            }
+
+
+            .user-area {
+
+                display: none;
+            }
+
+
+            .mobile-menu-button {
+
+                display: block;
+            }
+
+
+            .sidebar {
+
+                position: fixed;
+
+                left: -240px;
+
+                top: 74px;
+
+                bottom: 0;
+
+                width: 225px;
+
+                z-index: 900;
+
+                transition: 0.25s;
+
+                box-shadow:
+                    5px 0 20px
+                    rgba(0,0,0,0.10);
+            }
+
+
+            .sidebar.open {
+
+                left: 0;
+            }
+
+
+            .main-content {
+
+                padding: 20px;
+            }
+
+
+            .welcome-art {
+
+                display: none;
+            }
+
+
+            .prediction-row {
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+
+            .prediction-action {
+
+                grid-column: 1 / -1;
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .main-content {
+
+                padding: 14px;
+            }
+
+
+            .welcome-card {
+
+                padding: 25px 22px;
+            }
+
+
+            .welcome-content h1 {
+
+                font-size: 22px;
+            }
+
+
+            .welcome-content p {
+
+                font-size: 14px;
+            }
+
+
+            .college-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .college-image-wrapper {
+
+                height: 180px;
+            }
+
+
+            .section-header h2 {
+
+                font-size: 19px;
+            }
+
+
+            .latest-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .prediction-row {
+
+                grid-template-columns: 1fr;
+
+                gap: 12px;
+            }
+
+
+            .prediction-action {
+
+                grid-column: auto;
+            }
+
+
+            .prediction-date {
+
+                display: flex !important;
+            }
+
+
+            .history-button {
+
+                width: 100%;
+            }
+
+
+            .chart-card {
+
+                min-height: 350px;
+
+                padding: 18px;
+            }
+
+
+            .chart-container {
+
+                height: 250px;
+            }
+
+
+            .chart-empty {
+
+                height: 250px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         NAVBAR
+    ========================================= -->
+
+    <header class="navbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🎓
+            </div>
+
+            <span>
+                College Predictor
+            </span>
+
+        </div>
+
+
+        <nav class="nav-links">
+
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="active"
+            >
+                Dashboard
+            </a>
+
+
+            <a
+                href="{{ url_for('colleges') }}"
+            >
+                Colleges
+            </a>
+
+
+            <a
+                href="{{ url_for('predictor') }}"
+            >
+                Predictor
+            </a>
+
+
+            <a
+                href="{{ url_for('prediction_history') }}"
+            >
+                🕘 History
+            </a>
+
+        </nav>
+
+
+        <div class="user-area">
+
+            <div class="user-avatar">
+                👤
+            </div>
+
+            <span>
+                Hello, {{ user_name }}
+            </span>
+
+            <span>
+                ▾
+            </span>
+
+        </div>
+
+
+        <button
+            class="mobile-menu-button"
+            onclick="toggleSidebar()"
+        >
+            ☰
+        </button>
+
+    </header>
+
+
+    <!-- =========================================
+         PAGE
+    ========================================= -->
+
+    <div class="page-wrapper">
+
+
+        <!-- =====================================
+             SIDEBAR
+        ===================================== -->
+
+        <aside
+            class="sidebar"
+            id="sidebar"
+        >
+
+            <div class="sidebar-menu">
+
+
+                <a
+                    href="{{ url_for('dashboard') }}"
+                    class="sidebar-link active"
+                >
+
+                    <span class="sidebar-icon">
+                        🏠
+                    </span>
+
+                    <span>
+                        Home
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('profile') }}"
+                    class="sidebar-link"
+                >
+
+                    <span class="sidebar-icon">
+                        👤
+                    </span>
+
+                    <span>
+                        My Profile
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('colleges') }}"
+                    class="sidebar-link"
+                >
+
+                    <span class="sidebar-icon">
+                        🎓
+                    </span>
+
+                    <span>
+                        Colleges
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('predictor') }}"
+                    class="sidebar-link"
+                >
+
+                    <span class="sidebar-icon">
+                        🤖
+                    </span>
+
+                    <span>
+                        College Predictor
+                    </span>
+
+                </a>
+
+
+                <a
+                    href="{{ url_for('prediction_history') }}"
+                    class="sidebar-link"
+                >
+
+                    <span class="sidebar-icon">
+                        🕘
+                    </span>
+
+                    <span>
+                        Prediction History
+                    </span>
+
+                </a>
+
+
+                <!-- SECURE LOGOUT -->
+                <form
+                    method="POST"
+                    action="{{ url_for('logout') }}"
+                    class="logout-form"
+                >
+
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="{{ csrf_token() }}"
+                    >
+
+                    <button
+                        type="submit"
+                        class="logout-button"
+                    >
+
+                        <span class="sidebar-icon">
+                            🚪
+                        </span>
+
+                        <span>
+                            Logout
+                        </span>
+
+                    </button>
+
+                </form>
+
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================
+             MAIN CONTENT
+        ===================================== -->
+
+        <main class="main-content">
+
+            <div class="content-container">
+
+
+                <!-- =================================
+                     WELCOME CARD
+                ================================= -->
+
+                <section
+                    class="welcome-card card-style"
+                >
+
+                    <div class="welcome-content">
+
+                        <h1>
+                            Welcome to College Predictor!
+                        </h1>
+
+                        <p>
+                            Predict colleges based on your entrance rank
+                            using Machine Learning technology.
+                        </p>
+
+                    </div>
+
+
+                    <div class="welcome-art">
+                        🎓📚
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     PREDICTION ANALYTICS
+                ================================= -->
+
+                <section class="analytics-section">
+
+                    <div class="section-header">
+
+                        <h2>
+                            📊 Prediction Analytics
+                        </h2>
+
+
+                        <a
+                            href="{{ url_for('prediction_history') }}"
+                            class="view-all"
+                        >
+                            View History →
+                        </a>
+
+                    </div>
+
+
+                    <div class="analytics-grid">
+
+
+                        <div
+                            class="analytics-card card-style"
+                        >
+
+                            <div class="analytics-label">
+                                Total Predictions
+                            </div>
+
+                            <div class="analytics-value">
+                                {{ total_predictions }}
+                            </div>
+
+                            <div class="analytics-subtitle">
+                                Predictions made from your account
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="analytics-card card-style"
+                        >
+
+                            <div class="analytics-label">
+                                KCET Predictions
+                            </div>
+
+                            <div class="analytics-value">
+                                {{ kcet_predictions }}
+                            </div>
+
+                            <div class="analytics-subtitle">
+                                KCET prediction activity
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="analytics-card card-style"
+                        >
+
+                            <div class="analytics-label">
+                                EAMCET Predictions
+                            </div>
+
+                            <div class="analytics-value">
+                                {{ eamcet_predictions }}
+                            </div>
+
+                            <div class="analytics-subtitle">
+                                EAMCET prediction activity
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     ANALYTICS CHARTS
+                ================================= -->
+
+                <section class="charts-section">
+
+                    <div class="section-header">
+
+                        <h2>
+                            📈 Prediction Insights
+                        </h2>
+
+
+                        <a
+                            href="{{ url_for('prediction_history') }}"
+                            class="view-all"
+                        >
+                            Detailed History →
+                        </a>
+
+                    </div>
+
+
+                    <div class="charts-grid">
+
+
+                        <!-- EXAM DISTRIBUTION -->
+
+                        <div class="chart-card card-style">
+
+                            <h3>
+                                Exam Distribution
+                            </h3>
+
+                            <p class="chart-description">
+                                Your predictions by entrance examination
+                            </p>
+
+
+                            {% if total_predictions > 0 %}
+
+                                <div class="chart-container">
+
+                                    <canvas
+                                        id="examChart"
+                                    ></canvas>
+
+                                </div>
+
+                            {% else %}
+
+                                <div class="chart-empty">
+
+                                    <div class="chart-empty-icon">
+                                        📊
+                                    </div>
+
+                                    <p>
+                                        No prediction data available yet.
+                                    </p>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- RANK ACTIVITY -->
+
+                        <div class="chart-card card-style">
+
+                            <h3>
+                                Recent Rank Activity
+                            </h3>
+
+                            <p class="chart-description">
+                                Rank values from your recent predictions
+                            </p>
+
+
+                            {% if total_predictions > 0 %}
+
+                                <div class="chart-container">
+
+                                    <canvas
+                                        id="rankChart"
+                                    ></canvas>
+
+                                </div>
+
+                            {% else %}
+
+                                <div class="chart-empty">
+
+                                    <div class="chart-empty-icon">
+                                        📈
+                                    </div>
+
+                                    <p>
+                                        Make a prediction to see your rank activity.
+                                    </p>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     LATEST PREDICTION
+                ================================= -->
+
+                {% if latest_prediction %}
+
+                <section
+                    class="latest-card card-style"
+                >
+
+                    <div class="latest-header">
+
+                        <h2>
+                            🏆 Latest Prediction
+                        </h2>
+
+
+                        {% if latest_exam %}
+
+                            {% if latest_exam|upper == "KCET" %}
+
+                                <span
+                                    class="exam-badge kcet-badge"
+                                >
+                                    KCET
+                                </span>
+
+                            {% else %}
+
+                                <span
+                                    class="exam-badge eamcet-badge"
+                                >
+                                    EAMCET
+                                </span>
+
+                            {% endif %}
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="latest-grid">
+
+
+                        <div class="latest-item">
+
+                            <span
+                                class="latest-item-label"
+                            >
+                                Entrance Exam
+                            </span>
+
+                            <span
+                                class="latest-item-value"
+                            >
+                                {{ latest_exam }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="latest-item">
+
+                            <span
+                                class="latest-item-label"
+                            >
+                                Rank
+                            </span>
+
+                            <span
+                                class="latest-item-value"
+                            >
+                                {{ latest_rank }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="latest-item">
+
+                            <span
+                                class="latest-item-label"
+                            >
+                                Branch
+                            </span>
+
+                            <span
+                                class="latest-item-value"
+                            >
+                                {{ latest_branch }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="latest-item">
+
+                            <span
+                                class="latest-item-label"
+                            >
+                                Prediction Date
+                            </span>
+
+                            <span
+                                class="latest-item-value"
+                            >
+                                {{ latest_prediction["created_at"] }}
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <a
+                        href="{{ url_for(
+                            'predictor',
+                            exam=latest_exam|lower,
+                            rank=latest_rank,
+                            branch=latest_branch
+                        ) }}"
+                        class="predict-again-button"
+                    >
+                        🔄 Predict Again
+                    </a>
+
+                </section>
+
+                {% endif %}
+
+
+                <!-- =================================
+                     RECENT PREDICTION ACTIVITY
+                ================================= -->
+
+                <section
+                    class="recent-predictions"
+                >
+
+                    <div class="section-header">
+
+                        <h2>
+                            🕘 Recent Prediction Activity
+                        </h2>
+
+
+                        <a
+                            href="{{ url_for('prediction_history') }}"
+                            class="view-all"
+                        >
+                            View All →
+                        </a>
+
+                    </div>
+
+
+                    {% if recent_predictions %}
+
+                        <div class="prediction-list">
+
+                            {% for record in recent_predictions %}
+
+                                <div
+                                    class="prediction-row"
+                                >
+
+                                    <div class="prediction-main">
+
+                                        <div
+                                            class="prediction-icon"
+                                        >
+
+                                            {% if record["exam"]|upper == "KCET" %}
+                                                🔵
+                                            {% else %}
+                                                🟣
+                                            {% endif %}
+
+                                        </div>
+
+
+                                        <div>
+
+                                            <h3>
+                                                {{ record["exam"] }}
+                                            </h3>
+
+                                            <p>
+                                                College prediction
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="prediction-info">
+
+                                        <span
+                                            class="prediction-info-label"
+                                        >
+                                            Rank
+                                        </span>
+
+                                        <span
+                                            class="prediction-info-value prediction-rank"
+                                        >
+                                            {{ record["rank"] }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="prediction-info">
+
+                                        <span
+                                            class="prediction-info-label"
+                                        >
+                                            Branch
+                                        </span>
+
+                                        <span
+                                            class="prediction-info-value"
+                                        >
+
+                                            {% if record["branch"] %}
+                                                {{ record["branch"] }}
+                                            {% else %}
+                                                All Branches
+                                            {% endif %}
+
+                                        </span>
+
+                                    </div>
+
+
+                                    <div
+                                        class="prediction-info prediction-date"
+                                    >
+
+                                        <span
+                                            class="prediction-info-label"
+                                        >
+                                            Date
+                                        </span>
+
+                                        <span
+                                            class="prediction-info-value"
+                                        >
+                                            {{ record["created_at"] }}
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="prediction-action">
+
+                                        <a
+                                            href="{{ url_for(
+                                                'predictor',
+                                                exam=record['exam'].lower(),
+                                                rank=record['rank'],
+                                                branch=record['branch']
+                                            ) }}"
+                                            class="history-button"
+                                        >
+                                            Predict Again
+                                        </a>
+
+                                    </div>
+
+
+                                </div>
+
+                            {% endfor %}
+
+                        </div>
+
+
+                    {% else %}
+
+                        <div class="no-history">
+
+                            <div class="no-history-icon">
+                                📊
+                            </div>
+
+                            <h3>
+                                No Prediction Activity Yet
+                            </h3>
+
+                            <p>
+                                Start your first prediction to see
+                                your activity here.
+                            </p>
+
+                            <a
+                                href="{{ url_for('predictor') }}"
+                                class="predict-again-button"
+                            >
+                                🤖 Make Your First Prediction
+                            </a>
+
+                        </div>
+
+                    {% endif %}
+
+                </section>
+
+
+                <!-- =================================
+                     POPULAR COLLEGES
+                ================================= -->
+
+                <section>
+
+                    <div class="section-header">
+
+                        <h2>
+                            Popular Colleges
+                        </h2>
+
+
+                        <a
+                            href="{{ url_for('colleges') }}"
+                            class="view-all"
+                        >
+                            View All →
+                        </a>
+
+                    </div>
+
+
+                    {% if featured_colleges %}
+
+                        <div class="college-grid">
+
+                            {% for college in featured_colleges %}
+
+                                <article
+                                    class="college-card"
+                                >
+
+                                    <div
+                                        class="college-image-wrapper"
+                                    >
+
+                                        {% set image_path =
+                                            college.get(
+                                                'Image',
+                                                'static/images/default.jpg'
+                                            )
+                                        %}
+
+
+                                        {% if image_path.startswith('static/') %}
+
+                                            {% set image_path =
+                                                image_path[7:]
+                                            %}
+
+                                        {% endif %}
+
+
+                                        <img
+                                            src="{{ url_for(
+                                                'static',
+                                                filename=image_path
+                                            ) }}"
+                                            alt="{{ college.get(
+                                                'College Name',
+                                                'College'
+                                            ) }}"
+                                            class="college-image"
+                                            onerror="this.onerror=null;this.src='{{ url_for('static', filename='images/default.jpg') }}';"
+                                        >
+
+                                    </div>
+
+
+                                    <div
+                                        class="college-content"
+                                    >
+
+                                        <h3
+                                            class="college-name"
+                                            title="{{ college.get(
+                                                'College Name',
+                                                'College'
+                                            ) }}"
+                                        >
+
+                                            {{ college.get(
+                                                'College Name',
+                                                'College'
+                                            ) }}
+
+                                        </h3>
+
+
+                                        <div
+                                            class="college-meta"
+                                        >
+
+                                            <span class="rating">
+
+                                                ⭐
+
+                                                {{ college.get(
+                                                    'Rating',
+                                                    'N/A'
+                                                ) }}
+
+                                            </span>
+
+
+                                            <span class="location">
+
+                                                📍
+
+                                                {{ college.get(
+                                                    'Location',
+                                                    'N/A'
+                                                ) }}
+
+                                            </span>
+
+                                        </div>
+
+
+                                        <div class="branch">
+
+                                            {{ college.get(
+                                                'Branch',
+                                                'N/A'
+                                            ) }}
+
+
+                                            {% if college.get('Exam') %}
+
+                                                ·
+
+                                                {{ college.get('Exam') }}
+
+                                            {% endif %}
+
+                                        </div>
+
+
+                                        <a
+                                            href="{{ url_for(
+                                                'college_details',
+                                                exam=college.get(
+                                                    'Exam',
+                                                    'KCET'
+                                                ) | lower,
+                                                index=college.get(
+                                                    'SourceIndex'
+                                                )
+                                            ) }}"
+                                            class="details-button"
+                                        >
+                                            View Details →
+                                        </a>
+
+                                    </div>
+
+                                </article>
+
+                            {% endfor %}
+
+                        </div>
+
+
+                    {% else %}
+
+                        <div
+                            class="empty-state card-style"
+                        >
+
+                            <div
+                                class="empty-state-icon"
+                            >
+                                🎓
+                            </div>
+
+                            <h3>
+                                No colleges available
+                            </h3>
+
+                            <p>
+                                College data could not be loaded.
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+                </section>
+
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <script>
+
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        function toggleSidebar() {
+
+            const sidebar =
+                document.getElementById("sidebar");
+
+            sidebar.classList.toggle("open");
+
+        }
+
+
+        document.addEventListener(
+            "click",
+            function(event) {
+
+                const sidebar =
+                    document.getElementById("sidebar");
+
+                const button =
+                    document.querySelector(
+                        ".mobile-menu-button"
+                    );
+
+
+                if (
+                    window.innerWidth <= 800 &&
+                    sidebar.classList.contains("open") &&
+                    !sidebar.contains(event.target) &&
+                    !button.contains(event.target)
+                ) {
+
+                    sidebar.classList.remove("open");
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           CHART DATA
+        ========================================= */
+
+        const kcetCount =
+            Number("{{ kcet_predictions }}");
+
+        const eamcetCount =
+            Number("{{ eamcet_predictions }}");
+
+
+        /* =========================================
+           EXAM DISTRIBUTION CHART
+        ========================================= */
+
+        {% if total_predictions > 0 %}
+
+        const examCanvas =
+            document.getElementById("examChart");
+
+
+        if (examCanvas) {
+
+            new Chart(
+                examCanvas,
+                {
+
+                    type: "doughnut",
+
+                    data: {
+
+                        labels: [
+                            "KCET",
+                            "EAMCET"
+                        ],
+
+                        datasets: [
+
+                            {
+
+                                data: [
+                                    kcetCount,
+                                    eamcetCount
+                                ],
+
+                                backgroundColor: [
+                                    "#0877e8",
+                                    "#7138e8"
+                                ],
+
+                                borderWidth: 0,
+
+                                hoverOffset: 8
+
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        cutout: "68%",
+
+                        plugins: {
+
+                            legend: {
+
+                                position: "bottom",
+
+                                labels: {
+
+                                    padding: 18,
+
+                                    font: {
+
+                                        size: 13,
+
+                                        weight: "600"
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /* =========================================
+           RECENT RANK CHART
+        ========================================= */
+
+        const rankCanvas =
+            document.getElementById("rankChart");
+
+
+        const rankLabels = [
+
+            {% for record in recent_predictions|reverse %}
+
+                "{{ record['exam'] }} #{{ loop.index }}"
+
+                {% if not loop.last %}
+                    ,
+                {% endif %}
+
+            {% endfor %}
+
+        ];
+
+
+        const rankValues = [
+
+            {% for record in recent_predictions|reverse %}
+
+                {{ record['rank'] }}
+
+                {% if not loop.last %}
+                    ,
+                {% endif %}
+
+            {% endfor %}
+
+        ];
+
+
+        if (rankCanvas && rankValues.length > 0) {
+
+            new Chart(
+                rankCanvas,
+                {
+
+                    type: "line",
+
+                    data: {
+
+                        labels: rankLabels,
+
+                        datasets: [
+
+                            {
+
+                                label: "Rank",
+
+                                data: rankValues,
+
+                                borderColor: "#0877e8",
+
+                                backgroundColor:
+                                    "rgba(8,119,232,0.10)",
+
+                                borderWidth: 3,
+
+                                fill: true,
+
+                                tension: 0.35,
+
+                                pointRadius: 5,
+
+                                pointHoverRadius: 7
+
+                            }
+
+                        ]
+
+                    },
+
+                    options: {
+
+                        responsive: true,
+
+                        maintainAspectRatio: false,
+
+                        plugins: {
+
+                            legend: {
+
+                                display: false
+
+                            }
+
+                        },
+
+                        scales: {
+
+                            y: {
+
+                                beginAtZero: false,
+
+                                ticks: {
+
+                                    precision: 0
+
+                                },
+
+                                grid: {
+
+                                    color:
+                                        "rgba(100,140,180,0.10)"
+
+                                }
+
+                            },
+
+                            x: {
+
+                                grid: {
+
+                                    display: false
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            );
+
+        }
+
+        {% endif %}
+
+    </script>
+
+
+</body>
+
+</html>
