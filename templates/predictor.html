@@ -155,7 +155,7 @@
 
 
         /* =====================================================
-           LOGOUT BUTTON
+           LOGOUT
         ===================================================== */
 
         .logout-form {
@@ -378,12 +378,6 @@
         }
 
 
-        .form-control:invalid:not(:placeholder-shown) {
-
-            border-color: #f59e0b;
-        }
-
-
         /* =====================================================
            EXAM OPTIONS
         ===================================================== */
@@ -554,7 +548,7 @@
 
 
         /* =====================================================
-           BRANCH LOADING
+           BRANCH STATUS
         ===================================================== */
 
         .branch-status {
@@ -953,8 +947,6 @@
         </a>
 
 
-        <!-- SECURE LOGOUT -->
-
         <form
             method="POST"
             action="{{ url_for('logout') }}"
@@ -966,7 +958,6 @@
                 name="csrf_token"
                 value="{{ csrf_token() }}"
             >
-
 
             <button
                 type="submit"
@@ -982,9 +973,8 @@
 </nav>
 
 
-
 <!-- =====================================================
-     MAIN CONTAINER
+     MAIN
 ===================================================== -->
 
 <main class="main-container">
@@ -1017,7 +1007,6 @@
     </section>
 
 
-
     <!-- =================================================
          PREDICTOR CARD
     ================================================= -->
@@ -1034,7 +1023,6 @@
             class="form-error"
             role="alert"
         ></div>
-
 
 
         <!-- =================================================
@@ -1055,7 +1043,6 @@
                 name="csrf_token"
                 value="{{ csrf_token() }}"
             >
-
 
 
             <!-- =================================================
@@ -1105,7 +1092,6 @@
                     </div>
 
 
-
                     <!-- EAMCET -->
 
                     <div class="exam-option">
@@ -1139,7 +1125,6 @@
                 </div>
 
             </div>
-
 
 
             <!-- =================================================
@@ -1193,7 +1178,6 @@
             </div>
 
 
-
             <!-- =================================================
                  BRANCH
             ================================================= -->
@@ -1244,7 +1228,6 @@
             </div>
 
 
-
             <!-- =================================================
                  PREDICT BUTTON
             ================================================= -->
@@ -1254,13 +1237,10 @@
                 class="predict-btn"
                 id="predictBtn"
             >
-
                 🔍 Predict Colleges
-
             </button>
 
         </form>
-
 
 
         <!-- =================================================
@@ -1318,7 +1298,6 @@
     </section>
 
 
-
     <!-- =================================================
          BACK BUTTON
     ================================================= -->
@@ -1337,524 +1316,490 @@
 </main>
 
 
-
 <!-- =====================================================
      JAVASCRIPT
 ===================================================== -->
 
 <script>
 
-    "use strict";
+"use strict";
 
 
-    /* =====================================================
-       BRANCH CONFIGURATION
-    ===================================================== */
+/* =========================================================
+   BRANCH CONFIGURATION
+========================================================= */
 
-    const examBranches = {
+const examBranches = {
 
-        KCET: [
-            "CSE",
-            "AIML",
-            "ISE",
-            "ECE"
-        ],
+    KCET: [
+        "CSE",
+        "AIML",
+        "ISE",
+        "ECE"
+    ],
 
-        EAMCET: [
-            "CSE",
-            "AIML",
-            "ECE",
-            "ME"
-        ]
+    EAMCET: [
+        "CSE",
+        "AIML",
+        "ECE",
+        "ME"
+    ]
 
-    };
-
-
-    /* =====================================================
-       DOM ELEMENTS
-    ===================================================== */
-
-    const branchSelect =
-        document.getElementById("branch");
+};
 
 
-    const branchHelp =
-        document.getElementById("branchHelp");
+/* =========================================================
+   DOM ELEMENTS
+========================================================= */
+
+const branchSelect =
+    document.getElementById("branch");
+
+const branchHelp =
+    document.getElementById("branchHelp");
+
+const branchStatus =
+    document.getElementById("branchStatus");
+
+const predictorForm =
+    document.getElementById("predictorForm");
+
+const rankInput =
+    document.getElementById("rank");
+
+const predictBtn =
+    document.getElementById("predictBtn");
+
+const formError =
+    document.getElementById("formError");
 
 
-    const branchStatus =
-        document.getElementById("branchStatus");
+/* =========================================================
+   GET SELECTED EXAM
+========================================================= */
+
+function getSelectedExam() {
+
+    const selected =
+        document.querySelector(
+            'input[name="exam"]:checked'
+        );
+
+    if (!selected) {
+
+        return "";
+
+    }
+
+    return selected.value
+        .toUpperCase()
+        .trim();
+
+}
 
 
-    const predictorForm =
-        document.getElementById("predictorForm");
+/* =========================================================
+   UPDATE BRANCHES
+========================================================= */
+
+function updateBranches() {
+
+    if (!branchSelect) {
+
+        return;
+
+    }
+
+    const exam =
+        getSelectedExam();
 
 
-    const rankInput =
-        document.getElementById("rank");
+    branchSelect.innerHTML =
+        '<option value="">Select Branch</option>';
 
 
-    const predictBtn =
-        document.getElementById("predictBtn");
+    if (branchStatus) {
 
-
-    const formError =
-        document.getElementById("formError");
-
-
-
-    /* =====================================================
-       GET SELECTED EXAM
-    ===================================================== */
-
-    function getSelectedExam() {
-
-        const selected =
-            document.querySelector(
-                'input[name="exam"]:checked'
-            );
-
-
-        if (!selected) {
-
-            return "";
-
-        }
-
-
-        return selected.value
-            .toUpperCase()
-            .trim();
+        branchStatus.classList.remove(
+            "show"
+        );
 
     }
 
 
+    if (!exam) {
 
-    /* =====================================================
-       UPDATE BRANCHES
-    ===================================================== */
+        if (branchHelp) {
 
-    function updateBranches() {
-
-        if (!branchSelect) {
-
-            return;
+            branchHelp.textContent =
+                "Select an entrance examination first.";
 
         }
 
+        return;
 
-        const exam =
-            getSelectedExam();
-
-
-        /*
-         * Clear existing options.
-         */
-
-        branchSelect.innerHTML =
-            '<option value="">Select Branch</option>';
+    }
 
 
-        /*
-         * Hide status.
-         */
+    const branches =
+        examBranches[exam] || [];
 
-        if (branchStatus) {
 
-            branchStatus.classList.remove("show");
+    if (exam === "KCET") {
+
+        if (branchHelp) {
+
+            branchHelp.textContent =
+                "Available KCET branches: CSE, AIML, ISE and ECE.";
 
         }
 
+    }
 
-        /*
-         * No exam selected.
-         */
 
-        if (!exam) {
+    else if (exam === "EAMCET") {
 
-            if (branchHelp) {
+        if (branchHelp) {
 
-                branchHelp.textContent =
-                    "Select an entrance examination first.";
-
-            }
-
-            return;
+            branchHelp.textContent =
+                "Available EAMCET branches: CSE, AIML, ECE and ME.";
 
         }
 
-
-        /*
-         * Get branches for selected exam.
-         */
-
-        const branches =
-            examBranches[exam] || [];
+    }
 
 
-        /*
-         * Update help text.
-         */
+    branches.forEach(
+        function(branch) {
 
-        if (exam === "KCET") {
-
-            if (branchHelp) {
-
-                branchHelp.textContent =
-                    "Available KCET branches: CSE, AIML, ISE and ECE.";
-
-            }
-
-        }
-
-
-        else if (exam === "EAMCET") {
-
-            if (branchHelp) {
-
-                branchHelp.textContent =
-                    "Available EAMCET branches: CSE, AIML, ECE and ME.";
-
-            }
-
-        }
-
-
-        /*
-         * Add branch options.
-         */
-
-        branches.forEach(
-            function(branch) {
-
-                const option =
-                    document.createElement("option");
-
-
-                option.value =
-                    branch;
-
-
-                option.textContent =
-                    branch;
-
-
-                branchSelect.appendChild(
-                    option
+            const option =
+                document.createElement(
+                    "option"
                 );
 
-            }
-        );
+            option.value =
+                branch;
 
-    }
+            option.textContent =
+                branch;
 
-
-
-    /* =====================================================
-       SHOW ERROR
-    ===================================================== */
-
-    function showError(message) {
-
-        if (!formError) {
-
-            return;
-
-        }
-
-
-        formError.textContent =
-            message;
-
-
-        formError.classList.add("show");
-
-
-        formError.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-        });
-
-    }
-
-
-
-    /* =====================================================
-       HIDE ERROR
-    ===================================================== */
-
-    function hideError() {
-
-        if (!formError) {
-
-            return;
-
-        }
-
-
-        formError.textContent = "";
-
-        formError.classList.remove("show");
-
-    }
-
-
-
-    /* =====================================================
-       RANK VALIDATION
-    ===================================================== */
-
-    function validateRank() {
-
-        if (!rankInput) {
-
-            return false;
-
-        }
-
-
-        const value =
-            rankInput.value.trim();
-
-
-        const rank =
-            Number(value);
-
-
-        if (
-            value === "" ||
-            !Number.isInteger(rank) ||
-            rank <= 0
-        ) {
-
-            showError(
-                "Please enter a valid rank greater than 0."
-            );
-
-            rankInput.focus();
-
-            return false;
-
-        }
-
-
-        return true;
-
-    }
-
-
-
-    /* =====================================================
-       BRANCH VALIDATION
-    ===================================================== */
-
-    function validateBranch() {
-
-        if (!branchSelect) {
-
-            return false;
-
-        }
-
-
-        const branch =
-            branchSelect.value
-                .toUpperCase()
-                .trim();
-
-
-        if (!branch) {
-
-            showError(
-                "Please select your preferred branch."
-            );
-
-            branchSelect.focus();
-
-            return false;
-
-        }
-
-
-        return true;
-
-    }
-
-
-
-    /* =====================================================
-       FORM SUBMISSION
-    ===================================================== */
-
-    if (predictorForm) {
-
-        predictorForm.addEventListener(
-            "submit",
-            function(event) {
-
-                hideError();
-
-
-                /*
-                 * Validate exam.
-                 */
-
-                const exam =
-                    getSelectedExam();
-
-
-                if (
-                    !exam ||
-                    !examBranches[exam]
-                ) {
-
-                    event.preventDefault();
-
-                    showError(
-                        "Please select a valid entrance examination."
-                    );
-
-                    return;
-
-                }
-
-
-                /*
-                 * Validate rank.
-                 */
-
-                if (!validateRank()) {
-
-                    event.preventDefault();
-
-                    return;
-
-                }
-
-
-                /*
-                 * Validate branch.
-                 */
-
-                if (!validateBranch()) {
-
-                    event.preventDefault();
-
-                    return;
-
-                }
-
-
-                /*
-                 * Prevent accidental double-clicks.
-                 */
-
-                if (predictBtn) {
-
-                    predictBtn.disabled = true;
-
-                    predictBtn.textContent =
-                        "⏳ Finding Colleges...";
-
-                }
-
-            }
-        );
-
-    }
-
-
-
-    /* =====================================================
-       EXAM CHANGE EVENTS
-    ===================================================== */
-
-    const examInputs =
-        document.querySelectorAll(
-            'input[name="exam"]'
-        );
-
-
-    examInputs.forEach(
-        function(input) {
-
-            input.addEventListener(
-                "change",
-                function() {
-
-                    hideError();
-
-                    updateBranches();
-
-                }
+            branchSelect.appendChild(
+                option
             );
 
         }
     );
 
+}
 
 
-    /* =====================================================
-       RANK INPUT CLEANING
-    ===================================================== */
+/* =========================================================
+   SHOW ERROR
+========================================================= */
 
-    if (rankInput) {
+function showError(message) {
 
-        rankInput.addEventListener(
-            "input",
-            function() {
+    if (!formError) {
 
-                /*
-                 * Remove decimal values.
-                 */
+        return;
 
-                this.value =
-                    this.value.replace(
-                        /[^\d]/g,
-                        ""
-                    );
+    }
+
+    formError.textContent =
+        message;
+
+    formError.classList.add(
+        "show"
+    );
+
+    formError.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
 
 
-                hideError();
+/* =========================================================
+   HIDE ERROR
+========================================================= */
 
-            }
+function hideError() {
+
+    if (!formError) {
+
+        return;
+
+    }
+
+    formError.textContent =
+        "";
+
+    formError.classList.remove(
+        "show"
+    );
+
+}
+
+
+/* =========================================================
+   RANK VALIDATION
+========================================================= */
+
+function validateRank() {
+
+    if (!rankInput) {
+
+        return false;
+
+    }
+
+    const value =
+        rankInput.value.trim();
+
+    const rank =
+        Number(value);
+
+
+    if (
+        value === "" ||
+        !Number.isInteger(rank) ||
+        rank <= 0
+    ) {
+
+        showError(
+            "Please enter a valid rank greater than 0."
         );
+
+        rankInput.focus();
+
+        return false;
 
     }
 
 
+    return true;
 
-    /* =====================================================
-       BRANCH CHANGE
-    ===================================================== */
+}
 
-    if (branchSelect) {
 
-        branchSelect.addEventListener(
+/* =========================================================
+   BRANCH VALIDATION
+========================================================= */
+
+function validateBranch() {
+
+    if (!branchSelect) {
+
+        return false;
+
+    }
+
+    const branch =
+        branchSelect.value
+            .toUpperCase()
+            .trim();
+
+
+    if (!branch) {
+
+        showError(
+            "Please select your preferred branch."
+        );
+
+        branchSelect.focus();
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   FORM SUBMISSION
+   IMPORTANT FIX
+========================================================= */
+
+if (predictorForm) {
+
+    predictorForm.addEventListener(
+        "submit",
+        function(event) {
+
+            /*
+             * Stop the browser from performing the normal
+             * submission temporarily.
+             */
+            event.preventDefault();
+
+
+            hideError();
+
+
+            /* ---------------------------------------------
+               VALIDATE EXAM
+            --------------------------------------------- */
+
+            const exam =
+                getSelectedExam();
+
+
+            if (
+                !exam ||
+                !examBranches[exam]
+            ) {
+
+                showError(
+                    "Please select a valid entrance examination."
+                );
+
+                return;
+
+            }
+
+
+            /* ---------------------------------------------
+               VALIDATE RANK
+            --------------------------------------------- */
+
+            if (!validateRank()) {
+
+                return;
+
+            }
+
+
+            /* ---------------------------------------------
+               VALIDATE BRANCH
+            --------------------------------------------- */
+
+            if (!validateBranch()) {
+
+                return;
+
+            }
+
+
+            /* ---------------------------------------------
+               DISABLE BUTTON
+            --------------------------------------------- */
+
+            if (predictBtn) {
+
+                predictBtn.disabled =
+                    true;
+
+                predictBtn.textContent =
+                    "⏳ Finding Colleges...";
+
+            }
+
+
+            /*
+             * IMPORTANT:
+             *
+             * Explicitly submit the form.
+             *
+             * HTMLFormElement.prototype.submit()
+             * bypasses this submit event, so this event
+             * listener cannot accidentally block the POST.
+             */
+            HTMLFormElement.prototype.submit.call(
+                predictorForm
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   EXAM CHANGE EVENTS
+========================================================= */
+
+const examInputs =
+    document.querySelectorAll(
+        'input[name="exam"]'
+    );
+
+
+examInputs.forEach(
+    function(input) {
+
+        input.addEventListener(
             "change",
             function() {
 
                 hideError();
 
+                updateBranches();
+
             }
         );
 
     }
+);
 
 
+/* =========================================================
+   RANK INPUT CLEANING
+========================================================= */
 
-    /* =====================================================
-       PAGE LOAD
-    ===================================================== */
+if (rankInput) {
 
-    document.addEventListener(
-        "DOMContentLoaded",
+    rankInput.addEventListener(
+        "input",
         function() {
 
-            updateBranches();
+            this.value =
+                this.value.replace(
+                    /[^\d]/g,
+                    ""
+                );
+
+            hideError();
 
         }
     );
+
+}
+
+
+/* =========================================================
+   BRANCH CHANGE
+========================================================= */
+
+if (branchSelect) {
+
+    branchSelect.addEventListener(
+        "change",
+        function() {
+
+            hideError();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PAGE LOAD
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        updateBranches();
+
+    }
+);
 
 </script>
 

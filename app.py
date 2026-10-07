@@ -1834,21 +1834,26 @@ def dashboard():
         )
     )
 
-
 # ============================================================
 # COLLEGES
 # ============================================================
 
-@app.route(
-    "/colleges"
-)
+@app.route("/colleges")
 @login_required
 def colleges():
 
-    exam = request.args.get(
-        "exam",
-        "all"
-    ).strip().lower()
+    exam = (
+        request.args.get(
+            "exam",
+            "all"
+        )
+        .strip()
+        .lower()
+    )
+
+    # ========================================================
+    # SELECT DATASET
+    # ========================================================
 
     if exam == "kcet":
 
@@ -1856,17 +1861,11 @@ def colleges():
 
         selected_exam = "KCET"
 
-        offset = 0
-
     elif exam == "eamcet":
 
         dataframe = eamcet_df.copy()
 
         selected_exam = "EAMCET"
-
-        offset = len(
-            kcet_df
-        )
 
     else:
 
@@ -1880,100 +1879,209 @@ def colleges():
 
         selected_exam = "ALL"
 
-        offset = 0
+    # ========================================================
+    # GROUP COLLEGES
+    #
+    # One college = one card
+    # Multiple branches = inside that card
+    # ========================================================
 
-    college_list = []
+    grouped_colleges = {}
 
     for index, row in dataframe.iterrows():
 
-        college = row.to_dict()
-
-        if selected_exam == "ALL":
-
-            if str(
-                row.get(
-                    "Exam",
-                    ""
-                )
-            ).upper() == "EAMCET":
-
-                source_index = (
-                    index
-                    -
-                    len(kcet_df)
-                )
-
-            else:
-
-                source_index = index
-
-        else:
-
-            source_index = index
-
-        college["SourceIndex"] = (
-            source_index
-        )
-
-        college["Exam"] = str(
-            row.get(
-                "Exam",
-                selected_exam
-            )
-        ).upper()
-
-        college["Website"] = clean_website(
-
-            row.get(
-                "Website",
-                ""
-            ),
-
+        college_name = str(
             row.get(
                 "College Name",
                 ""
             )
+        ).strip()
+
+        if not college_name:
+            continue
+
+        row_exam = str(
+            row.get(
+                "Exam",
+                selected_exam
+            )
+        ).strip().upper()
+
+        # ----------------------------------------------------
+        # Create unique key using exam + college name
+        # ----------------------------------------------------
+
+        group_key = (
+            row_exam,
+            college_name.lower()
         )
 
-        college["Image"] = clean_image(
+        # ----------------------------------------------------
+        # Create college if not already present
+        # ----------------------------------------------------
+
+        if group_key not in grouped_colleges:
+
+            college = row.to_dict()
+
+            college["College Name"] = college_name
+
+            college["Exam"] = row_exam
+
+            # IMPORTANT:
+            # Keep the original dataset row index.
+            # This is used by Save / Details / Compare.
+            college["SourceIndex"] = int(
+                index
+            )
+
+            college["Original Index"] = int(
+                index
+            )
+
+            college["Website"] = clean_website(
+                row.get(
+                    "Website",
+                    ""
+                ),
+                college_name
+            )
+
+            college["Image"] = clean_image(
+                row.get(
+                    "Image",
+                    ""
+                )
+            )
+
+            # ------------------------------------------------
+            # Branch list
+            # ------------------------------------------------
+
+            college["Branches"] = []
+
+            grouped_colleges[group_key] = college
+
+        else:
+
+            college = grouped_colleges[group_key]
+
+        # ====================================================
+        # CREATE BRANCH INFORMATION
+        # ====================================================
+
+        branch_name = str(
             row.get(
-                "Image",
+                "Branch",
                 ""
+            )
+        ).strip()
+
+        if not branch_name:
+
+            branch_name = "N/A"
+
+        # ----------------------------------------------------
+        # Management fees
+        # ----------------------------------------------------
+
+        management_fees = clean_numeric(
+            row.get(
+                "Management Fees",
+                0
             )
         )
 
-        # Correct exam-specific fee
-        if college["Exam"] == "KCET":
+        # ----------------------------------------------------
+        # Exam fees
+        # ----------------------------------------------------
 
-            college["Exam Fees"] = (
-                clean_numeric(
+        if row_exam == "KCET":
+
+            exam_fees = clean_numeric(
+                row.get(
+                    "Kcet Fees",
                     row.get(
-                        "Kcet Fees",
-                        row.get(
-                            "KCET Fees",
-                            0
-                        )
+                        "KCET Fees",
+                        0
                     )
                 )
             )
 
         else:
 
-            college["Exam Fees"] = (
-                clean_numeric(
+            exam_fees = clean_numeric(
+                row.get(
+                    "Eamcet Fees",
                     row.get(
-                        "Eamcet Fees",
-                        row.get(
-                            "EAMCET Fees",
-                            0
-                        )
+                        "EAMCET Fees",
+                        0
                     )
                 )
             )
 
-        college_list.append(
-            college
-        )
+        # ====================================================
+        # BRANCH OBJECT
+        # ====================================================
+
+        branch_data = {
+
+            "Branch": branch_name,
+
+            "Cutoff Rank": clean_rank(
+                row.get(
+                    "Cutoff Rank",
+                    0
+                )
+            ),
+
+            "Management Fees": management_fees,
+
+            "Exam Fees": exam_fees,
+
+            "Rating": clean_rating(
+                row.get(
+                    "Rating",
+                    0
+                )
+            )
+        }
+
+        # ====================================================
+        # AVOID DUPLICATE BRANCHES
+        # ====================================================
+
+        existing_branches = [
+            str(
+                branch.get(
+                    "Branch",
+                    ""
+                )
+            ).upper()
+            for branch in college[
+                "Branches"
+            ]
+        ]
+
+        if branch_name.upper() not in existing_branches:
+
+            college[
+                "Branches"
+            ].append(
+                branch_data
+            )
+
+    # ========================================================
+    # FINAL COLLEGE LIST
+    # ========================================================
+
+    college_list = list(
+        grouped_colleges.values()
+    )
+
+    # ========================================================
+    # RETURN PAGE
+    # ========================================================
 
     return render_template(
 
@@ -1983,7 +2091,6 @@ def colleges():
 
         selected_exam=selected_exam
     )
-
 
 # ============================================================
 # COLLEGE DETAILS
@@ -2244,10 +2351,132 @@ def calculate_recommendation_score(
         recommendation_score,
         4
     )
+# ============================================================
+# NORMALIZE BRANCH NAME
+# ============================================================
 
+def normalize_branch(branch):
+
+    branch = str(
+        branch or ""
+    ).strip().upper()
+
+    branch_map = {
+
+        # --------------------------------------------
+        # COMPUTER SCIENCE
+        # --------------------------------------------
+
+        "CSE":
+            "CSE",
+
+        "COMPUTER SCIENCE":
+            "CSE",
+
+        "COMPUTER SCIENCE AND ENGINEERING":
+            "CSE",
+
+
+        # --------------------------------------------
+        # ARTIFICIAL INTELLIGENCE
+        # --------------------------------------------
+
+        "AIML":
+            "AIML",
+
+        "AI ML":
+            "AIML",
+
+        "AI&ML":
+            "AIML",
+
+        "AI AND ML":
+            "AIML",
+
+        "ARTIFICIAL INTELLIGENCE AND MACHINE LEARNING":
+            "AIML",
+
+
+        # --------------------------------------------
+        # INFORMATION SCIENCE
+        # --------------------------------------------
+
+        "ISE":
+            "ISE",
+
+        "INFORMATION SCIENCE":
+            "ISE",
+
+        "INFORMATION SCIENCE AND ENGINEERING":
+            "ISE",
+
+
+        # --------------------------------------------
+        # ELECTRONICS
+        # --------------------------------------------
+
+        "ECE":
+            "ECE",
+
+        "ELECTRONICS":
+            "ECE",
+
+        "ELECTRONICS AND COMMUNICATION":
+            "ECE",
+
+        "ELECTRONICS AND COMMUNICATION ENGINEERING":
+            "ECE",
+
+
+        # --------------------------------------------
+        # MECHANICAL
+        # --------------------------------------------
+
+        "ME":
+            "ME",
+
+        "MECHANICAL":
+            "ME",
+
+        "MECHANICAL ENGINEERING":
+            "ME",
+
+
+        # --------------------------------------------
+        # ELECTRICAL
+        # --------------------------------------------
+
+        "EEE":
+            "EEE",
+
+        "ELECTRICAL":
+            "EEE",
+
+        "ELECTRICAL AND ELECTRONICS":
+            "EEE",
+
+        "ELECTRICAL AND ELECTRONICS ENGINEERING":
+            "EEE",
+
+
+        # --------------------------------------------
+        # CIVIL
+        # --------------------------------------------
+
+        "CIVIL":
+            "CIVIL",
+
+        "CIVIL ENGINEERING":
+            "CIVIL"
+    }
+
+    return branch_map.get(
+        branch,
+        branch
+    )
 
 # ============================================================
-# COMPLETE PREDICTION RESULTS
+# PREDICT COLLEGES
 # ============================================================
 
 @app.route(
@@ -2255,72 +2484,186 @@ def calculate_recommendation_score(
     methods=["POST"]
 )
 @login_required
-@limiter.limit("20 per minute")
 def predict():
 
     # ========================================================
-    # GET STUDENT INPUT
+    # GET FORM DATA
     # ========================================================
 
     exam = (
-        request.form.get("exam", "")
-        .strip()
-        .upper()
+        request.form.get("exam") or ""
+    ).strip().lower()
+
+    branch = normalize_branch(
+        request.form.get(
+            "branch",
+            ""
+        )
     )
 
     rank_text = (
-        request.form.get("rank", "")
-        .strip()
-    )
+        request.form.get("rank") or ""
+    ).strip()
 
-    branch = (
-        request.form.get("branch", "")
-        .strip()
-        .upper()
-    )
+    category = (
+        request.form.get("category") or ""
+    ).strip()
+
+    gender = (
+        request.form.get("gender") or ""
+    ).strip()
+
+    preferred_location = (
+        request.form.get(
+            "preferred_location"
+        ) or ""
+    ).strip()
+
+    state = (
+        request.form.get("state") or ""
+    ).strip()
+
+    fee_range = (
+        request.form.get(
+            "fee_range"
+        ) or ""
+    ).strip()
+
 
     # ========================================================
-    # VALIDATE INPUT
+    # DEBUG FORM DATA
     # ========================================================
 
-    valid, validation_error = (
-        validate_prediction_input(
+    app.logger.info(
+        "FORM DATA | exam=%s | branch=%s | rank=%s",
+        exam,
+        branch,
+        rank_text
+    )
+
+
+    # ========================================================
+    # VALIDATE EXAM
+    #
+    # Convert ALLOWED_EXAMS to lowercase so that:
+    #
+    # KCET   -> kcet
+    # EAMCET -> eamcet
+    #
+    # are accepted correctly.
+    # ========================================================
+
+    allowed_exams = {
+        str(value).strip().lower()
+        for value in ALLOWED_EXAMS
+    }
+
+
+    if exam not in allowed_exams:
+
+        app.logger.warning(
+            "Invalid entrance exam received | exam=%s | allowed=%s",
             exam,
-            rank_text,
-            branch
-        )
-    )
-
-    if not valid:
-
-        return render_template(
-            "predictor.html",
-            branches=sorted(
-                ALLOWED_BRANCHES
-            ),
-            error=validation_error,
-            selected_exam=exam,
-            selected_rank=rank_text,
-            selected_branch=branch
+            allowed_exams
         )
 
+        flash(
+            "Please select a valid entrance exam.",
+            "error"
+        )
+
+        return redirect(
+            url_for("predictor")
+        )
+
+
     # ========================================================
-    # CONVERT RANK
+    # VALIDATE RANK
     # ========================================================
 
-    rank = int(rank_text)
+    try:
+
+        rank = int(
+            float(rank_text)
+        )
+
+    except (
+        ValueError,
+        TypeError
+    ):
+
+        app.logger.warning(
+            "Invalid rank received | rank=%s",
+            rank_text
+        )
+
+        flash(
+            "Please enter a valid rank.",
+            "error"
+        )
+
+        return redirect(
+            url_for("predictor")
+        )
+
+
+    if rank <= 0:
+
+        flash(
+            "Rank must be greater than 0.",
+            "error"
+        )
+
+        return redirect(
+            url_for("predictor")
+        )
+
+
+    # ========================================================
+    # VALIDATE BRANCH
+    # ========================================================
+
+    if not branch:
+
+        flash(
+            "Please select a valid branch.",
+            "error"
+        )
+
+        return redirect(
+            url_for("predictor")
+        )
+
 
     # ========================================================
     # SELECT DATASET
     # ========================================================
 
-    if exam == "KCET":
+    if exam == "kcet":
 
         dataframe = kcet_df.copy()
 
-    else:
+        exam_name = "KCET"
+
+
+    elif exam == "eamcet":
 
         dataframe = eamcet_df.copy()
+
+        exam_name = "EAMCET"
+
+
+    else:
+
+        flash(
+            "Invalid entrance exam.",
+            "error"
+        )
+
+        return redirect(
+            url_for("predictor")
+        )
+
 
     # ========================================================
     # CHECK DATASET
@@ -2328,48 +2671,115 @@ def predict():
 
     if dataframe.empty:
 
-        return render_template(
-            "result.html",
-            colleges=[],
-            results=[],
-            exam=exam,
-            exam_name=exam,
-            rank=rank,
-            student_rank=rank,
-            branch=branch,
-            error="No college data is available."
+        app.logger.warning(
+            "Dataset is empty | exam=%s",
+            exam
         )
 
+        flash(
+            "No college data is available for this exam.",
+            "error"
+        )
+
+        return redirect(
+            url_for("predictor")
+        )
+
+
     # ========================================================
-    # FILTER BY BRANCH
+    # NORMALIZE DATASET BRANCHES
+    #
+    # Example:
+    #
+    # ME
+    # Mechanical
+    # Mechanical Engineering
+    #
+    # all become:
+    #
+    # ME
     # ========================================================
 
-    branch_data = dataframe[
+    dataframe = dataframe.copy()
+
+
+    if "Branch" not in dataframe.columns:
+
+        app.logger.error(
+            "Branch column missing from %s dataset.",
+            exam_name
+        )
+
+        flash(
+            "College branch data is unavailable.",
+            "error"
+        )
+
+        return redirect(
+            url_for("predictor")
+        )
+
+
+    dataframe["_NormalizedBranch"] = (
         dataframe["Branch"]
-        .astype(str)
-        .str.upper()
-        .str.strip()
+        .apply(
+            normalize_branch
+        )
+    )
+
+
+    # ========================================================
+    # FIND SELECTED BRANCH
+    # ========================================================
+
+    branch_df = dataframe[
+        dataframe["_NormalizedBranch"]
         == branch
     ].copy()
 
-    if branch_data.empty:
-
-        return render_template(
-            "result.html",
-            colleges=[],
-            results=[],
-            exam=exam,
-            exam_name=exam,
-            rank=rank,
-            student_rank=rank,
-            branch=branch,
-            error=(
-                f"No colleges found for {branch}."
-            )
-        )
 
     # ========================================================
-    # SELECT RELEVANT CUTOFF RANGE
+    # DEBUG BRANCH SEARCH
+    # ========================================================
+
+    app.logger.info(
+        "Prediction branch search | exam=%s | branch=%s | matching_rows=%s",
+        exam,
+        branch,
+        len(branch_df)
+    )
+
+
+    # ========================================================
+    # IF NO BRANCH FOUND
+    # ========================================================
+
+    if branch_df.empty:
+
+        app.logger.warning(
+            "No colleges found for branch | exam=%s | branch=%s",
+            exam,
+            branch
+        )
+
+        flash(
+            (
+                "No colleges were found for "
+                f"{branch} in {exam_name}. "
+                "Please try another branch."
+            ),
+            "error"
+        )
+
+        return redirect(
+            url_for("predictor")
+        )
+
+
+    # ========================================================
+    # RANK RANGE
+    #
+    # Search within ±10,000 ranks first.
     # ========================================================
 
     min_rank = max(
@@ -2381,144 +2791,88 @@ def predict():
         rank + 10000
     )
 
-    ml_input = branch_data[
+
+    # ========================================================
+    # CLEAN CUTOFF RANK
+    # ========================================================
+
+    if "Cutoff Rank" not in branch_df.columns:
+
+        app.logger.error(
+            "Cutoff Rank column missing from %s dataset.",
+            exam_name
+        )
+
+        flash(
+            "College cutoff data is unavailable.",
+            "error"
+        )
+
+        return redirect(
+            url_for("predictor")
+        )
+
+
+    branch_df["_CleanCutoff"] = (
+        branch_df["Cutoff Rank"]
+        .apply(
+            clean_rank
+        )
+    )
+
+
+    # ========================================================
+    # RANK FILTER
+    #
+    # First search around student's rank.
+    # If no colleges are found, use all valid colleges
+    # from the selected branch.
+    # ========================================================
+
+    rank_filtered = branch_df[
         (
-            branch_data["Cutoff Rank"]
+            branch_df["_CleanCutoff"]
             >= min_rank
         )
         &
         (
-            branch_data["Cutoff Rank"]
+            branch_df["_CleanCutoff"]
             <= max_rank
+        )
+        &
+        (
+            branch_df["_CleanCutoff"]
+            > 0
         )
     ].copy()
 
-    # ========================================================
-    # IF NO COLLEGES IN RANGE
-    # USE COMPLETE BRANCH DATA
-    # ========================================================
 
-    if ml_input.empty:
+    if rank_filtered.empty:
 
-        ml_input = branch_data.copy()
-
-    # ========================================================
-    # ADD STUDENT RANK
-    # ========================================================
-
-    ml_input["Student Rank"] = rank
-
-    # ========================================================
-    # MAKE SURE REQUIRED NUMERIC COLUMNS EXIST
-    # ========================================================
-
-    for column in [
-        "Rating",
-        "Management Fees",
-        "Hostel Fees",
-        "Cutoff Rank"
-    ]:
-
-        if column not in ml_input.columns:
-
-            ml_input[column] = 0
-
-    # ========================================================
-    # CLEAN NUMERIC VALUES
-    # ========================================================
-
-    ml_input["Cutoff Rank"] = (
-        ml_input["Cutoff Rank"]
-        .apply(clean_rank)
-    )
-
-    ml_input["Rating"] = (
-        ml_input["Rating"]
-        .apply(clean_rating)
-    )
-
-    ml_input["Management Fees"] = (
-        ml_input["Management Fees"]
-        .apply(clean_numeric)
-    )
-
-    ml_input["Hostel Fees"] = (
-        ml_input["Hostel Fees"]
-        .apply(clean_numeric)
-    )
-
-    # ========================================================
-    # EXAM FEES
-    # ========================================================
-
-    if "Exam Fees" not in ml_input.columns:
-
-        if exam == "KCET":
-
-            fee_column = "Kcet Fees"
-
-        else:
-
-            fee_column = "Eamcet Fees"
-
-        if fee_column in ml_input.columns:
-
-            ml_input["Exam Fees"] = (
-                ml_input[fee_column]
-                .apply(clean_numeric)
-            )
-
-        else:
-
-            ml_input["Exam Fees"] = 0
-
-    else:
-
-        ml_input["Exam Fees"] = (
-            ml_input["Exam Fees"]
-            .apply(clean_numeric)
+        app.logger.info(
+            "No colleges inside rank range | exam=%s | branch=%s | rank=%s. Using all valid branch colleges.",
+            exam,
+            branch,
+            rank
         )
 
-    # ========================================================
-    # CALCULATE FEE SCORE
-    # ========================================================
+        rank_filtered = branch_df[
+            branch_df["_CleanCutoff"] > 0
+        ].copy()
 
-    max_exam_fee = float(
-        ml_input["Exam Fees"].max()
-    )
-
-    if max_exam_fee > 0:
-
-        ml_input["Fee Score"] = (
-            1
-            - (
-                ml_input["Exam Fees"]
-                / max_exam_fee
-            )
-        ).clip(
-            0,
-            1
-        )
-
-    else:
-
-        ml_input["Fee Score"] = 0.5
 
     # ========================================================
-    # CREATE RESULTS
+    # PREDICTION RESULTS
     # ========================================================
 
     results = []
 
-    # ========================================================
-    # RUN PREDICTION FOR EACH COLLEGE
-    # ========================================================
 
-    for index, row in ml_input.iterrows():
+    for index, row in rank_filtered.iterrows():
 
-        # ----------------------------------------------------
-        # CLEAN COLLEGE DATA
-        # ----------------------------------------------------
+        # ====================================================
+        # CUTOFF
+        # ====================================================
 
         cutoff = clean_rank(
             row.get(
@@ -2527,6 +2881,11 @@ def predict():
             )
         )
 
+
+        # ====================================================
+        # RATING
+        # ====================================================
+
         rating = clean_rating(
             row.get(
                 "Rating",
@@ -2534,76 +2893,150 @@ def predict():
             )
         )
 
-        fee_score = float(
+
+        # ====================================================
+        # MANAGEMENT FEES
+        # ====================================================
+
+        management_fees = clean_numeric(
             row.get(
-                "Fee Score",
-                0.5
+                "Management Fees",
+                0
             )
         )
 
+
+        # ====================================================
+        # HOSTEL FEES
+        # ====================================================
+
+        hostel_fees = clean_numeric(
+            row.get(
+                "Hostel Fees",
+                0
+            )
+        )
+
+
+        # ====================================================
+        # EXAM-SPECIFIC FEE
+        #
+        # KCET:
+        #     Kcet Fees
+        #
+        # EAMCET:
+        #     Eamcet Fees
+        # ====================================================
+
+        if exam == "eamcet":
+
+            exam_fee = clean_numeric(
+                row.get(
+                    "Eamcet Fees",
+                    row.get(
+                        "EAMCET Fees",
+                        0
+                    )
+                )
+            )
+
+            exam_fee_label = "EAMCET Fee"
+
+        else:
+
+            exam_fee = clean_numeric(
+                row.get(
+                    "Kcet Fees",
+                    row.get(
+                        "KCET Fees",
+                        0
+                    )
+                )
+            )
+
+            exam_fee_label = "KCET Fee"
+
+
+        # ====================================================
+        # RANK COMPATIBILITY
+        # ====================================================
+
+        if cutoff > 0:
+
+            rank_difference = abs(
+                cutoff - rank
+            )
+
+            rank_score = (
+                1.0
+                -
+                (
+                    rank_difference
+                    /
+                    max(
+                        cutoff,
+                        rank,
+                        1
+                    )
+                )
+            )
+
+        else:
+
+            rank_score = 0.5
+
+
+        rank_score = max(
+            0.0,
+            min(
+                1.0,
+                float(rank_score)
+            )
+        )
+
+
+        # ====================================================
+        # ML PREDICTION
+        # ====================================================
+
         ml_score = None
 
-        # ----------------------------------------------------
-        # MACHINE LEARNING PREDICTION
-        # ----------------------------------------------------
 
         if model is not None:
 
             try:
 
-                # ====================================================
-                # IMPORTANT:
-                #
-                # These columns MUST match train_model.py exactly.
-                #
-                # TRAINING FEATURES:
-                #
-                # Exam
-                # Branch
-                # Student Rank
-                # Rating
-                # Management Fees
-                # Hostel Fees
-                # Cutoff Rank
-                # ====================================================
-
                 feature_row = pd.DataFrame(
                     [
                         {
-                            "Exam": exam,
+                            "Exam":
+                                exam.upper(),
 
-                            "Branch": branch,
+                            "Branch":
+                                branch,
 
-                            "Student Rank": rank,
+                            "Student Rank":
+                                rank,
 
-                            "Rating": rating,
+                            "Rating":
+                                rating,
 
-                            "Management Fees": (
-                                clean_numeric(
-                                    row.get(
-                                        "Management Fees",
-                                        0
-                                    )
-                                )
-                            ),
+                            "Management Fees":
+                                management_fees,
 
-                            "Hostel Fees": (
-                                clean_numeric(
-                                    row.get(
-                                        "Hostel Fees",
-                                        0
-                                    )
-                                )
-                            ),
+                            "Hostel Fees":
+                                hostel_fees,
 
-                            "Cutoff Rank": cutoff
+                            "Cutoff Rank":
+                                cutoff
                         }
                     ]
                 )
 
-                # ------------------------------------------------
+
+                # --------------------------------------------
                 # PREDICT PROBABILITY
-                # ------------------------------------------------
+                # --------------------------------------------
 
                 if hasattr(
                     model,
@@ -2616,78 +3049,91 @@ def predict():
                         )
                     )
 
+
                     if (
-                        len(probabilities) > 0
-                        and
-                        len(probabilities[0]) >= 2
+                        len(probabilities)
+                        > 0
                     ):
 
-                        # Probability of Eligible = 1
-                        ml_score = float(
-                            probabilities[0][1]
+                        probability_row = (
+                            probabilities[0]
                         )
 
-                    elif (
-                        len(probabilities) > 0
-                        and
-                        len(probabilities[0]) == 1
-                    ):
 
-                        ml_score = float(
-                            probabilities[0][0]
-                        )
+                        if (
+                            len(
+                                probability_row
+                            )
+                            >= 2
+                        ):
 
-                # ------------------------------------------------
-                # FALLBACK TO PREDICT()
-                # ------------------------------------------------
+                            ml_score = float(
+                                probability_row[1]
+                            )
+
+                        else:
+
+                            ml_score = float(
+                                probability_row[0]
+                            )
+
+
+                # --------------------------------------------
+                # FALLBACK TO PREDICT
+                # --------------------------------------------
 
                 elif hasattr(
                     model,
                     "predict"
                 ):
 
-                    prediction = (
+                    prediction_value = (
                         model.predict(
                             feature_row
                         )[0]
                     )
 
                     ml_score = float(
-                        prediction
+                        prediction_value
                     )
+
 
             except Exception as model_error:
 
                 app.logger.warning(
-                    "ML prediction fallback used: %s",
+                    "ML prediction fallback used | exam=%s | branch=%s | college=%s | error=%s",
+                    exam,
+                    branch,
+                    row.get(
+                        "College Name",
+                        ""
+                    ),
                     model_error
                 )
 
                 ml_score = None
 
+
         # ====================================================
-        # RULE-BASED FALLBACK
+        # FALLBACK ML SCORE
         # ====================================================
 
         if ml_score is None:
 
             if cutoff > 0:
 
-                ml_score = max(
-                    0.0,
-                    min(
-                        1.0,
-                        1.0
-                        - (
-                            abs(
-                                cutoff - rank
-                            )
-                            /
-                            max(
-                                cutoff,
-                                rank,
-                                1
-                            )
+                ml_score = (
+                    1.0
+                    -
+                    (
+                        abs(
+                            cutoff - rank
+                        )
+                        /
+                        max(
+                            cutoff,
+                            rank,
+                            1
                         )
                     )
                 )
@@ -2696,161 +3142,293 @@ def predict():
 
                 ml_score = 0.5
 
-        # ====================================================
-        # KEEP SCORE BETWEEN 0 AND 1
-        # ====================================================
 
         ml_score = max(
             0.0,
             min(
                 1.0,
-                float(
-                    ml_score
-                )
+                float(ml_score)
             )
         )
 
+
         # ====================================================
-        # RECOMMENDATION SCORE
+        # RATING SCORE
         # ====================================================
 
-        recommendation_score = (
-            calculate_recommendation_score(
-                rank,
-                cutoff,
-                ml_score,
-                rating,
+        if rating > 0:
+
+            rating_score = min(
+                1.0,
+                float(rating)
+                /
+                5.0
+            )
+
+        else:
+
+            rating_score = 0.5
+
+
+        # ====================================================
+        # FEE SCORE
+        # ====================================================
+
+        if management_fees <= 0:
+
+            fee_score = 0.5
+
+        else:
+
+            fee_score = max(
+                0.0,
+                min(
+                    1.0,
+                    1.0
+                    -
+                    (
+                        management_fees
+                        /
+                        1000000.0
+                    )
+                )
+            )
+
+
+        # ====================================================
+        # FINAL SCORE
+        #
+        # 40% Rank
+        # 35% ML
+        # 15% Rating
+        # 10% Fees
+        # ====================================================
+
+        final_score = (
+
+            (
+                rank_score
+                * 0.40
+            )
+
+            +
+
+            (
+                ml_score
+                * 0.35
+            )
+
+            +
+
+            (
+                rating_score
+                * 0.15
+            )
+
+            +
+
+            (
                 fee_score
+                * 0.10
+            )
+
+        )
+
+
+        final_score = max(
+            0.0,
+            min(
+                1.0,
+                float(final_score)
             )
         )
 
-        # ====================================================
-        # CONVERT COLLEGE ROW TO DICTIONARY
-        # ====================================================
 
-        college = row.to_dict()
-
-        # ====================================================
-        # ADD PREDICTION INFORMATION
-        # ====================================================
-
-        college.update(
-            {
-                "Exam": exam,
-
-                "SourceIndex": int(
-                    index
-                ),
-
-                "Original Index": int(
-                    index
-                ),
-
-                "ML Probability": round(
-                    ml_score * 100,
-                    1
-                ),
-
-                "Recommendation Score":
-                    recommendation_score,
-
-                "Chance": round(
-                    recommendation_score * 100,
-                    1
-                )
-            }
+        chance_percentage = round(
+            final_score * 100,
+            1
         )
+
+
+        # ====================================================
+        # PREDICTION LABEL
+        # ====================================================
+
+        if chance_percentage >= 75:
+
+            prediction_label = (
+                "High Chance"
+            )
+
+        elif chance_percentage >= 50:
+
+            prediction_label = (
+                "Good Chance"
+            )
+
+        elif chance_percentage >= 30:
+
+            prediction_label = (
+                "Moderate Chance"
+            )
+
+        else:
+
+            prediction_label = (
+                "Low Chance"
+            )
+
+
+        # ====================================================
+        # CREATE RESULT
+        # ====================================================
+
+        result = row.to_dict()
+
+
+        # ====================================================
+        # BASIC RESULT DATA
+        # ====================================================
+
+        result["Exam"] = exam_name
+
+        result["Branch"] = branch
+
+        result["Student Rank"] = rank
+
+        result["Cutoff Rank"] = cutoff
+
+        result["Rating"] = rating
+
+        result["Management Fees"] = (
+            management_fees
+        )
+
+        result["Hostel Fees"] = (
+            hostel_fees
+        )
+
+
+        # ====================================================
+        # EXAM FEE
+        # ====================================================
+
+        result["Exam Fee"] = (
+            exam_fee
+        )
+
+        result["Exam Fee Label"] = (
+            exam_fee_label
+        )
+
+
+        # ====================================================
+        # SCORES
+        # ====================================================
+
+        result["ML Score"] = round(
+            ml_score * 100,
+            1
+        )
+
+        result["Rank Score"] = round(
+            rank_score * 100,
+            1
+        )
+
+        result["Fee Score"] = round(
+            fee_score * 100,
+            1
+        )
+
+        result["Chance"] = (
+            chance_percentage
+        )
+
+        result["Chance Percentage"] = (
+            chance_percentage
+        )
+
+        result["Prediction"] = (
+            prediction_label
+        )
+
+
+        # ====================================================
+        # SOURCE INDEX
+        # ====================================================
+
+        result["SourceIndex"] = int(
+            index
+        )
+
 
         # ====================================================
         # CLEAN WEBSITE
         # ====================================================
 
-        college["Website"] = (
-            clean_website(
-                college.get(
-                    "Website",
-                    ""
-                ),
-                college.get(
-                    "College Name",
-                    ""
-                )
+        result["Website"] = clean_website(
+            row.get(
+                "Website",
+                ""
+            ),
+            row.get(
+                "College Name",
+                ""
             )
         )
+
 
         # ====================================================
         # CLEAN IMAGE
         # ====================================================
 
-        college["Image"] = (
-            clean_image(
-                college.get(
-                    "Image",
-                    ""
-                )
+        result["Image"] = get_result_image(
+            row.get(
+                "Image",
+                ""
             )
         )
 
-        # ====================================================
-        # CLEAN EXAM FEES
-        # ====================================================
-
-        college["Exam Fees"] = (
-            clean_numeric(
-                college.get(
-                    "Exam Fees",
-                    0
-                )
-            )
-        )
 
         # ====================================================
         # ADD RESULT
         # ====================================================
 
         results.append(
-            college
+            result
         )
+
 
     # ========================================================
     # SORT RESULTS
     # ========================================================
 
     results.sort(
-        key=lambda x: (
-            float(
-                x.get(
-                    "Recommendation Score",
-                    0
-                )
+        key=lambda item:
+            item.get(
+                "Chance",
+                0
             ),
-            float(
-                x.get(
-                    "Rating",
-                    0
-                )
-            )
-        ),
         reverse=True
     )
+
 
     # ========================================================
     # LIMIT RESULTS
     # ========================================================
 
-    results = results[:50]
+    results = results[:20]
+
 
     # ========================================================
     # SAVE PREDICTION HISTORY
     # ========================================================
 
-    connection = None
+    connection = get_db_connection()
+
 
     try:
-
-        connection = (
-            get_db_connection()
-        )
 
         connection.execute(
             """
@@ -2890,50 +3468,71 @@ def predict():
 
                 branch,
 
-                request.form.get(
-                    "category",
-                    ""
-                ).strip(),
+                category,
 
-                request.form.get(
-                    "gender",
-                    ""
-                ).strip(),
+                gender,
 
-                request.form.get(
-                    "preferred_location",
-                    ""
-                ).strip(),
+                preferred_location,
 
-                request.form.get(
-                    "state",
-                    ""
-                ).strip(),
+                state,
 
-                request.form.get(
-                    "fee_range",
-                    ""
-                ).strip()
+                fee_range
             )
         )
 
+
         connection.commit()
 
-    except Exception as error:
 
-        app.logger.exception(
+    except Exception as history_error:
+
+        connection.rollback()
+
+        app.logger.warning(
             "Prediction history save failed: %s",
-            error
+            history_error
         )
+
 
     finally:
 
-        if connection is not None:
+        connection.close()
 
-            connection.close()
 
     # ========================================================
-    # RETURN RESULTS
+    # NO RESULTS AFTER PROCESSING
+    # ========================================================
+
+    if not results:
+
+        flash(
+            (
+                "No colleges were found for "
+                f"{branch} in {exam_name}."
+            ),
+            "error"
+        )
+
+        return redirect(
+            url_for("predictor")
+        )
+
+
+    # ========================================================
+    # FINAL LOG
+    # ========================================================
+
+    app.logger.info(
+        "Prediction completed | exam=%s | branch=%s | rank=%s | results=%s",
+        exam,
+        branch,
+        rank,
+        len(results)
+    )
+
+
+    # ========================================================
+    # RENDER RESULT PAGE
     # ========================================================
 
     return render_template(
@@ -2945,13 +3544,25 @@ def predict():
 
         exam=exam,
 
-        exam_name=exam,
+        exam_name=exam_name,
 
         rank=rank,
 
-        student_rank=rank,
+        branch=branch,
 
-        branch=branch
+        category=category,
+
+        gender=gender,
+
+        preferred_location=preferred_location,
+
+        state=state,
+
+        fee_range=fee_range,
+
+        min_rank=min_rank,
+
+        max_rank=max_rank
     )
 
 # ============================================================
@@ -2975,6 +3586,96 @@ def update_profile():
         connection.execute("UPDATE users SET name=%s WHERE id=%s",(name,session.get("user_id"))); connection.commit(); session["user_name"]=name; flash("Profile updated successfully.","success")
     finally: connection.close()
     return redirect(url_for("profile"))
+
+# ============================================================
+# COLLEGE IMAGE PATH HELPER
+# ============================================================
+
+def get_result_image(image_value):
+
+    # --------------------------------------------------------
+    # No image value
+    # --------------------------------------------------------
+
+    if image_value is None:
+        return "images/default.jpg"
+
+
+    # --------------------------------------------------------
+    # Convert image value to string
+    # --------------------------------------------------------
+
+    image = str(
+        image_value
+    ).strip()
+
+
+    # --------------------------------------------------------
+    # Empty image value
+    # --------------------------------------------------------
+
+    if not image:
+        return "images/default.jpg"
+
+
+    # --------------------------------------------------------
+    # External image URL
+    # --------------------------------------------------------
+
+    if (
+        image.startswith("http://")
+        or image.startswith("https://")
+    ):
+
+        return image
+
+
+    # --------------------------------------------------------
+    # Remove leading slash
+    # Example:
+    # /images/college.jpg
+    # becomes:
+    # images/college.jpg
+    # --------------------------------------------------------
+
+    image = image.lstrip("/")
+
+
+    # --------------------------------------------------------
+    # Remove "static/" if it already exists
+    #
+    # Example:
+    # static/images/college.jpg
+    #
+    # becomes:
+    # images/college.jpg
+    # --------------------------------------------------------
+
+    if image.lower().startswith("static/"):
+
+        image = image[7:]
+
+
+    # --------------------------------------------------------
+    # Add images/ folder if it is missing
+    #
+    # Example:
+    # Reva University.jpg
+    #
+    # becomes:
+    # images/Reva University.jpg
+    # --------------------------------------------------------
+
+    if not image.lower().startswith("images/"):
+
+        image = "images/" + image
+
+
+    # --------------------------------------------------------
+    # Return final image path
+    # --------------------------------------------------------
+
+    return image
 
 @app.route("/help")
 @login_required
@@ -3014,15 +3715,514 @@ def get_college_from_source_index(exam,source_index):
     college["Exam Fees"]=clean_numeric(college.get("Kcet Fees" if exam=="KCET" else "Eamcet Fees",0))
     return college
 
-@app.route("/saved-colleges")
+# ============================================================
+# SAVED COLLEGES
+# ============================================================
+
+@app.route(
+    "/saved_colleges"
+)
 @login_required
 def saved_colleges():
-    connection=get_db_connection(); rows=connection.execute("SELECT exam,college_index,created_at FROM saved_colleges WHERE user_id=%s ORDER BY created_at DESC",(session.get("user_id"),)).fetchall(); connection.close()
-    colleges=[]
-    for row in rows:
-        college=get_college_from_source_index(row["exam"],row["college_index"])
-        if college is not None: colleges.append(college)
-    return render_template("saved_colleges.html",saved_colleges=colleges,colleges=colleges)
+
+    user_id = session.get(
+        "user_id"
+    )
+
+    app.logger.info(
+        "Loading saved colleges | user=%s",
+        user_id
+    )
+
+
+    # ========================================================
+    # GET SAVED RECORDS FROM DATABASE
+    # ========================================================
+
+    connection = get_db_connection()
+
+    try:
+
+        saved_rows = connection.execute(
+            """
+            SELECT
+                id,
+                user_id,
+                exam,
+                college_index,
+                created_at
+            FROM saved_colleges
+            WHERE user_id = %s
+            ORDER BY created_at DESC
+            """,
+            (
+                user_id,
+            )
+        ).fetchall()
+
+    except Exception as error:
+
+        app.logger.exception(
+            "Failed to load saved colleges: %s",
+            error
+        )
+
+        flash(
+            "Unable to load saved colleges.",
+            "error"
+        )
+
+        saved_rows = []
+
+    finally:
+
+        connection.close()
+
+
+    # ========================================================
+    # FINAL COLLEGE LIST
+    # ========================================================
+
+    colleges = []
+
+
+    # ========================================================
+    # PROCESS EACH SAVED COLLEGE
+    # ========================================================
+
+    for saved_row in saved_rows:
+
+        try:
+
+            # PostgreSQL dict_row already gives us a dictionary.
+            # DO NOT use saved_row.to_dict().
+
+            exam = str(
+                saved_row.get(
+                    "exam",
+                    ""
+                )
+            ).strip().lower()
+
+
+            college_index = saved_row.get(
+                "college_index"
+            )
+
+
+            # =================================================
+            # VALIDATE EXAM
+            # =================================================
+
+            if exam not in {
+                "kcet",
+                "eamcet"
+            }:
+
+                app.logger.warning(
+                    "Invalid saved exam | exam=%s",
+                    exam
+                )
+
+                continue
+
+
+            # =================================================
+            # VALIDATE INDEX
+            # =================================================
+
+            try:
+
+                college_index = int(
+                    college_index
+                )
+
+            except (
+                ValueError,
+                TypeError
+            ):
+
+                app.logger.warning(
+                    "Invalid saved college index | index=%s",
+                    college_index
+                )
+
+                continue
+
+
+            # =================================================
+            # SELECT DATASET
+            # =================================================
+
+            if exam == "kcet":
+
+                dataframe = kcet_df.copy()
+
+                exam_name = "KCET"
+
+            else:
+
+                dataframe = eamcet_df.copy()
+
+                exam_name = "EAMCET"
+
+
+            # =================================================
+            # CHECK INDEX
+            # =================================================
+
+            if (
+                college_index < 0
+                or
+                college_index >= len(
+                    dataframe
+                )
+            ):
+
+                app.logger.warning(
+                    "Saved college index out of range | exam=%s | index=%s",
+                    exam,
+                    college_index
+                )
+
+                continue
+
+
+            # =================================================
+            # GET SAVED ORIGINAL ROW
+            # =================================================
+
+            row = dataframe.iloc[
+                college_index
+            ]
+
+
+            # =================================================
+            # COLLEGE NAME
+            # =================================================
+
+            college_name = str(
+                row.get(
+                    "College Name",
+                    ""
+                )
+            ).strip()
+
+
+            if not college_name:
+
+                continue
+
+
+            # =================================================
+            # CREATE COLLEGE OBJECT
+            # =================================================
+
+            saved_college = {
+
+                "College Name":
+                    college_name,
+
+                "Exam":
+                    exam_name,
+
+                "SourceIndex":
+                    college_index,
+
+                "Original Index":
+                    college_index,
+
+                "Location":
+                    str(
+                        row.get(
+                            "Location",
+                            ""
+                        )
+                    ).strip(),
+
+                "State":
+                    str(
+                        row.get(
+                            "State",
+                            ""
+                        )
+                    ).strip(),
+
+                "Rating":
+                    clean_rating(
+                        row.get(
+                            "Rating",
+                            0
+                        )
+                    ),
+
+                "Image":
+                    get_result_image(
+                        row.get(
+                            "Image",
+                            ""
+                        )
+                    ),
+
+                "Website":
+                    clean_website(
+                        row.get(
+                            "Website",
+                            ""
+                        ),
+                        college_name
+                    ),
+
+                "Latitude":
+                    row.get(
+                        "Latitude",
+                        ""
+                    ),
+
+                "Longitude":
+                    row.get(
+                        "Longitude",
+                        ""
+                    ),
+
+                "Branches":
+                    []
+
+            }
+
+
+            # =================================================
+            # FIND ALL BRANCHES FOR THIS COLLEGE
+            # =================================================
+
+            college_name_key = (
+                college_name
+                .strip()
+                .lower()
+            )
+
+
+            for branch_index, branch_row in dataframe.iterrows():
+
+                branch_college_name = str(
+                    branch_row.get(
+                        "College Name",
+                        ""
+                    )
+                ).strip()
+
+
+                # ------------------------------------------------
+                # Only process the same college
+                # ------------------------------------------------
+
+                if (
+                    branch_college_name
+                    .lower()
+                    !=
+                    college_name_key
+                ):
+
+                    continue
+
+
+                # =================================================
+                # BRANCH
+                # =================================================
+
+                branch_name = str(
+                    branch_row.get(
+                        "Branch",
+                        ""
+                    )
+                ).strip()
+
+
+                if not branch_name:
+
+                    branch_name = "N/A"
+
+
+                # =================================================
+                # CUTOFF
+                # =================================================
+
+                cutoff_rank = clean_rank(
+                    branch_row.get(
+                        "Cutoff Rank",
+                        0
+                    )
+                )
+
+
+                # =================================================
+                # MANAGEMENT FEES
+                # =================================================
+
+                management_fees = clean_numeric(
+                    branch_row.get(
+                        "Management Fees",
+                        0
+                    )
+                )
+
+
+                # =================================================
+                # EXAM FEES
+                # =================================================
+
+                if exam == "kcet":
+
+                    exam_fees = clean_numeric(
+                        branch_row.get(
+                            "Kcet Fees",
+                            branch_row.get(
+                                "KCET Fees",
+                                0
+                            )
+                        )
+                    )
+
+                else:
+
+                    exam_fees = clean_numeric(
+                        branch_row.get(
+                            "Eamcet Fees",
+                            branch_row.get(
+                                "EAMCET Fees",
+                                0
+                            )
+                        )
+                    )
+
+
+                # =================================================
+                # BRANCH OBJECT
+                # =================================================
+
+                branch_data = {
+
+                    "Branch":
+                        branch_name,
+
+                    "Cutoff Rank":
+                        cutoff_rank,
+
+                    "Management Fees":
+                        management_fees,
+
+                    "Exam Fees":
+                        exam_fees,
+
+                    "Rating":
+                        clean_rating(
+                            branch_row.get(
+                                "Rating",
+                                0
+                            )
+                        )
+
+                }
+
+
+                # =================================================
+                # PREVENT DUPLICATE BRANCHES
+                # =================================================
+
+                existing_branches = [
+
+                    str(
+                        existing_branch.get(
+                            "Branch",
+                            ""
+                        )
+                    )
+                    .strip()
+                    .upper()
+
+                    for existing_branch
+                    in saved_college[
+                        "Branches"
+                    ]
+
+                ]
+
+
+                if (
+                    branch_name
+                    .strip()
+                    .upper()
+                    not in existing_branches
+                ):
+
+                    saved_college[
+                        "Branches"
+                    ].append(
+                        branch_data
+                    )
+
+
+            # =================================================
+            # LOG RESULT
+            # =================================================
+
+            app.logger.info(
+                "Saved college loaded | "
+                "exam=%s | "
+                "index=%s | "
+                "name=%s | "
+                "branches=%s",
+                exam,
+                college_index,
+                college_name,
+                len(
+                    saved_college[
+                        "Branches"
+                    ]
+                )
+            )
+
+
+            # =================================================
+            # ADD COLLEGE
+            # =================================================
+
+            colleges.append(
+                saved_college
+            )
+
+
+        except Exception as error:
+
+            app.logger.exception(
+                "Error processing saved college: %s",
+                error
+            )
+
+            continue
+
+
+    # ========================================================
+    # FINAL LOG
+    # ========================================================
+
+    app.logger.info(
+        "Saved colleges loaded | "
+        "user=%s | "
+        "count=%s",
+        user_id,
+        len(colleges)
+    )
+
+
+    # ========================================================
+    # RENDER TEMPLATE
+    # ========================================================
+
+    return render_template(
+        "saved_colleges.html",
+        colleges=colleges
+    )
 
 # ============================================================
 # SAVE COLLEGE
@@ -3036,22 +4236,52 @@ def saved_colleges():
 def save_college():
 
     # --------------------------------------------------------
-    # GET FORM DATA
+    # GET EXAM
     # --------------------------------------------------------
 
     exam = (
         request.form.get("exam") or ""
     ).strip().lower()
 
+
+    # --------------------------------------------------------
+    # GET COLLEGE INDEX
+    # --------------------------------------------------------
+
     index_text = (
         request.form.get("index") or ""
     ).strip()
 
+
+    app.logger.info(
+        "Save request received | exam=%s | index=%s | user=%s",
+        exam,
+        index_text,
+        session.get("user_id")
+    )
+
+
     # --------------------------------------------------------
     # VALIDATE EXAM
+    #
+    # Accept both:
+    # KCET / kcet
+    # EAMCET / eamcet
     # --------------------------------------------------------
 
-    if exam not in ALLOWED_EXAMS:
+    allowed_exams = {
+        str(value).strip().lower()
+        for value in ALLOWED_EXAMS
+    }
+
+
+    if exam not in allowed_exams:
+
+        app.logger.warning(
+            "Invalid save exam | received=%s | allowed=%s",
+            exam,
+            allowed_exams
+        )
 
         flash(
             "Invalid exam.",
@@ -3063,8 +4293,9 @@ def save_college():
             or url_for("colleges")
         )
 
+
     # --------------------------------------------------------
-    # VALIDATE COLLEGE INDEX
+    # VALIDATE INDEX
     # --------------------------------------------------------
 
     try:
@@ -3078,6 +4309,11 @@ def save_college():
         TypeError
     ):
 
+        app.logger.warning(
+            "Invalid save college index | value=%s",
+            index_text
+        )
+
         flash(
             "Invalid college.",
             "error"
@@ -3088,6 +4324,7 @@ def save_college():
             or url_for("colleges")
         )
 
+
     # --------------------------------------------------------
     # FIND COLLEGE
     # --------------------------------------------------------
@@ -3097,7 +4334,14 @@ def save_college():
         college_index
     )
 
+
     if college is None:
+
+        app.logger.warning(
+            "College not found for save | exam=%s | index=%s",
+            exam,
+            college_index
+        )
 
         flash(
             "College could not be found.",
@@ -3109,20 +4353,15 @@ def save_college():
             or url_for("colleges")
         )
 
+
     # --------------------------------------------------------
-    # DATABASE CONNECTION
+    # SAVE TO POSTGRESQL
     # --------------------------------------------------------
 
     connection = get_db_connection()
 
-    try:
 
-        # ----------------------------------------------------
-        # SAVE COLLEGE
-        #
-        # PostgreSQL version of SQLite
-        # INSERT OR IGNORE
-        # ----------------------------------------------------
+    try:
 
         connection.execute(
             """
@@ -3150,72 +4389,59 @@ def save_college():
                 session.get("user_id"),
                 exam,
                 college_index
-            ),
+            )
         )
 
-        # ----------------------------------------------------
-        # COMMIT
-        # ----------------------------------------------------
 
         connection.commit()
 
-        # ----------------------------------------------------
-        # SUCCESS MESSAGE
-        # ----------------------------------------------------
-
-        flash(
-            "College saved successfully.",
-            "success"
-        )
-
-        # ----------------------------------------------------
-        # LOG
-        # ----------------------------------------------------
 
         app.logger.info(
-            "College saved | user=%s | exam=%s | index=%s | name=%s",
+            "College saved successfully | user=%s | exam=%s | index=%s | name=%s",
             session.get("user_id"),
             exam,
             college_index,
             college.get(
                 "College Name",
                 ""
-            ),
+            )
         )
+
+
+        flash(
+            "College saved successfully.",
+            "success"
+        )
+
 
     except Exception as error:
 
-        # ----------------------------------------------------
-        # ROLLBACK
-        # ----------------------------------------------------
-
         connection.rollback()
+
 
         app.logger.exception(
             "Save college failed: %s",
             error
         )
 
+
         flash(
             "Unable to save college.",
             "error"
         )
 
-    finally:
 
-        # ----------------------------------------------------
-        # CLOSE DATABASE CONNECTION
-        # ----------------------------------------------------
+    finally:
 
         connection.close()
 
+
     # --------------------------------------------------------
-    # RETURN TO PREVIOUS PAGE
+    # GO TO SAVED COLLEGES
     # --------------------------------------------------------
 
     return redirect(
-        request.referrer
-        or url_for("saved_colleges")
+        url_for("saved_colleges")
     )
 
 @app.route("/remove-saved-college", methods=["POST"])
