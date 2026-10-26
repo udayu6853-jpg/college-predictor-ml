@@ -1,1465 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        Saved Colleges - College Predictor
-    </title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Colleges - EduPredict</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        skyCanvas: '#F0F7FE',
+                        skyPrimary: '#0284C7',
+                        skyAccent: '#0EA5E9',
+                        skyTint: '#E0F2FE',
+                        skyBorder: '#BAE6FD',
+                        navyText: '#0F172A'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-dark-saas.css') }}">
     <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
         body {
-
-            font-family:
-                "Segoe UI",
-                Arial,
-                sans-serif;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #eef6ff,
-                    #f8fbff
-                );
-
-            color: #17345e;
-
-            min-height: 100vh;
-
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #F0F7FE;
+            background-image: 
+                radial-gradient(circle at 10% 12%, rgba(14, 165, 233, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 90% 18%, rgba(2, 132, 199, 0.06) 0%, transparent 45%),
+                radial-gradient(circle at 50% 88%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: #334155;
         }
-
-
-        /* =====================================================
-           NAVBAR
-        ===================================================== */
-
-        .navbar {
-
-            width: 100%;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #0874df,
-                    #0056b3
-                );
-
-            color: white;
-
-            padding:
-                15px 30px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            box-shadow:
-                0 4px 14px
-                rgba(
-                    0,
-                    86,
-                    179,
-                    0.20
-                );
-
-            position: sticky;
-
-            top: 0;
-
-            z-index: 1000;
-
+        .sky-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid #E0F2FE;
         }
-
-
-        .navbar-title {
-
-            font-size: 21px;
-
-            font-weight: 800;
-
-            letter-spacing: 0.2px;
-
+        .sky-card {
+            background: #FFFFFF;
+            border: 1px solid #E0F2FE;
+            box-shadow: 0 4px 20px -2px rgba(2, 132, 199, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-
-        .navbar-links {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            flex-wrap: wrap;
-
+        .sky-card:hover {
+            border-color: #BAE6FD;
+            box-shadow: 0 12px 28px -4px rgba(2, 132, 199, 0.12), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
         }
-
-
-        .navbar-links a {
-
-            color: white;
-
-            text-decoration: none;
-
-            padding:
-                8px 12px;
-
-            border-radius: 8px;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            transition:
-                background 0.2s ease;
-
-        }
-
-
-        .navbar-links a:hover {
-
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.16
-                );
-
-        }
-
-
-        /* =====================================================
-           MAIN CONTAINER
-        ===================================================== */
-
-        .container {
-
-            width: 94%;
-
-            max-width: 1250px;
-
-            margin:
-                35px auto 60px;
-
-        }
-
-
-        /* =====================================================
-           PAGE HEADER
-        ===================================================== */
-
-        .page-header {
-
-            margin-bottom: 25px;
-
-        }
-
-
-        .page-header h1 {
-
-            font-size: 30px;
-
-            color: #17345e;
-
-            font-weight: 800;
-
-            margin-bottom: 7px;
-
-        }
-
-
-        .page-header p {
-
-            color: #6b7f99;
-
-            font-size: 14px;
-
-        }
-
-
-        /* =====================================================
-           FLASH MESSAGES
-        ===================================================== */
-
-        .flash-container {
-
-            margin-bottom: 20px;
-
-        }
-
-
-        .flash-message {
-
-            padding:
-                12px 16px;
-
-            border-radius: 9px;
-
-            margin-bottom: 10px;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-        }
-
-
-        .flash-success {
-
-            background: #e9f9ef;
-
-            color: #187a3d;
-
-            border:
-                1px solid
-                #b9e8c8;
-
-        }
-
-
-        .flash-error {
-
-            background: #fff0f0;
-
-            color: #c62828;
-
-            border:
-                1px solid
-                #f1bcbc;
-
-        }
-
-
-        .flash-info {
-
-            background: #edf6ff;
-
-            color: #1769aa;
-
-            border:
-                1px solid
-                #c6e1fa;
-
-        }
-
-
-        /* =====================================================
-           SAVED COLLEGE GRID
-        ===================================================== */
-
-        .saved-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(
-                        310px,
-                        1fr
-                    )
-                );
-
-            gap: 24px;
-
-        }
-
-
-        /* =====================================================
-           COLLEGE CARD
-        ===================================================== */
-
-        .college-card {
-
-            background: white;
-
-            border:
-                1px solid
-                #dceaf8;
-
-            border-radius: 16px;
-
-            overflow: hidden;
-
-            box-shadow:
-                0 8px 24px
-                rgba(
-                    24,
-                    70,
-                    120,
-                    0.08
-                );
-
-            transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
-
-        }
-
-
-        .college-card:hover {
-
-            transform:
-                translateY(-4px);
-
-            box-shadow:
-                0 14px 32px
-                rgba(
-                    24,
-                    70,
-                    120,
-                    0.14
-                );
-
-        }
-
-
-        /* =====================================================
-           IMAGE
-        ===================================================== */
-
-        .college-image-wrapper {
-
-            width: 100%;
-
-            height: 190px;
-
-            overflow: hidden;
-
-            background:
-                #edf4fb;
-
-        }
-
-
-        .college-image {
-
-            width: 100%;
-
-            height: 100%;
-
-            object-fit: cover;
-
-            display: block;
-
-        }
-
-
-        /* =====================================================
-           CARD CONTENT
-        ===================================================== */
-
-        .college-content {
-
-            padding: 18px;
-
-        }
-
-
-        .college-name {
-
-            font-size: 19px;
-
-            font-weight: 800;
-
-            color: #17345e;
-
-            line-height: 1.3;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        .exam-badge {
-
-            display: inline-block;
-
-            padding:
-                5px 10px;
-
-            border-radius: 20px;
-
-            background:
-                #e9f4ff;
-
-            color: #0874df;
-
-            font-size: 10px;
-
-            font-weight: 800;
-
-            text-transform: uppercase;
-
-            margin-bottom: 12px;
-
-        }
-
-
-        /* =====================================================
-           COLLEGE INFORMATION
-        ===================================================== */
-
-        .college-info {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
-            gap: 8px;
-
-            margin-bottom: 15px;
-
-        }
-
-
-        .info-item {
-
-            padding:
-                9px 10px;
-
-            background:
-                #f7fbff;
-
-            border:
-                1px solid
-                #e4eff9;
-
-            border-radius: 8px;
-
-        }
-
-
-        .info-label {
-
-            color: #7b8da5;
-
-            font-size: 10px;
-
-            margin-bottom: 3px;
-
-        }
-
-
-        .info-value {
-
-            color: #29486f;
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-        }
-
-
-        /* =====================================================
-           ALL BRANCHES
-        ===================================================== */
-
-        .branches-section {
-
-            margin-top: 18px;
-
-        }
-
-
-        .branches-title {
-
-            color: #17345e;
-
-            font-size: 14px;
-
-            font-weight: 800;
-
-            margin-bottom: 10px;
-
-        }
-
-
-        .saved-branches {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 9px;
-
-        }
-
-
-        .saved-branch-card {
-
-            padding:
-                11px 12px;
-
-            background:
-                #f7fbff;
-
-            border:
-                1px solid
-                #dceaf8;
-
-            border-radius: 10px;
-
-        }
-
-
-        .saved-branch-name {
-
-            color: #0874df;
-
-            font-size: 13px;
-
-            font-weight: 800;
-
-            margin-bottom: 7px;
-
-        }
-
-
-        .saved-branch-row {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 10px;
-
-            font-size: 11px;
-
-            line-height: 1.7;
-
-        }
-
-
-        .saved-branch-row span {
-
-            color: #6b7f99;
-
-        }
-
-
-        .saved-branch-row strong {
-
-            color: #29486f;
-
-            font-weight: 700;
-
-            text-align: right;
-
-        }
-
-
-        .no-branches {
-
-            color: #7b8da5;
-
-            font-size: 12px;
-
-            margin: 8px 0;
-
-        }
-
-
-        /* =====================================================
-           BUTTONS
-        ===================================================== */
-
-        .card-actions {
-
-            display: flex;
-
-            gap: 9px;
-
-            margin-top: 18px;
-
-        }
-
-
-        .action-button {
-
-            flex: 1;
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            text-decoration: none;
-
-            border: none;
-
-            cursor: pointer;
-
-            padding:
-                10px 12px;
-
-            border-radius: 8px;
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-            transition:
-                transform 0.2s ease,
-                opacity 0.2s ease;
-
-        }
-
-
-        .action-button:hover {
-
-            transform:
-                translateY(-1px);
-
-            opacity: 0.92;
-
-        }
-
-
-        .view-button {
-
-            background:
-                #0874df;
-
-            color: white;
-
-        }
-
-
-        .remove-button {
-
-            background:
-                #fff0f0;
-
-            color: #d32f2f;
-
-            border:
-                1px solid
-                #f0c2c2;
-
-        }
-
-
-        /* =====================================================
-           EMPTY STATE
-        ===================================================== */
-
-        .empty-state {
-
-            background: white;
-
-            border:
-                1px solid
-                #dceaf8;
-
-            border-radius: 16px;
-
-            padding:
-                55px 25px;
-
-            text-align: center;
-
-            box-shadow:
-                0 8px 24px
-                rgba(
-                    24,
-                    70,
-                    120,
-                    0.07
-                );
-
-        }
-
-
-        .empty-icon {
-
-            font-size: 48px;
-
-            margin-bottom: 15px;
-
-        }
-
-
-        .empty-state h2 {
-
-            color: #17345e;
-
-            font-size: 21px;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        .empty-state p {
-
-            color: #71839c;
-
-            font-size: 13px;
-
-            margin-bottom: 20px;
-
-        }
-
-
-        .browse-button {
-
-            display: inline-block;
-
-            background:
-                #0874df;
-
-            color: white;
-
-            text-decoration: none;
-
-            padding:
-                11px 20px;
-
-            border-radius: 8px;
-
-            font-size: 13px;
-
-            font-weight: 700;
-
-        }
-
-
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
-        @media (
-            max-width: 768px
-        ) {
-
-            .navbar {
-
-                padding:
-                    13px 16px;
-
-                flex-direction: column;
-
-                align-items: flex-start;
-
-                gap: 10px;
-
-            }
-
-
-            .navbar-links {
-
-                width: 100%;
-
-                overflow-x: auto;
-
-            }
-
-
-            .container {
-
-                width: 92%;
-
-                margin-top: 25px;
-
-            }
-
-
-            .page-header h1 {
-
-                font-size: 25px;
-
-            }
-
-
-            .saved-grid {
-
-                grid-template-columns:
-                    1fr;
-
-            }
-
-        }
-
-
-        @media (
-            max-width: 480px
-        ) {
-
-            .college-info {
-
-                grid-template-columns:
-                    1fr;
-
-            }
-
-
-            .card-actions {
-
-                flex-direction: column;
-
-            }
-
-
-            .college-image-wrapper {
-
-                height: 170px;
-
-            }
-
-        }
-
     </style>
-
 </head>
-
-
-<body>
-
-
-    <!-- =====================================================
-         NAVBAR
-    ===================================================== -->
-
-    <nav class="navbar">
-
-        <div class="navbar-title">
-
-            🎓 College Predictor
-
-        </div>
-
-
-        <div class="navbar-links">
-
-            <a
-                href="{{ url_for('dashboard') }}"
-            >
-                🏠 Dashboard
-            </a>
-
-            <a
-                href="{{ url_for('colleges') }}"
-            >
-                🎓 Colleges
-            </a>
-
-            <a
-                href="{{ url_for('predictor') }}"
-            >
-                🔮 Predictor
-            </a>
-
-            <a
-                href="{{ url_for('saved_colleges') }}"
-            >
-                ❤️ Saved
-            </a>
-
-            <a
-                href="{{ url_for('compare_colleges') }}"
-            >
-                ⚖️ Compare
-            </a>
-
-            <a
-                href="{{ url_for('prediction_history') }}"
-            >
-                🕘 History
-            </a>
-
-            <a
-                href="{{ url_for('logout') }}"
-            >
-                🚪 Logout
-            </a>
-
-        </div>
-
-    </nav>
-
-
-    <!-- =====================================================
-         MAIN
-    ===================================================== -->
-
-    <main class="container">
-
-
-        <!-- =================================================
-             PAGE HEADER
-        ================================================= -->
-
-        <div class="page-header">
-
-            <h1>
-                ❤️ Saved Colleges
-            </h1>
-
-            <p>
-                Your saved colleges and all available branches.
-            </p>
-
-        </div>
-
-
-        <!-- =================================================
-             FLASH MESSAGES
-        ================================================= -->
-
-        {% with messages = get_flashed_messages(
-            with_categories=true
-        ) %}
-
-            {% if messages %}
-
-                <div class="flash-container">
-
-                    {% for category, message in messages %}
-
-                        <div
-                            class="
-                                flash-message
-                                {% if category == 'success' %}
-                                    flash-success
-                                {% elif category == 'error' %}
-                                    flash-error
-                                {% else %}
-                                    flash-info
-                                {% endif %}
-                            "
-                        >
-
-                            {{ message }}
-
-                        </div>
-
-                    {% endfor %}
-
-                </div>
-
-            {% endif %}
-
-        {% endwith %}
-
-
-        <!-- =================================================
-             CHECK SAVED COLLEGES
-        ================================================= -->
-
-        {% if colleges %}
-
-
-            <!-- =============================================
-                 SAVED COLLEGE GRID
-            ============================================== -->
-
-            <div class="saved-grid">
-
-
-                {% for college in colleges %}
-
-
-                    <!-- =====================================
-                         COLLEGE CARD
-                    ====================================== -->
-
-                    <div class="college-card">
-
-
-                        <!-- =================================
-                             IMAGE
-                        ================================== -->
-
-                        <div
-                            class="college-image-wrapper"
-                        >
-
-                            <img
-                                src="{{ url_for(
-                                    'static',
-                                    filename=college.get(
-                                        'Image',
-                                        'images/default.jpg'
-                                    )
-                                ) }}"
-                                alt="{{ college.get(
-                                    'College Name',
-                                    'College'
-                                ) }}"
-                                class="college-image"
-                                onerror="
-                                    this.onerror=null;
-                                    this.src='{{ url_for(
-                                        'static',
-                                        filename='images/default.jpg'
-                                    ) }}';
-                                "
-                            >
-
-                        </div>
-
-
-                        <!-- =================================
-                             CONTENT
-                        ================================== -->
-
-                        <div class="college-content">
-
-
-                            <!-- COLLEGE NAME -->
-
-                            <div class="college-name">
-
-                                {{ college.get(
-                                    'College Name',
-                                    'College'
-                                ) }}
-
-                            </div>
-
-
-                            <!-- EXAM -->
-
-                            <div class="exam-badge">
-
-                                {{ college.get(
-                                    'Exam',
-                                    'KCET'
-                                ) }}
-
-                            </div>
-
-
-                            <!-- =================================
-                                 COLLEGE BASIC INFORMATION
-                            ================================== -->
-
-                            <div class="college-info">
-
-
-                                <!-- LOCATION -->
-
-                                <div class="info-item">
-
-                                    <div class="info-label">
-                                        Location
-                                    </div>
-
-                                    <div class="info-value">
-
-                                        {{ college.get(
-                                            'Location',
-                                            'N/A'
-                                        ) }}
-
-                                    </div>
-
-                                </div>
-
-
-                                <!-- STATE -->
-
-                                <div class="info-item">
-
-                                    <div class="info-label">
-                                        State
-                                    </div>
-
-                                    <div class="info-value">
-
-                                        {{ college.get(
-                                            'State',
-                                            'N/A'
-                                        ) }}
-
-                                    </div>
-
-                                </div>
-
-
-                                <!-- RATING -->
-
-                                <div class="info-item">
-
-                                    <div class="info-label">
-                                        Rating
-                                    </div>
-
-                                    <div class="info-value">
-
-                                        ⭐
-                                        {{ college.get(
-                                            'Rating',
-                                            'N/A'
-                                        ) }}
-
-                                    </div>
-
-                                </div>
-
-
-                                <!-- HOSTEL -->
-
-                                <div class="info-item">
-
-                                    <div class="info-label">
-                                        Hostel Fees
-                                    </div>
-
-                                    <div class="info-value">
-
-                                        ₹{{ "{:,.0f}".format(
-                                            college.get(
-                                                'Hostel Fees',
-                                                0
-                                            ) or 0
-                                        ) }}
-
-                                    </div>
-
-                                </div>
-
-
-                            </div>
-
-
-                            <!-- =================================
-                                 ALL BRANCHES
-                            ================================== -->
-
-                            <div class="branches-section">
-
-
-                                <div class="branches-title">
-
-                                    📚 All Branches
-
-                                </div>
-
-
-                                {% if college.get(
-                                    'Branches',
-                                    []
-                                ) %}
-
-
-                                    <div class="saved-branches">
-
-
-                                        {% for branch in college.get(
-                                            'Branches',
-                                            []
-                                        ) %}
-
-
-                                            <div
-                                                class="saved-branch-card"
-                                            >
-
-
-                                                <!-- BRANCH -->
-
-                                                <div
-                                                    class="
-                                                        saved-branch-name
-                                                    "
-                                                >
-
-                                                    {{ branch.get(
-                                                        'Branch',
-                                                        'N/A'
-                                                    ) }}
-
-                                                </div>
-
-
-                                                <!-- CUTOFF -->
-
-                                                <div
-                                                    class="
-                                                        saved-branch-row
-                                                    "
-                                                >
-
-                                                    <span>
-                                                        Cutoff:
-                                                    </span>
-
-                                                    <strong>
-
-                                                        {{ branch.get(
-                                                            'Cutoff Rank',
-                                                            0
-                                                        ) }}
-
-                                                    </strong>
-
-                                                </div>
-
-
-                                                <!-- MANAGEMENT -->
-
-                                                <div
-                                                    class="
-                                                        saved-branch-row
-                                                    "
-                                                >
-
-                                                    <span>
-                                                        Management:
-                                                    </span>
-
-                                                    <strong>
-
-                                                        ₹{{ "{:,.0f}".format(
-                                                            branch.get(
-                                                                'Management Fees',
-                                                                0
-                                                            ) or 0
-                                                        ) }}
-
-                                                    </strong>
-
-                                                </div>
-
-
-                                                <!-- EXAM FEE -->
-
-                                                <div
-                                                    class="
-                                                        saved-branch-row
-                                                    "
-                                                >
-
-                                                    <span>
-
-                                                        {% if college.get(
-                                                            'Exam',
-                                                            ''
-                                                        )|upper == 'EAMCET' %}
-
-                                                            EAMCET Fees
-
-                                                        {% else %}
-
-                                                            KCET Fees
-
-                                                        {% endif %}
-
-                                                    </span>
-
-
-                                                    <strong>
-
-                                                        ₹{{ "{:,.0f}".format(
-                                                            branch.get(
-                                                                'Exam Fees',
-                                                                0
-                                                            ) or 0
-                                                        ) }}
-
-                                                    </strong>
-
-                                                </div>
-
-
-                                            </div>
-
-
-                                        {% endfor %}
-
-
-                                    </div>
-
-
-                                {% else %}
-
-
-                                    <p class="no-branches">
-
-                                        No branch information available.
-
-                                    </p>
-
-
-                                {% endif %}
-
-
-                            </div>
-
-
-                            <!-- =================================
-                                 ACTION BUTTONS
-                            ================================== -->
-
-                            <div class="card-actions">
-
-
-                                <!-- VIEW DETAILS -->
-
-                                <a
-                                    href="{{ url_for(
-                                        'college_details',
-                                        exam=college.get(
-                                            'Exam',
-                                            'KCET'
-                                        )|lower,
-                                        index=college.get(
-                                            'SourceIndex',
-                                            0
-                                        )
-                                    ) }}"
-                                    class="
-                                        action-button
-                                        view-button
-                                    "
-                                >
-
-                                    👁 View Details
-
-                                </a>
-
-
-                                <!-- REMOVE -->
-
-                                <form
-                                    method="POST"
-                                    action="{{ url_for(
-                                        'remove_saved_college'
-                                    ) }}"
-                                    style="flex: 1;"
-                                >
-
-                                    <input
-                                        type="hidden"
-                                        name="csrf_token"
-                                        value="{{ csrf_token() }}"
-                                    >
-
-
-                                    <input
-                                        type="hidden"
-                                        name="exam"
-                                        value="{{ college.get(
-                                            'Exam',
-                                            'KCET'
-                                        )|lower }}"
-                                    >
-
-
-                                    <input
-                                        type="hidden"
-                                        name="index"
-                                        value="{{ college.get(
-                                            'SourceIndex',
-                                            0
-                                        ) }}"
-                                    >
-
-
-                                    <button
-                                        type="submit"
-                                        class="
-                                            action-button
-                                            remove-button
-                                        "
-                                        style="width: 100%;"
-                                        onclick="
-                                            return confirm(
-                                                'Remove this college from saved colleges?'
-                                            );
-                                        "
-                                    >
-
-                                        🗑 Remove
-
-                                    </button>
-
-                                </form>
-
-
-                            </div>
-
-
-                        </div>
-
-
+<body class="min-h-screen flex flex-col antialiased">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full sky-header shadow-xs transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-18 py-2.5">
+                <!-- Logo & Brand -->
+                <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3">
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-sky-500/25 ring-2 ring-sky-100 flex-shrink-0">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z"/>
+                        </svg>
                     </div>
-
-
-                {% endfor %}
-
-
-            </div>
-
-
-        {% else %}
-
-
-            <!-- =================================================
-                 EMPTY STATE
-            ================================================== -->
-
-            <div class="empty-state">
-
-                <div class="empty-icon">
-                    ❤️
-                </div>
-
-
-                <h2>
-                    No Saved Colleges
-                </h2>
-
-
-                <p>
-                    You haven't saved any colleges yet.
-                    Browse colleges and save your favorites here.
-                </p>
-
-
-                <a
-                    href="{{ url_for('colleges') }}"
-                    class="browse-button"
-                >
-
-                    Browse Colleges
-
+                    <div>
+                        <span class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">Edu<span class="text-sky-500">Predict</span></span>
+                        <span class="hidden sm:inline-block ml-1.5 text-xs font-semibold px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full border border-sky-200">Shortlisted</span>
+                    </div>
                 </a>
 
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="{{ url_for('dashboard') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Dashboard</a>
+                    <a href="{{ url_for('predictor') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Predictor</a>
+                    <a href="{{ url_for('colleges') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Colleges</a>
+                    <a href="{{ url_for('compare') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Compare</a>
+                    <a href="{{ url_for('prediction_history') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">History</a>
+                    <a href="{{ url_for('admin_contact') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Contact Admin</a>
+                </nav>
+
+                <!-- Profile / Auth Area -->
+                <div class="flex items-center gap-3">
+                    <a href="{{ url_for('profile') }}" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-sky-100 bg-white hover:bg-sky-50 text-slate-700 transition text-xs font-semibold shadow-2xs">
+                        <span>My Profile</span>
+                    </a>
+
+                    <!-- Logout Button -->
+                    <form method="POST" action="{{ url_for('logout') }}" class="inline m-0">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition" title="Logout">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        </button>
+                    </form>
+                </div>
             </div>
+        </div>
+    </header>
 
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-6">
 
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="space-y-3">
+                    {% for category, message in messages %}
+                        <div class="p-4 rounded-2xl text-xs font-bold border flex items-center justify-between {% if category == 'success' %}bg-emerald-50 border-emerald-200 text-emerald-800{% elif category == 'error' %}bg-rose-50 border-rose-200 text-rose-800{% else %}bg-sky-50 border-sky-200 text-sky-800{% endif %}">
+                            <span>{{ message }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1.5">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold">
+                    <svg class="w-3.5 h-3.5 text-rose-500 fill-rose-500" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span>Personalized Institutional Shortlist</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Saved Colleges</h1>
+                <p class="text-sm text-slate-500">Bookmarked colleges and branch cutoff options for quick counseling evaluation.</p>
+            </div>
+            {% if colleges %}
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-bold px-3 py-1.5 rounded-xl bg-white border border-sky-200 text-sky-700 shadow-2xs">
+                    {{ colleges|length }} Saved Colleges
+                </span>
+                <a
+                    href="{{ url_for('colleges') }}"
+                    class="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs transition shadow-2xs"
+                >
+                    + Browse More
+                </a>
+            </div>
+            {% endif %}
+        </div>
+
+        {% if colleges %}
+        <!-- Saved Colleges Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for college in colleges %}
+            <article class="college-card sky-card rounded-3xl overflow-hidden flex flex-col justify-between">
+                <div>
+                    <!-- College Image & Badges -->
+                    <div class="relative w-full h-48 bg-slate-100 overflow-hidden">
+                        {% set img = college.get('Image', 'static/images/default.jpg') %}
+                        {% if img.startswith('static/') %}
+                            {% set img = img[7:] %}
+                        {% endif %}
+                        <img
+                            src="{{ url_for('static', filename=img) }}"
+                            alt="{{ college.get('College Name', 'College') }}"
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/default.jpg') }}';"
+                        >
+
+                        <!-- Exam Pill -->
+                        <div class="absolute top-3 left-3">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-black bg-sky-600 text-white shadow-sm">
+                                {{ college.get('Exam', 'KCET') }}
+                            </span>
+                        </div>
+
+                        <!-- Rating -->
+                        <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-xl border border-sky-100 shadow-sm flex items-center gap-1 text-xs font-bold text-slate-800">
+                            <span class="text-amber-500 font-black">★</span>
+                            <span>{{ college.get('Rating', 'N/A') }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-5 space-y-4">
+                        <div>
+                            <h3 class="text-base font-extrabold text-slate-900 leading-snug line-clamp-2" title="{{ college.get('College Name', 'College') }}">
+                                {{ college.get('College Name', 'College') }}
+                            </h3>
+                            <div class="text-xs text-slate-500 font-medium flex items-center gap-1.5 mt-1 truncate">
+                                <svg class="w-3.5 h-3.5 text-sky-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                <span class="truncate">{{ college.get('Location', 'N/A') }}{% if college.get('State') %}, {{ college.get('State') }}{% endif %}</span>
+                            </div>
+                        </div>
+
+                        <!-- Basic Information Metrics -->
+                        <div class="grid grid-cols-2 gap-2.5 pt-2 border-t border-sky-100">
+                            <div class="p-2.5 rounded-xl border border-sky-100 bg-sky-50/30">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">State</span>
+                                <span class="text-xs font-extrabold text-slate-800 truncate block">{{ college.get('State', 'N/A') }}</span>
+                            </div>
+                            <div class="p-2.5 rounded-xl border border-sky-100 bg-sky-50/30">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Hostel Fees</span>
+                                <span class="text-xs font-extrabold text-slate-800 block">
+                                    ₹{{ "{:,.0f}".format(college.get('Hostel Fees', 0) or 0) }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Branches Overview -->
+                        <div class="space-y-2 pt-2 border-t border-sky-100">
+                            <div class="flex items-center justify-between text-xs font-bold text-slate-700">
+                                <span class="flex items-center gap-1.5 text-slate-600">
+                                    <svg class="w-3.5 h-3.5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                                    <span>Offered Branches</span>
+                                </span>
+                                <span class="text-[11px] text-sky-600 font-bold">
+                                    {{ college.get('Branches', [])|length }} Streams
+                                </span>
+                            </div>
+
+                            {% if college.get('Branches') %}
+                            <div class="space-y-2 max-h-36 overflow-y-auto pr-1">
+                                {% for branch in college.get('Branches', []) %}
+                                <div class="p-2.5 rounded-xl border border-sky-100 bg-sky-50/30 text-xs space-y-1">
+                                    <div class="font-extrabold text-sky-800 flex items-center justify-between">
+                                        <span>{{ branch.get('Branch', 'N/A') }}</span>
+                                        <span class="text-[11px] text-slate-500 font-semibold">
+                                            Cutoff: <strong class="text-sky-700">#{{ branch.get('Cutoff Rank', 0) }}</strong>
+                                        </span>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 pt-1 border-t border-sky-100/60">
+                                        <div>
+                                            <span class="text-slate-400">Mgmt:</span>
+                                            <strong class="text-slate-700">₹{{ "{:,.0f}".format(branch.get('Management Fees', 0) or 0) }}</strong>
+                                        </div>
+                                        <div>
+                                            <span class="text-slate-400">Exam Fee:</span>
+                                            <strong class="text-slate-700">₹{{ "{:,.0f}".format(branch.get('Exam Fees', 0) or 0) }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            <p class="text-xs text-slate-400 italic">No branch information available.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card Actions -->
+                <div class="p-5 pt-0 mt-3 flex items-center gap-2">
+                    <!-- View Details -->
+                    <a
+                        href="{{ url_for('college_details', exam=college.get('Exam', 'KCET')|lower, index=college.get('SourceIndex', 0)) }}"
+                        class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 text-white font-extrabold text-xs shadow-sm shadow-sky-600/20 active:scale-95 transition text-center flex items-center justify-center gap-1.5"
+                    >
+                        <span>View Details</span>
+                        <span>→</span>
+                    </a>
+
+                    <!-- Remove Form -->
+                    <form
+                        method="POST"
+                        action="{{ url_for('remove_saved_college') }}"
+                        class="m-0 inline"
+                    >
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="exam" value="{{ college.get('Exam', 'KCET')|lower }}">
+                        <input type="hidden" name="index" value="{{ college.get('SourceIndex', 0) }}">
+                        <button
+                            type="submit"
+                            class="py-2.5 px-3.5 rounded-xl border border-rose-200 bg-rose-50/60 hover:bg-rose-100 text-rose-700 font-bold text-xs transition flex items-center gap-1.5"
+                            onclick="return confirm('Remove this college from saved colleges?');"
+                            title="Remove from saved shortlist"
+                        >
+                            <svg class="w-4 h-4 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                            <span class="hidden sm:inline">Remove</span>
+                        </button>
+                    </form>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <!-- Empty State -->
+        <div class="sky-card rounded-3xl p-12 text-center space-y-4 max-w-xl mx-auto">
+            <div class="w-16 h-16 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 flex items-center justify-center mx-auto text-2xl shadow-xs">
+                <svg class="w-8 h-8 text-rose-500 fill-rose-500" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </div>
+            <div class="space-y-1">
+                <h3 class="text-xl font-extrabold text-slate-900">No Saved Colleges Yet</h3>
+                <p class="text-sm text-slate-500">You haven't bookmarked any colleges yet. Browse the institutions directory and click the Save button to build your personal counseling shortlist.</p>
+            </div>
+            <div>
+                <a
+                    href="{{ url_for('colleges') }}"
+                    class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-md shadow-sky-600/25 transition"
+                >
+                    <span>Explore Colleges Directory →</span>
+                </a>
+            </div>
+        </div>
         {% endif %}
-
 
     </main>
 
+    <!-- Footer -->
+    <footer class="bg-white border-t border-sky-100 mt-auto py-6 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-extrabold text-slate-800">Edu<span class="text-sky-600">Predict</span></span>
+                <span>• Personalized Counseling Shortlist</span>
+            </div>
+            <span>© 2026 EduPredict. KCET & EAMCET Calibrated Data.</span>
+        </div>
+    </footer>
 
 </body>
-
 </html>

@@ -39,3 +39,11 @@ Desktop.ini
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Data automation generated outputs & heavy source samples
+automation/output/
+automation/source_samples/
+
+# User uploads
+static/uploads/*
+!static/uploads/.gitkeep

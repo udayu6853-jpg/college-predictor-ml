@@ -1,509 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>About | College Predictor</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - EduPredict</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        skyCanvas: '#F0F7FE',
+                        skyPrimary: '#0284C7',
+                        skyAccent: '#0EA5E9',
+                        skyTint: '#E0F2FE',
+                        skyBorder: '#BAE6FD',
+                        navyText: '#0F172A'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-dark-saas.css') }}">
     <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", Arial, sans-serif;
-        }
-
         body {
-            min-height: 100vh;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #eef7ff,
-                    #f8fbff
-                );
-
-            color: #102a56;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #F0F7FE;
+            background-image: 
+                radial-gradient(circle at 10% 12%, rgba(14, 165, 233, 0.07) 0%, transparent 45%),
+                radial-gradient(circle at 90% 18%, rgba(2, 132, 199, 0.05) 0%, transparent 45%),
+                radial-gradient(circle at 50% 88%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
         }
-
-        .navbar {
-
-            min-height: 74px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #087cf0,
-                    #0874df
-                );
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            padding: 0 42px;
-
-            color: white;
-
-            box-shadow:
-                0 4px 15px
-                rgba(0, 91, 180, 0.18);
+        .sky-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid #E0F2FE;
         }
-
-        .brand {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 12px;
-
-            font-size: 25px;
-
-            font-weight: 800;
+        .sky-card {
+            background: #FFFFFF;
+            border: 1px solid #E0F2FE;
+            box-shadow: 0 1px 3px 0 rgba(2, 132, 199, 0.04), 0 6px 20px -3px rgba(2, 132, 199, 0.05);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        .brand-icon {
-
-            width: 45px;
-            height: 45px;
-
-            border-radius: 10px;
-
-            background:
-                rgba(255,255,255,0.15);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 25px;
-        }
-
-        .nav-links {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 7px;
-        }
-
-        .nav-links a {
-
-            color: white;
-
-            text-decoration: none;
-
-            padding: 12px 15px;
-
-            border-radius: 9px;
-
-            font-size: 14px;
-
-            font-weight: 600;
-        }
-
-        .nav-links a:hover {
-
-            background:
-                rgba(255,255,255,0.15);
-        }
-
-        .container {
-
-            width: 94%;
-
-            max-width: 1050px;
-
-            margin: 35px auto 50px;
-        }
-
-        .hero {
-
-            background: white;
-
-            border:
-                1px solid #dcecff;
-
-            border-radius: 16px;
-
-            padding: 40px;
-
-            text-align: center;
-
-            box-shadow:
-                0 7px 25px
-                rgba(31, 91, 150, 0.07);
-        }
-
-        .hero-icon {
-
-            font-size: 55px;
-
-            margin-bottom: 12px;
-        }
-
-        .hero h1 {
-
-            font-size: 31px;
-
-            margin-bottom: 10px;
-        }
-
-        .hero p {
-
-            color: #657994;
-
-            line-height: 1.7;
-
-            max-width: 750px;
-
-            margin: auto;
-
-            font-size: 15px;
-        }
-
-        .cards {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 18px;
-
-            margin-top: 20px;
-        }
-
-        .card {
-
-            background: white;
-
-            border:
-                1px solid #dcecff;
-
-            border-radius: 14px;
-
-            padding: 25px;
-
-            text-align: center;
-
-            box-shadow:
-                0 6px 20px
-                rgba(31, 91, 150, 0.06);
-        }
-
-        .card-icon {
-
-            font-size: 35px;
-
-            margin-bottom: 12px;
-        }
-
-        .card h2 {
-
-            font-size: 18px;
-
-            margin-bottom: 8px;
-        }
-
-        .card p {
-
-            color: #63758f;
-
-            font-size: 14px;
-
-            line-height: 1.6;
-        }
-
-        .technology {
-
-            margin-top: 20px;
-
-            background: white;
-
-            border:
-                1px solid #dcecff;
-
-            border-radius: 14px;
-
-            padding: 28px;
-
-            box-shadow:
-                0 6px 20px
-                rgba(31, 91, 150, 0.06);
-        }
-
-        .technology h2 {
-
-            margin-bottom: 18px;
-        }
-
-        .tech-list {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 12px;
-        }
-
-        .tech-item {
-
-            background: #f3f8ff;
-
-            border:
-                1px solid #dcecff;
-
-            border-radius: 10px;
-
-            padding: 14px;
-
-            color: #385474;
-
-            font-size: 14px;
-        }
-
-        footer {
-
-            text-align: center;
-
-            color: #7a8da8;
-
-            font-size: 13px;
-
-            padding:
-                10px 0 30px;
-        }
-
-        @media (max-width: 800px) {
-
-            .navbar {
-
-                flex-direction: column;
-
-                gap: 10px;
-
-                padding: 12px 15px;
-            }
-
-            .nav-links {
-
-                flex-wrap: wrap;
-
-                justify-content: center;
-            }
-
-            .cards {
-
-                grid-template-columns: 1fr;
-            }
-
-            .tech-list {
-
-                grid-template-columns: 1fr;
-            }
-        }
-
     </style>
-
 </head>
+<body class="min-h-screen flex flex-col antialiased">
 
-<body>
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full sky-header shadow-xs transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-18 py-2.5">
+                <!-- Logo & Brand -->
+                <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-sky-500/25 ring-2 ring-sky-100 flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">Edu<span class="text-sky-500">Predict</span></span>
+                            <span class="hidden sm:inline-block text-[11px] font-bold px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full border border-sky-200">About</span>
+                        </div>
+                        <span class="hidden sm:block text-[10px] text-slate-400 font-medium">System Architecture & Intelligence</span>
+                    </div>
+                </a>
 
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="{{ url_for('dashboard') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Dashboard</a>
+                    <a href="{{ url_for('predictor') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Predictor</a>
+                    <a href="{{ url_for('colleges') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Colleges</a>
+                    <a href="{{ url_for('compare') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Compare</a>
+                    <a href="{{ url_for('prediction_history') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">History</a>
+                    <a href="{{ url_for('admin_contact') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Contact Admin</a>
+                </nav>
 
-    <nav class="navbar">
+                <!-- Profile / Auth Area -->
+                <div class="flex items-center gap-3">
+                    <a href="{{ url_for('profile') }}" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-sky-100 bg-white hover:bg-sky-50 text-slate-700 transition text-xs font-semibold shadow-2xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span>My Profile</span>
+                    </a>
 
-        <div class="brand">
-
-            <div class="brand-icon">
-                🎓
+                    <!-- Logout Button -->
+                    <form method="POST" action="{{ url_for('logout') }}" class="inline m-0">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition" title="Logout">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        </button>
+                    </form>
+                </div>
             </div>
-
-            College Predictor
-
         </div>
+    </header>
 
+    <!-- Main Container -->
+    <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
 
-        <div class="nav-links">
-
-            <a href="{{ url_for('dashboard') }}">
-                🏠 Dashboard
-            </a>
-
-            <a href="{{ url_for('colleges') }}">
-                🎓 Colleges
-            </a>
-
-            <a href="{{ url_for('predictor') }}">
-                🤖 Predictor
-            </a>
-
-            <a href="{{ url_for('profile') }}">
-                👤 Profile
-            </a>
-
-            <a href="{{ url_for('help_page') }}">
-                ❓ Help
-            </a>
-
-            <a href="{{ url_for('logout') }}">
-                🚪 Logout
-            </a>
-
-        </div>
-
-    </nav>
-
-
-    <main class="container">
-
-
-        <section class="hero">
-
-            <div class="hero-icon">
-                🎓
+        <!-- Hero Card -->
+        <div class="sky-card rounded-3xl p-8 sm:p-12 text-center space-y-4">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold mx-auto">
+                <svg class="w-3.5 h-3.5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span>Machine Learning Counseling Analytics</span>
             </div>
-
-            <h1>
-                About College Predictor
+            <h1 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+                About Edu<span class="text-sky-500">Predict</span>
             </h1>
-
-            <p>
-                College Predictor is a machine-learning-based
-                college recommendation system designed to help
-                students explore colleges based on entrance exam,
-                rank and branch preferences.
+            <p class="text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed">
+                EduPredict is a state-of-the-art intelligent counseling decision engine designed to help students evaluate engineering college admissions with high-confidence predictive analytics across <strong>KCET</strong> and <strong>EAMCET</strong> entrance data.
             </p>
+        </div>
 
-        </section>
-
-
-        <section class="cards">
-
-
-            <div class="card">
-
-                <div class="card-icon">
-                    🤖
+        <!-- 3 Feature Pillars -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Machine Learning -->
+            <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 text-sky-600 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </div>
-
-                <h2>
-                    Machine Learning
-                </h2>
-
-                <p>
-                    The system uses a Random Forest based machine
-                    learning model as part of the college prediction
-                    process.
+                <h2 class="text-base font-extrabold text-slate-900">Ensemble ML Engine</h2>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Utilizes calibrated Random Forest regressors and decision classification to simulate admission likelihood percentages across Safe Bets, Targets, and Reach campuses.
                 </p>
-
             </div>
 
-
-            <div class="card">
-
-                <div class="card-icon">
-                    🎓
+            <!-- College Database -->
+            <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 text-sky-600 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                 </div>
-
-                <h2>
-                    College Database
-                </h2>
-
-                <p>
-                    The project combines KCET and EAMCET college
-                    records so students can browse and compare
-                    available information.
+                <h2 class="text-base font-extrabold text-slate-900">Verified Database</h2>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Integrates 1,300+ institutional and cutoff records spanning Karnataka and Telangana / Andhra Pradesh state counseling boards with verified seat metrics.
                 </p>
-
             </div>
 
-
-            <div class="card">
-
-                <div class="card-icon">
-                    🔎
+            <!-- Smart Search & Filter -->
+            <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 text-sky-600 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
                 </div>
-
-                <h2>
-                    Smart Search
-                </h2>
-
-                <p>
-                    Students can search and filter colleges based
-                    on exam, branch, state, rating and management
-                    fees.
+                <h2 class="text-base font-extrabold text-slate-900">Multi-Factor Filtering</h2>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Filter institutions dynamically by state, engineering branch, minimum accreditation rating, cutoff cushion, and maximum management tuition fees.
                 </p>
+            </div>
+        </div>
 
+        <!-- Technology Stack -->
+        <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-6">
+            <div class="flex items-center gap-2 pb-3 border-b border-sky-100">
+                <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+                <h2 class="text-base font-extrabold text-slate-900">Technology Architecture & Stack</h2>
             </div>
 
-
-        </section>
-
-
-        <section class="technology">
-
-            <h2>
-                ⚙️ Technologies Used
-            </h2>
-
-
-            <div class="tech-list">
-
-                <div class="tech-item">
-                    🐍 Python
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <div class="p-3.5 rounded-2xl bg-sky-50/40 border border-sky-100 flex items-center gap-3">
+                    <span class="w-3 h-3 rounded-full bg-sky-500"></span>
+                    <div>
+                        <span class="text-xs font-bold text-slate-800 block">Python 3.12</span>
+                        <span class="text-[10px] text-slate-400">Core Runtime</span>
+                    </div>
                 </div>
 
-                <div class="tech-item">
-                    🌐 Flask
+                <div class="p-3.5 rounded-2xl bg-sky-50/40 border border-sky-100 flex items-center gap-3">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                    <div>
+                        <span class="text-xs font-bold text-slate-800 block">Flask & Jinja2</span>
+                        <span class="text-[10px] text-slate-400">Application Framework</span>
+                    </div>
                 </div>
 
-                <div class="tech-item">
-                    🐼 Pandas
+                <div class="p-3.5 rounded-2xl bg-sky-50/40 border border-sky-100 flex items-center gap-3">
+                    <span class="w-3 h-3 rounded-full bg-indigo-500"></span>
+                    <div>
+                        <span class="text-xs font-bold text-slate-800 block">Scikit-Learn</span>
+                        <span class="text-[10px] text-slate-400">Random Forest Regressor</span>
+                    </div>
                 </div>
 
-                <div class="tech-item">
-                    🤖 Scikit-learn
+                <div class="p-3.5 rounded-2xl bg-sky-50/40 border border-sky-100 flex items-center gap-3">
+                    <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                    <div>
+                        <span class="text-xs font-bold text-slate-800 block">Pandas & NumPy</span>
+                        <span class="text-[10px] text-slate-400">Data Engineering</span>
+                    </div>
                 </div>
 
-                <div class="tech-item">
-                    💾 SQLite
+                <div class="p-3.5 rounded-2xl bg-sky-50/40 border border-sky-100 flex items-center gap-3">
+                    <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                    <div>
+                        <span class="text-xs font-bold text-slate-800 block">PostgreSQL / SQLite</span>
+                        <span class="text-[10px] text-slate-400">Relational Database</span>
+                    </div>
                 </div>
 
-                <div class="tech-item">
-                    🎨 HTML & CSS & JavaScript
+                <div class="p-3.5 rounded-2xl bg-sky-50/40 border border-sky-100 flex items-center gap-3">
+                    <span class="w-3 h-3 rounded-full bg-cyan-500"></span>
+                    <div>
+                        <span class="text-xs font-bold text-slate-800 block">Tailwind CSS</span>
+                        <span class="text-[10px] text-slate-400">Crisp Sky UI System</span>
+                    </div>
                 </div>
-
             </div>
-
-        </section>
-
+        </div>
 
     </main>
 
-
-    <footer>
-
-        © 2026 College Predictor System
-
+    <!-- Footer -->
+    <footer class="bg-white border-t border-sky-100 mt-auto py-6 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-extrabold text-slate-800">Edu<span class="text-sky-600">Predict</span></span>
+                <span>• Machine Learning Cutoff Predictions</span>
+            </div>
+            <span>© 2026 EduPredict. KCET & EAMCET Calibrated Data.</span>
+        </div>
     </footer>
 
-
 </body>
-
 </html>

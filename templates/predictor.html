@@ -1,1809 +1,411 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="description"
-        content="College Predictor - Find colleges based on your entrance exam rank and preferred branch."
-    >
-
-    <title>College Predictor</title>
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Predictor - EduPredict</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        skyCanvas: '#F0F7FE',
+                        skyPrimary: '#0284C7',
+                        skyAccent: '#0EA5E9',
+                        skyTint: '#E0F2FE',
+                        skyBorder: '#BAE6FD',
+                        navyText: '#0F172A'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-dark-saas.css') }}">
     <style>
-
-        /* =====================================================
-           RESET
-        ===================================================== */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
-        /* =====================================================
-           BODY
-        ===================================================== */
-
         body {
-
-            font-family:
-                "Segoe UI",
-                Arial,
-                sans-serif;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #eef6ff 0%,
-                    #ffffff 50%,
-                    #f4f9ff 100%
-                );
-
-            min-height: 100vh;
-
-            color: #1f2937;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #F0F7FE;
+            background-image: 
+                radial-gradient(circle at 10% 12%, rgba(14, 165, 233, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 90% 18%, rgba(2, 132, 199, 0.06) 0%, transparent 45%),
+                radial-gradient(circle at 50% 88%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: #334155;
         }
-
-
-        /* =====================================================
-           NAVBAR
-        ===================================================== */
-
-        .navbar {
-
-            min-height: 70px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #007bff,
-                    #0056d6
-                );
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            padding: 10px 50px;
-
-            box-shadow:
-                0 4px 15px
-                rgba(0, 0, 0, 0.12);
-
-            position: sticky;
-
-            top: 0;
-
-            z-index: 1000;
+        .sky-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid #E0F2FE;
         }
-
-
-        .logo {
-
-            color: white;
-
-            font-size: 23px;
-
-            font-weight: 700;
-
-            white-space: nowrap;
+        .sky-card {
+            background: #FFFFFF;
+            border: 1px solid #E0F2FE;
+            box-shadow: 0 4px 20px -2px rgba(2, 132, 199, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-
-        .nav-links {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: flex-end;
-
-            gap: 6px;
-
-            flex-wrap: wrap;
+        .preset-chip {
+            background: #F0F9FF;
+            border: 1px solid #BAE6FD;
+            color: #0284C7;
+            transition: all 0.15s ease;
         }
-
-
-        .nav-links a {
-
-            color: white;
-
-            text-decoration: none;
-
-            font-size: 14px;
-
-            font-weight: 500;
-
-            padding: 9px 12px;
-
-            border-radius: 8px;
-
-            transition:
-                background 0.25s ease,
-                transform 0.25s ease;
+        .preset-chip:hover {
+            background: #0284C7;
+            color: #FFFFFF;
+            border-color: #0284C7;
         }
-
-
-        .nav-links a:hover {
-
-            background:
-                rgba(255,255,255,0.18);
-
-            transform:
-                translateY(-1px);
-        }
-
-
-        .nav-links .active {
-
-            background:
-                rgba(255,255,255,0.22);
-        }
-
-
-        /* =====================================================
-           LOGOUT
-        ===================================================== */
-
-        .logout-form {
-
-            display: inline;
-
-            margin: 0;
-        }
-
-
-        .logout-btn {
-
-            color: white;
-
-            background: transparent;
-
-            border:
-                1px solid
-                transparent;
-
-            font-size: 14px;
-
-            font-weight: 500;
-
-            padding: 9px 12px;
-
-            border-radius: 8px;
-
-            cursor: pointer;
-
-            font-family: inherit;
-
-            transition:
-                background 0.25s ease,
-                transform 0.25s ease;
-        }
-
-
-        .logout-btn:hover {
-
-            background:
-                rgba(255,255,255,0.18);
-
-            transform:
-                translateY(-1px);
-        }
-
-
-        /* =====================================================
-           MAIN CONTAINER
-        ===================================================== */
-
-        .main-container {
-
-            width: 90%;
-
-            max-width: 900px;
-
-            margin:
-                45px auto 60px;
-        }
-
-
-        /* =====================================================
-           PAGE HEADER
-        ===================================================== */
-
-        .page-header {
-
-            text-align: center;
-
-            margin-bottom: 35px;
-        }
-
-
-        .page-icon {
-
-            width: 75px;
-
-            height: 75px;
-
-            margin: 0 auto;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #007bff,
-                    #0056d6
-                );
-
-            border-radius: 20px;
-
-            font-size: 38px;
-
-            box-shadow:
-                0 10px 25px
-                rgba(0,123,255,0.20);
-        }
-
-
-        .page-header h1 {
-
-            margin-top: 18px;
-
-            font-size: 34px;
-
-            color: #111827;
-        }
-
-
-        .page-header p {
-
-            margin-top: 8px;
-
-            color: #6b7280;
-
-            font-size: 16px;
-
-            line-height: 1.6;
-        }
-
-
-        /* =====================================================
-           PREDICTOR CARD
-        ===================================================== */
-
-        .predictor-card {
-
-            background: white;
-
-            padding: 35px;
-
-            border-radius: 20px;
-
-            box-shadow:
-                0 12px 35px
-                rgba(0,0,0,0.10);
-        }
-
-
-        /* =====================================================
-           FORM GROUP
-        ===================================================== */
-
-        .form-group {
-
-            margin-bottom: 25px;
-        }
-
-
-        .form-group label {
-
-            display: block;
-
-            margin-bottom: 9px;
-
-            font-size: 15px;
-
-            font-weight: 600;
-
-            color: #374151;
-        }
-
-
-        .required {
-
-            color: #ef4444;
-        }
-
-
-        /* =====================================================
-           FORM CONTROL
-        ===================================================== */
-
-        .form-control {
-
-            width: 100%;
-
-            padding: 14px 16px;
-
-            border:
-                1px solid
-                #d5deea;
-
-            border-radius: 10px;
-
-            font-size: 15px;
-
-            outline: none;
-
-            background: white;
-
-            color: #1f2937;
-
-            transition:
-                border-color 0.25s ease,
-                box-shadow 0.25s ease;
-        }
-
-
-        .form-control:hover {
-
-            border-color: #b8c7da;
-        }
-
-
-        .form-control:focus {
-
-            border-color: #007bff;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(0,123,255,0.10);
-        }
-
-
-        /* =====================================================
-           EXAM OPTIONS
-        ===================================================== */
-
-        .exam-options {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 18px;
-
-            margin-top: 5px;
-        }
-
-
-        .exam-option {
-
-            position: relative;
-        }
-
-
-        .exam-option input {
-
-            position: absolute;
-
-            opacity: 0;
-
-            pointer-events: none;
-        }
-
-
-        .exam-label {
-
-            display: block;
-
-            padding: 20px;
-
-            border:
-                2px solid
-                #e5e7eb;
-
-            border-radius: 14px;
-
-            cursor: pointer;
-
-            transition:
-                border-color 0.25s ease,
-                background 0.25s ease,
-                transform 0.25s ease,
-                box-shadow 0.25s ease;
-
-            background: #ffffff;
-        }
-
-
-        .exam-label:hover {
-
-            border-color: #007bff;
-
-            transform:
-                translateY(-2px);
-
-            box-shadow:
-                0 5px 15px
-                rgba(0,123,255,0.08);
-        }
-
-
-        .exam-option input:checked
-        + .exam-label {
-
-            border-color: #007bff;
-
-            background: #eef6ff;
-
-            box-shadow:
-                0 5px 15px
-                rgba(0,123,255,0.10);
-        }
-
-
-        .exam-option input:focus
-        + .exam-label {
-
-            outline:
-                3px solid
-                rgba(0,123,255,0.15);
-        }
-
-
-        .exam-title {
-
-            display: block;
-
-            font-size: 19px;
-
-            font-weight: 700;
-
-            color: #111827;
-        }
-
-
-        .exam-description {
-
-            display: block;
-
-            margin-top: 6px;
-
-            font-size: 13px;
-
-            color: #6b7280;
-
-            line-height: 1.5;
-        }
-
-
-        /* =====================================================
-           HELP TEXT
-        ===================================================== */
-
-        .help-text {
-
-            margin-top: 7px;
-
-            color: #6b7280;
-
-            font-size: 13px;
-
-            line-height: 1.5;
-        }
-
-
-        /* =====================================================
-           RANK INPUT
-        ===================================================== */
-
-        .rank-wrapper {
-
-            position: relative;
-        }
-
-
-        .rank-wrapper .form-control {
-
-            padding-right: 75px;
-        }
-
-
-        .rank-label {
-
-            position: absolute;
-
-            right: 15px;
-
-            top: 50%;
-
-            transform:
-                translateY(-50%);
-
-            font-size: 12px;
-
-            color: #9ca3af;
-
-            pointer-events: none;
-        }
-
-
-        /* =====================================================
-           BRANCH STATUS
-        ===================================================== */
-
-        .branch-status {
-
-            display: none;
-
-            margin-top: 8px;
-
-            font-size: 13px;
-
-            color: #007bff;
-        }
-
-
-        .branch-status.show {
-
-            display: block;
-        }
-
-
-        /* =====================================================
-           PREDICT BUTTON
-        ===================================================== */
-
-        .predict-btn {
-
-            width: 100%;
-
-            border: none;
-
-            padding: 15px;
-
-            border-radius: 11px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #007bff,
-                    #0056d6
-                );
-
-            color: white;
-
-            font-size: 17px;
-
-            font-weight: 700;
-
-            cursor: pointer;
-
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease,
-                opacity 0.25s ease;
-
-            margin-top: 5px;
-        }
-
-
-        .predict-btn:hover {
-
-            transform:
-                translateY(-2px);
-
-            box-shadow:
-                0 8px 20px
-                rgba(0,123,255,0.25);
-        }
-
-
-        .predict-btn:active {
-
-            transform:
-                translateY(0);
-        }
-
-
-        .predict-btn:disabled {
-
-            opacity: 0.65;
-
-            cursor: not-allowed;
-
-            transform: none;
-
-            box-shadow: none;
-        }
-
-
-        /* =====================================================
-           BACK BUTTON
-        ===================================================== */
-
-        .back-section {
-
-            text-align: center;
-
-            margin-top: 22px;
-        }
-
-
-        .back-btn {
-
-            color: #007bff;
-
-            text-decoration: none;
-
-            font-weight: 600;
-
-            font-size: 15px;
-        }
-
-
-        .back-btn:hover {
-
-            text-decoration: underline;
-        }
-
-
-        /* =====================================================
-           INFO BOX
-        ===================================================== */
-
-        .info-box {
-
-            margin-top: 30px;
-
-            padding: 20px;
-
-            background: #f8fbff;
-
-            border:
-                1px solid
-                #e1edf9;
-
-            border-radius: 14px;
-        }
-
-
-        .info-box h3 {
-
-            font-size: 17px;
-
-            color: #111827;
-
-            margin-bottom: 10px;
-        }
-
-
-        .info-box p {
-
-            color: #6b7280;
-
-            font-size: 14px;
-
-            line-height: 1.7;
-        }
-
-
-        .info-list {
-
-            margin-top: 12px;
-
-            padding-left: 20px;
-
-            color: #6b7280;
-
-            font-size: 14px;
-
-            line-height: 1.8;
-        }
-
-
-        /* =====================================================
-           ERROR MESSAGE
-        ===================================================== */
-
-        .form-error {
-
-            display: none;
-
-            margin-bottom: 20px;
-
-            padding: 12px 15px;
-
-            border-radius: 10px;
-
-            background: #fef2f2;
-
-            border:
-                1px solid
-                #fecaca;
-
-            color: #b91c1c;
-
-            font-size: 14px;
-        }
-
-
-        .form-error.show {
-
-            display: block;
-        }
-
-
-        /* =====================================================
-           RESPONSIVE
-        ===================================================== */
-
-        @media (max-width: 1000px) {
-
-            .navbar {
-
-                padding:
-                    12px 25px;
-            }
-
-        }
-
-
-        @media (max-width: 800px) {
-
-            .navbar {
-
-                flex-direction: column;
-
-                gap: 12px;
-
-                padding:
-                    15px;
-            }
-
-
-            .nav-links {
-
-                justify-content: center;
-            }
-
-        }
-
-
-        @media (max-width: 700px) {
-
-            .main-container {
-
-                width: 94%;
-
-                margin-top: 30px;
-            }
-
-
-            .predictor-card {
-
-                padding: 22px;
-            }
-
-
-            .page-header h1 {
-
-                font-size: 27px;
-            }
-
-
-            .page-header p {
-
-                font-size: 14px;
-            }
-
-
-            .exam-options {
-
-                grid-template-columns: 1fr;
-            }
-
-
-            .nav-links {
-
-                gap: 3px;
-            }
-
-
-            .nav-links a,
-            .logout-btn {
-
-                font-size: 13px;
-
-                padding:
-                    7px 8px;
-            }
-
-        }
-
-
-        @media (max-width: 450px) {
-
-            .logo {
-
-                font-size: 20px;
-            }
-
-
-            .nav-links {
-
-                width: 100%;
-            }
-
-
-            .nav-links a,
-            .logout-btn {
-
-                font-size: 12px;
-
-                padding:
-                    6px 7px;
-            }
-
-
-            .predictor-card {
-
-                padding: 18px;
-            }
-
-
-            .page-icon {
-
-                width: 65px;
-
-                height: 65px;
-
-                font-size: 32px;
-            }
-
-
-            .page-header h1 {
-
-                font-size: 24px;
-            }
-
-        }
-
     </style>
-
 </head>
+<body class="min-h-screen flex flex-col antialiased">
 
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full sky-header shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-18 py-2.5">
+                <!-- Logo & Brand -->
+                <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-sky-500/25 ring-2 ring-sky-100">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold text-slate-900 tracking-tight">Edu<span class="text-sky-500">Predict</span></span>
+                        <span class="hidden sm:inline-block ml-1.5 text-xs font-semibold px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full border border-sky-200">Predictor</span>
+                    </div>
+                </a>
 
-<body>
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="{{ url_for('dashboard') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Dashboard</a>
+                    <a href="{{ url_for('predictor') }}" class="px-3 py-2 text-xs font-bold rounded-xl text-sky-600 bg-sky-50 border border-sky-200 transition">Predictor</a>
+                    <a href="{{ url_for('colleges') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Colleges</a>
+                    <a href="{{ url_for('compare') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Compare</a>
+                    <a href="{{ url_for('prediction_history') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">History</a>
+                    <a href="{{ url_for('admin_contact') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Contact Admin</a>
+                </nav>
 
+                <!-- Profile / Auth Area -->
+                <div class="flex items-center gap-3">
+                    <a href="{{ url_for('profile') }}" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-sky-100 bg-white hover:bg-sky-50 text-slate-700 transition text-xs font-semibold">
+                        <span>My Profile</span>
+                    </a>
 
-<!-- =====================================================
-     NAVBAR
-===================================================== -->
-
-<nav class="navbar">
-
-    <div class="logo">
-        🎓 College Predictor
-    </div>
-
-
-    <div class="nav-links">
-
-        <a href="{{ url_for('dashboard') }}">
-            Dashboard
-        </a>
-
-
-        <a href="{{ url_for('colleges') }}">
-            Colleges
-        </a>
-
-
-        <a
-            href="{{ url_for('predictor') }}"
-            class="active"
-        >
-            Predictor
-        </a>
-
-
-        <a href="{{ url_for('prediction_history') }}">
-            🕘 History
-        </a>
-
-
-        <a href="{{ url_for('profile') }}">
-            Profile
-        </a>
-
-
-        <a href="{{ url_for('saved_colleges') }}">
-            Saved
-        </a>
-
-
-        <a href="{{ url_for('compare') }}">
-            Compare
-        </a>
-
-
-        <form
-            method="POST"
-            action="{{ url_for('logout') }}"
-            class="logout-form"
-        >
-
-            <input
-                type="hidden"
-                name="csrf_token"
-                value="{{ csrf_token() }}"
-            >
-
-            <button
-                type="submit"
-                class="logout-btn"
-            >
-                Logout
-            </button>
-
-        </form>
-
-    </div>
-
-</nav>
-
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
-<main class="main-container">
-
-
-    <!-- =================================================
-         HEADER
-    ================================================= -->
-
-    <section class="page-header">
-
-        <div
-            class="page-icon"
-            aria-hidden="true"
-        >
-            🤖
+                    <!-- Logout Button -->
+                    <form method="POST" action="{{ url_for('logout') }}" class="inline m-0">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition" title="Logout">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-
-        <h1>
-            College Predictor
-        </h1>
-
-
-        <p>
-            Enter your entrance exam details
-            to find colleges matching your rank.
-        </p>
-
-    </section>
-
-
-    <!-- =================================================
-         PREDICTOR CARD
-    ================================================= -->
-
-    <section class="predictor-card">
-
-
-        <!-- =================================================
-             FORM ERROR
-        ================================================= -->
-
-        <div
-            id="formError"
-            class="form-error"
-            role="alert"
-        ></div>
-
-
-        <!-- =================================================
-             PREDICTOR FORM
-        ================================================= -->
-
-        <form
-            id="predictorForm"
-            action="{{ url_for('predict') }}"
-            method="POST"
-            novalidate
-        >
-
-            <!-- CSRF -->
-
-            <input
-                type="hidden"
-                name="csrf_token"
-                value="{{ csrf_token() }}"
-            >
-
-
-            <!-- =================================================
-                 EXAM
-            ================================================= -->
-
-            <div class="form-group">
-
-                <label>
-                    Select Entrance Exam
-                    <span class="required">*</span>
-                </label>
-
-
-                <div class="exam-options">
-
-
-                    <!-- KCET -->
-
-                    <div class="exam-option">
-
-                        <input
-                            type="radio"
-                            name="exam"
-                            id="kcet"
-                            value="KCET"
-                            checked
-                        >
-
-
-                        <label
-                            for="kcet"
-                            class="exam-label"
-                        >
-
-                            <span class="exam-title">
-                                🎓 KCET
-                            </span>
-
-
-                            <span class="exam-description">
-                                Karnataka Common Entrance Test
-                            </span>
-
-                        </label>
-
-                    </div>
-
-
-                    <!-- EAMCET -->
-
-                    <div class="exam-option">
-
-                        <input
-                            type="radio"
-                            name="exam"
-                            id="eamcet"
-                            value="EAMCET"
-                        >
-
-
-                        <label
-                            for="eamcet"
-                            class="exam-label"
-                        >
-
-                            <span class="exam-title">
-                                🎓 EAMCET
-                            </span>
-
-
-                            <span class="exam-description">
-                                Engineering entrance examination
-                            </span>
-
-                        </label>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 RANK
-            ================================================= -->
-
-            <div class="form-group">
-
-                <label for="rank">
-
-                    Enter Your Rank
-
-                    <span class="required">
-                        *
-                    </span>
-
-                </label>
-
-
-                <div class="rank-wrapper">
-
-                    <input
-                        type="number"
-                        id="rank"
-                        name="rank"
-                        class="form-control"
-                        placeholder="Example: 18000"
-                        min="1"
-                        max="99999999"
-                        step="1"
-                        inputmode="numeric"
-                        autocomplete="off"
-                        required
-                    >
-
-
-                    <span class="rank-label">
-                        Rank
-                    </span>
-
-                </div>
-
-
-                <div class="help-text">
-
-                    Enter your entrance examination
-                    rank exactly as shown in your result.
-
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 BRANCH
-            ================================================= -->
-
-            <div class="form-group">
-
-                <label for="branch">
-
-                    Preferred Branch
-
-                    <span class="required">
-                        *
-                    </span>
-
-                </label>
-
-
-                <select
-                    id="branch"
-                    name="branch"
-                    class="form-control"
-                    required
-                >
-
-                    <option value="">
-                        Select Branch
-                    </option>
-
-                </select>
-
-
-                <div
-                    class="help-text"
-                    id="branchHelp"
-                >
-                    Available KCET branches:
-                    CSE, AIML, ISE and ECE.
-                </div>
-
-
-                <div
-                    id="branchStatus"
-                    class="branch-status"
-                >
-                    Loading branches...
-                </div>
-
-            </div>
-
-
-            <!-- =================================================
-                 PREDICT BUTTON
-            ================================================= -->
-
-            <button
-                type="submit"
-                class="predict-btn"
-                id="predictBtn"
-            >
-                🔍 Predict Colleges
-            </button>
-
-        </form>
-
-
-        <!-- =================================================
-             INFORMATION
-        ================================================= -->
-
-        <div class="info-box">
-
-            <h3>
-                💡 How does the predictor work?
-            </h3>
-
-
-            <p>
-
-                Select your entrance examination,
-                enter your rank and choose your
-                preferred engineering branch.
-
-                The system compares your rank
-                with historical college cutoff
-                ranks and uses the machine-learning
-                model to calculate college matching
-                results.
-
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
+
+        <!-- Page Header -->
+        <div class="text-center space-y-2">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">College Admission Predictor</h1>
+            <p class="text-sm text-slate-500 max-w-xl mx-auto">
+                Enter your entrance examination rank and preferred branch to explore closing rank cutoffs across 500+ premier institutions.
             </p>
-
-
-            <ul class="info-list">
-
-                <li>
-                    Select KCET or EAMCET.
-                </li>
-
-                <li>
-                    Enter your valid examination rank.
-                </li>
-
-                <li>
-                    Select your preferred branch.
-                </li>
-
-                <li>
-                    The system checks matching colleges.
-                </li>
-
-                <li>
-                    Results are displayed with chance information.
-                </li>
-
-            </ul>
-
         </div>
 
-    </section>
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="space-y-3">
+                    {% for category, message in messages %}
+                        <div class="p-4 rounded-2xl text-xs sm:text-sm font-semibold flex items-start gap-3 {% if category == 'success' %}bg-emerald-50 border border-emerald-200 text-emerald-800{% else %}bg-rose-50 border border-rose-200 text-rose-800{% endif %}">
+                            <span class="mt-0.5">
+                                {% if category == 'success' %}
+                                    <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                {% else %}
+                                    <svg class="w-5 h-5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                {% endif %}
+                            </span>
+                            <span>{{ message }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
 
+        <!-- Error Container -->
+        <div id="formError" class="hidden p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-bold flex items-center gap-2">
+            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            <span id="formErrorMessage"></span>
+        </div>
 
-    <!-- =================================================
-         BACK BUTTON
-    ================================================= -->
+        <!-- Prediction Form Card -->
+        <div class="sky-card p-6 sm:p-10 rounded-3xl space-y-8">
+            <form id="predictorForm" action="{{ url_for('predict') }}" method="POST" novalidate class="space-y-6">
+                <!-- CSRF Token -->
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-    <div class="back-section">
+                <!-- Entrance Exam Selector -->
+                <div class="space-y-3">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                        1. Select Entrance Examination <span class="text-sky-600">*</span>
+                    </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- KCET Radio Card -->
+                        <label class="relative flex items-center gap-3.5 p-4 rounded-2xl border cursor-pointer transition select-none {% if selected_exam == 'EAMCET' %}border-slate-200 bg-white hover:border-sky-300{% else %}border-sky-500 bg-sky-50/70 ring-2 ring-sky-200{% endif %}" id="label-kcet">
+                            <input
+                                type="radio"
+                                name="exam"
+                                id="kcet"
+                                value="KCET"
+                                class="hidden"
+                                {% if selected_exam != 'EAMCET' %}checked{% endif %}
+                            >
+                            <div class="w-11 h-11 rounded-xl bg-sky-100 text-sky-700 border border-sky-200 flex items-center justify-center font-bold text-lg">
+                                <svg class="w-6 h-6 text-sky-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7"/></svg>
+                            </div>
+                            <div>
+                                <span class="text-sm font-extrabold text-slate-900 block">KCET</span>
+                                <span class="text-[11px] text-slate-500 font-medium">Karnataka Common Entrance Test</span>
+                            </div>
+                        </label>
 
-        <a
-            href="{{ url_for('dashboard') }}"
-            class="back-btn"
-        >
-            ← Back to Dashboard
-        </a>
+                        <!-- EAMCET Radio Card -->
+                        <label class="relative flex items-center gap-3.5 p-4 rounded-2xl border cursor-pointer transition select-none {% if selected_exam == 'EAMCET' %}border-sky-500 bg-sky-50/70 ring-2 ring-sky-200{% else %}border-slate-200 bg-white hover:border-sky-300{% endif %}" id="label-eamcet">
+                            <input
+                                type="radio"
+                                name="exam"
+                                id="eamcet"
+                                value="EAMCET"
+                                class="hidden"
+                                {% if selected_exam == 'EAMCET' %}checked{% endif %}
+                            >
+                            <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center justify-center font-bold text-lg">
+                                <svg class="w-6 h-6 text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            </div>
+                            <div>
+                                <span class="text-sm font-extrabold text-slate-900 block">EAMCET</span>
+                                <span class="text-[11px] text-slate-500 font-medium">Telangana & Andhra Pradesh Engineering</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
 
-    </div>
+                <!-- Candidate Rank Input -->
+                <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label for="rank" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                            2. Entrance Exam Rank <span class="text-sky-600">*</span>
+                        </label>
+                        <!-- Presets chips -->
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">Presets:</span>
+                            <button type="button" onclick="setRankPreset(1200)" class="preset-chip text-[11px] font-bold px-2 py-0.5 rounded-md">1.2K</button>
+                            <button type="button" onclick="setRankPreset(4500)" class="preset-chip text-[11px] font-bold px-2 py-0.5 rounded-md">4.5K</button>
+                            <button type="button" onclick="setRankPreset(12500)" class="preset-chip text-[11px] font-bold px-2 py-0.5 rounded-md">12.5K</button>
+                            <button type="button" onclick="setRankPreset(28000)" class="preset-chip text-[11px] font-bold px-2 py-0.5 rounded-md">28K</button>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <input
+                            type="number"
+                            id="rank"
+                            name="rank"
+                            value="{{ selected_rank or '4500' }}"
+                            placeholder="e.g. 15420"
+                            min="1"
+                            max="9999999"
+                            step="1"
+                            required
+                            class="w-full px-4 py-3 rounded-xl border border-sky-200 bg-sky-50/30 text-slate-900 font-extrabold text-sm focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-500 pl-10"
+                        >
+                        <span class="absolute left-4 top-3 text-sky-600 font-bold select-none">#</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400">Provide the exact state merit rank stated on your official scorecard.</p>
+                </div>
 
-</main>
+                <!-- Preferred Engineering Branch -->
+                <div class="space-y-2">
+                    <label for="branch" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                        3. Preferred Engineering Branch <span class="text-sky-600">*</span>
+                    </label>
+                    <div class="relative">
+                        <select
+                            id="branch"
+                            name="branch"
+                            required
+                            class="w-full px-4 py-3 rounded-xl border border-sky-200 bg-sky-50/30 text-slate-800 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-500 appearance-none cursor-pointer"
+                        >
+                            <option value="">Select Branch</option>
+                        </select>
+                        <div class="pointer-events-none absolute right-4 top-3.5 text-slate-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </div>
+                    </div>
 
+                </div>
 
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
+                <!-- Submit Button -->
+                <div class="pt-4">
+                    <button
+                        type="submit"
+                        id="predictBtn"
+                        class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-sky-600 via-sky-500 to-sky-600 hover:from-sky-700 hover:to-sky-600 text-white font-extrabold text-sm shadow-md shadow-sky-600/25 active:scale-[0.99] transition flex items-center justify-center gap-2 group cursor-pointer"
+                    >
+                        <svg class="w-5 h-5 group-hover:scale-110 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        <span>Predict College Admissions</span>
+                    </button>
+                </div>
 
-<script>
+            </form>
+        </div>
 
-"use strict";
+        <!-- System Architecture Highlights -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+            <div class="p-5 rounded-2xl sky-card space-y-2">
+                <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 border border-sky-100 flex items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <h3 class="text-sm font-bold text-slate-900">Multi-Factor Cutoff Analysis</h3>
+                <p class="text-xs text-slate-500">Evaluates admission chances using official multi-year cutoffs and institutional seat matrix trends.</p>
+            </div>
+            <div class="p-5 rounded-2xl sky-card space-y-2">
+                <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 border border-sky-100 flex items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <h3 class="text-sm font-bold text-slate-900">Real-Time Cutoff Calibration</h3>
+                <p class="text-xs text-slate-500">Calibrated specifically against official KEA and TSCHE counseling closing lists.</p>
+            </div>
+            <div class="p-5 rounded-2xl sky-card space-y-2">
+                <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 border border-sky-100 flex items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                </div>
+                <h3 class="text-sm font-bold text-slate-900">Private & Secure</h3>
+                <p class="text-xs text-slate-500">Your query parameters and rank data are confidential and safely encrypted in your student profile.</p>
+            </div>
+        </div>
 
+    </main>
 
-/* =========================================================
-   BRANCH CONFIGURATION
-========================================================= */
+    <!-- Footer -->
+    <footer class="bg-white border-t border-sky-100 mt-auto py-6 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-extrabold text-slate-800">Edu<span class="text-sky-600">Predict</span></span>
+                <span>• Counseling & Cutoff Decision System</span>
+            </div>
+            <span>© 2026 EduPredict</span>
+        </div>
+    </footer>
 
-const examBranches = {
-
-    KCET: [
-        "CSE",
-        "AIML",
-        "ISE",
-        "ECE"
-    ],
-
-    EAMCET: [
-        "CSE",
-        "AIML",
-        "ECE",
-        "ME"
-    ]
-
-};
-
-
-/* =========================================================
-   DOM ELEMENTS
-========================================================= */
-
-const branchSelect =
-    document.getElementById("branch");
-
-const branchHelp =
-    document.getElementById("branchHelp");
-
-const branchStatus =
-    document.getElementById("branchStatus");
-
-const predictorForm =
-    document.getElementById("predictorForm");
-
-const rankInput =
-    document.getElementById("rank");
-
-const predictBtn =
-    document.getElementById("predictBtn");
-
-const formError =
-    document.getElementById("formError");
-
-
-/* =========================================================
-   GET SELECTED EXAM
-========================================================= */
-
-function getSelectedExam() {
-
-    const selected =
-        document.querySelector(
-            'input[name="exam"]:checked'
-        );
-
-    if (!selected) {
-
-        return "";
-
-    }
-
-    return selected.value
-        .toUpperCase()
-        .trim();
-
-}
-
-
-/* =========================================================
-   UPDATE BRANCHES
-========================================================= */
-
-function updateBranches() {
-
-    if (!branchSelect) {
-
-        return;
-
-    }
-
-    const exam =
-        getSelectedExam();
-
-
-    branchSelect.innerHTML =
-        '<option value="">Select Branch</option>';
-
-
-    if (branchStatus) {
-
-        branchStatus.classList.remove(
-            "show"
-        );
-
-    }
-
-
-    if (!exam) {
-
-        if (branchHelp) {
-
-            branchHelp.textContent =
-                "Select an entrance examination first.";
-
+    <!-- Client-side Branch & Form Scripts -->
+    <script>
+        function setRankPreset(val) {
+            const input = document.getElementById('rank');
+            if (input) input.value = val;
         }
 
-        return;
+        const examBranches = {
+            KCET: ["CSE", "AIML", "ISE", "ECE"],
+            EAMCET: ["CSE", "AIML", "ECE", "ME"]
+        };
 
-    }
+        const branchSelect = document.getElementById("branch");
+                const predictorForm = document.getElementById("predictorForm");
+        const rankInput = document.getElementById("rank");
+        const labelKcet = document.getElementById("label-kcet");
+        const labelEamcet = document.getElementById("label-eamcet");
+        const formError = document.getElementById("formError");
+        const formErrorMessage = document.getElementById("formErrorMessage");
 
+        const selectedBranchInitial = "{{ selected_branch or '' }}";
 
-    const branches =
-        examBranches[exam] || [];
-
-
-    if (exam === "KCET") {
-
-        if (branchHelp) {
-
-            branchHelp.textContent =
-                "Available KCET branches: CSE, AIML, ISE and ECE.";
-
+        function getSelectedExam() {
+            const checked = document.querySelector('input[name="exam"]:checked');
+            return checked ? checked.value.toUpperCase() : "KCET";
         }
 
-    }
-
-
-    else if (exam === "EAMCET") {
-
-        if (branchHelp) {
-
-            branchHelp.textContent =
-                "Available EAMCET branches: CSE, AIML, ECE and ME.";
-
-        }
-
-    }
-
-
-    branches.forEach(
-        function(branch) {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-            option.value =
-                branch;
-
-            option.textContent =
-                branch;
-
-            branchSelect.appendChild(
-                option
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   SHOW ERROR
-========================================================= */
-
-function showError(message) {
-
-    if (!formError) {
-
-        return;
-
-    }
-
-    formError.textContent =
-        message;
-
-    formError.classList.add(
-        "show"
-    );
-
-    formError.scrollIntoView({
-        behavior: "smooth",
-        block: "center"
-    });
-
-}
-
-
-/* =========================================================
-   HIDE ERROR
-========================================================= */
-
-function hideError() {
-
-    if (!formError) {
-
-        return;
-
-    }
-
-    formError.textContent =
-        "";
-
-    formError.classList.remove(
-        "show"
-    );
-
-}
-
-
-/* =========================================================
-   RANK VALIDATION
-========================================================= */
-
-function validateRank() {
-
-    if (!rankInput) {
-
-        return false;
-
-    }
-
-    const value =
-        rankInput.value.trim();
-
-    const rank =
-        Number(value);
-
-
-    if (
-        value === "" ||
-        !Number.isInteger(rank) ||
-        rank <= 0
-    ) {
-
-        showError(
-            "Please enter a valid rank greater than 0."
-        );
-
-        rankInput.focus();
-
-        return false;
-
-    }
-
-
-    return true;
-
-}
-
-
-/* =========================================================
-   BRANCH VALIDATION
-========================================================= */
-
-function validateBranch() {
-
-    if (!branchSelect) {
-
-        return false;
-
-    }
-
-    const branch =
-        branchSelect.value
-            .toUpperCase()
-            .trim();
-
-
-    if (!branch) {
-
-        showError(
-            "Please select your preferred branch."
-        );
-
-        branchSelect.focus();
-
-        return false;
-
-    }
-
-
-    return true;
-
-}
-
-
-/* =========================================================
-   FORM SUBMISSION
-   IMPORTANT FIX
-========================================================= */
-
-if (predictorForm) {
-
-    predictorForm.addEventListener(
-        "submit",
-        function(event) {
-
-            /*
-             * Stop the browser from performing the normal
-             * submission temporarily.
-             */
-            event.preventDefault();
-
-
-            hideError();
-
-
-            /* ---------------------------------------------
-               VALIDATE EXAM
-            --------------------------------------------- */
-
-            const exam =
-                getSelectedExam();
-
-
-            if (
-                !exam ||
-                !examBranches[exam]
-            ) {
-
-                showError(
-                    "Please select a valid entrance examination."
-                );
-
-                return;
-
+        function updateExamStyles() {
+            const exam = getSelectedExam();
+            if (exam === "KCET") {
+                labelKcet.className = "relative flex items-center gap-3.5 p-4 rounded-2xl border cursor-pointer transition select-none border-sky-500 bg-sky-50/70 ring-2 ring-sky-200";
+                labelEamcet.className = "relative flex items-center gap-3.5 p-4 rounded-2xl border cursor-pointer transition select-none border-slate-200 bg-white hover:border-sky-300";
+            } else {
+                labelEamcet.className = "relative flex items-center gap-3.5 p-4 rounded-2xl border cursor-pointer transition select-none border-sky-500 bg-sky-50/70 ring-2 ring-sky-200";
+                labelKcet.className = "relative flex items-center gap-3.5 p-4 rounded-2xl border cursor-pointer transition select-none border-slate-200 bg-white hover:border-sky-300";
             }
+        }
 
+        function updateBranches() {
+            const exam = getSelectedExam();
+            const branches = examBranches[exam] || [];
+            
+            branchSelect.innerHTML = '<option value="">Select Branch</option>';
+            branches.forEach(branch => {
+                const opt = document.createElement("option");
+                opt.value = branch;
+                opt.textContent = branch;
+                if (branch === selectedBranchInitial) {
+                    opt.selected = true;
+                }
+                branchSelect.appendChild(opt);
+            });
 
-            /* ---------------------------------------------
-               VALIDATE RANK
-            --------------------------------------------- */
-
-            if (!validateRank()) {
-
-                return;
-
-            }
-
-
-            /* ---------------------------------------------
-               VALIDATE BRANCH
-            --------------------------------------------- */
-
-            if (!validateBranch()) {
-
-                return;
-
-            }
-
-
-            /* ---------------------------------------------
-               DISABLE BUTTON
-            --------------------------------------------- */
-
-            if (predictBtn) {
-
-                predictBtn.disabled =
-                    true;
-
-                predictBtn.textContent =
-                    "⏳ Finding Colleges...";
-
-            }
-
-
-            /*
-             * IMPORTANT:
-             *
-             * Explicitly submit the form.
-             *
-             * HTMLFormElement.prototype.submit()
-             * bypasses this submit event, so this event
-             * listener cannot accidentally block the POST.
-             */
-            HTMLFormElement.prototype.submit.call(
-                predictorForm
-            );
 
         }
-    );
 
-}
-
-
-/* =========================================================
-   EXAM CHANGE EVENTS
-========================================================= */
-
-const examInputs =
-    document.querySelectorAll(
-        'input[name="exam"]'
-    );
-
-
-examInputs.forEach(
-    function(input) {
-
-        input.addEventListener(
-            "change",
-            function() {
-
-                hideError();
-
+        document.querySelectorAll('input[name="exam"]').forEach(radio => {
+            radio.addEventListener("change", function() {
+                updateExamStyles();
                 updateBranches();
+            });
+        });
 
-            }
-        );
-
-    }
-);
-
-
-/* =========================================================
-   RANK INPUT CLEANING
-========================================================= */
-
-if (rankInput) {
-
-    rankInput.addEventListener(
-        "input",
-        function() {
-
-            this.value =
-                this.value.replace(
-                    /[^\d]/g,
-                    ""
-                );
-
-            hideError();
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   BRANCH CHANGE
-========================================================= */
-
-if (branchSelect) {
-
-    branchSelect.addEventListener(
-        "change",
-        function() {
-
-            hideError();
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   PAGE LOAD
-========================================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function() {
-
+        // Initialize on page load
+        updateExamStyles();
         updateBranches();
 
-    }
-);
+        // Client Form Validation
+        predictorForm.addEventListener("submit", function(e) {
+            const rank = parseInt(rankInput.value, 10);
+            const branch = branchSelect.value;
 
-</script>
+            if (isNaN(rank) || rank < 1) {
+                e.preventDefault();
+                showError("Please enter a valid entrance rank greater than 0.");
+                rankInput.focus();
+                return;
+            }
 
+            if (!branch) {
+                e.preventDefault();
+                showError("Please select your preferred engineering branch.");
+                branchSelect.focus();
+                return;
+            }
+
+            hideError();
+        });
+
+        function showError(msg) {
+            formErrorMessage.textContent = msg;
+            formError.classList.remove("hidden");
+            formError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function hideError() {
+            formError.classList.add("hidden");
+            formErrorMessage.textContent = "";
+        }
+    </script>
 
 </body>
-
 </html>

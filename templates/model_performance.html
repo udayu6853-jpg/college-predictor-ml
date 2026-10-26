@@ -1,731 +1,270 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Model Performance - College Predictor</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model Performance - EduPredict</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        skyCanvas: '#F0F7FE',
+                        skyPrimary: '#0284C7',
+                        skyAccent: '#0EA5E9',
+                        skyTint: '#E0F2FE',
+                        skyBorder: '#BAE6FD',
+                        navyText: '#0F172A'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-dark-saas.css') }}">
     <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: #f4f7fb;
-            color: #1f2937;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #F0F7FE;
+            background-image: 
+                radial-gradient(circle at 10% 12%, rgba(14, 165, 233, 0.07) 0%, transparent 45%),
+                radial-gradient(circle at 90% 18%, rgba(2, 132, 199, 0.05) 0%, transparent 45%),
+                radial-gradient(circle at 50% 88%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
         }
-
-        /* ================= NAVBAR ================= */
-
-        .navbar {
-            background: #007bff;
-            color: white;
-
-            padding: 16px 35px;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            box-shadow:
-                0 3px 12px rgba(0, 0, 0, 0.15);
+        .sky-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid #E0F2FE;
         }
-
-        .navbar h2 {
-            font-size: 22px;
+        .sky-card {
+            background: #FFFFFF;
+            border: 1px solid #E0F2FE;
+            box-shadow: 0 1px 3px 0 rgba(2, 132, 199, 0.04), 0 6px 20px -3px rgba(2, 132, 199, 0.05);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        .nav-links {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-
-            padding: 9px 14px;
-
-            border-radius: 7px;
-
-            transition: 0.3s;
-
-            font-size: 14px;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.18);
-        }
-
-        /* ================= MAIN ================= */
-
-        .container {
-            width: 92%;
-            max-width: 1200px;
-
-            margin: 35px auto;
-        }
-
-        .page-header {
-            text-align: center;
-
-            margin-bottom: 30px;
-        }
-
-        .page-header h1 {
-            color: #1d4ed8;
-
-            margin-bottom: 8px;
-        }
-
-        .page-header p {
-            color: #64748b;
-        }
-
-        /* ================= BACK BUTTON ================= */
-
-        .back-button {
-            display: inline-block;
-
-            text-decoration: none;
-
-            background: #007bff;
-
-            color: white;
-
-            padding: 12px 22px;
-
-            border-radius: 8px;
-
-            margin-bottom: 30px;
-
-            transition: 0.3s;
-        }
-
-        .back-button:hover {
-            background: #0056b3;
-        }
-
-        /* ================= COMMON CARD ================= */
-
-        .card {
-            background: white;
-
-            border-radius: 16px;
-
-            padding: 25px;
-
-            margin-bottom: 30px;
-
-            box-shadow:
-                0 5px 20px
-                rgba(0, 0, 0, 0.08);
-        }
-
-        .card h2 {
-            color: #1d4ed8;
-
-            margin-bottom: 20px;
-        }
-
-        /* ================= MODEL INFO ================= */
-
-        .model-info {
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(220px, 1fr)
-                );
-
-            gap: 15px;
-        }
-
-        .info-box {
-            background: #f8fafc;
-
-            border-radius: 10px;
-
-            padding: 18px;
-
-            border: 1px solid #e2e8f0;
-        }
-
-        .info-box span {
-            display: block;
-
-            color: #64748b;
-
-            font-size: 13px;
-
-            margin-bottom: 7px;
-        }
-
-        .info-box strong {
-            font-size: 18px;
-
-            color: #1e293b;
-        }
-
-        /* ================= METRICS ================= */
-
-        .metrics {
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(200px, 1fr)
-                );
-
-            gap: 20px;
-
-            margin-bottom: 30px;
-        }
-
-        .metric-card {
-            background: white;
-
-            border-radius: 16px;
-
-            padding: 25px;
-
-            text-align: center;
-
-            box-shadow:
-                0 5px 20px
-                rgba(0, 0, 0, 0.08);
-
-            transition: 0.3s;
-        }
-
-        .metric-card:hover {
-            transform: translateY(-5px);
-
-            box-shadow:
-                0 10px 25px
-                rgba(0, 0, 0, 0.12);
-        }
-
-        .metric-card h3 {
-            color: #64748b;
-
-            font-size: 15px;
-
-            margin-bottom: 12px;
-        }
-
-        .metric-value {
-            font-size: 35px;
-
-            font-weight: bold;
-
-            color: #007bff;
-        }
-
-        /* ================= DATASET ================= */
-
-        .dataset-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(220px, 1fr)
-                );
-
-            gap: 18px;
-        }
-
-        .dataset-item {
-            padding: 18px;
-
-            background: #f8fafc;
-
-            border-radius: 10px;
-
-            border: 1px solid #e2e8f0;
-        }
-
-        .dataset-item span {
-            display: block;
-
-            color: #64748b;
-
-            font-size: 13px;
-
-            margin-bottom: 6px;
-        }
-
-        .dataset-item strong {
-            font-size: 20px;
-        }
-
-        /* ================= FEATURES ================= */
-
-        .features {
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 10px;
-        }
-
-        .feature {
-            background: #e0f2fe;
-
-            color: #0369a1;
-
-            padding: 9px 14px;
-
-            border-radius: 20px;
-
-            font-size: 14px;
-        }
-
-        /* ================= REPORT ================= */
-
-        .report-container {
-            overflow-x: auto;
-        }
-
-        pre {
-            background: #0f172a;
-
-            color: #e2e8f0;
-
-            padding: 20px;
-
-            border-radius: 10px;
-
-            overflow-x: auto;
-
-            font-size: 14px;
-
-            line-height: 1.6;
-
-            min-width: 500px;
-        }
-
-        /* ================= ADMIN NOTICE ================= */
-
-        .admin-notice {
-            background: #eff6ff;
-
-            border: 1px solid #bfdbfe;
-
-            color: #1e40af;
-
-            border-radius: 10px;
-
-            padding: 15px 18px;
-
-            margin-bottom: 25px;
-
-            font-size: 14px;
-        }
-
-        /* ================= MOBILE ================= */
-
-        @media (max-width: 700px) {
-
-            .navbar {
-                flex-direction: column;
-
-                gap: 15px;
-
-                text-align: center;
-            }
-
-            .container {
-                width: 94%;
-            }
-
-            .metric-value {
-                font-size: 30px;
-            }
-
-            .nav-links {
-                justify-content: center;
-            }
-
-        }
-
     </style>
-
 </head>
+<body class="min-h-screen flex flex-col antialiased">
 
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full sky-header shadow-xs transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-18 py-2.5">
+                <!-- Logo & Brand -->
+                <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-sky-500/25 ring-2 ring-sky-100 flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">Edu<span class="text-sky-500">Predict</span></span>
+                            <span class="hidden sm:inline-block text-[11px] font-bold px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full border border-sky-200">Model Telemetry</span>
+                        </div>
+                        <span class="hidden sm:block text-[10px] text-slate-400 font-medium">ML Performance Analytics</span>
+                    </div>
+                </a>
 
-<body>
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="{{ url_for('dashboard') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Dashboard</a>
+                    <a href="{{ url_for('predictor') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Predictor</a>
+                    <a href="{{ url_for('colleges') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Colleges</a>
+                    <a href="{{ url_for('compare') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Compare</a>
+                    <a href="{{ url_for('prediction_history') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">History</a>
+                    <a href="{{ url_for('admin_contact') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Contact Admin</a>
+                </nav>
 
+                <!-- Profile / Auth Area -->
+                <div class="flex items-center gap-3">
+                    <a href="{{ url_for('profile') }}" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-sky-100 bg-white hover:bg-sky-50 text-slate-700 transition text-xs font-semibold shadow-2xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span>My Profile</span>
+                    </a>
 
-<!-- ====================================================
-     NAVBAR
-===================================================== -->
-
-<div class="navbar">
-
-    <h2>
-        🎓 College Predictor
-    </h2>
-
-    <div class="nav-links">
-
-        <a href="{{ url_for('dashboard') }}">
-            Dashboard
-        </a>
-
-        <a href="{{ url_for('colleges') }}">
-            Colleges
-        </a>
-
-        <a href="{{ url_for('predictor') }}">
-            Predictor
-        </a>
-
-        <a href="{{ url_for('prediction_history') }}">
-            History
-        </a>
-
-        <a href="{{ url_for('profile') }}">
-            Profile
-        </a>
-
-        <a href="{{ url_for('logout') }}">
-            Logout
-        </a>
-
-    </div>
-
-</div>
-
-
-<!-- ====================================================
-     MAIN
-===================================================== -->
-
-<div class="container">
-
-
-    <!-- PAGE HEADER -->
-
-    <div class="page-header">
-
-        <h1>
-            🤖 ML Model Performance
-        </h1>
-
-        <p>
-            Administrative model evaluation information
-        </p>
-
-    </div>
-
-
-    <!-- BACK BUTTON -->
-
-    <a
-        href="{{ url_for('dashboard') }}"
-        class="back-button"
-    >
-        ← Back to Dashboard
-    </a>
-
-
-    <!-- ADMIN NOTICE -->
-
-    <div class="admin-notice">
-
-        🔒 <strong>Administrator Area</strong>
-
-        <br>
-
-        This page is available only to authorized administrators.
-
-    </div>
-
-
-    <!-- =================================================
-         MODEL INFORMATION
-    ================================================== -->
-
-    <div class="card">
-
-        <h2>
-            Model Information
-        </h2>
-
-
-        <div class="model-info">
-
-
-            <div class="info-box">
-
-                <span>
-                    Algorithm
-                </span>
-
-                <strong>
-                    {{ performance.get('model', 'N/A') }}
-                </strong>
-
+                    <!-- Logout Button -->
+                    <form method="POST" action="{{ url_for('logout') }}" class="inline m-0">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition" title="Logout">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        </button>
+                    </form>
+                </div>
             </div>
+        </div>
+    </header>
 
+    <!-- Main Container -->
+    <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-6">
 
-            <div class="info-box">
+        <!-- Back Button & Admin Notice -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <a
+                href="{{ url_for('dashboard') }}"
+                class="inline-flex items-center gap-2 text-xs font-bold text-sky-600 hover:text-sky-700 transition px-3.5 py-2 rounded-xl bg-white border border-sky-200 shadow-2xs self-start"
+            >
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                <span>Back to Dashboard</span>
+            </a>
 
-                <span>
-                    Purpose
-                </span>
-
-                <strong>
-                    {{ performance.get('purpose', 'N/A') }}
-                </strong>
-
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs font-bold">
+                <svg class="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                <span>Administrator Telemetry Only</span>
             </div>
-
-
-            <div class="info-box">
-
-                <span>
-                    Prediction Target
-                </span>
-
-                <strong>
-                    {{ performance.get('target', 'N/A') }}
-                </strong>
-
-            </div>
-
-
         </div>
 
-    </div>
-
-
-    <!-- =================================================
-         PERFORMANCE METRICS
-    ================================================== -->
-
-    <div class="metrics">
-
-
-        <div class="metric-card">
-
-            <h3>
-                Accuracy
-            </h3>
-
-            <div class="metric-value">
-
-                {{ performance.get(
-                    'accuracy_percentage',
-                    0
-                ) }}%
-
-            </div>
-
+        <!-- Page Header -->
+        <div class="space-y-1.5">
+            <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Machine Learning Model Performance</h1>
+            <p class="text-sm text-slate-500">Cross-validation benchmarks, precision-recall curve metrics, and feature importance telemetry.</p>
         </div>
 
+        <!-- 4 Metric Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Accuracy -->
+            <div class="sky-card rounded-2xl p-5 space-y-1">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Model Accuracy</span>
+                <div class="text-2xl sm:text-3xl font-black text-slate-900">
+                    {{ performance.get('accuracy_percentage', 0) }}%
+                </div>
+                <span class="text-[10px] text-emerald-600 font-bold block">Cross-Validated Test Set</span>
+            </div>
 
-        <div class="metric-card">
+            <!-- Precision -->
+            <div class="sky-card rounded-2xl p-5 space-y-1">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Weighted Precision</span>
+                <div class="text-2xl sm:text-3xl font-black text-slate-900">
+                    {{ (performance.get('precision', 0) * 100)|round(2) }}%
+                </div>
+                <span class="text-[10px] text-sky-600 font-bold block">Positive Predictive Value</span>
+            </div>
 
-            <h3>
-                Precision
-            </h3>
+            <!-- Recall -->
+            <div class="sky-card rounded-2xl p-5 space-y-1">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">True Positive Recall</span>
+                <div class="text-2xl sm:text-3xl font-black text-slate-900">
+                    {{ (performance.get('recall', 0) * 100)|round(2) }}%
+                </div>
+                <span class="text-[10px] text-indigo-600 font-bold block">Sensitivity Ratio</span>
+            </div>
 
-            <div class="metric-value">
+            <!-- F1 Score -->
+            <div class="sky-card rounded-2xl p-5 space-y-1">
+                <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Harmonic F1 Score</span>
+                <div class="text-2xl sm:text-3xl font-black text-slate-900">
+                    {{ (performance.get('f1_score', 0) * 100)|round(2) }}%
+                </div>
+                <span class="text-[10px] text-amber-600 font-bold block">Balance Index</span>
+            </div>
+        </div>
 
-                {{ (
-                    performance.get(
-                        'precision',
-                        0
-                    ) * 100
-                )|round(2) }}%
+        <!-- Model Specifications Card -->
+        <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-4">
+            <div class="flex items-center gap-2 pb-3 border-b border-sky-100">
+                <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <h2 class="text-base font-extrabold text-slate-900">Architecture & Target Specifications</h2>
+            </div>
 
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 rounded-2xl bg-sky-50/40 border border-sky-100">
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Algorithm</span>
+                    <strong class="text-sm font-extrabold text-slate-900 mt-1 block">{{ performance.get('model', 'N/A') }}</strong>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sky-50/40 border border-sky-100">
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Inference Purpose</span>
+                    <strong class="text-sm font-extrabold text-slate-900 mt-1 block">{{ performance.get('purpose', 'N/A') }}</strong>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sky-50/40 border border-sky-100">
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Target Variable</span>
+                    <strong class="text-sm font-extrabold text-slate-900 mt-1 block">{{ performance.get('target', 'N/A') }}</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dataset & Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <!-- Dataset Information -->
+            <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-4">
+                <div class="flex items-center gap-2 pb-3 border-b border-sky-100">
+                    <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/></svg>
+                    <h2 class="text-base font-extrabold text-slate-900">Training & Split Partitions</h2>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="p-3.5 rounded-2xl bg-sky-50/40 border border-sky-100 flex items-center justify-between">
+                        <span class="text-xs font-bold text-slate-500">Total Validated Records:</span>
+                        <span class="text-xs font-black text-slate-900">{{ performance.get('records', 0) }}</span>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-sky-50/40 border border-sky-100 flex items-center justify-between">
+                        <span class="text-xs font-bold text-slate-500">Training Partition (80%):</span>
+                        <span class="text-xs font-black text-sky-700">{{ performance.get('training_samples', 0) }} samples</span>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-sky-50/40 border border-sky-100 flex items-center justify-between">
+                        <span class="text-xs font-bold text-slate-500">Evaluation Test Partition (20%):</span>
+                        <span class="text-xs font-black text-indigo-700">{{ performance.get('testing_samples', 0) }} samples</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Importance -->
+            <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-4">
+                <div class="flex items-center gap-2 pb-3 border-b border-sky-100">
+                    <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+                    <h2 class="text-base font-extrabold text-slate-900">Model Input Features</h2>
+                </div>
+
+                <div class="flex flex-wrap gap-2 pt-1">
+                    {% for feature in performance.get('features', []) %}
+                        <span class="px-3 py-1.5 rounded-xl bg-sky-50 text-sky-700 border border-sky-200 text-xs font-bold font-mono">
+                            {{ feature }}
+                        </span>
+                    {% endfor %}
+                </div>
             </div>
 
         </div>
 
-
-        <div class="metric-card">
-
-            <h3>
-                Recall
-            </h3>
-
-            <div class="metric-value">
-
-                {{ (
-                    performance.get(
-                        'recall',
-                        0
-                    ) * 100
-                )|round(2) }}%
-
+        <!-- Classification Report Terminal -->
+        <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-sky-100">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    <h2 class="text-base font-extrabold text-slate-900">Classification Report Output</h2>
+                </div>
+                <span class="text-xs font-mono text-slate-400">Scikit-Learn Evaluation</span>
             </div>
 
-        </div>
-
-
-        <div class="metric-card">
-
-            <h3>
-                F1 Score
-            </h3>
-
-            <div class="metric-value">
-
-                {{ (
-                    performance.get(
-                        'f1_score',
-                        0
-                    ) * 100
-                )|round(2) }}%
-
+            <div class="rounded-2xl bg-slate-900 p-5 overflow-x-auto border border-slate-800 shadow-inner">
+                <pre class="text-xs text-sky-200 font-mono leading-relaxed">{{ performance.get('classification_report', 'No classification report available.') }}</pre>
             </div>
-
         </div>
 
+    </main>
 
-    </div>
-
-
-    <!-- =================================================
-         DATASET INFORMATION
-    ================================================== -->
-
-    <div class="card">
-
-        <h2>
-            📊 Dataset Information
-        </h2>
-
-
-        <div class="dataset-grid">
-
-
-            <div class="dataset-item">
-
-                <span>
-                    Total Records
-                </span>
-
-                <strong>
-                    {{ performance.get(
-                        'records',
-                        0
-                    ) }}
-                </strong>
-
+    <!-- Footer -->
+    <footer class="bg-white border-t border-sky-100 mt-auto py-6 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-extrabold text-slate-800">Edu<span class="text-sky-600">Predict</span></span>
+                <span>• Machine Learning Model Audit</span>
             </div>
-
-
-            <div class="dataset-item">
-
-                <span>
-                    Training Samples
-                </span>
-
-                <strong>
-                    {{ performance.get(
-                        'training_samples',
-                        0
-                    ) }}
-                </strong>
-
-            </div>
-
-
-            <div class="dataset-item">
-
-                <span>
-                    Testing Samples
-                </span>
-
-                <strong>
-                    {{ performance.get(
-                        'testing_samples',
-                        0
-                    ) }}
-                </strong>
-
-            </div>
-
-
+            <span>© 2026 EduPredict. Internal Telemetry.</span>
         </div>
-
-    </div>
-
-
-    <!-- =================================================
-         MODEL FEATURES
-    ================================================== -->
-
-    <div class="card">
-
-        <h2>
-            🔧 Model Features
-        </h2>
-
-
-        <div class="features">
-
-            {% for feature in performance.get(
-                'features',
-                []
-            ) %}
-
-                <span class="feature">
-
-                    {{ feature }}
-
-                </span>
-
-            {% endfor %}
-
-        </div>
-
-    </div>
-
-
-    <!-- =================================================
-         CLASSIFICATION REPORT
-    ================================================== -->
-
-    <div class="card">
-
-        <h2>
-            📋 Classification Report
-        </h2>
-
-
-        <div class="report-container">
-
-            <pre>{{ performance.get(
-                'classification_report',
-                'No classification report available.'
-            ) }}</pre>
-
-        </div>
-
-    </div>
-
-
-</div>
-
+    </footer>
 
 </body>
-
 </html>

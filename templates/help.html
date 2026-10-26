@@ -1,552 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Help | College Predictor</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & User Guide - EduPredict</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        skyCanvas: '#F0F7FE',
+                        skyPrimary: '#0284C7',
+                        skyAccent: '#0EA5E9',
+                        skyTint: '#E0F2FE',
+                        skyBorder: '#BAE6FD',
+                        navyText: '#0F172A'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-dark-saas.css') }}">
     <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", Arial, sans-serif;
-        }
-
         body {
-            min-height: 100vh;
-            background:
-                linear-gradient(
-                    135deg,
-                    #eef7ff,
-                    #f8fbff
-                );
-            color: #102a56;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #F0F7FE;
+            background-image: 
+                radial-gradient(circle at 10% 12%, rgba(14, 165, 233, 0.07) 0%, transparent 45%),
+                radial-gradient(circle at 90% 18%, rgba(2, 132, 199, 0.05) 0%, transparent 45%),
+                radial-gradient(circle at 50% 88%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
         }
-
-        /* NAVBAR */
-
-        .navbar {
-            min-height: 74px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #087cf0,
-                    #0874df
-                );
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            padding: 0 42px;
-
-            color: white;
-
-            box-shadow:
-                0 4px 15px
-                rgba(0, 91, 180, 0.18);
+        .sky-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid #E0F2FE;
         }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-
-            font-size: 25px;
-            font-weight: 800;
+        .sky-card {
+            background: #FFFFFF;
+            border: 1px solid #E0F2FE;
+            box-shadow: 0 1px 3px 0 rgba(2, 132, 199, 0.04), 0 6px 20px -3px rgba(2, 132, 199, 0.05);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        .brand-icon {
-            width: 45px;
-            height: 45px;
-
-            border-radius: 10px;
-
-            background:
-                rgba(255,255,255,0.15);
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 25px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 7px;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-
-            padding: 12px 15px;
-
-            border-radius: 9px;
-
-            font-size: 14px;
-            font-weight: 600;
-
-            transition: 0.2s;
-        }
-
-        .nav-links a:hover {
-            background:
-                rgba(255,255,255,0.15);
-        }
-
-        /* MAIN */
-
-        .container {
-            width: 94%;
-            max-width: 1100px;
-
-            margin: 35px auto 50px;
-        }
-
-        .page-header {
-            background: white;
-
-            border:
-                1px solid #dcecff;
-
-            border-radius: 16px;
-
-            padding: 30px;
-
-            text-align: center;
-
-            box-shadow:
-                0 7px 25px
-                rgba(31, 91, 150, 0.07);
-        }
-
-        .page-icon {
-            font-size: 45px;
-            margin-bottom: 10px;
-        }
-
-        .page-header h1 {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
-
-        .page-header p {
-            color: #657994;
-            font-size: 15px;
-        }
-
-        /* HELP GRID */
-
-        .help-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(2, 1fr);
-
-            gap: 18px;
-
-            margin-top: 20px;
-        }
-
-        .help-card {
-            background: white;
-
-            border:
-                1px solid #dcecff;
-
-            border-radius: 14px;
-
-            padding: 24px;
-
-            box-shadow:
-                0 6px 20px
-                rgba(31, 91, 150, 0.06);
-
-            transition: 0.2s;
-        }
-
-        .help-card:hover {
-            transform:
-                translateY(-3px);
-
-            box-shadow:
-                0 10px 25px
-                rgba(31, 91, 150, 0.10);
-        }
-
-        .help-card-icon {
-            width: 48px;
-            height: 48px;
-
-            border-radius: 12px;
-
-            background: #edf6ff;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            font-size: 25px;
-
-            margin-bottom: 15px;
-        }
-
-        .help-card h2 {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .help-card p {
-            color: #63758f;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        /* FAQ */
-
-        .faq-section {
-            background: white;
-
-            border:
-                1px solid #dcecff;
-
-            border-radius: 14px;
-
-            padding: 25px;
-
-            margin-top: 20px;
-
-            box-shadow:
-                0 6px 20px
-                rgba(31, 91, 150, 0.06);
-        }
-
-        .faq-section h2 {
-            margin-bottom: 18px;
-        }
-
-        .faq {
-            border-bottom:
-                1px solid #edf2f7;
-
-            padding: 15px 0;
-        }
-
-        .faq:last-child {
-            border-bottom: none;
-        }
-
-        .faq-question {
-            font-weight: 700;
-            color: #17345f;
-            margin-bottom: 7px;
-        }
-
-        .faq-answer {
-            color: #657994;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* FOOTER */
-
-        footer {
-            text-align: center;
-            color: #7a8da8;
-
-            font-size: 13px;
-
-            padding:
-                10px 0 30px;
-        }
-
-        /* RESPONSIVE */
-
-        @media (max-width: 800px) {
-
-            .navbar {
-                flex-direction: column;
-                gap: 10px;
-
-                padding: 12px 15px;
-            }
-
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .help-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
     </style>
-
 </head>
+<body class="min-h-screen flex flex-col antialiased">
 
-<body>
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full sky-header shadow-xs transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-18 py-2.5">
+                <!-- Logo & Brand -->
+                <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-sky-500/25 ring-2 ring-sky-100 flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">Edu<span class="text-sky-500">Predict</span></span>
+                            <span class="hidden sm:inline-block text-[11px] font-bold px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full border border-sky-200">User Guide</span>
+                        </div>
+                        <span class="hidden sm:block text-[10px] text-slate-400 font-medium">Documentation & FAQs</span>
+                    </div>
+                </a>
 
-    <!-- NAVBAR -->
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="{{ url_for('dashboard') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Dashboard</a>
+                    <a href="{{ url_for('predictor') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Predictor</a>
+                    <a href="{{ url_for('colleges') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Colleges</a>
+                    <a href="{{ url_for('compare') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Compare</a>
+                    <a href="{{ url_for('prediction_history') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">History</a>
+                    <a href="{{ url_for('admin_contact') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Contact Admin</a>
+                </nav>
 
-    <nav class="navbar">
+                <!-- Profile / Auth Area -->
+                <div class="flex items-center gap-3">
+                    <a href="{{ url_for('profile') }}" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-sky-100 bg-white hover:bg-sky-50 text-slate-700 transition text-xs font-semibold shadow-2xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span>My Profile</span>
+                    </a>
 
-        <div class="brand">
-
-            <div class="brand-icon">
-                🎓
+                    <!-- Logout Button -->
+                    <form method="POST" action="{{ url_for('logout') }}" class="inline m-0">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition" title="Logout">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        </button>
+                    </form>
+                </div>
             </div>
-
-            College Predictor
-
         </div>
+    </header>
 
-        <div class="nav-links">
+    <!-- Main Container -->
+    <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-8">
 
-            <a href="{{ url_for('dashboard') }}">
-                🏠 Dashboard
-            </a>
-
-            <a href="{{ url_for('colleges') }}">
-                🎓 Colleges
-            </a>
-
-            <a href="{{ url_for('predictor') }}">
-                🤖 Predictor
-            </a>
-
-            <a href="{{ url_for('profile') }}">
-                👤 Profile
-            </a>
-
-            <a href="{{ url_for('about') }}">
-                ℹ️ About
-            </a>
-
-            <a href="{{ url_for('logout') }}">
-                🚪 Logout
-            </a>
-
-        </div>
-
-    </nav>
-
-
-    <!-- MAIN -->
-
-    <main class="container">
-
-        <section class="page-header">
-
-            <div class="page-icon">
-                ❓
+        <!-- Page Header -->
+        <div class="sky-card rounded-3xl p-8 sm:p-10 text-center space-y-3">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold mx-auto">
+                <svg class="w-3.5 h-3.5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>Help & Platform Guidance</span>
             </div>
-
-            <h1>
-                How Can We Help?
-            </h1>
-
-            <p>
-                Learn how to use the College Predictor System.
+            <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">How Can We Help You?</h1>
+            <p class="text-sm text-slate-500 max-w-xl mx-auto">
+                Everything you need to know about predicting college admissions, evaluating cutoff cushions, and navigating state counseling databases.
             </p>
+        </div>
 
-        </section>
+        <!-- 4 Help Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-
-        <!-- HELP CARDS -->
-
-        <section class="help-grid">
-
-
-            <div class="help-card">
-
-                <div class="help-card-icon">
-                    🎓
+            <!-- Card 1: Directory & Filters -->
+            <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 text-sky-600 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                 </div>
-
-                <h2>
-                    Browse Colleges
-                </h2>
-
-                <p>
-                    Open the Colleges page to explore available
-                    KCET and EAMCET colleges. You can search and
-                    filter colleges by exam, branch, state,
-                    rating and management fees.
+                <h2 class="text-base font-extrabold text-slate-900">Browsing & Filtering Colleges</h2>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Access the <strong>Colleges</strong> directory to explore over 500 accredited institutions across Karnataka (KCET) and Andhra Pradesh / Telangana (EAMCET). Use the dynamic filter bar to narrow results by state, branch, rating, or management tuition fees.
                 </p>
-
             </div>
 
-
-            <div class="help-card">
-
-                <div class="help-card-icon">
-                    🤖
+            <!-- Card 2: AI Predictor -->
+            <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 text-sky-600 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                 </div>
-
-                <h2>
-                    College Predictor
-                </h2>
-
-                <p>
-                    Select your entrance exam, enter your rank
-                    and choose your preferred branch. The system
-                    analyzes the available college data and
-                    displays matching colleges.
+                <h2 class="text-base font-extrabold text-slate-900">Running Admission Predictions</h2>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Select your entrance examination, enter your official merit rank, and specify your desired engineering specialization (CSE, AIML, ECE, ISE, etc.). The machine learning engine correlates your rank against historical closing trends to calculate your admission odds.
                 </p>
-
             </div>
 
-
-            <div class="help-card">
-
-                <div class="help-card-icon">
-                    📊
+            <!-- Card 3: Understanding Confidence Bands -->
+            <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 text-sky-600 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                 </div>
-
-                <h2>
-                    Prediction Results
-                </h2>
-
-                <p>
-                    Your prediction results show matching colleges,
-                    cutoff information, ratings, fees, locations
-                    and an estimated chance indicator.
+                <h2 class="text-base font-extrabold text-slate-900">Confidence Ratings & Cushions</h2>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Predictions are segmented into three distinct categories: <strong class="text-emerald-700">Safe Bets (&gt;75%)</strong> where your rank sits comfortably within historical cutoffs, <strong class="text-sky-700">Target (50-75%)</strong>, and <strong class="text-amber-700">Reach (&lt;50%)</strong> for ambitious options.
                 </p>
-
             </div>
 
-
-            <div class="help-card">
-
-                <div class="help-card-icon">
-                    🗺️
+            <!-- Card 4: Side-by-Side Comparison -->
+            <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-3">
+                <div class="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 text-sky-600 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
                 </div>
-
-                <h2>
-                    College Location
-                </h2>
-
-                <p>
-                    Open any college details page to view its
-                    location. The Google Maps option searches
-                    using the college name and location.
+                <h2 class="text-base font-extrabold text-slate-900">Multi-College Comparison Matrix</h2>
+                <p class="text-xs text-slate-500 leading-relaxed">
+                    Check the "Compare" box on up to three colleges in the directory, then click <strong>Compare Selected Colleges</strong> to launch a side-by-side evaluation matrix detailing cutoff ranks, tuition rates, and accreditation ratings.
                 </p>
-
             </div>
 
+        </div>
 
-        </section>
-
-
-        <!-- FAQ -->
-
-        <section class="faq-section">
-
-            <h2>
-                Frequently Asked Questions
-            </h2>
-
-
-            <div class="faq">
-
-                <div class="faq-question">
-                    How do I predict colleges?
-                </div>
-
-                <div class="faq-answer">
-                    Open the Predictor page, select KCET or EAMCET,
-                    enter your rank and select a branch. Then click
-                    Predict Colleges.
-                </div>
-
+        <!-- Need More Support Banner -->
+        <div class="sky-card rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <h3 class="text-base font-extrabold text-slate-900">Need Further Technical Assistance?</h3>
+                <p class="text-xs text-slate-500">Reach out directly to the platform administrator for dataset corrections or inquiries.</p>
             </div>
-
-
-            <div class="faq">
-
-                <div class="faq-question">
-                    Can I view both KCET and EAMCET colleges?
-                </div>
-
-                <div class="faq-answer">
-                    Yes. The Colleges page contains records from
-                    both KCET and EAMCET datasets.
-                </div>
-
-            </div>
-
-
-            <div class="faq">
-
-                <div class="faq-question">
-                    How can I see college fees?
-                </div>
-
-                <div class="faq-answer">
-                    Open the college details page. The Fee Structure
-                    section displays management fees, entrance exam
-                    fees and hostel fees when available.
-                </div>
-
-            </div>
-
-
-            <div class="faq">
-
-                <div class="faq-question">
-                    How can I find the college location?
-                </div>
-
-                <div class="faq-answer">
-                    Open College Details and select Open in Google
-                    Maps. The search uses the college name together
-                    with its location and state.
-                </div>
-
-            </div>
-
-
-            <div class="faq">
-
-                <div class="faq-question">
-                    Is the chance percentage a guaranteed admission probability?
-                </div>
-
-                <div class="faq-answer">
-                    No. The chance indicator is an estimate generated
-                    from the available project data and prediction
-                    logic. It should not be treated as a guaranteed
-                    admission probability.
-                </div>
-
-            </div>
-
-
-        </section>
+            <a
+                href="{{ url_for('admin_contact') }}"
+                class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 text-white font-extrabold text-xs shadow-md shadow-sky-600/20 transition cursor-pointer whitespace-nowrap"
+            >
+                Contact System Administrator
+            </a>
+        </div>
 
     </main>
 
-
-    <footer>
-
-        © 2026 College Predictor System
-
+    <!-- Footer -->
+    <footer class="bg-white border-t border-sky-100 mt-auto py-6 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-extrabold text-slate-800">Edu<span class="text-sky-600">Predict</span></span>
+                <span>• Machine Learning Cutoff Predictions</span>
+            </div>
+            <span>© 2026 EduPredict. KCET & EAMCET Calibrated Data.</span>
+        </div>
     </footer>
 
 </body>
-
 </html>

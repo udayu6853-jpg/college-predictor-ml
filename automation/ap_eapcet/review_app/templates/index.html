@@ -1,0 +1,536 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AP EAPCET | College Mapping Review</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #f3f6fb;
+            color: #1e293b;
+        }
+
+        header {
+            background: linear-gradient(120deg, #123b75, #1769aa);
+            color: white;
+            padding: 24px 5%;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 26px;
+        }
+
+        header p {
+            margin: 0;
+            color: #dceaff;
+        }
+
+        main {
+            width: 94%;
+            max-width: 1500px;
+            margin: 24px auto;
+        }
+
+        .notice {
+            background: #fff8e6;
+            border: 1px solid #f3d48a;
+            padding: 13px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .stat {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #1e293b0d;
+            border-left: 4px solid #1769aa;
+        }
+
+        .stat span {
+            display: block;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 28px;
+            margin-top: 7px;
+        }
+
+        .filters, .record {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 3px 12px #1e293b0d;
+        }
+
+        .filters form {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto auto;
+            gap: 10px;
+            align-items: end;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            background: white;
+            font: inherit;
+        }
+
+        button, .reset {
+            display: inline-block;
+            border: 0;
+            padding: 11px 16px;
+            border-radius: 7px;
+            cursor: pointer;
+            text-decoration: none;
+            font: inherit;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .primary {
+            background: #1769aa;
+            color: white;
+        }
+
+        .secondary {
+            background: #e8eef6;
+            color: #24364b;
+        }
+
+        .record h2 {
+            font-size: 19px;
+            margin: 0 0 7px;
+            overflow-wrap: anywhere;
+        }
+
+        .muted {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .chip {
+            background: #eef4ff;
+            color: #234d85;
+            border-radius: 20px;
+            padding: 6px 10px;
+            font-size: 12px;
+        }
+
+        .candidate-section {
+            margin-top: 18px;
+        }
+
+        .candidate-section h3 {
+            font-size: 16px;
+        }
+
+        .candidate-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .candidate {
+            border: 1px solid #dbe4ef;
+            border-radius: 9px;
+            padding: 13px;
+            background: #fbfdff;
+            overflow-wrap: anywhere;
+        }
+
+        .candidate h4 {
+            margin: 0 0 10px;
+            color: #1769aa;
+        }
+
+        .candidate p {
+            font-size: 13px;
+            margin: 7px 0;
+            line-height: 1.45;
+        }
+
+        .field-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .field-value {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 7px;
+            padding: 11px;
+            min-height: 42px;
+            overflow-wrap: anywhere;
+        }
+
+        .empty {
+            background: white;
+            text-align: center;
+            padding: 45px 20px;
+            border-radius: 12px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            .filters form {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .search-field {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .filters form {
+                grid-template-columns: 1fr;
+            }
+
+            .search-field {
+                grid-column: auto;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>AP EAPCET College Mapping Review</h1>
+    <p>Manual verification workspace · V5.20</p>
+</header>
+
+<main>
+
+    <div class="notice">
+        <strong>Manual verification required.</strong>
+        Candidate names, similarity scores and automated suggestions are
+        not official evidence. This page is read-only; no mapping is
+        confirmed or saved from this interface.
+    </div>
+
+    <section class="stats">
+        <div class="stat">
+            <span>Total worksheet records</span>
+            <strong>{{ total_records }}</strong>
+        </div>
+
+        <div class="stat">
+            <span>Pending</span>
+            <strong>{{ pending_count }}</strong>
+        </div>
+
+        <div class="stat">
+            <span>Confirmed in worksheet</span>
+            <strong>{{ confirmed_count }}</strong>
+        </div>
+
+        <div class="stat">
+            <span>Rejected in worksheet</span>
+            <strong>{{ rejected_count }}</strong>
+        </div>
+
+        <div class="stat">
+            <span>Needs review</span>
+            <strong>{{ needs_review_count }}</strong>
+        </div>
+    </section>
+
+    <section class="filters">
+        <form method="GET" action="{{ url_for('index') }}">
+
+            <div class="search-field">
+                <label for="q">Search college, location or review ID</label>
+                <input
+                    type="search"
+                    id="q"
+                    name="q"
+                    value="{{ search_text }}"
+                    placeholder="Enter a college name or location">
+            </div>
+
+            <div>
+                <label for="category">Review category</label>
+                <select id="category" name="category">
+                    <option value="">All categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category }}"
+                        {% if selected_category == category %}selected{% endif %}>
+                        {{ category }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="decision">Decision</label>
+                <select id="decision" name="decision">
+                    <option value="">All decisions</option>
+                    {% for decision in
+                        ['PENDING', 'CONFIRMED', 'REJECTED', 'NEEDS_REVIEW'] %}
+                    <option value="{{ decision }}"
+                        {% if selected_decision == decision %}selected{% endif %}>
+                        {{ decision }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button class="primary" type="submit">Search</button>
+            <a class="reset secondary" href="{{ url_for('index') }}">Reset</a>
+
+        </form>
+    </section>
+
+    <p class="muted">
+        Showing {{ visible_records }} of {{ total_records }} records.
+    </p>
+
+    {% if records %}
+
+        {% for record in records %}
+        <article class="record">
+
+            <h2>
+                {{ record.get('Current College Name', 'College name unavailable') }}
+            </h2>
+
+            <p class="muted">
+                Current location:
+                {{ record.get('Current Location', 'Not provided') }}
+            </p>
+
+            <div class="chips">
+                <span class="chip">
+                    ID: {{ record.get('Stable Review ID', 'Unavailable') }}
+                </span>
+
+                <span class="chip">
+                    Priority: {{ record.get('Review Priority', 'Not provided') }}
+                </span>
+
+                <span class="chip">
+                    Decision: {{ record.get('Reviewer Decision', 'PENDING') }}
+                </span>
+
+                <span class="chip">
+                    Category:
+                    {{ record.get('Manual Review Category', 'Not provided') }}
+                </span>
+            </div>
+
+            <div class="field-grid">
+                <div>
+                    <label>Current canonical name</label>
+                    <div class="field-value">
+                        {{ record.get('Current Canonical Name', '') or 'Not provided' }}
+                    </div>
+                </div>
+
+                <div>
+                    <label>Current canonical location</label>
+                    <div class="field-value">
+                        {{ record.get('Current Canonical Location', '') or 'Not provided' }}
+                    </div>
+                </div>
+
+                <div>
+                    <label>Review flags</label>
+                    <div class="field-value">
+                        {{ record.get('Review Flags', '') or 'None recorded' }}
+                    </div>
+                </div>
+
+                <div>
+                    <label>Candidate count</label>
+                    <div class="field-value">
+                        {{ record.get('Valid Candidate Count', 'Not provided') }}
+                    </div>
+                </div>
+            </div>
+
+            <section class="candidate-section">
+                <h3>Suggested candidates — verify independently</h3>
+
+                <div class="candidate-grid">
+
+                    {% for candidate in candidate_groups %}
+                        {% set candidate_name =
+                            record.get(candidate.name, '') %}
+                        {% set candidate_location =
+                            record.get(candidate.location, '') %}
+                        {% set candidate_code =
+                            record.get(candidate.code, '') %}
+                        {% set candidate_score =
+                            record.get(candidate.score, '') %}
+                        {% set candidate_similarity =
+                            record.get(candidate.similarity, '') %}
+
+                        {% if candidate_name or candidate_location or candidate_code %}
+                        <div class="candidate">
+                            <h4>Candidate {{ candidate.number }}</h4>
+
+                            <p>
+                                <strong>Name:</strong>
+                                {{ candidate_name or 'Not provided' }}
+                            </p>
+
+                            <p>
+                                <strong>Location:</strong>
+                                {{ candidate_location or 'Not provided' }}
+                            </p>
+
+                            <p>
+                                <strong>Code:</strong>
+                                {{ candidate_code or 'Not provided' }}
+                            </p>
+
+                            <p>
+                                <strong>Score:</strong>
+                                {{ candidate_score or 'Not provided' }}
+                            </p>
+
+                            <p>
+                                <strong>Similarity:</strong>
+                                {{ candidate_similarity or 'Not provided' }}
+                            </p>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+            </section>
+
+            <section class="candidate-section">
+                <h3>Reviewer information</h3>
+
+                <div class="field-grid">
+                    <div>
+                        <label>Verified official name</label>
+                        <div class="field-value">
+                            {{ record.get('Verified Official Name', '') or 'Not entered' }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Verified location</label>
+                        <div class="field-value">
+                            {{ record.get('Verified Location', '') or 'Not entered' }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Official code</label>
+                        <div class="field-value">
+                            {{ record.get('Verified Official Code', '') or 'Not entered' }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Evidence URL</label>
+                        <div class="field-value">
+                            {{ record.get('Evidence URL', '') or 'Not entered' }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Reviewed by</label>
+                        <div class="field-value">
+                            {{ record.get('Reviewed By', '') or 'Not entered' }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Review date</label>
+                        <div class="field-value">
+                            {{ record.get('Review Date (YYYY-MM-DD)', '') or 'Not entered' }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Reviewer notes</label>
+                        <div class="field-value">
+                            {{ record.get('Reviewer Notes', '') or 'No notes' }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Decision reason</label>
+                        <div class="field-value">
+                            {{ record.get('Decision Reason', '') or 'Not entered' }}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </article>
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty">
+            <h2>No matching records</h2>
+            <p>Try another search term or reset your filters.</p>
+        </div>
+
+    {% endif %}
+
+</main>
+
+<footer>
+    AP EAPCET Manual Review · V5.20 · Read-only mode
+</footer>
+
+</body>
+</html>

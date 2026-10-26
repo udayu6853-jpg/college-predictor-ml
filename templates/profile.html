@@ -1,1103 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>
-        Profile - College Predictor
-    </title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile Settings - EduPredict</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        skyCanvas: '#F0F7FE',
+                        skyPrimary: '#0284C7',
+                        skyAccent: '#0EA5E9',
+                        skyTint: '#E0F2FE',
+                        skyBorder: '#BAE6FD',
+                        navyText: '#0F172A'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-dark-saas.css') }}">
     <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", Arial, sans-serif;
-        }
-
         body {
-            background: #f4f8fc;
-            color: #1f2937;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #F0F7FE;
+            background-image: 
+                radial-gradient(circle at 10% 12%, rgba(14, 165, 233, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 90% 18%, rgba(2, 132, 199, 0.06) 0%, transparent 45%),
+                radial-gradient(circle at 50% 88%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: #334155;
         }
-
-
-        /* ================= NAVBAR ================= */
-
-        .navbar {
-            width: 100%;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #0066cc,
-                    #008cff
-                );
-
-            color: white;
-
-            box-shadow:
-                0 4px 18px rgba(0, 80, 160, 0.15);
-
-            position: sticky;
-            top: 0;
-
-            z-index: 1000;
+        .sky-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid #E0F2FE;
         }
-
-        .navbar-container {
-            max-width: 1250px;
-
-            min-height: 70px;
-
-            margin: auto;
-
-            padding: 0 25px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: space-between;
-
-            gap: 20px;
+        .sky-card {
+            background: #FFFFFF;
+            border: 1px solid #E0F2FE;
+            box-shadow: 0 4px 20px -2px rgba(2, 132, 199, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        .navbar-brand {
-            display: flex;
-
-            align-items: center;
-
-            gap: 9px;
-
-            color: white;
-
-            text-decoration: none;
-
-            font-size: 21px;
-
-            font-weight: 700;
-
-            white-space: nowrap;
-        }
-
-        .brand-icon {
-            font-size: 25px;
-        }
-
-        .nav-links {
-            display: flex;
-
-            align-items: center;
-
-            gap: 5px;
-        }
-
-        .nav-links a {
-            color: white;
-
-            text-decoration: none;
-
-            padding: 10px 13px;
-
-            border-radius: 9px;
-
-            font-size: 14px;
-
-            transition: 0.2s;
-
-            white-space: nowrap;
-        }
-
-        .nav-links a:hover {
-            background:
-                rgba(255,255,255,0.15);
-        }
-
-        .nav-links a.active {
-            background:
-                rgba(255,255,255,0.22);
-
-            font-weight: 700;
-        }
-
-        .logout-link {
-            background:
-                rgba(255,255,255,0.12);
-
-            border:
-                1px solid rgba(255,255,255,0.25);
-
-            color: white;
-
-            padding: 10px 13px;
-
-            border-radius: 9px;
-
-            font-size: 14px;
-
-            cursor: pointer;
-
-            white-space: nowrap;
-
-            transition: 0.2s;
-        }
-
-        .logout-link:hover {
-            background:
-                rgba(255,255,255,0.20);
-        }
-
-        .menu-button {
-            display: none;
-
-            width: 42px;
-            height: 42px;
-
-            border: none;
-
-            border-radius: 9px;
-
-            background:
-                rgba(255,255,255,0.15);
-
-            color: white;
-
-            font-size: 22px;
-
-            cursor: pointer;
-        }
-
-
-        /* ================= MAIN ================= */
-
-        .container {
-            max-width: 1050px;
-
-            margin: auto;
-
-            padding: 38px 25px 60px;
-        }
-
-
-        /* ================= HEADER ================= */
-
-        .page-header {
-            text-align: center;
-
-            margin-bottom: 30px;
-        }
-
-        .profile-icon {
-            width: 78px;
-            height: 78px;
-
-            margin: 0 auto 15px;
-
-            border-radius: 50%;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #007bff,
-                    #00a2ff
-                );
-
-            color: white;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 35px;
-
-            box-shadow:
-                0 10px 25px
-                rgba(0,123,255,0.20);
-        }
-
-        .page-header h1 {
-            color: #172033;
-
-            font-size: 31px;
-
-            margin-bottom: 7px;
-        }
-
-        .page-header p {
-            color: #6b7280;
-
-            font-size: 14px;
-        }
-
-
-        /* ================= PROFILE GRID ================= */
-
-        .profile-grid {
-            display: grid;
-
-            grid-template-columns:
-                0.9fr 1.5fr;
-
-            gap: 22px;
-
-            align-items: start;
-        }
-
-
-        /* ================= CARD ================= */
-
-        .card {
-            background: white;
-
-            border:
-                1px solid #e5edf5;
-
-            border-radius: 18px;
-
-            padding: 26px;
-
-            box-shadow:
-                0 8px 28px
-                rgba(0,60,120,0.07);
-        }
-
-        .card-title {
-            color: #172033;
-
-            font-size: 20px;
-
-            margin-bottom: 20px;
-        }
-
-
-        /* ================= USER SUMMARY ================= */
-
-        .user-summary {
-            text-align: center;
-        }
-
-        .large-avatar {
-            width: 92px;
-            height: 92px;
-
-            margin: 5px auto 15px;
-
-            border-radius: 50%;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #e7f3ff,
-                    #d9edff
-                );
-
-            color: #0066cc;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 38px;
-
-            font-weight: 700;
-        }
-
-        .user-name {
-            color: #172033;
-
-            font-size: 21px;
-
-            font-weight: 700;
-
-            margin-bottom: 5px;
-        }
-
-        .user-email {
-            color: #6b7280;
-
-            font-size: 13px;
-
-            word-break: break-word;
-        }
-
-
-        /* ================= USER INFO ================= */
-
-        .user-info {
-            margin-top: 25px;
-
-            text-align: left;
-        }
-
-        .info-row {
-            padding: 13px 0;
-
-            border-bottom:
-                1px solid #edf1f5;
-        }
-
-        .info-row:last-child {
-            border-bottom: none;
-        }
-
-        .info-label {
-            color: #7b8794;
-
-            font-size: 11px;
-
-            margin-bottom: 4px;
-        }
-
-        .info-value {
-            color: #172033;
-
-            font-size: 14px;
-
-            font-weight: 600;
-
-            word-break: break-word;
-        }
-
-
-        /* ================= FORM ================= */
-
-        .form-section {
-            margin-bottom: 27px;
-        }
-
-        .form-section:last-child {
-            margin-bottom: 0;
-        }
-
-        .section-heading {
-            color: #172033;
-
-            font-size: 17px;
-
-            margin-bottom: 16px;
-
-            padding-bottom: 10px;
-
-            border-bottom:
-                1px solid #edf1f5;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-
-            color: #526477;
-
-            font-size: 12px;
-
-            font-weight: 600;
-
-            margin-bottom: 7px;
-        }
-
-        .form-input {
-            width: 100%;
-
-            padding: 13px 14px;
-
-            border:
-                1px solid #d8e2ec;
-
-            border-radius: 10px;
-
-            background: #fbfdff;
-
-            color: #172033;
-
-            font-size: 14px;
-
-            outline: none;
-
-            transition: 0.2s;
-        }
-
-        .form-input:focus {
-            border-color: #007bff;
-
-            background: white;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(0,123,255,0.09);
-        }
-
-        .password-note {
-            color: #7b8794;
-
-            font-size: 11px;
-
-            line-height: 1.5;
-
-            margin-top: 7px;
-        }
-
-
-        /* ================= BUTTON ================= */
-
-        .save-button {
-            width: 100%;
-
-            border: none;
-
-            border-radius: 10px;
-
-            padding: 13px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #007bff,
-                    #008cff
-                );
-
-            color: white;
-
-            font-size: 14px;
-
-            font-weight: 700;
-
-            cursor: pointer;
-
-            transition: 0.2s;
-
-            box-shadow:
-                0 7px 18px
-                rgba(0,123,255,0.18);
-        }
-
-        .save-button:hover {
-            transform:
-                translateY(-2px);
-
-            box-shadow:
-                0 10px 23px
-                rgba(0,123,255,0.23);
-        }
-
-
-        /* ================= MESSAGES ================= */
-
-        .message {
-            padding: 12px 15px;
-
-            border-radius: 9px;
-
-            font-size: 13px;
-
-            margin-bottom: 20px;
-        }
-
-        .success-message {
-            background: #ecfdf3;
-
-            border:
-                1px solid #bbf7d0;
-
-            color: #166534;
-        }
-
-        .error-message {
-            background: #fff1f2;
-
-            border:
-                1px solid #fecdd3;
-
-            color: #be123c;
-        }
-
-
-        /* ================= SECURITY BOX ================= */
-
-        .security-box {
-            margin-top: 20px;
-
-            padding: 14px;
-
-            background: #f0f7ff;
-
-            border:
-                1px solid #d9ebff;
-
-            border-radius: 10px;
-
-            color: #486581;
-
-            font-size: 12px;
-
-            line-height: 1.5;
-        }
-
-
-        /* ================= FOOTER ================= */
-
-        .footer {
-            text-align: center;
-
-            color: #9ca3af;
-
-            font-size: 12px;
-
-            margin-top: 35px;
-        }
-
-
-        /* ================= RESPONSIVE ================= */
-
-        @media (max-width: 800px) {
-
-            .profile-grid {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-
-        @media (max-width: 750px) {
-
-            .navbar-container {
-                min-height: 65px;
-
-                padding: 10px 18px;
-
-                flex-wrap: wrap;
-            }
-
-            .menu-button {
-                display: block;
-            }
-
-            .nav-links {
-                display: none;
-
-                width: 100%;
-
-                flex-direction: column;
-
-                align-items: stretch;
-
-                padding-bottom: 10px;
-            }
-
-            .nav-links.show {
-                display: flex;
-            }
-
-            .nav-links a {
-                width: 100%;
-
-                padding: 12px 14px;
-            }
-
-            .nav-links form {
-                width: 100%;
-            }
-
-            .logout-link {
-                width: 100%;
-                text-align: left;
-            }
-
-            .container {
-                padding:
-                    30px 18px 50px;
-            }
-
-        }
-
-
-        @media (max-width: 500px) {
-
-            .navbar-brand {
-                font-size: 18px;
-            }
-
-            .brand-icon {
-                font-size: 22px;
-            }
-
-            .page-header h1 {
-                font-size: 27px;
-            }
-
-            .card {
-                padding: 21px;
-            }
-
-        }
-
     </style>
-
 </head>
+<body class="min-h-screen flex flex-col antialiased">
 
+    <!-- Navigation Header (Clean Layout: Logo on Left, Back to Dashboard & Logout on Right) -->
+    <header class="sticky top-0 z-40 w-full sky-header shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-18 py-2.5">
+                <!-- Logo & Brand -->
+                <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-sky-500/25 ring-2 ring-sky-100">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold text-slate-900 tracking-tight">Edu<span class="text-sky-500">Predict</span></span>
+                        <span class="hidden sm:inline-block ml-1.5 text-xs font-semibold px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full border border-sky-200">Account Settings</span>
+                    </div>
+                </a>
 
-<body>
+                <!-- Profile / Auth Area -->
+                <div class="flex items-center gap-3">
+                    <a href="{{ url_for('dashboard') }}" class="px-4 py-2 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 text-slate-700 font-semibold text-xs flex items-center gap-1.5 transition">
+                        <span>← Back to Dashboard</span>
+                    </a>
 
+                    <!-- Logout Button -->
+                    <form method="POST" action="{{ url_for('logout') }}" class="inline m-0">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition" title="Logout">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<!-- ================= NAVBAR ================= -->
+    <!-- Main Container -->
+    <main class="flex-grow max-w-3xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-8">
 
-<nav class="navbar">
-
-    <div class="navbar-container">
-
-        <a
-            href="{{ url_for('dashboard') }}"
-            class="navbar-brand"
-        >
-
-            <span class="brand-icon">
-                🎓
-            </span>
-
-            <span>
-                College Predictor
-            </span>
-
-        </a>
-
-
-        <button
-            type="button"
-            class="menu-button"
-            onclick="toggleMenu()"
-        >
-            ☰
-        </button>
-
-
-        <div
-            class="nav-links"
-            id="navLinks"
-        >
-
-            <a
-                href="{{ url_for('dashboard') }}"
-            >
-                🏠 Dashboard
-            </a>
-
-
-            <a
-                href="{{ url_for('colleges') }}"
-            >
-                🎓 Colleges
-            </a>
-
-
-            <a
-                href="{{ url_for('predictor') }}"
-            >
-                🤖 Predictor
-            </a>
-
-
-            <!-- ================= PREDICTION HISTORY ================= -->
-
-            <a
-                href="{{ url_for('prediction_history') }}"
-            >
-                🕘 History
-            </a>
-
-
-            <a
-                href="{{ url_for('profile') }}"
-                class="active"
-            >
-                👤 Profile
-            </a>
-
-
-            <!-- ================= SECURE LOGOUT ================= -->
-
-            <form
-                method="POST"
-                action="{{ url_for('logout') }}"
-                style="display: inline; margin: 0;"
-            >
-
-                <input
-                    type="hidden"
-                    name="csrf_token"
-                    value="{{ csrf_token() }}"
-                >
-
-                <button
-                    type="submit"
-                    class="logout-link"
-                >
-                    🚪 Logout
-                </button>
-
-            </form>
-
+        <!-- Page Header -->
+        <div class="text-center space-y-2">
+            <div class="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200 text-sky-600 flex items-center justify-center mx-auto shadow-xs">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Student Profile Settings</h1>
+            
         </div>
 
-    </div>
-
-</nav>
-
-
-<!-- ================= MAIN ================= -->
-
-<div class="container">
-
-
-    <!-- HEADER -->
-
-    <div class="page-header">
-
-        <div class="profile-icon">
-            👤
-        </div>
-
-        <h1>
-            My Profile
-        </h1>
-
-        <p>
-            Manage your account information and password.
-        </p>
-
-    </div>
-
-
-    <!-- ================= GRID ================= -->
-
-    <div class="profile-grid">
-
-
-        <!-- ================= LEFT PROFILE ================= -->
-
-        <div class="card user-summary">
-
-
-            <div class="large-avatar">
-
-                {% if user['name'] %}
-
-                    {{ user['name'][0] | upper }}
-
-                {% else %}
-
-                    U
-
-                {% endif %}
-
-            </div>
-
-
-            <div class="user-name">
-
-                {{ user['name'] }}
-
-            </div>
-
-
-            <div class="user-email">
-
-                {{ user['email'] }}
-
-            </div>
-
-
-            <div class="user-info">
-
-
-                <div class="info-row">
-
-                    <div class="info-label">
-                        USER ID
-                    </div>
-
-                    <div class="info-value">
-                        #{{ user['id'] }}
-                    </div>
-
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="space-y-3">
+                    {% for category, message in messages %}
+                        <div class="p-4 rounded-2xl text-xs sm:text-sm font-semibold flex items-start gap-3 {% if category == 'success' %}bg-emerald-50 border border-emerald-200 text-emerald-800{% else %}bg-rose-50 border border-rose-200 text-rose-800{% endif %}">
+                            <span class="text-base">{% if category == 'success' %}✅{% else %}⚠️{% endif %}</span>
+                            <span>{{ message }}</span>
+                        </div>
+                    {% endfor %}
                 </div>
-
-
-                <div class="info-row">
-
-                    <div class="info-label">
-                        ACCOUNT CREATED
-                    </div>
-
-                    <div class="info-value">
-
-                        {{ user['created_at'] }}
-
-                    </div>
-
-                </div>
-
-
-                <div class="info-row">
-
-                    <div class="info-label">
-                        ACCOUNT STATUS
-                    </div>
-
-                    <div class="info-value">
-
-                        ✓ Active
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ================= RIGHT EDIT ================= -->
-
-        <div class="card">
-
-
-            {% if request.args.get('updated') == '1' %}
-
-            <div class="message success-message">
-
-                ✓ Your profile was updated successfully.
-
-            </div>
-
             {% endif %}
+        {% endwith %}
 
+        <!-- Profile Form Card -->
+        <div class="sky-card p-6 sm:p-10 rounded-3xl space-y-8">
+            <form id="profileForm" method="POST" action="{{ url_for('update_profile') }}" enctype="multipart/form-data" class="space-y-8">
+                <!-- CSRF Token -->
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-            {% if error %}
-
-            <div class="message error-message">
-
-                {{ error }}
-
-            </div>
-
-            {% endif %}
-
-
-            <form
-                action="{{ url_for('update_profile') }}"
-                method="POST"
-            >
-
-                <!-- ================= CSRF PROTECTION ================= -->
-
-                <input
-                    type="hidden"
-                    name="csrf_token"
-                    value="{{ csrf_token() }}"
-                >
-
-
-                <!-- ================= PERSONAL INFO ================= -->
-
-                <div class="form-section">
-
-                    <h2 class="section-heading">
-
-                        ✏️ Personal Information
-
-                    </h2>
-
-
-                    <div class="form-group">
-
-                        <label for="name">
-                            Full Name
+                <!-- Avatar Upload Section -->
+                <div class="flex flex-col items-center justify-center space-y-4 pb-8 border-b border-sky-100">
+                    <div class="relative group">
+                        <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden border-4 border-sky-100 shadow-md group-hover:border-sky-400 transition duration-300 bg-sky-50">
+                            <img
+                                id="avatarPreview"
+                                src="{{ (user.profile_picture if user else None) or (user.profile_image if user else None) or profile_image or session.get('profile_image') or google_picture or url_for('static', filename='images/default.jpg') }}"
+                                alt="Profile Avatar"
+                                class="w-full h-full object-cover"
+                                onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/default.jpg') }}';"
+                            >
+                        </div>
+                        <!-- Camera Badge -->
+                        <label for="profileImageInput" class="absolute bottom-1 right-1 p-2.5 rounded-full bg-gradient-to-tr from-sky-500 to-sky-600 text-white shadow-md cursor-pointer hover:scale-110 active:scale-95 transition ring-2 ring-white" title="Upload New Photo">
+                            <svg class="w-4 h-4 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         </label>
+                        <!-- Hidden File Input -->
+                        <input
+                            type="file"
+                            id="profileImageInput"
+                            name="profile_image"
+                            accept="image/jpeg,image/png,image/webp"
+                            class="hidden"
+                        >
+                    </div>
 
+                    <div class="text-center space-y-1">
+                        <h3 class="text-base font-bold text-slate-900">{{ user.name if user else user_name or 'Student' }}</h3>
+                        <p class="text-xs text-slate-500">{{ user.email if user else user_email or 'student@collegepredictor.ai' }}</p>
+                        <button type="button" onclick="document.getElementById('profileImageInput').click()" class="text-xs text-sky-600 font-bold hover:text-sky-700 hover:underline pt-1 inline-block">
+                            Change Profile Picture
+                        </button>
+                    </div>
+                    <span class="text-[11px] text-slate-400">Supported formats: JPG, PNG, WebP • Max 2 MB</span>
+                </div>
+
+                <!-- Form Fields -->
+                <div class="space-y-6">
+
+                    <!-- Name Field -->
+                    <div class="space-y-2">
+                        <label for="nameInput" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                            Full Legal Name <span class="text-rose-500">*</span>
+                        </label>
                         <input
                             type="text"
-                            id="name"
+                            id="nameInput"
                             name="name"
-                            class="form-input"
-                            value="{{ user['name'] }}"
-                            placeholder="Enter your name"
+                            value="{{ user.name if user else user_name or '' }}"
+                            placeholder="Enter your full name"
                             required
+                            class="w-full px-4 py-3 rounded-xl border border-sky-200 bg-sky-50/30 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-500 transition text-sm font-semibold"
                         >
-
                     </div>
 
-
-                    <div class="form-group">
-
-                        <label for="email">
-                            Email Address
-                        </label>
-
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            class="form-input"
-                            value="{{ user['email'] }}"
-                            placeholder="Enter your email"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <!-- ================= PASSWORD ================= -->
-
-                <div class="form-section">
-
-                    <h2 class="section-heading">
-
-                        🔐 Change Password
-
-                    </h2>
-
-
-                    <div class="form-group">
-
-                        <label for="current_password">
-
-                            Current Password
-
-                        </label>
-
-                        <input
-                            type="password"
-                            id="current_password"
-                            name="current_password"
-                            class="form-input"
-                            placeholder="Enter current password"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="new_password">
-
-                            New Password
-
-                        </label>
-
-                        <input
-                            type="password"
-                            id="new_password"
-                            name="new_password"
-                            class="form-input"
-                            minlength="8"
-                            maxlength="128"
-                            placeholder="Enter new password"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="confirm_new_password">
-
-                            Confirm New Password
-
-                        </label>
-
-                        <input
-                            type="password"
-                            id="confirm_new_password"
-                            name="confirm_new_password"
-                            class="form-input"
-                            minlength="8"
-                            maxlength="128"
-                            placeholder="Confirm new password"
-                        >
-
-                        <div class="password-note">
-
-                            Leave all password fields empty if you
-                            do not want to change your password.
-
+                    <!-- Email Field (Read-only Google verified) -->
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                                Google Authentication Email
+                            </label>
+                            <span class="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
+                                <svg class="w-3 h-3 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                <span>Verified Account</span>
+                            </span>
                         </div>
+                        <div class="relative">
+                            <input
+                                type="email"
+                                value="{{ user.email if user else user_email or '' }}"
+                                readonly
+                                class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-500 cursor-not-allowed text-sm font-medium pr-10"
+                            >
+                            <svg class="w-5 h-5 text-slate-400 absolute right-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                        </div>
+                        <p class="text-[11px] text-slate-400">Managed via your Google OAuth identity.</p>
+                    </div>
 
+                    <!-- Phone Number Field -->
+                    <div class="space-y-2">
+                        <label for="phoneInput" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                            Direct Contact Phone
+                        </label>
+                        <div class="flex rounded-xl border border-sky-200 bg-sky-50/30 overflow-hidden focus-within:ring-2 focus-within:ring-sky-500/30 focus-within:border-sky-500 transition">
+                            <span class="inline-flex items-center px-4 text-xs font-bold text-sky-700 bg-sky-100/70 border-r border-sky-200 select-none">
+                                +91
+                            </span>
+                            <input
+                                type="tel"
+                                id="phoneInput"
+                                name="phone"
+                                value="{{ (user.phone if user and user.phone else '')|replace('+91', '')|trim }}"
+                                placeholder="8919221139"
+                                class="w-full px-4 py-3 bg-transparent border-0 text-slate-900 placeholder-slate-400 focus:ring-0 focus:outline-none text-sm font-semibold"
+                            >
+                        </div>
+                        <p class="text-[11px] text-slate-400">Optional. Used for counselor contact and alert updates.</p>
                     </div>
 
                 </div>
 
-
-                <!-- ================= SAVE ================= -->
-
-                <button
-                    type="submit"
-                    class="save-button"
-                >
-
-                    💾 Save Profile Changes
-
-                </button>
-
+                <!-- Submit / Action Button -->
+                <div class="pt-6 border-t border-sky-100 flex items-center justify-end gap-3">
+                    <a href="{{ url_for('dashboard') }}" class="px-5 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs transition">
+                        Cancel
+                    </a>
+                    <button
+                        type="submit"
+                        class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 text-white font-extrabold text-xs shadow-md shadow-sky-600/25 active:scale-95 transition flex items-center gap-2"
+                    >
+                        <svg class="w-4 h-4 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                        <span>Save Profile Changes</span>
+                    </button>
+                </div>
 
             </form>
-
-
-            <div class="security-box">
-
-                🔒 <strong>Security:</strong>
-
-                Your password is stored securely using
-                password hashing. Your current password
-                is required before changing it.
-
-            </div>
-
         </div>
 
-    </div>
+    </main>
 
+    <!-- Footer -->
+    <footer class="bg-white border-t border-sky-100 mt-auto py-6 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-extrabold text-slate-800">Edu<span class="text-sky-600">Predict</span></span>
+                <span>• Student Account Security</span>
+            </div>
+            <span>© 2026 EduPredict</span>
+        </div>
+    </footer>
 
-    <!-- ================= FOOTER ================= -->
+    <!-- Client-side avatar preview script -->
+    <script>
+        const imageInput = document.getElementById('profileImageInput');
+        const preview = document.getElementById('avatarPreview');
 
-    <div class="footer">
-
-        © 2026 College Predictor System
-
-    </div>
-
-</div>
-
-
-<!-- ================= JAVASCRIPT ================= -->
-
-<script>
-
-    function toggleMenu() {
-
-        const navLinks =
-            document.getElementById("navLinks");
-
-        navLinks.classList.toggle("show");
-
-    }
-
-</script>
-
+        if (imageInput && preview) {
+            imageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert("File size exceeds 2 MB. Please select a smaller photo.");
+                        imageInput.value = '';
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        preview.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    </script>
 
 </body>
-
 </html>

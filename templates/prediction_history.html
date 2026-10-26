@@ -1,2147 +1,385 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Prediction History - College Predictor</title>
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History - EduPredict</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        skyCanvas: '#F0F7FE',
+                        skyPrimary: '#0284C7',
+                        skyAccent: '#0EA5E9',
+                        skyTint: '#E0F2FE',
+                        skyBorder: '#BAE6FD',
+                        navyText: '#0F172A'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-dark-saas.css') }}">
     <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
         body {
-
-            font-family:
-                "Segoe UI",
-                Arial,
-                sans-serif;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #f4f7fb,
-                    #eaf2ff
-                );
-
-            min-height: 100vh;
-
-            color: #1f2937;
+            font-family: 'Inter', system-ui, sans-serif;
+            background-color: #F0F7FE;
+            background-image: 
+                radial-gradient(circle at 10% 12%, rgba(14, 165, 233, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 90% 18%, rgba(2, 132, 199, 0.06) 0%, transparent 45%),
+                radial-gradient(circle at 50% 88%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: #334155;
+        }
+        .sky-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid #E0F2FE;
+        }
+        .sky-card {
+            background: #FFFFFF;
+            border: 1px solid #E0F2FE;
+            box-shadow: 0 4px 20px -2px rgba(2, 132, 199, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-
-        /* =================================================
-           NAVBAR
-        ================================================= */
-
-        .navbar {
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #2563eb,
-                    #1d4ed8
-                );
-
-            color: white;
-
-            padding:
-                16px 6%;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 20px;
-
-            box-shadow:
-                0 4px 15px
-                rgba(
-                    0,
-                    0,
-                    0,
-                    0.12
-                );
-
-            position: sticky;
-
-            top: 0;
-
-            z-index: 1000;
-        }
-
-
-        .logo {
-
-            font-size: 22px;
-
-            font-weight: 700;
-
-            white-space: nowrap;
-        }
-
-
-        .nav-links {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            flex-wrap: wrap;
-
-            justify-content: flex-end;
-        }
-
-
-        .nav-links a {
-
-            color: white;
-
-            text-decoration: none;
-
-            padding:
-                9px 12px;
-
-            border-radius: 8px;
-
-            font-size: 14px;
-
-            transition:
-                0.25s ease;
-        }
-
-
-        .nav-links a:hover {
-
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.16
-                );
-
-            transform:
-                translateY(-1px);
-        }
-
-
-        .nav-links a.active {
-
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.20
-                );
-
-            font-weight: 600;
-        }
-
-
-        .logout {
-
-            background:
-                #ef4444 !important;
-
-            color: white;
-
-            border: none;
-
-            cursor: pointer;
-
-            padding:
-                9px 12px;
-
-            border-radius: 8px;
-
-            font-size: 14px;
-
-            font-family:
-                inherit;
-
-            transition:
-                0.25s ease;
-        }
-
-
-        .logout:hover {
-
-            background:
-                #dc2626 !important;
-
-            transform:
-                translateY(-1px);
-        }
-
-
-        /* =================================================
-           MAIN CONTAINER
-        ================================================= */
-
-        .container {
-
-            width: 90%;
-
-            max-width: 1200px;
-
-            margin:
-                40px auto 60px;
-        }
-
-
-        /* =================================================
-           PAGE HEADER
-        ================================================= */
-
-        .page-header {
-
-            background: white;
-
-            border-radius: 20px;
-
-            padding: 30px;
-
-            margin-bottom: 25px;
-
-            box-shadow:
-                0 8px 25px
-                rgba(
-                    15,
-                    23,
-                    42,
-                    0.08
-                );
-
-            border:
-                1px solid #e5e7eb;
-        }
-
-
-        .page-header h1 {
-
-            font-size: 30px;
-
-            margin-bottom: 8px;
-
-            color: #111827;
-        }
-
-
-        .page-header p {
-
-            color: #6b7280;
-
-            font-size: 15px;
-
-            line-height: 1.6;
-        }
-
-
-        /* =================================================
-           HISTORY COUNT
-        ================================================= */
-
-        .history-count {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            margin-top: 18px;
-
-            padding:
-                8px 14px;
-
-            background:
-                #eff6ff;
-
-            color:
-                #1d4ed8;
-
-            border-radius: 999px;
-
-            font-size: 14px;
-
-            font-weight: 600;
-        }
-
-
-        /* =================================================
-           STATISTICS
-        ================================================= */
-
-        .statistics-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    5,
-                    1fr
-                );
-
-            gap: 15px;
-
-            margin-bottom: 25px;
-        }
-
-
-        .stat-card {
-
-            background: white;
-
-            border:
-                1px solid #e5e7eb;
-
-            border-radius: 16px;
-
-            padding: 20px;
-
-            box-shadow:
-                0 7px 20px
-                rgba(
-                    15,
-                    23,
-                    42,
-                    0.07
-                );
-
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease;
-        }
-
-
-        .stat-card:hover {
-
-            transform:
-                translateY(-3px);
-
-            box-shadow:
-                0 12px 28px
-                rgba(
-                    15,
-                    23,
-                    42,
-                    0.11
-                );
-        }
-
-
-        .stat-icon {
-
-            font-size: 25px;
-
-            margin-bottom: 10px;
-        }
-
-
-        .stat-label {
-
-            color:
-                #6b7280;
-
-            font-size: 12px;
-
-            text-transform:
-                uppercase;
-
-            letter-spacing:
-                0.5px;
-
-            font-weight: 600;
-
-            margin-bottom: 7px;
-        }
-
-
-        .stat-value {
-
-            color:
-                #111827;
-
-            font-size: 24px;
-
-            font-weight: 800;
-
-            word-break: break-word;
-        }
-
-
-        .stat-description {
-
-            color:
-                #9ca3af;
-
-            font-size: 11px;
-
-            margin-top: 5px;
-        }
-
-
-        /* =================================================
-           SEARCH AND FILTER SECTION
-        ================================================= */
-
-        .history-tools {
-
-            background: white;
-
-            border:
-                1px solid #e5e7eb;
-
-            border-radius: 18px;
-
-            padding: 20px;
-
-            margin-bottom: 25px;
-
-            box-shadow:
-                0 7px 20px
-                rgba(
-                    15,
-                    23,
-                    42,
-                    0.07
-                );
-
-            display: grid;
-
-            grid-template-columns:
-                1fr auto;
-
-            gap: 15px;
-
-            align-items: center;
-        }
-
-
-        .search-box {
-
-            position: relative;
-        }
-
-
-        .search-box input {
-
-            width: 100%;
-
-            padding:
-                13px 16px 13px 45px;
-
-            border:
-                1px solid #d1d5db;
-
-            border-radius: 11px;
-
-            font-size: 14px;
-
-            outline: none;
-
-            background:
-                #f9fafb;
-
-            transition:
-                0.25s ease;
-        }
-
-
-        .search-box input:focus {
-
-            border-color:
-                #2563eb;
-
-            background: white;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(
-                    37,
-                    99,
-                    235,
-                    0.10
-                );
-        }
-
-
-        .search-icon {
-
-            position: absolute;
-
-            left: 15px;
-
-            top: 50%;
-
-            transform:
-                translateY(-50%);
-
-            font-size: 17px;
-
-            color:
-                #6b7280;
-
-            pointer-events: none;
-        }
-
-
-        .filter-buttons {
-
-            display: flex;
-
-            gap: 8px;
-
-            flex-wrap: wrap;
-        }
-
-
-        .filter-btn {
-
-            border: none;
-
-            cursor: pointer;
-
-            padding:
-                11px 16px;
-
-            border-radius: 9px;
-
-            background:
-                #f3f4f6;
-
-            color:
-                #374151;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            transition:
-                0.25s ease;
-        }
-
-
-        .filter-btn:hover {
-
-            background:
-                #e5e7eb;
-        }
-
-
-        .filter-btn.active {
-
-            background:
-                #2563eb;
-
-            color: white;
-
-            box-shadow:
-                0 4px 10px
-                rgba(
-                    37,
-                    99,
-                    235,
-                    0.20
-                );
-        }
-
-
-        /* =================================================
-           FILTER RESULT COUNT
-        ================================================= */
-
-        .filter-result-count {
-
-            margin-top: 12px;
-
-            color:
-                #6b7280;
-
-            font-size: 13px;
-        }
-
-
-        /* =================================================
-           HISTORY LIST
-        ================================================= */
-
-        .history-list {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 18px;
-        }
-
-
-        /* =================================================
-           HISTORY CARD
-        ================================================= */
-
-        .history-card {
-
-            background: white;
-
-            border-radius: 18px;
-
-            padding: 24px;
-
-            border:
-                1px solid #e5e7eb;
-
-            box-shadow:
-                0 7px 20px
-                rgba(
-                    15,
-                    23,
-                    42,
-                    0.07
-                );
-
-            transition:
-                transform 0.25s ease,
-                box-shadow 0.25s ease;
-
-            position: relative;
-
-            overflow: hidden;
-        }
-
-
-        .history-card::before {
-
-            content: "";
-
-            position: absolute;
-
-            left: 0;
-
-            top: 0;
-
-            bottom: 0;
-
-            width: 5px;
-
-            background:
-                #2563eb;
-        }
-
-
-        .history-card[data-exam="EAMCET"]::before {
-
-            background:
-                #7c3aed;
-        }
-
-
-        .history-card:hover {
-
-            transform:
-                translateY(-4px);
-
-            box-shadow:
-                0 14px 32px
-                rgba(
-                    15,
-                    23,
-                    42,
-                    0.13
-                );
-        }
-
-
-        /* =================================================
-           CARD TOP
-        ================================================= */
-
-        .history-top {
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 15px;
-
-            margin-bottom: 20px;
-
-            flex-wrap: wrap;
-        }
-
-
-        .exam-badge {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            padding:
-                9px 15px;
-
-            border-radius: 999px;
-
-            background:
-                #eff6ff;
-
-            color:
-                #1d4ed8;
-
-            font-size: 13px;
-
-            font-weight: 700;
-        }
-
-
-        .history-card[data-exam="EAMCET"]
-        .exam-badge {
-
-            background:
-                #f3e8ff;
-
-            color:
-                #6d28d9;
-        }
-
-
-        .date {
-
-            color: #6b7280;
-
-            font-size: 13px;
-
-            background:
-                #f8fafc;
-
-            padding:
-                7px 11px;
-
-            border-radius: 8px;
-
-            border:
-                1px solid #e5e7eb;
-        }
-
-
-        /* =================================================
-           INFORMATION GRID
-        ================================================= */
-
-        .history-info {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    3,
-                    1fr
-                );
-
-            gap: 15px;
-
-            margin-bottom: 22px;
-        }
-
-
-        .info-box {
-
-            background:
-                #f8fafc;
-
-            border:
-                1px solid #e5e7eb;
-
-            border-radius: 12px;
-
-            padding: 16px;
-
-            transition:
-                0.25s ease;
-        }
-
-
-        .info-box:hover {
-
-            background:
-                #f1f5f9;
-
-            transform:
-                translateY(-2px);
-        }
-
-
-        .info-label {
-
-            display: block;
-
-            color:
-                #6b7280;
-
-            font-size: 12px;
-
-            margin-bottom: 7px;
-
-            text-transform:
-                uppercase;
-
-            letter-spacing:
-                0.5px;
-
-            font-weight: 600;
-        }
-
-
-        .info-value {
-
-            font-size: 18px;
-
-            font-weight: 700;
-
-            color:
-                #111827;
-        }
-
-
-        /* =================================================
-           RANK HIGHLIGHT
-        ================================================= */
-
-        .rank-value {
-
-            color:
-                #2563eb;
-
-            font-size: 20px;
-        }
-
-
-        .history-card[data-exam="EAMCET"]
-        .rank-value {
-
-            color:
-                #7c3aed;
-        }
-
-
-        /* =================================================
-           BRANCH BADGE
-        ================================================= */
-
-        .branch-value {
-
-            display: inline-block;
-
-            background:
-                white;
-
-            border:
-                1px solid #dbeafe;
-
-            color:
-                #1d4ed8;
-
-            padding:
-                5px 10px;
-
-            border-radius: 7px;
-
-            font-size: 14px;
-
-            font-weight: 700;
-        }
-
-
-        .history-card[data-exam="EAMCET"]
-        .branch-value {
-
-            border-color:
-                #e9d5ff;
-
-            color:
-                #6d28d9;
-        }
-
-
-        /* =================================================
-           ACTIONS
-        ================================================= */
-
-        .history-actions {
-
-            display: flex;
-
-            gap: 10px;
-
-            flex-wrap: wrap;
-
-            padding-top: 18px;
-
-            border-top:
-                1px solid #e5e7eb;
-        }
-
-
-        .btn {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            text-decoration: none;
-
-            border: none;
-
-            cursor: pointer;
-
-            padding:
-                10px 16px;
-
-            border-radius: 9px;
-
-            font-size: 14px;
-
-            font-weight: 600;
-
-            transition:
-                0.25s ease;
-        }
-
-
-        .btn-primary {
-
-            background:
-                #2563eb;
-
-            color: white;
-        }
-
-
-        .btn-primary:hover {
-
-            background:
-                #1d4ed8;
-
-            transform:
-                translateY(-1px);
-
-            box-shadow:
-                0 5px 12px
-                rgba(
-                    37,
-                    99,
-                    235,
-                    0.22
-                );
-        }
-
-
-        .btn-danger {
-
-            background:
-                #fee2e2;
-
-            color:
-                #b91c1c;
-        }
-
-
-        .btn-danger:hover {
-
-            background:
-                #fecaca;
-
-            transform:
-                translateY(-1px);
-        }
-
-
-        .btn-secondary {
-
-            background:
-                #f3f4f6;
-
-            color:
-                #374151;
-        }
-
-
-        .btn-secondary:hover {
-
-            background:
-                #e5e7eb;
-        }
-
-
-        /* =================================================
-           NO FILTER RESULTS
-        ================================================= */
-
-        .no-results {
-
-            display: none;
-
-            background: white;
-
-            border-radius: 18px;
-
-            padding:
-                45px 25px;
-
-            text-align: center;
-
-            border:
-                1px solid #e5e7eb;
-
-            box-shadow:
-                0 7px 20px
-                rgba(
-                    15,
-                    23,
-                    42,
-                    0.07
-                );
-        }
-
-
-        .no-results-icon {
-
-            font-size: 38px;
-
-            margin-bottom: 12px;
-        }
-
-
-        .no-results h2 {
-
-            color:
-                #111827;
-
-            font-size: 21px;
-
-            margin-bottom: 8px;
-        }
-
-
-        .no-results p {
-
-            color:
-                #6b7280;
-
-            font-size: 14px;
-        }
-
-
-        /* =================================================
-           EMPTY STATE
-        ================================================= */
-
-        .empty-state {
-
-            background: white;
-
-            border-radius: 20px;
-
-            padding:
-                60px 30px;
-
-            text-align: center;
-
-            border:
-                1px solid #e5e7eb;
-
-            box-shadow:
-                0 8px 25px
-                rgba(
-                    15,
-                    23,
-                    42,
-                    0.07
-                );
-        }
-
-
-        .empty-icon {
-
-            width: 75px;
-
-            height: 75px;
-
-            margin:
-                0 auto 20px;
-
-            border-radius: 50%;
-
-            background:
-                #eff6ff;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 32px;
-        }
-
-
-        .empty-state h2 {
-
-            color:
-                #111827;
-
-            margin-bottom: 10px;
-
-            font-size: 24px;
-        }
-
-
-        .empty-state p {
-
-            color:
-                #6b7280;
-
-            max-width: 500px;
-
-            margin:
-                0 auto 24px;
-
-            line-height: 1.6;
-        }
-
-
-        /* =================================================
-           FOOTER
-        ================================================= */
-
-        .footer {
-
-            text-align: center;
-
-            color:
-                #6b7280;
-
-            font-size: 13px;
-
-            padding:
-                20px;
-        }
-
-
-        /* =================================================
-           RESPONSIVE
-        ================================================= */
-
-        @media (
-            max-width: 1050px
-        ) {
-
-            .statistics-grid {
-
-                grid-template-columns:
-                    repeat(
-                        3,
-                        1fr
-                    );
-            }
-
-        }
-
-
-        @media (
-            max-width: 800px
-        ) {
-
-            .navbar {
-
-                flex-direction: column;
-
-                align-items: flex-start;
-            }
-
-
-            .nav-links {
-
-                width: 100%;
-
-                justify-content: flex-start;
-            }
-
-
-            .statistics-grid {
-
-                grid-template-columns:
-                    repeat(
-                        2,
-                        1fr
-                    );
-            }
-
-
-            .history-info {
-
-                grid-template-columns:
-                    1fr;
-            }
-
-
-            .history-tools {
-
-                grid-template-columns:
-                    1fr;
-            }
-
-
-            .filter-buttons {
-
-                width: 100%;
-            }
-
-
-            .filter-btn {
-
-                flex: 1;
-            }
-
-
-            .nav-links form {
-
-                width: auto;
-            }
-
-        }
-
-
-        @media (
-            max-width: 500px
-        ) {
-
-            .container {
-
-                width: 94%;
-
-                margin-top: 25px;
-            }
-
-
-            .page-header {
-
-                padding: 22px;
-            }
-
-
-            .page-header h1 {
-
-                font-size: 25px;
-            }
-
-
-            .statistics-grid {
-
-                grid-template-columns:
-                    1fr;
-            }
-
-
-            .history-card {
-
-                padding: 18px;
-            }
-
-
-            .history-actions {
-
-                flex-direction: column;
-            }
-
-
-            .history-actions .btn {
-
-                width: 100%;
-            }
-
-
-            .filter-buttons {
-
-                flex-direction: column;
-            }
-
-
-            .filter-btn {
-
-                width: 100%;
-            }
-
-
-            .date {
-
-                width: 100%;
-
-                text-align: center;
-            }
-
-
-            .nav-links {
-
-                flex-direction: column;
-
-                align-items: stretch;
-
-                width: 100%;
-            }
-
-
-            .nav-links a,
-            .nav-links form,
-            .logout {
-
-                width: 100%;
-            }
-
-
-            .logout {
-
-                text-align: left;
-            }
-
-        }
-
     </style>
-
 </head>
+<body class="min-h-screen flex flex-col antialiased">
 
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full sky-header shadow-sm transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-18 py-2.5">
+                <!-- Logo & Brand -->
+                <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-sky-500/25 ring-2 ring-sky-100">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="text-xl font-extrabold text-slate-900 tracking-tight">Edu<span class="text-sky-500">Predict</span></span>
+                        <span class="hidden sm:inline-block ml-1.5 text-xs font-semibold px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full border border-sky-200">History Log</span>
+                    </div>
+                </a>
 
-<body>
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="{{ url_for('dashboard') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Dashboard</a>
+                    <a href="{{ url_for('predictor') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Predictor</a>
+                    <a href="{{ url_for('colleges') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Colleges</a>
+                    <a href="{{ url_for('compare') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Compare</a>
+                    <a href="{{ url_for('prediction_history') }}" class="px-3 py-2 text-xs font-bold rounded-xl text-sky-600 bg-sky-50 border border-sky-200 transition">History</a>
+                    <a href="{{ url_for('admin_contact') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Contact Admin</a>
+                </nav>
 
+                <!-- Profile / Auth Area -->
+                <div class="flex items-center gap-3">
+                    <a href="{{ url_for('profile') }}" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-sky-100 bg-white hover:bg-sky-50 text-slate-700 transition text-xs font-semibold">
+                        <span>My Profile</span>
+                    </a>
 
-<!-- =====================================================
-     NAVBAR
-===================================================== -->
+                    <!-- Logout Button -->
+                    <form method="POST" action="{{ url_for('logout') }}" class="inline m-0">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition" title="Logout">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<nav class="navbar">
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
 
-    <div class="logo">
-        🎓 College Predictor
-    </div>
-
-
-    <div class="nav-links">
-
-        <a href="{{ url_for('dashboard') }}">
-            Dashboard
-        </a>
-
-        <a href="{{ url_for('colleges') }}">
-            Colleges
-        </a>
-
-        <a href="{{ url_for('predictor') }}">
-            Predictor
-        </a>
-
-        <a href="{{ url_for('prediction_history') }}"
-           class="active">
-            History
-        </a>
-
-        <a href="{{ url_for('profile') }}">
-            Profile
-        </a>
-
-        <a href="{{ url_for('saved_colleges') }}">
-            Saved
-        </a>
-
-
-        <!-- =============================================
-             SECURE LOGOUT
-        ============================================== -->
-
-        <form
-            method="POST"
-            action="{{ url_for('logout') }}"
-            style="display: inline; margin: 0;"
-        >
-
-            <input
-                type="hidden"
-                name="csrf_token"
-                value="{{ csrf_token() }}"
-            >
-
-            <button
-                type="submit"
-                class="logout"
-            >
-                Logout
-            </button>
-
-        </form>
-
-    </div>
-
-</nav>
-
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
-<main class="container">
-
-
-    <!-- =================================================
-         PAGE HEADER
-    ================================================== -->
-
-    <section class="page-header">
-
-        <h1>
-            🕘 Prediction History
-        </h1>
-
-        <p>
-            View your previous college prediction searches
-            and run a prediction again whenever you want.
-        </p>
-
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Your Prediction History</h1>
+            </div>
+            <a href="{{ url_for('predictor') }}" class="px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md shadow-sky-600/20 transition flex items-center justify-center gap-1.5 self-start sm:self-auto active:scale-95">
+                <span>+ New Prediction</span>
+            </a>
+        </div>
 
         {% if history %}
 
-            <div class="history-count">
+            {% set total_predictions = history|length %}
+            {% set kcet_count = namespace(value=0) %}
+            {% set eamcet_count = namespace(value=0) %}
 
-                📊
-
-                <span id="totalHistoryCount">
-                    {{ history|length }}
-                </span>
-
-                {% if history|length == 1 %}
-                    Prediction
-                {% else %}
-                    Predictions
+            {% for record in history %}
+                {% if (record["exam"] or "")|upper == "KCET" %}
+                    {% set kcet_count.value = kcet_count.value + 1 %}
+                {% elif (record["exam"] or "")|upper == "EAMCET" %}
+                    {% set eamcet_count.value = eamcet_count.value + 1 %}
                 {% endif %}
+            {% endfor %}
 
+            <!-- Statistics Overview Cards -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Total Predictions -->
+                <div class="p-5 sky-card rounded-2xl flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 border border-sky-100 flex items-center justify-center font-bold text-lg">
+                        <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Total Searches</span>
+                        <h4 class="text-2xl font-black text-slate-900">{{ total_predictions }}</h4>
+                    </div>
+                </div>
+
+                <!-- KCET Searches -->
+                <div class="p-5 sky-card rounded-2xl flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-sky-100 text-sky-700 border border-sky-200 flex items-center justify-center font-bold text-lg">
+                        <svg class="w-6 h-6 text-sky-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v7"/></svg>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">KCET Queries</span>
+                        <h4 class="text-2xl font-black text-slate-900">{{ kcet_count.value }}</h4>
+                    </div>
+                </div>
+
+                <!-- EAMCET Searches -->
+                <div class="p-5 sky-card rounded-2xl flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center justify-center font-bold text-lg">
+                        <svg class="w-6 h-6 text-indigo-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">EAMCET Queries</span>
+                        <h4 class="text-2xl font-black text-slate-900">{{ eamcet_count.value }}</h4>
+                    </div>
+                </div>
+
+                <!-- Most Recent Rank -->
+                <div class="p-5 sky-card rounded-2xl flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 flex items-center justify-center font-bold text-lg">
+                        <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/></svg>
+                    </div>
+                    <div>
+                        <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Latest Rank</span>
+                        <h4 class="text-2xl font-black text-slate-900">{{ history[0]["rank"] }}</h4>
+                    </div>
+                </div>
             </div>
 
-        {% endif %}
-
-    </section>
-
-
-    <!-- =================================================
-         PREDICTION STATISTICS
-    ================================================== -->
-
-    {% if history %}
-
-        {% set total_predictions = history|length %}
-
-        {% set kcet_count = namespace(value=0) %}
-
-        {% set eamcet_count = namespace(value=0) %}
-
-
-        {% for record in history %}
-
-            {% if record["exam"]|upper == "KCET" %}
-
-                {% set kcet_count.value =
-                    kcet_count.value + 1 %}
-
-            {% elif record["exam"]|upper == "EAMCET" %}
-
-                {% set eamcet_count.value =
-                    eamcet_count.value + 1 %}
-
-            {% endif %}
-
-        {% endfor %}
-
-
-        <section class="statistics-grid">
-
-
-            <!-- Total Predictions -->
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    📊
-                </div>
-
-                <div class="stat-label">
-                    Total Predictions
-                </div>
-
-                <div class="stat-value">
-                    {{ total_predictions }}
-                </div>
-
-                <div class="stat-description">
-                    All prediction searches
-                </div>
-
-            </div>
-
-
-            <!-- KCET -->
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    🎓
-                </div>
-
-                <div class="stat-label">
-                    KCET
-                </div>
-
-                <div class="stat-value">
-                    {{ kcet_count.value }}
-                </div>
-
-                <div class="stat-description">
-                    KCET predictions
-                </div>
-
-            </div>
-
-
-            <!-- EAMCET -->
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    🎓
-                </div>
-
-                <div class="stat-label">
-                    EAMCET
-                </div>
-
-                <div class="stat-value">
-                    {{ eamcet_count.value }}
-                </div>
-
-                <div class="stat-description">
-                    EAMCET predictions
-                </div>
-
-            </div>
-
-
-            <!-- Most Recent Rank -->
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    🔢
-                </div>
-
-                <div class="stat-label">
-                    Recent Rank
-                </div>
-
-                <div class="stat-value">
-
-                    {{ history[0]["rank"] }}
-
-                </div>
-
-                <div class="stat-description">
-                    Latest prediction rank
-                </div>
-
-            </div>
-
-
-            <!-- Most Recent Branch -->
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-                    🌿
-                </div>
-
-                <div class="stat-label">
-                    Recent Branch
-                </div>
-
-                <div class="stat-value">
-
-                    {% if history[0]["branch"] %}
-
-                        {{ history[0]["branch"] }}
-
-                    {% else %}
-
-                        All
-
-                    {% endif %}
-
-                </div>
-
-                <div class="stat-description">
-                    Latest prediction branch
-                </div>
-
-            </div>
-
-
-        </section>
-
-    {% endif %}
-
-
-    <!-- =================================================
-         SEARCH AND FILTER
-    ================================================== -->
-
-    {% if history %}
-
-        <section class="history-tools">
-
-
-            <!-- Search -->
-
-            <div>
-
-                <div class="search-box">
-
-                    <span class="search-icon">
-                        🔎
-                    </span>
-
+            <!-- Search and Filter Bar -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 sky-card p-4 rounded-2xl">
+                <div class="relative w-full sm:w-80">
                     <input
                         type="text"
                         id="historySearch"
                         placeholder="Search by exam, rank, or branch..."
-                        autocomplete="off"
+                        class="w-full pl-9 pr-4 py-2 rounded-xl border border-sky-200 bg-sky-50/40 text-slate-800 placeholder-slate-400 text-sm focus:ring-2 focus:ring-sky-500/30 focus:border-sky-500 outline-none transition"
                     >
-
+                    <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                 </div>
 
-
-                <div
-                    class="filter-result-count"
-                    id="filterResultCount"
-                >
-                    Showing {{ history|length }} predictions
+                <!-- Exam Filter Buttons -->
+                <div class="flex items-center gap-1.5 self-start sm:self-auto">
+                    <button type="button" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-sky-600 text-white shadow-xs" data-filter="all">
+                        All ({{ total_predictions }})
+                    </button>
+                    <button type="button" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 hover:text-sky-600 border border-slate-200 transition" data-filter="KCET">
+                        KCET
+                    </button>
+                    <button type="button" class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-600 hover:text-sky-600 border border-slate-200 transition" data-filter="EAMCET">
+                        EAMCET
+                    </button>
                 </div>
-
             </div>
 
-
-            <!-- Filters -->
-
-            <div class="filter-buttons">
-
-                <button
-                    type="button"
-                    class="filter-btn active"
-                    data-filter="all"
-                >
-                    All
-                </button>
-
-                <button
-                    type="button"
-                    class="filter-btn"
-                    data-filter="KCET"
-                >
-                    KCET
-                </button>
-
-                <button
-                    type="button"
-                    class="filter-btn"
-                    data-filter="EAMCET"
-                >
-                    EAMCET
-                </button>
-
-            </div>
-
-
-        </section>
-
-
-        <!-- =================================================
-             HISTORY RECORDS
-        ================================================== -->
-
-        <div class="history-list"
-             id="historyList">
-
-
-            {% for record in history %}
-
-                <article
-                    class="history-card"
-                    data-exam="{{ record['exam']|upper }}"
-                    data-search="
-                        {{ record['exam'] }}
-                        {{ record['rank'] }}
-                        {{ record['branch'] }}
-                        {% if record['branch'] %}
-                            {{ record['branch'] }}
-                        {% else %}
-                            All Branches
-                        {% endif %}
-                    "
-                >
-
-
-                    <!-- =================================
-                         CARD TOP
-                    ================================== -->
-
-                    <div class="history-top">
-
-                        <div class="exam-badge">
-
-                            🎓
-
-                            {{ record["exam"] }}
-
-                        </div>
-
-
-                        <div class="date">
-
-                            🕒
-
-                            {{ record["created_at"] }}
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- =================================
-                         INFORMATION
-                    ================================== -->
-
-                    <div class="history-info">
-
-
-                        <div class="info-box">
-
-                            <span class="info-label">
-                                Entrance Exam
-                            </span>
-
-                            <span class="info-value">
-
-                                {{ record["exam"] }}
-
-                            </span>
-
-                        </div>
-
-
-                        <div class="info-box">
-
-                            <span class="info-label">
-                                Your Rank
-                            </span>
-
-                            <span class="info-value rank-value">
-
-                                #{{ record["rank"] }}
-
-                            </span>
-
-                        </div>
-
-
-                        <div class="info-box">
-
-                            <span class="info-label">
-                                Branch
-                            </span>
-
-                            <span class="info-value">
-
-                                <span class="branch-value">
-
-                                    {% if record["branch"] %}
-
-                                        {{ record["branch"] }}
-
+            <!-- History Cards Grid -->
+            <div id="historyList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {% for record in history %}
+                    <article
+                        class="history-card sky-card rounded-2xl p-5 flex flex-col justify-between space-y-4"
+                        data-exam="{{ (record['exam'] or '')|upper }}"
+                        data-search="{{ record['exam'] }} {{ record['rank'] }} {{ record['branch'] or 'All Branches' }} {{ record['preferred_location'] or '' }}"
+                    >
+                        <div>
+                            <!-- Header / Badge -->
+                            <div class="flex items-start justify-between gap-2">
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-bold font-mono border
+                                    {% if (record['exam'] or '')|upper == 'KCET' %}
+                                        bg-sky-100 text-sky-800 border-sky-200
                                     {% else %}
-
-                                        All Branches
-
-                                    {% endif %}
-
+                                        bg-indigo-50 text-indigo-700 border-indigo-200
+                                    {% endif %}">
+                                    {{ record["exam"] }}
                                 </span>
+                                <span class="text-[11px] text-slate-400 font-mono flex items-center gap-1">
+                                    <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                    {{ record["created_at"] }}
+                                </span>
+                            </div>
 
-                            </span>
+                            <!-- Rank Value -->
+                            <div class="mt-3">
+                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Candidate Rank</span>
+                                <div class="text-2xl font-black text-slate-900">
+                                    #{{ record["rank"] }}
+                                </div>
+                            </div>
 
+                            <!-- Branch & Location Specs -->
+                            <div class="mt-3 p-3 bg-slate-50/80 rounded-xl border border-slate-100 space-y-1.5 text-xs">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-500">Branch:</span>
+                                    <span class="font-bold text-slate-800 text-right truncate max-w-[170px]" title="{{ record['branch'] or 'All Branches' }}">
+                                        {{ record["branch"] or 'All Branches' }}
+                                    </span>
+                                </div>
+                                {% if record.get('category') %}
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-500">Category:</span>
+                                    <span class="font-semibold text-sky-700 font-mono">{{ record["category"] }}</span>
+                                </div>
+                                {% endif %}
+                                {% if record.get('preferred_location') %}
+                                <div class="flex items-center justify-between">
+                                    <span class="text-slate-500">Location:</span>
+                                    <span class="font-semibold text-slate-700">{{ record["preferred_location"] }}</span>
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
 
-
-                    </div>
-
-
-                    <!-- =================================
-                         ACTION BUTTONS
-                    ================================== -->
-
-                    <div class="history-actions">
-
-
-                        <!-- Predict Again -->
-
-                        <a
-                            href="{{ url_for(
-                                'predictor',
-                                exam=record['exam'].lower(),
-                                rank=record['rank'],
-                                branch=record['branch']
-                            ) }}"
-                            class="btn btn-primary"
-                        >
-                            🔄 Predict Again
-                        </a>
-
-
-                        <!-- =================================
-                             SECURE DELETE
-                        ================================= -->
-
-                        <form
-                            method="POST"
-                            action="{{ url_for(
-                                'delete_prediction',
-                                prediction_id=record['id']
-                            ) }}"
-                            style="display: inline; margin: 0;"
-                            onsubmit="return confirm(
-                                'Are you sure you want to delete this prediction history?'
-                            );"
-                        >
-
-                            <input
-                                type="hidden"
-                                name="csrf_token"
-                                value="{{ csrf_token() }}"
+                        <!-- Card Actions -->
+                        <div class="flex items-center gap-2 pt-3 border-t border-slate-100">
+                            <a
+                                href="{{ url_for('predictor', exam=record['exam'].lower(), rank=record['rank'], branch=record['branch']) }}"
+                                class="flex-1 py-2 px-3 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 font-bold text-xs transition text-center flex items-center justify-center gap-1.5"
                             >
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                <span>Predict Again</span>
+                            </a>
 
-                            <button
-                                type="submit"
-                                class="btn btn-danger"
+                            <form
+                                method="POST"
+                                action="{{ url_for('delete_prediction', prediction_id=record['id']) }}"
+                                class="inline m-0"
+                                onsubmit="return confirm('Are you sure you want to delete this search record?');"
                             >
-                                🗑️ Delete
-                            </button>
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button
+                                    type="submit"
+                                    class="p-2 rounded-xl border border-rose-200 text-rose-600 hover:bg-rose-50 transition"
+                                    title="Delete from history"
+                                >
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                </button>
+                            </form>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
 
-                        </form>
+            <!-- No filter matches placeholder -->
+            <div id="noResults" class="hidden py-16 text-center sky-card rounded-3xl">
+                <div class="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center mx-auto mb-3 text-2xl border border-sky-100">
+                    <svg class="w-8 h-8 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </div>
+                <h3 class="text-base font-bold text-slate-800">No Matching Search Records</h3>
+                <p class="text-xs text-slate-400 mt-1 max-w-sm mx-auto">Try clearing your search query or switching to another examination filter.</p>
+            </div>
 
+        {% else %}
 
-                    </div>
+            <!-- Empty State -->
+            <div class="py-16 text-center sky-card rounded-3xl space-y-4">
+                <div class="w-16 h-16 rounded-2xl bg-sky-50 text-sky-600 border border-sky-100 flex items-center justify-center mx-auto text-3xl">
+                    <svg class="w-8 h-8 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900">No Prediction Searches Yet</h3>
+                    <p class="text-xs text-slate-500 mt-1 max-w-md mx-auto">
+                        Once you run predictions for KCET or EAMCET colleges based on your rank, your queries and closing criteria will be logged here.
+                    </p>
+                </div>
+                <a href="{{ url_for('predictor') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md shadow-sky-600/20 transition">
+                    <span>Launch College Predictor →</span>
+                </a>
+            </div>
 
+        {% endif %}
 
-                </article>
+    </main>
 
-            {% endfor %}
-
-
+    <!-- Footer -->
+    <footer class="bg-white border-t border-sky-100 mt-auto py-6 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-extrabold text-slate-800">Edu<span class="text-sky-600">Predict</span></span>
+                <span>• Historical Search Management</span>
+            </div>
+            <span>© 2026 Prediction Audit Logs</span>
         </div>
-
-
-        <!-- =================================================
-             NO SEARCH/FILTER RESULTS
-        ================================================== -->
-
-        <section
-            class="no-results"
-            id="noResults"
-        >
-
-            <div class="no-results-icon">
-                🔎
-            </div>
-
-            <h2>
-                No Matching Predictions
-            </h2>
-
-            <p>
-                Try a different search term or select another exam filter.
-            </p>
-
-        </section>
-
-
-    {% else %}
-
-
-        <!-- =================================================
-             EMPTY STATE
-        ================================================== -->
-
-        <section class="empty-state">
-
-
-            <div class="empty-icon">
-
-                🕘
-
-            </div>
-
-
-            <h2>
-                No Prediction History
-            </h2>
-
-
-            <p>
-
-                You haven't made any college predictions yet.
-                Start your first prediction to see it appear
-                here.
-
-            </p>
-
-
-            <a
-                href="{{ url_for('predictor') }}"
-                class="btn btn-primary"
-            >
-
-                🤖 Start College Prediction
-
-            </a>
-
-
-        </section>
-
-
-    {% endif %}
-
-
-</main>
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer class="footer">
-
-    College Predictor System
-    © 2026
-
-</footer>
-
-
-<!-- =====================================================
-     SEARCH AND FILTER JAVASCRIPT
-===================================================== -->
-
-{% if history %}
-
-<script>
-
-    const searchInput =
-        document.getElementById("historySearch");
-
-    const historyCards =
-        document.querySelectorAll(".history-card");
-
-    const filterButtons =
-        document.querySelectorAll(".filter-btn");
-
-    const noResults =
-        document.getElementById("noResults");
-
-    const filterResultCount =
-        document.getElementById("filterResultCount");
-
-
-    let selectedFilter = "all";
-
-
-    /* =================================================
-       FILTER FUNCTION
-    ================================================= */
-
-    function filterHistory() {
-
-        const searchText =
-            searchInput.value
-                .toLowerCase()
-                .trim();
-
-
-        let visibleCount = 0;
-
-
-        historyCards.forEach(function(card) {
-
-            const exam =
-                card
-                    .getAttribute("data-exam")
-                    .toLowerCase();
-
-
-            const searchData =
-                card
-                    .getAttribute("data-search")
-                    .toLowerCase();
-
-
-            const matchesExam =
-                selectedFilter === "all" ||
-                exam === selectedFilter.toLowerCase();
-
-
-            const matchesSearch =
-                searchData.includes(searchText);
-
-
-            if (
-                matchesExam &&
-                matchesSearch
-            ) {
-
-                card.style.display =
-                    "block";
-
-                visibleCount++;
-
-            } else {
-
-                card.style.display =
-                    "none";
-
+    </footer>
+
+    <!-- Filter & Search Script -->
+    <script>
+        const searchInput = document.getElementById('historySearch');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.history-card');
+        const noResults = document.getElementById('noResults');
+
+        let currentFilter = 'all';
+
+        function filterCards() {
+            const query = (searchInput ? searchInput.value : '').toLowerCase().trim();
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const exam = (card.dataset.exam || '').toUpperCase();
+                const searchData = (card.dataset.search || '').toLowerCase();
+
+                const matchesExam = (currentFilter === 'all' || exam === currentFilter);
+                const matchesQuery = !query || searchData.includes(query);
+
+                if (matchesExam && matchesQuery) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (noResults) {
+                if (visibleCount === 0 && cards.length > 0) {
+                    noResults.classList.remove('hidden');
+                } else {
+                    noResults.classList.add('hidden');
+                }
             }
+        }
 
+        if (searchInput) {
+            searchInput.addEventListener('input', filterCards);
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-sky-600', 'text-white', 'shadow-xs');
+                    b.classList.add('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+                });
+                this.classList.add('bg-sky-600', 'text-white', 'shadow-xs');
+                this.classList.remove('bg-white', 'text-slate-600', 'border', 'border-slate-200');
+
+                currentFilter = this.dataset.filter;
+                filterCards();
+            });
         });
-
-
-        /* =============================================
-           UPDATE RESULT COUNT
-        ============================================= */
-
-        if (visibleCount === 1) {
-
-            filterResultCount.textContent =
-                "Showing 1 prediction";
-
-        } else {
-
-            filterResultCount.textContent =
-                "Showing " +
-                visibleCount +
-                " predictions";
-
-        }
-
-
-        /* =============================================
-           SHOW / HIDE NO RESULTS
-        ============================================= */
-
-        if (visibleCount === 0) {
-
-            noResults.style.display =
-                "block";
-
-        } else {
-
-            noResults.style.display =
-                "none";
-
-        }
-
-    }
-
-
-    /* =================================================
-       SEARCH EVENT
-    ================================================= */
-
-    searchInput.addEventListener(
-        "input",
-        filterHistory
-    );
-
-
-    /* =================================================
-       FILTER BUTTON EVENTS
-    ================================================= */
-
-    filterButtons.forEach(function(button) {
-
-        button.addEventListener(
-            "click",
-            function() {
-
-                filterButtons.forEach(
-                    function(item) {
-
-                        item.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-                button.classList.add(
-                    "active"
-                );
-
-
-                selectedFilter =
-                    button.getAttribute(
-                        "data-filter"
-                    );
-
-
-                filterHistory();
-
-            }
-        );
-
-    });
-
-
-    /* =================================================
-       INITIAL FILTER
-    ================================================= */
-
-    filterHistory();
-
-</script>
-
-{% endif %}
-
-
+    </script>
 </body>
-
 </html>

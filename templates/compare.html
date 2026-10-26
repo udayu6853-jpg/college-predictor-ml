@@ -1,1098 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Compare Colleges - College Predictor</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Colleges - EduPredict</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        skyCanvas: '#F0F7FE',
+                        skyPrimary: '#0284C7',
+                        skyAccent: '#0EA5E9',
+                        skyTint: '#E0F2FE',
+                        skyBorder: '#BAE6FD',
+                        navyText: '#0F172A'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-dark-saas.css') }}">
     <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: #f4f7fb;
-            color: #1f2937;
-        }
-
-        /* ================= NAVBAR ================= */
-
-        .navbar {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: white;
-            min-height: 70px;
-            padding: 0 6%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 13px;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: 0.25s;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            background: rgba(255, 255, 255, 0.18);
-        }
-
-        .logout {
-            background: rgba(220, 38, 38, 0.9) !important;
-        }
-
-        .logout:hover {
-            background: #dc2626 !important;
-        }
-
-        /* ================= MAIN ================= */
-
-        .container {
-            width: 92%;
-            max-width: 1250px;
-            margin: 35px auto 60px;
-        }
-
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            color: #2563eb;
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 20px;
-            transition: 0.2s;
-        }
-
-        .back-link:hover {
-            transform: translateX(-3px);
-            color: #1d4ed8;
-        }
-
-        /* ================= HEADER ================= */
-
-        .page-header {
-            background: white;
-            border-radius: 20px;
-            padding: 28px 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
-        }
-
-        .page-header h1 {
-            color: #111827;
-            font-size: 31px;
-            margin-bottom: 8px;
-        }
-
-        .page-header p {
-            color: #64748b;
-            font-size: 15px;
-            line-height: 1.6;
-        }
-
-        /* ================= MESSAGE ================= */
-
-        .message {
-            background: #fff7ed;
-            border: 1px solid #fed7aa;
-            color: #9a3412;
-            padding: 15px 18px;
-            border-radius: 12px;
-            margin-bottom: 22px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        /* ================= COLLEGE CARDS ================= */
-
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: repeat(
-                auto-fit,
-                minmax(300px, 1fr)
-            );
-            gap: 22px;
-            margin-bottom: 25px;
-        }
-
-        .college-card {
-            background: white;
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
-            transition: 0.25s;
-        }
-
-        .college-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.12);
-        }
-
-        .college-image {
-            height: 190px;
-            width: 100%;
-            background: #e5e7eb;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .college-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .exam-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: rgba(37, 99, 235, 0.95);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .card-content {
-            padding: 20px;
-        }
-
-        .college-name {
-            color: #111827;
-            font-size: 20px;
-            line-height: 1.35;
-            margin-bottom: 8px;
-        }
-
-        .college-location {
-            color: #64748b;
-            font-size: 14px;
-            margin-bottom: 18px;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .info-item {
-            background: #f8fafc;
-            border: 1px solid #edf0f4;
-            border-radius: 10px;
-            padding: 11px;
-        }
-
-        .info-label {
-            display: block;
-            color: #94a3b8;
-            font-size: 11px;
-            margin-bottom: 4px;
-        }
-
-        .info-value {
-            display: block;
-            color: #111827;
-            font-size: 14px;
-            font-weight: 700;
-            word-break: break-word;
-        }
-
-        .rating {
-            color: #d97706;
-        }
-
-        /* ================= COMPARISON TABLE ================= */
-
-        .comparison-section {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 22px;
-            color: #111827;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 9px;
-        }
-
-        .table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-            border: 1px solid #e5e7eb;
-            border-radius: 13px;
-        }
-
-        .comparison-table {
-            width: 100%;
-            min-width: 650px;
-            border-collapse: collapse;
-        }
-
-        .comparison-table th,
-        .comparison-table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .comparison-table th {
-            background: #f8fafc;
-            color: #475569;
-            font-size: 13px;
-            font-weight: 700;
-        }
-
-        .comparison-table td {
-            color: #111827;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .comparison-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .feature-name {
-            color: #64748b !important;
-            font-weight: 600 !important;
-            background: #f8fafc;
-            min-width: 170px;
-        }
-
-        .rating-text {
-            color: #d97706;
-        }
-
-        /* ================= ACTION BUTTONS ================= */
-
-        .actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .btn {
-            display: inline-block;
-            text-decoration: none;
-            border: none;
-            border-radius: 10px;
-            padding: 11px 17px;
-            font-size: 14px;
-            font-weight: 650;
-            cursor: pointer;
-            transition: 0.2s;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background: #2563eb;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #1d4ed8;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: #f1f5f9;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #F0F7FE;
+            background-image: 
+                radial-gradient(circle at 10% 12%, rgba(14, 165, 233, 0.07) 0%, transparent 45%),
+                radial-gradient(circle at 90% 18%, rgba(2, 132, 199, 0.05) 0%, transparent 45%),
+                radial-gradient(circle at 50% 88%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
             color: #334155;
-            border: 1px solid #e2e8f0;
+            -webkit-font-smoothing: antialiased;
         }
-
-        .btn-secondary:hover {
-            background: #e2e8f0;
+        .sky-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid #E0F2FE;
+        }
+        .sky-card {
+            background: #FFFFFF;
+            border: 1px solid #E0F2FE;
+            box-shadow: 0 1px 3px 0 rgba(2, 132, 199, 0.04), 0 6px 20px -3px rgba(2, 132, 199, 0.05);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .sky-card:hover {
+            border-color: #BAE6FD;
+            box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.06), 0 16px 32px -4px rgba(2, 132, 199, 0.12);
             transform: translateY(-2px);
         }
-
-        /* ================= EMPTY STATE ================= */
-
-        .empty-state {
-            background: white;
-            border-radius: 20px;
-            padding: 65px 25px;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(15, 23, 42, 0.07);
-        }
-
-        .empty-icon {
-            font-size: 58px;
-            margin-bottom: 15px;
-        }
-
-        .empty-state h2 {
-            color: #111827;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-
-        .empty-state p {
-            color: #64748b;
-            max-width: 550px;
-            margin: 0 auto 23px;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        /* ================= FOOTER ================= */
-
-        .footer {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 13px;
-            padding: 30px 0 10px;
-        }
-
-        /* ================= RESPONSIVE ================= */
-
-        @media (max-width: 900px) {
-
-            .navbar {
-                padding: 15px 4%;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .nav-links {
-                width: 100%;
-                overflow-x: auto;
-                flex-wrap: nowrap;
-                padding-bottom: 3px;
-            }
-
-            .comparison-grid {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-        @media (max-width: 600px) {
-
-            .container {
-                width: 94%;
-                margin-top: 25px;
-            }
-
-            .page-header {
-                padding: 22px;
-            }
-
-            .page-header h1 {
-                font-size: 27px;
-            }
-
-            .comparison-section {
-                padding: 18px;
-            }
-
-            .college-image {
-                height: 210px;
-            }
-
-            .actions {
-                flex-direction: column;
-            }
-
-            .actions .btn {
-                width: 100%;
-            }
-
-        }
-
-        @media (max-width: 430px) {
-
-            .logo {
-                font-size: 19px;
-            }
-
-            .nav-links a {
-                font-size: 13px;
-                padding: 8px 10px;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
     </style>
-
 </head>
-
-
-<body>
-
-
-<!-- ================= NAVBAR ================= -->
-
-<nav class="navbar">
-
-    <div class="logo">
-        🎓 College Predictor
-    </div>
-
-
-    <div class="nav-links">
-
-        <a href="{{ url_for('dashboard') }}">
-            Dashboard
-        </a>
-
-        <a href="{{ url_for('colleges') }}">
-            Colleges
-        </a>
-
-        <a href="{{ url_for('predictor') }}">
-            Predictor
-        </a>
-
-        <a href="{{ url_for('prediction_history') }}">
-            History
-        </a>
-
-        <a href="{{ url_for('profile') }}">
-            Profile
-        </a>
-
-        <a href="{{ url_for('saved_colleges') }}">
-            Saved
-        </a>
-
-        <!-- FIXED ENDPOINT -->
-        <a href="{{ url_for('compare_colleges') }}"
-           class="active">
-            Compare
-        </a>
-
-        <a href="{{ url_for('logout') }}"
-           class="logout">
-            Logout
-        </a>
-
-    </div>
-
-</nav>
-
-
-
-<!-- ================= MAIN ================= -->
-
-<main class="container">
-
-
-    <a href="{{ url_for('colleges') }}"
-       class="back-link">
-
-        ← Back to Colleges
-
-    </a>
-
-
-
-    <!-- ================= HEADER ================= -->
-
-    <section class="page-header">
-
-        <h1>
-            ⚖️ Compare Colleges
-        </h1>
-
-        <p>
-            Compare the selected colleges using important academic
-            and location information.
-        </p>
-
-    </section>
-
-
-
-    <!-- ================= MESSAGE ================= -->
-
-    {% if message %}
-
-        <div class="message">
-
-            ⚠️ {{ message }}
-
-        </div>
-
-    {% endif %}
-
-
-
-    <!-- ================= COLLEGE LIST ================= -->
-
-    {% if colleges and colleges|length > 0 %}
-
-
-        <div class="comparison-grid">
-
-
-            {% for college in colleges %}
-
-
-                <article class="college-card">
-
-
-                    <div class="college-image">
-
-
-                        {% set image_path = college.get(
-                            'Image',
-                            'images/default.jpg'
-                        ) %}
-
-
-                        <img
-                            src="{{ url_for(
-                                'static',
-                                filename=image_path.replace(
-                                    'static/',
-                                    ''
-                                )
-                            ) }}"
-                            alt="{{ college.get(
-                                'College Name',
-                                'College'
-                            ) }}"
-                            onerror="
-                                this.onerror=null;
-                                this.src='{{ url_for(
-                                    'static',
-                                    filename='images/default.jpg'
-                                ) }}';
-                            "
-                        >
-
-
-                        {% if college.get('Exam') %}
-
-                            <span class="exam-badge">
-
-                                {{ college.get('Exam') }}
-
-                            </span>
-
-                        {% endif %}
-
-
+<body class="min-h-screen flex flex-col antialiased">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full sky-header shadow-xs transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-18 py-2.5">
+                <!-- Logo & Brand -->
+                <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-sky-500/25 ring-2 ring-sky-100 flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z"/>
+                        </svg>
                     </div>
-
-
-
-                    <div class="card-content">
-
-
-                        <h2 class="college-name">
-
-                            {{ college.get(
-                                'College Name',
-                                'College Name'
-                            ) }}
-
-                        </h2>
-
-
-                        <p class="college-location">
-
-                            📍
-
-                            {{ college.get(
-                                'Location',
-                                'Location not available'
-                            ) }}
-
-                            {% if college.get('State') %}
-
-                                , {{ college.get('State') }}
-
-                            {% endif %}
-
-                        </p>
-
-
-
-                        <div class="info-grid">
-
-
-                            <div class="info-item">
-
-                                <span class="info-label">
-                                    Branch
-                                </span>
-
-                                <span class="info-value">
-
-                                    {{ college.get(
-                                        'Branch',
-                                        'N/A'
-                                    ) }}
-
-                                </span>
-
-                            </div>
-
-
-
-                            <div class="info-item">
-
-                                <span class="info-label">
-                                    Rating
-                                </span>
-
-                                <span class="info-value rating">
-
-                                    ⭐
-
-                                    {{ college.get(
-                                        'Rating',
-                                        'N/A'
-                                    ) }}
-
-                                </span>
-
-                            </div>
-
-
-
-                            <div class="info-item">
-
-                                <span class="info-label">
-                                    Cutoff Rank
-                                </span>
-
-                                <span class="info-value">
-
-                                    {{ college.get(
-                                        'Cutoff Rank',
-                                        'N/A'
-                                    ) }}
-
-                                </span>
-
-                            </div>
-
-
-
-                            <div class="info-item">
-
-                                <span class="info-label">
-                                    State
-                                </span>
-
-                                <span class="info-value">
-
-                                    {{ college.get(
-                                        'State',
-                                        'N/A'
-                                    ) }}
-
-                                </span>
-
-                            </div>
-
-
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">Edu<span class="text-sky-500">Predict</span></span>
+                            <span class="hidden sm:inline-block text-[11px] font-bold px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full border border-sky-200">Comparison</span>
                         </div>
-
-
-
-                        <div class="actions">
-
-
-                            {% if college.get('Exam')
-                                  and college.get('SourceIndex') is not none %}
-
-
-                                <a
-                                    href="{{ url_for(
-                                        'college_details',
-                                        exam=college.get('Exam').lower(),
-                                        index=college.get('SourceIndex')
-                                    ) }}"
-                                    class="btn btn-primary">
-
-                                    👁️ View College
-
-                                </a>
-
-
-                            {% endif %}
-
-
-                        </div>
-
-
+                        <span class="hidden sm:block text-[10px] text-slate-400 font-medium">Side-by-Side Evaluator</span>
                     </div>
-
-
-                </article>
-
-
-            {% endfor %}
-
-
-        </div>
-
-
-
-        <!-- ================= COMPARISON TABLE ================= -->
-
-        <section class="comparison-section">
-
-
-            <h2 class="section-title">
-
-                📊 College Comparison
-
-            </h2>
-
-
-
-            <div class="table-wrapper">
-
-
-                <table class="comparison-table">
-
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                Feature
-                            </th>
-
-
-                            {% for college in colleges %}
-
-                                <th>
-
-                                    {{ college.get(
-                                        'College Name',
-                                        'College'
-                                    ) }}
-
-                                </th>
-
-                            {% endfor %}
-
-                        </tr>
-
-                    </thead>
-
-
-
-                    <tbody>
-
-
-                        <!-- Entrance Exam -->
-
-                        <tr>
-
-                            <td class="feature-name">
-                                Entrance Exam
-                            </td>
-
-
-                            {% for college in colleges %}
-
-                                <td>
-
-                                    {{ college.get(
-                                        'Exam',
-                                        'N/A'
-                                    ) }}
-
-                                </td>
-
-                            {% endfor %}
-
-                        </tr>
-
-
-
-                        <!-- Branch -->
-
-                        <tr>
-
-                            <td class="feature-name">
-                                Branch
-                            </td>
-
-
-                            {% for college in colleges %}
-
-                                <td>
-
-                                    {{ college.get(
-                                        'Branch',
-                                        'N/A'
-                                    ) }}
-
-                                </td>
-
-                            {% endfor %}
-
-                        </tr>
-
-
-
-                        <!-- Rating -->
-
-                        <tr>
-
-                            <td class="feature-name">
-                                Rating
-                            </td>
-
-
-                            {% for college in colleges %}
-
-                                <td class="rating-text">
-
-                                    ⭐
-
-                                    {{ college.get(
-                                        'Rating',
-                                        'N/A'
-                                    ) }}
-
-                                </td>
-
-                            {% endfor %}
-
-                        </tr>
-
-
-
-                        <!-- Historical Cutoff -->
-
-                        <tr>
-
-                            <td class="feature-name">
-                                Historical Cutoff Rank
-                            </td>
-
-
-                            {% for college in colleges %}
-
-                                <td>
-
-                                    {{ college.get(
-                                        'Cutoff Rank',
-                                        'N/A'
-                                    ) }}
-
-                                </td>
-
-                            {% endfor %}
-
-                        </tr>
-
-
-
-                        <!-- Location -->
-
-                        <tr>
-
-                            <td class="feature-name">
-                                Location
-                            </td>
-
-
-                            {% for college in colleges %}
-
-                                <td>
-
-                                    {{ college.get(
-                                        'Location',
-                                        'N/A'
-                                    ) }}
-
-                                </td>
-
-                            {% endfor %}
-
-                        </tr>
-
-
-
-                        <!-- State -->
-
-                        <tr>
-
-                            <td class="feature-name">
-                                State
-                            </td>
-
-
-                            {% for college in colleges %}
-
-                                <td>
-
-                                    {{ college.get(
-                                        'State',
-                                        'N/A'
-                                    ) }}
-
-                                </td>
-
-                            {% endfor %}
-
-                        </tr>
-
-
-                    </tbody>
-
-                </table>
-
-
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="{{ url_for('dashboard') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Dashboard</a>
+                    <a href="{{ url_for('predictor') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Predictor</a>
+                    <a href="{{ url_for('colleges') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Colleges</a>
+                    <a href="{{ url_for('compare') }}" class="px-3.5 py-2 text-xs font-bold rounded-xl text-sky-600 bg-sky-50 border border-sky-200 transition">Compare</a>
+                    <a href="{{ url_for('prediction_history') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">History</a>
+                    <a href="{{ url_for('admin_contact') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Contact Admin</a>
+                </nav>
+
+                <!-- Profile / Auth Area -->
+                <div class="flex items-center gap-3">
+                    <a href="{{ url_for('profile') }}" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-sky-100 bg-white hover:bg-sky-50 text-slate-700 transition text-xs font-semibold shadow-2xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span>My Profile</span>
+                    </a>
+
+                    <!-- Logout Button -->
+                    <form method="POST" action="{{ url_for('logout') }}" class="inline m-0">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition" title="Logout">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        </button>
+                    </form>
+                </div>
             </div>
+        </div>
+    </header>
 
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8">
 
-
-            <!-- ================= ACTIONS ================= -->
-
-            <div class="actions">
-
-
+        <!-- Back Button & Page Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1.5">
                 <a
                     href="{{ url_for('colleges') }}"
-                    class="btn btn-primary">
-
-                    🏫 Browse More Colleges
-
+                    class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-700 transition mb-1"
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                    <span>Back to Colleges Directory</span>
                 </a>
-
-
+                <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Institutional Comparison Matrix</h1>
+                
+            </div>
+            {% if colleges and colleges|length > 0 %}
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-bold px-3 py-1.5 rounded-xl bg-white border border-sky-200 text-sky-700 shadow-2xs">
+                    Comparing {{ colleges|length }} of 3 Colleges
+                </span>
                 <a
-                    href="{{ url_for('saved_colleges') }}"
-                    class="btn btn-secondary">
-
-                    ❤️ Saved Colleges
-
+                    href="{{ url_for('colleges') }}"
+                    class="px-3.5 py-1.5 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 text-slate-700 font-bold text-xs transition"
+                >
+                    + Add / Change Colleges
                 </a>
+            </div>
+            {% endif %}
+        </div>
 
+        <!-- Notice / Flash message -->
+        {% if message %}
+            <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold flex items-center gap-2">
+                <svg class="w-4 h-4 text-amber-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span>{{ message }}</span>
+            </div>
+        {% endif %}
 
-                <a
-                    href="{{ url_for('predictor') }}"
-                    class="btn btn-secondary">
+        {% if colleges and colleges|length > 0 %}
+            <!-- Side-by-Side College Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-{{ colleges|length if colleges|length <= 3 else 3 }} gap-6">
+                {% for college in colleges %}
+                <article class="college-card sky-card rounded-3xl overflow-hidden flex flex-col justify-between">
+                    <div>
+                        <!-- College Image & Badges -->
+                        <div class="relative w-full h-48 bg-slate-100 overflow-hidden">
+                            {% set img = college.get('Image', 'static/images/default.jpg') %}
+                            {% if img.startswith('static/') %}
+                                {% set img = img[7:] %}
+                            {% endif %}
+                            <img
+                                src="{{ url_for('static', filename=img) }}"
+                                alt="{{ college.get('College Name', 'College') }}"
+                                class="w-full h-full object-cover"
+                                onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/default.jpg') }}';"
+                            >
 
-                    🤖 College Predictor
+                            <!-- Exam Pill -->
+                            {% if college.get('Exam') %}
+                            <div class="absolute top-3 left-3">
+                                <span class="px-2.5 py-1 rounded-lg text-xs font-black bg-sky-600/95 text-white shadow-sm">
+                                    {{ college.get('Exam') }}
+                                </span>
+                            </div>
+                            {% endif %}
 
-                </a>
+                            <!-- Rating -->
+                            <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-xl border border-sky-100 shadow-sm flex items-center gap-1 text-xs font-bold text-slate-800">
+                                <svg class="w-3.5 h-3.5 text-amber-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                <span>{{ college.get('Rating', 'N/A') }}</span>
+                            </div>
+                        </div>
 
+                        <!-- Card Content -->
+                        <div class="p-5 space-y-4">
+                            <div>
+                                <h3 class="text-base font-extrabold text-slate-900 leading-snug line-clamp-2" title="{{ college.get('College Name', 'College') }}">
+                                    {{ college.get('College Name', 'College Name') }}
+                                </h3>
+                                <div class="text-xs text-slate-500 font-medium flex items-center gap-1.5 mt-1 truncate">
+                                    <svg class="w-3.5 h-3.5 text-sky-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                    <span class="truncate">{{ college.get('Location', 'N/A') }}{% if college.get('State') %}, {{ college.get('State') }}{% endif %}</span>
+                                </div>
+                            </div>
 
+                            <!-- Info Grid -->
+                            <div class="grid grid-cols-2 gap-2.5 pt-2 border-t border-sky-100">
+                                <div class="p-2.5 rounded-xl border border-sky-100 bg-sky-50/30">
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Branch</span>
+                                    <span class="text-xs font-extrabold text-sky-800 truncate block">{{ college.get('Branch', 'All Branches') }}</span>
+                                </div>
+
+                                <div class="p-2.5 rounded-xl border border-sky-100 bg-sky-50/30">
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Cutoff Rank</span>
+                                    <span class="text-xs font-extrabold text-slate-800 block">#{{ college.get('Cutoff Rank', 'N/A') }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action -->
+                    <div class="p-5 pt-0 mt-3">
+                        {% if college.get('Exam') and college.get('SourceIndex') is not none %}
+                            <a
+                                href="{{ url_for('college_details', exam=college.get('Exam').lower(), index=college.get('SourceIndex')) }}"
+                                class="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 text-white font-extrabold text-xs shadow-sm shadow-sky-600/20 active:scale-95 transition text-center flex items-center justify-center gap-1.5 cursor-pointer"
+                            >
+                                <span>View Full College Profile</span>
+                                <span>→</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                </article>
+                {% endfor %}
             </div>
 
+            <!-- Comprehensive Comparison Table -->
+            <div class="sky-card rounded-3xl p-6 sm:p-8 space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-sky-100">
+                    <h2 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                        <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                        <span>Detailed Parameter Matrix</span>
+                    </h2>
+                    <span class="text-xs text-slate-400 font-medium">Head-to-Head Comparison</span>
+                </div>
 
-        </section>
+                <div class="overflow-x-auto rounded-2xl border border-sky-100">
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-sky-50/80 border-b border-sky-100">
+                                <th class="py-3.5 px-5 font-bold uppercase tracking-wider text-slate-500 w-1/4">Evaluation Parameter</th>
+                                {% for college in colleges %}
+                                    <th class="py-3.5 px-5 font-extrabold text-slate-900">
+                                        {{ college.get('College Name', 'College') }}
+                                    </th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-sky-100 bg-white">
+                            <!-- Entrance Exam -->
+                            <tr class="hover:bg-sky-50/40 transition">
+                                <td class="py-3.5 px-5 font-bold text-slate-500">Entrance Exam</td>
+                                {% for college in colleges %}
+                                    <td class="py-3.5 px-5">
+                                        <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-sky-100 text-sky-800">
+                                            {{ college.get('Exam', 'N/A') }}
+                                        </span>
+                                    </td>
+                                {% endfor %}
+                            </tr>
 
+                            <!-- Branch Stream -->
+                            <tr class="hover:bg-sky-50/40 transition">
+                                <td class="py-3.5 px-5 font-bold text-slate-500">Evaluated Branch</td>
+                                {% for college in colleges %}
+                                    <td class="py-3.5 px-5 font-extrabold text-slate-800">
+                                        {{ college.get('Branch', 'All Branches') }}
+                                    </td>
+                                {% endfor %}
+                            </tr>
 
-    {% else %}
+                            <!-- Rating -->
+                            <tr class="hover:bg-sky-50/40 transition">
+                                <td class="py-3.5 px-5 font-bold text-slate-500">Accreditation Rating</td>
+                                {% for college in colleges %}
+                                    <td class="py-3.5 px-5 font-extrabold text-slate-800 flex items-center gap-1">
+                                        <svg class="w-3.5 h-3.5 text-amber-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                        <span>{{ college.get('Rating', 'N/A') }} / 5.0</span>
+                                    </td>
+                                {% endfor %}
+                            </tr>
 
+                            <!-- Cutoff Rank -->
+                            <tr class="hover:bg-sky-50/40 transition">
+                                <td class="py-3.5 px-5 font-bold text-slate-500">Historical Cutoff Rank</td>
+                                {% for college in colleges %}
+                                    <td class="py-3.5 px-5 font-black text-slate-900">
+                                        #{{ college.get('Cutoff Rank', 'N/A') }}
+                                    </td>
+                                {% endfor %}
+                            </tr>
 
-        <!-- ================= EMPTY STATE ================= -->
+                            <!-- Campus Location -->
+                            <tr class="hover:bg-sky-50/40 transition">
+                                <td class="py-3.5 px-5 font-bold text-slate-500">Campus City / Location</td>
+                                {% for college in colleges %}
+                                    <td class="py-3.5 px-5 text-slate-700 font-medium">
+                                        {{ college.get('Location', 'N/A') }}
+                                    </td>
+                                {% endfor %}
+                            </tr>
 
-        <section class="empty-state">
+                            <!-- State -->
+                            <tr class="hover:bg-sky-50/40 transition">
+                                <td class="py-3.5 px-5 font-bold text-slate-500">State Jurisdiction</td>
+                                {% for college in colleges %}
+                                    <td class="py-3.5 px-5 text-slate-700 font-medium">
+                                        {{ college.get('State', 'N/A') }}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-
-            <div class="empty-icon">
-                ⚖️
+                <!-- Footer Quick Links -->
+                <div class="pt-4 flex flex-wrap items-center gap-3">
+                    <a
+                        href="{{ url_for('colleges') }}"
+                        class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 text-white font-extrabold text-xs shadow-sm transition cursor-pointer"
+                    >
+                        Browse More Colleges
+                    </a>
+                    <a
+                        href="{{ url_for('saved_colleges') }}"
+                        class="px-4 py-2.5 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 text-slate-700 font-bold text-xs transition cursor-pointer"
+                    >
+                        View Shortlisted Colleges
+                    </a>
+                    <a
+                        href="{{ url_for('predictor') }}"
+                        class="px-4 py-2.5 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 text-slate-700 font-bold text-xs transition cursor-pointer"
+                    >
+                        Back to Predictor
+                    </a>
+                </div>
             </div>
 
+        {% else %}
+            <!-- Empty State -->
+            <div class="sky-card rounded-3xl p-12 text-center space-y-4 max-w-xl mx-auto">
+                <div class="w-16 h-16 rounded-2xl bg-sky-50 border border-sky-200 text-sky-600 flex items-center justify-center mx-auto text-2xl shadow-xs">
+                    <svg class="w-8 h-8 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+                    </svg>
+                </div>
+                <div>
+                    <h3 class="text-xl font-extrabold text-slate-900">No Colleges Selected for Comparison</h3>
+                    {% if message %}
+                        <p class="text-sm text-slate-500 mt-1">{{ message }}</p>
+                    {% endif %}
+                </div>
+                <div>
+                    <a
+                        href="{{ url_for('colleges') }}"
+                        class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-extrabold text-xs shadow-md shadow-sky-600/25 transition cursor-pointer"
+                    >
+                        <span>Explore Colleges Directory</span>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
 
-            <h2>
-                No Colleges to Compare
-            </h2>
+    </main>
 
-
-            <p>
-
-                {% if message %}
-
-                    {{ message }}
-
-                {% else %}
-
-                    Select at least two colleges from the Colleges page
-                    and use the Compare Selected button.
-
-                {% endif %}
-
-            </p>
-
-
-            <a
-                href="{{ url_for('colleges') }}"
-                class="btn btn-primary">
-
-                🏫 Browse Colleges
-
-            </a>
-
-
-        </section>
-
-
-    {% endif %}
-
-
-
-    <!-- ================= FOOTER ================= -->
-
-    <div class="footer">
-
-        © 2026 College Predictor System
-
-    </div>
-
-
-</main>
-
+    <!-- Footer -->
+    <footer class="bg-white border-t border-sky-100 mt-auto py-6 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-extrabold text-slate-800">Edu<span class="text-sky-600">Predict</span></span>
+                <span>• Multi-College Comparison Tool</span>
+            </div>
+            <span>© 2026 EduPredict. KCET & EAMCET Calibrated Data.</span>
+        </div>
+    </footer>
 
 </body>
-
 </html>

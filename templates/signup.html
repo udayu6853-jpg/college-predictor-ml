@@ -1,678 +1,170 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Create Account | College Predictor</title>
-
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - EduPredict</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        skyCanvas: '#F0F7FE',
+                        skyPrimary: '#0284C7',
+                        skyAccent: '#0EA5E9',
+                        skyTint: '#E0F2FE',
+                        skyBorder: '#BAE6FD',
+                        navyText: '#0F172A'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-dark-saas.css') }}">
     <style>
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: "Segoe UI", Arial, sans-serif;
-        }
-
-
         body {
-
-            min-height: 100vh;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #eaf4ff 0%,
-                    #f7fbff 50%,
-                    #eef6ff 100%
-                );
-
-            padding: 25px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #F0F7FE;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(14, 165, 233, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 25%, rgba(2, 132, 199, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 50% 90%, rgba(56, 189, 248, 0.08) 0%, transparent 50%);
+            background-attachment: fixed;
         }
-
-
-        .auth-container {
-
-            width: 100%;
-
-            max-width: 1050px;
-
-            min-height: 650px;
-
-            display: grid;
-
-            grid-template-columns: 1fr 1fr;
-
-            background: white;
-
-            border-radius: 24px;
-
-            overflow: hidden;
-
-            box-shadow:
-                0 20px 60px
-                rgba(0, 80, 160, 0.15);
-        }
-
-
-        /* LEFT */
-
-        .auth-left {
-
-            background:
-                linear-gradient(
-                    145deg,
-                    #0066d6,
-                    #007bff,
-                    #00a2ff
-                );
-
-            color: white;
-
-            padding: 55px;
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: center;
-        }
-
-
-        .logo {
-
-            width: 70px;
-
-            height: 70px;
-
-            border-radius: 20px;
-
-            background:
-                rgba(255, 255, 255, 0.18);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 35px;
-
-            margin-bottom: 25px;
-        }
-
-
-        .auth-left h1 {
-
-            font-size: 38px;
-
-            line-height: 1.15;
-
-            margin-bottom: 18px;
-        }
-
-
-        .auth-left p {
-
-            font-size: 16px;
-
-            line-height: 1.7;
-
-            opacity: 0.92;
-
-            max-width: 440px;
-        }
-
-
-        .features {
-
-            margin-top: 35px;
-        }
-
-
-        .feature {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 12px;
-
-            margin-bottom: 17px;
-
-            font-size: 15px;
-        }
-
-
-        .feature-icon {
-
-            width: 30px;
-
-            height: 30px;
-
-            border-radius: 50%;
-
-            background:
-                rgba(255, 255, 255, 0.18);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-        }
-
-
-        /* RIGHT */
-
-        .auth-right {
-
-            padding: 50px 55px;
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: center;
-        }
-
-
-        .auth-right h2 {
-
-            font-size: 30px;
-
-            color: #172b4d;
-
-            margin-bottom: 8px;
-        }
-
-
-        .subtitle {
-
-            color: #6b7280;
-
-            margin-bottom: 25px;
-        }
-
-
-        .message {
-
-            padding: 13px 15px;
-
-            border-radius: 10px;
-
-            margin-bottom: 18px;
-
-            font-size: 14px;
-        }
-
-
-        .error {
-
-            background: #fff0f0;
-
-            color: #c62828;
-
-            border: 1px solid #ffcaca;
-        }
-
-
-        .form-group {
-
-            margin-bottom: 17px;
-        }
-
-
-        .form-group label {
-
-            display: block;
-
-            font-size: 14px;
-
-            font-weight: 600;
-
-            color: #344054;
-
-            margin-bottom: 7px;
-        }
-
-
-        .form-group input {
-
-            width: 100%;
-
-            height: 48px;
-
-            border:
-                1px solid #d7dee8;
-
-            border-radius: 11px;
-
-            padding: 0 15px;
-
-            font-size: 15px;
-
-            outline: none;
-
-            transition: 0.2s;
-        }
-
-
-        .form-group input:focus {
-
-            border-color: #007bff;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(0, 123, 255, 0.10);
-        }
-
-
-        .signup-button {
-
-            width: 100%;
-
-            height: 52px;
-
-            border: none;
-
-            border-radius: 11px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #007bff,
-                    #0066d6
-                );
-
-            color: white;
-
-            font-size: 16px;
-
-            font-weight: 700;
-
-            cursor: pointer;
-
-            transition: 0.2s;
-
-            margin-top: 5px;
-        }
-
-
-        .signup-button:hover {
-
-            transform:
-                translateY(-1px);
-
-            box-shadow:
-                0 8px 20px
-                rgba(0, 123, 255, 0.25);
-        }
-
-
-        .login-link {
-
-            text-align: center;
-
-            margin-top: 22px;
-
-            color: #667085;
-
-            font-size: 14px;
-        }
-
-
-        .login-link a {
-
-            color: #007bff;
-
-            font-weight: 700;
-
-            text-decoration: none;
-        }
-
-
-        .login-link a:hover {
-
-            text-decoration: underline;
-        }
-
-
-        .footer-text {
-
-            text-align: center;
-
-            color: #98a2b3;
-
-            font-size: 12px;
-
-            margin-top: 22px;
-        }
-
-
-        @media (max-width: 800px) {
-
-            .auth-container {
-
-                grid-template-columns: 1fr;
-
-                max-width: 520px;
-            }
-
-
-            .auth-left {
-
-                padding: 40px 35px;
-            }
-
-
-            .auth-left h1 {
-
-                font-size: 30px;
-            }
-
-
-            .features {
-
-                margin-top: 25px;
-            }
-
-
-            .auth-right {
-
-                padding: 40px 35px;
-            }
-
-        }
-
-
-        @media (max-width: 480px) {
-
-            body {
-
-                padding: 12px;
-            }
-
-
-            .auth-left,
-            .auth-right {
-
-                padding:
-                    30px 22px;
-            }
-
-
-            .auth-left h1 {
-
-                font-size: 27px;
-            }
-
-
-            .auth-right h2 {
-
-                font-size: 25px;
-            }
-
-        }
-
     </style>
-
 </head>
+<body class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden text-slate-800 antialiased">
 
+    <!-- Ambient glowing light halos -->
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-sky-400/15 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-cyan-400/15 rounded-full blur-3xl pointer-events-none"></div>
 
-<body>
-
-
-    <div class="auth-container">
-
-
-        <!-- LEFT -->
-
-        <div class="auth-left">
-
-
-            <div class="logo">
-                🎓
+    <!-- Sign Up Glass Card -->
+    <div class="w-full max-w-lg bg-white rounded-3xl border border-sky-100 shadow-xl shadow-sky-500/10 p-8 sm:p-10 relative z-10 space-y-6">
+        
+        <!-- Brand Header -->
+        <div class="text-center space-y-3">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-600 flex items-center justify-center text-white shadow-lg shadow-sky-500/25 mx-auto ring-4 ring-sky-50">
+                <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z"/>
+                </svg>
             </div>
-
-
-            <h1>
-                Join College Predictor
-            </h1>
-
-
-            <p>
-
-                Create your account and explore
-                colleges, predictions and detailed
-                admission information.
-
-            </p>
-
-
-            <div class="features">
-
-
-                <div class="feature">
-
-                    <div class="feature-icon">
-                        ✓
-                    </div>
-
-                    <span>
-                        Explore KCET colleges
-                    </span>
-
+            <div>
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold mb-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse"></span>
+                    <span>Student Registration</span>
                 </div>
-
-
-                <div class="feature">
-
-                    <div class="feature-icon">
-                        ✓
-                    </div>
-
-                    <span>
-                        Explore EAMCET colleges
-                    </span>
-
-                </div>
-
-
-                <div class="feature">
-
-                    <div class="feature-icon">
-                        ✓
-                    </div>
-
-                    <span>
-                        Predict colleges using your rank
-                    </span>
-
-                </div>
-
-
-                <div class="feature">
-
-                    <div class="feature-icon">
-                        ✓
-                    </div>
-
-                    <span>
-                        Save your account information
-                    </span>
-
-                </div>
-
-
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Create Account</h1>
+                <p class="text-xs sm:text-sm text-slate-500 mt-1">Get started with personalized admission cutoff predictions</p>
             </div>
-
-
         </div>
 
+        {% if error %}
+        <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold text-left flex items-start gap-2.5">
+            <svg class="w-4 h-4 text-rose-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>{{ error }}</span>
+        </div>
+        {% endif %}
 
-        <!-- RIGHT -->
+        <!-- Registration Form -->
+        <form method="POST" action="{{ url_for('signup') }}" class="space-y-4 text-left">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-        <div class="auth-right">
-
-
-            <h2>
-                Create Account
-            </h2>
-
-
-            <p class="subtitle">
-                Register to access the College Predictor System.
-            </p>
-
-
-            {% if error %}
-
-                <div class="message error">
-
-                    {{ error }}
-
-                </div>
-
-            {% endif %}
-
-
-            <form
-                method="POST"
-                action="{{ url_for('signup') }}"
-            >
-
-                <!-- CSRF PROTECTION -->
+            <!-- Full Name -->
+            <div class="space-y-1">
+                <label for="name" class="block text-xs font-bold text-slate-700">Full Name</label>
                 <input
-                    type="hidden"
-                    name="csrf_token"
-                    value="{{ csrf_token() }}"
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your legal full name"
+                    autocomplete="name"
+                    required
+                    class="w-full px-4 py-2.5 rounded-xl border border-sky-200 bg-sky-50/20 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 text-sm font-semibold transition"
                 >
+            </div>
 
+            <!-- Email Address -->
+            <div class="space-y-1">
+                <label for="email" class="block text-xs font-bold text-slate-700">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="student@example.com"
+                    autocomplete="email"
+                    required
+                    class="w-full px-4 py-2.5 rounded-xl border border-sky-200 bg-sky-50/20 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 text-sm font-semibold transition"
+                >
+            </div>
 
-                <div class="form-group">
-
-                    <label for="name">
-                        Full Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        placeholder="Enter your full name"
-                        autocomplete="name"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="email">
-                        Email Address
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        autocomplete="email"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="password">
-                        Password
-                    </label>
-
+            <!-- Password Fields Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Password -->
+                <div class="space-y-1">
+                    <label for="password" class="block text-xs font-bold text-slate-700">Password</label>
                     <input
                         type="password"
                         id="password"
                         name="password"
-                        placeholder="Minimum 8 characters"
+                        placeholder="Min 8 characters"
                         minlength="8"
                         maxlength="128"
                         autocomplete="new-password"
                         required
+                        class="w-full px-4 py-2.5 rounded-xl border border-sky-200 bg-sky-50/20 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 text-sm font-semibold transition"
                     >
-
                 </div>
 
-
-                <div class="form-group">
-
-                    <label for="confirm_password">
-                        Confirm Password
-                    </label>
-
+                <!-- Confirm Password -->
+                <div class="space-y-1">
+                    <label for="confirm_password" class="block text-xs font-bold text-slate-700">Confirm Password</label>
                     <input
                         type="password"
                         id="confirm_password"
                         name="confirm_password"
-                        placeholder="Re-enter your password"
+                        placeholder="Re-enter password"
                         minlength="8"
                         maxlength="128"
                         autocomplete="new-password"
                         required
+                        class="w-full px-4 py-2.5 rounded-xl border border-sky-200 bg-sky-50/20 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 text-sm font-semibold transition"
                     >
-
                 </div>
+            </div>
 
-
+            <!-- Submit Button -->
+            <div class="pt-2">
                 <button
                     type="submit"
-                    class="signup-button"
+                    class="w-full py-3 px-5 rounded-xl bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 text-white font-extrabold text-sm shadow-md shadow-sky-600/25 active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer"
                 >
-                    Create Account
+                    <span>Create Free Account</span>
+                    <span>→</span>
                 </button>
-
-
-            </form>
-
-
-            <div class="login-link">
-
-                Already have an account?
-
-                <a href="{{ url_for('login') }}">
-                    Login
-                </a>
-
             </div>
+        </form>
 
-
-            <div class="footer-text">
-                College Predictor System • 2026
-            </div>
-
-
+        <!-- Login Link -->
+        <div class="pt-4 border-t border-sky-100 text-center text-xs text-slate-500">
+            <span>Already have an account? </span>
+            <a href="{{ url_for('login') }}" class="font-bold text-sky-600 hover:text-sky-700 hover:underline">
+                Sign In
+            </a>
         </div>
 
+        <div class="text-center text-[11px] text-slate-400">
+            EduPredict • Secure Student Portal
+        </div>
 
     </div>
 
-
 </body>
-
 </html>

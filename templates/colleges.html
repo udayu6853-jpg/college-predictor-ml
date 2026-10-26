@@ -1,2155 +1,679 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Colleges - College Predictor</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Colleges - EduPredict</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        skyCanvas: '#F0F7FE',
+                        skyPrimary: '#0284C7',
+                        skyAccent: '#0EA5E9',
+                        skyTint: '#E0F2FE',
+                        skyBorder: '#BAE6FD',
+                        navyText: '#0F172A'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme-dark-saas.css') }}">
     <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: "Segoe UI", Arial, sans-serif;
-            background: #f4f8fc;
-            color: #17345e;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #F0F7FE;
+            background-image: 
+                radial-gradient(circle at 10% 12%, rgba(14, 165, 233, 0.07) 0%, transparent 45%),
+                radial-gradient(circle at 90% 18%, rgba(2, 132, 199, 0.05) 0%, transparent 45%),
+                radial-gradient(circle at 50% 88%, rgba(56, 189, 248, 0.05) 0%, transparent 50%);
+            background-attachment: fixed;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
         }
-
-        /* =========================================
-           NAVBAR
-        ========================================= */
-
-        .navbar {
-            background: linear-gradient(
-                135deg,
-                #0874df,
-                #0056b3
-            );
-
-            color: white;
-            padding: 16px 35px;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            box-shadow:
-                0 4px 15px rgba(
-                    0,
-                    86,
-                    179,
-                    0.20
-                );
+        .sky-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid #E0F2FE;
         }
-
-        .navbar h2 {
-            font-size: 22px;
+        .sky-card {
+            background: #FFFFFF;
+            border: 1px solid #E0F2FE;
+            box-shadow: 0 1px 3px 0 rgba(2, 132, 199, 0.04), 0 6px 20px -3px rgba(2, 132, 199, 0.05);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
-        .nav-links {
-            display: flex;
-            gap: 22px;
-            align-items: center;
+        .sky-card:hover {
+            border-color: #BAE6FD;
+            box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.06), 0 16px 32px -4px rgba(2, 132, 199, 0.12);
+            transform: translateY(-2px);
         }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .nav-links a:hover {
-            opacity: 0.85;
-        }
-
-        /* =========================================
-           PAGE
-        ========================================= */
-
-        .page-container {
-            width: 94%;
-            max-width: 1450px;
-            margin: 30px auto;
-        }
-
-        .page-header {
-            margin-bottom: 25px;
-        }
-
-        .page-header h1 {
-            font-size: 30px;
-            color: #17345e;
-            margin-bottom: 7px;
-        }
-
-        .page-header p {
-            color: #6b7f99;
-            font-size: 14px;
-        }
-
-        /* =========================================
-           SEARCH
-        ========================================= */
-
-        .search-box {
-            background: white;
-            padding: 18px;
-            border-radius: 14px;
-
-            box-shadow:
-                0 5px 20px rgba(
-                    20,
-                    60,
-                    100,
-                    0.08
-                );
-
-            margin-bottom: 20px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 13px 16px;
-
-            border: 1px solid #d8e5f2;
-            border-radius: 9px;
-
-            font-size: 14px;
-            outline: none;
-        }
-
-        .search-input:focus {
-            border-color: #0874df;
-        }
-
-        /* =========================================
-           FILTERS
-        ========================================= */
-
-        .filters {
-            background: white;
-
-            padding: 20px;
-
-            border-radius: 14px;
-
-            box-shadow:
-                0 5px 20px rgba(
-                    20,
-                    60,
-                    100,
-                    0.08
-                );
-
-            margin-bottom: 25px;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fit,
-                    minmax(170px, 1fr)
-                );
-
-            gap: 15px;
-        }
-
-        .filter-group label {
-            display: block;
-
-            font-size: 12px;
-            font-weight: 700;
-
-            color: #526b89;
-
-            margin-bottom: 7px;
-        }
-
-        .filter-group select {
-            width: 100%;
-
-            padding: 10px 12px;
-
-            border: 1px solid #d7e3ef;
-
-            border-radius: 8px;
-
-            background: white;
-
-            font-size: 13px;
-
-            color: #17345e;
-
-            outline: none;
-        }
-
-        .filter-group select:focus {
-            border-color: #0874df;
-        }
-
-        .reset-button {
-            border: none;
-
-            background: #eef5fc;
-
-            color: #0874df;
-
-            border-radius: 8px;
-
-            padding: 10px;
-
-            cursor: pointer;
-
-            font-weight: 700;
-
-            margin-top: 19px;
-        }
-
-        .reset-button:hover {
-            background: #dceeff;
-        }
-
-        /* =========================================
-           COMPARE BAR
-        ========================================= */
-
-        .compare-bar {
-            background: white;
-
-            padding: 14px 18px;
-
-            border-radius: 12px;
-
-            margin-bottom: 20px;
-
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            gap: 15px;
-
-            box-shadow:
-                0 4px 16px rgba(
-                    20,
-                    60,
-                    100,
-                    0.08
-                );
-        }
-
-        .compare-info {
-            color: #526b89;
-
-            font-size: 14px;
-
-            font-weight: 600;
-        }
-
-        #selectedCount {
-            color: #0874df;
-            font-weight: 800;
-        }
-
-        .compare-button {
-            border: none;
-
-            background: #0874df;
-
-            color: white;
-
-            padding: 10px 18px;
-
-            border-radius: 8px;
-
-            font-size: 13px;
-
-            font-weight: 700;
-
-            cursor: pointer;
-
-            transition: 0.2s;
-        }
-
-        .compare-button:hover {
-            background: #005bb5;
-        }
-
-        .compare-button:disabled {
-            background: #b9c7d6;
-
-            cursor: not-allowed;
-        }
-
-        /* =========================================
-           COLLEGE GRID
-        ========================================= */
-
-        .college-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    auto-fill,
-                    minmax(
-                        300px,
-                        1fr
-                    )
-                );
-
-            gap: 22px;
-        }
-
-        /* =========================================
-           COLLEGE CARD
-        ========================================= */
-
-        .college-card {
-            position: relative;
-
-            background: white;
-
-            border-radius: 15px;
-
-            overflow: hidden;
-
-            border: 2px solid transparent;
-
-            box-shadow:
-                0 5px 20px rgba(
-                    20,
-                    60,
-                    100,
-                    0.08
-                );
-
-            transition:
-                transform 0.2s ease,
-                box-shadow 0.2s ease,
-                border-color 0.2s ease;
-        }
-
-        .college-card:hover {
-            transform: translateY(-4px);
-
-            box-shadow:
-                0 10px 28px rgba(
-                    20,
-                    60,
-                    100,
-                    0.14
-                );
-        }
-
         .college-card.selected {
-            border-color: #0874df;
-
-            box-shadow:
-                0 8px 25px rgba(
-                    8,
-                    116,
-                    223,
-                    0.20
-                );
+            border-color: #0284C7 !important;
+            box-shadow: 0 0 0 2px #0284C7, 0 12px 28px -4px rgba(2, 132, 199, 0.18) !important;
         }
-
-        /* =========================================
-           COMPARE CHECKBOX
-        ========================================= */
-
-        .compare-checkbox-wrapper {
-            position: absolute;
-
-            top: 12px;
-            left: 12px;
-
-            z-index: 5;
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 6px;
-
-            background: rgba(
-                255,
-                255,
-                255,
-                0.95
-            );
-
-            padding: 6px 9px;
-
-            border-radius: 7px;
-
-            box-shadow:
-                0 2px 8px rgba(
-                    0,
-                    0,
-                    0,
-                    0.10
-                );
-        }
-
-        .compare-checkbox {
-            width: 15px;
-            height: 15px;
-
-            cursor: pointer;
-        }
-
-        .compare-label {
-            font-size: 11px;
-
-            font-weight: 700;
-
-            color: #17345e;
-
-            cursor: pointer;
-        }
-
-        /* =========================================
-           IMAGE
-        ========================================= */
-
-        .college-image-wrapper {
-            width: 100%;
-            height: 190px;
-
-            background: #edf4fa;
-
-            overflow: hidden;
-        }
-
-        .college-image {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            display: block;
-        }
-
-        /* =========================================
-           CONTENT
-        ========================================= */
-
-        .college-content {
-            padding: 18px;
-        }
-
-        .top-row {
-            display: flex;
-
-            justify-content: space-between;
-
-            align-items: center;
-
-            margin-bottom: 9px;
-        }
-
-        .exam-badge {
-            display: inline-block;
-
-            background: #e8f3ff;
-
-            color: #0874df;
-
-            padding: 5px 9px;
-
-            border-radius: 20px;
-
-            font-size: 10px;
-
-            font-weight: 800;
-        }
-
-        .rating {
-            color: #f39c12;
-
-            font-size: 12px;
-
-            font-weight: 700;
-        }
-
-        .college-name {
-            color: #17345e;
-
-            font-size: 19px;
-
-            line-height: 1.3;
-
-            margin-bottom: 14px;
-        }
-
-        /* =========================================
-           COLLEGE DETAILS
-        ========================================= */
-
-        .college-details {
-            margin-bottom: 15px;
-        }
-
-        .detail-row {
-            display: flex;
-
-            align-items: center;
-
-            gap: 7px;
-
-            color: #6b7f99;
-
-            font-size: 12px;
-
-            margin-bottom: 7px;
-        }
-
-        .detail-icon {
-            width: 18px;
-        }
-
-        /* =========================================
-           COLLEGE BRANCHES
-        ========================================= */
-
-        .college-branches {
-            margin-top: 5px;
-            margin-bottom: 18px;
-        }
-
-        .branch-heading {
-            color: #17345e;
-
-            font-size: 13px;
-
-            font-weight: 800;
-
-            margin-bottom: 10px;
-        }
-
-        .branch-tabs {
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 7px;
-
-            margin-bottom: 12px;
-        }
-
-        .branch-tab {
-            background: #e9f4ff;
-
-            color: #0874df;
-
-            border-radius: 18px;
-
-            padding: 6px 11px;
-
-            font-size: 11px;
-
-            font-weight: 800;
-        }
-
-        .branch-details-list {
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 8px;
-        }
-
-        .branch-detail-card {
-            display: grid;
-
-            grid-template-columns:
-                60px
-                1fr
-                1fr;
-
-            column-gap: 8px;
-
-            row-gap: 3px;
-
-            padding: 9px 10px;
-
-            background: #f7fbff;
-
-            border: 1px solid #e0edf9;
-
-            border-radius: 9px;
-        }
-
-        .branch-detail-name {
-            grid-row: span 2;
-
-            display: flex;
-
-            align-items: center;
-
-            color: #0874df;
-
-            font-size: 13px;
-
-            font-weight: 800;
-        }
-
-        .branch-detail-item {
-            display: flex;
-
-            align-items: center;
-
-            gap: 4px;
-
-            color: #6b7f99;
-
-            font-size: 11px;
-
-            line-height: 1.35;
-        }
-
-        .branch-detail-item strong {
-            color: #29486f;
-
-            font-weight: 700;
-        }
-
-        /* =========================================
-           ACTION BUTTONS
-        ========================================= */
-
-        .action-buttons {
-            display: flex;
-
-            gap: 8px;
-
-            align-items: center;
-
-            margin-top: 15px;
-        }
-
-        .details-button {
-            flex: 1;
-
-            text-align: center;
-
-            text-decoration: none;
-
-            background: #0874df;
-
-            color: white;
-
-            padding: 10px 12px;
-
-            border-radius: 8px;
-
-            font-size: 12px;
-
-            font-weight: 700;
-        }
-
-        .details-button:hover {
-            background: #005bb5;
-        }
-
-        .save-form {
-            margin: 0;
-        }
-
-        .save-button {
-            border: none;
-
-            background: #fff0f2;
-
-            color: #d63354;
-
-            padding: 10px 12px;
-
-            border-radius: 8px;
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-            cursor: pointer;
-
-            white-space: nowrap;
-        }
-
-        .save-button:hover {
-            background: #ffe0e5;
-        }
-
-        /* =========================================
-           NO RESULTS
-        ========================================= */
-
-        .no-results {
-            display: none;
-
-            text-align: center;
-
-            background: white;
-
-            padding: 50px 20px;
-
-            border-radius: 14px;
-
-            color: #6b7f99;
-
-            box-shadow:
-                0 5px 20px rgba(
-                    20,
-                    60,
-                    100,
-                    0.08
-                );
-
-            margin-top: 20px;
-        }
-
-        .no-results h3 {
-            color: #17345e;
-
-            margin-bottom: 8px;
-        }
-
-        /* =========================================
-           MOBILE
-        ========================================= */
-
-        @media (max-width: 700px) {
-
-            .navbar {
-                padding: 14px 18px;
-
-                flex-direction: column;
-
-                gap: 12px;
-            }
-
-            .nav-links {
-                flex-wrap: wrap;
-
-                justify-content: center;
-
-                gap: 12px;
-            }
-
-            .page-container {
-                width: 92%;
-            }
-
-            .page-header h1 {
-                font-size: 25px;
-            }
-
-            .college-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .compare-bar {
-                flex-direction: column;
-
-                align-items: stretch;
-            }
-
-            .compare-button {
-                width: 100%;
-            }
-
-            .branch-detail-card {
-                grid-template-columns:
-                    55px
-                    1fr;
-            }
-
-            .branch-detail-name {
-                grid-row: span 3;
-            }
-
-        }
-
     </style>
-
 </head>
+<body class="min-h-screen flex flex-col antialiased">
 
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 w-full sky-header shadow-xs transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16 sm:h-18 py-2.5">
+                <!-- Logo & Brand -->
+                <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-sky-500 to-sky-600 flex items-center justify-center text-white shadow-md shadow-sky-500/25 ring-2 ring-sky-100 flex-shrink-0 group-hover:scale-105 transition-transform">
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L14.2 8.8L21 11L14.2 13.2L12 20L9.8 13.2L3 11L9.8 8.8L12 2Z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-lg sm:text-xl font-extrabold text-slate-900 tracking-tight">Edu<span class="text-sky-500">Predict</span></span>
+                            <span class="hidden sm:inline-block text-[11px] font-bold px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full border border-sky-200">Directory</span>
+                        </div>
+                        <span class="hidden sm:block text-[10px] text-slate-400 font-medium">Multi-Exam College Intelligence</span>
+                    </div>
+                </a>
 
-<body>
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="{{ url_for('dashboard') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Dashboard</a>
+                    <a href="{{ url_for('predictor') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Predictor</a>
+                    <a href="{{ url_for('colleges') }}" class="px-3.5 py-2 text-xs font-bold rounded-xl text-sky-600 bg-sky-50 border border-sky-200 transition">Colleges</a>
+                    <a href="{{ url_for('compare') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Compare</a>
+                    <a href="{{ url_for('prediction_history') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">History</a>
+                    <a href="{{ url_for('admin_contact') }}" class="px-3.5 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Contact Admin</a>
+                </nav>
 
+                <!-- Profile / Auth Area -->
+                <div class="flex items-center gap-3">
+                    <a href="{{ url_for('profile') }}" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-sky-100 bg-white hover:bg-sky-50 text-slate-700 transition text-xs font-semibold shadow-2xs">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span>My Profile</span>
+                    </a>
 
-<!-- =========================================
-     NAVBAR
-========================================= -->
+                    <!-- Logout Button -->
+                    <form method="POST" action="{{ url_for('logout') }}" class="inline m-0">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition" title="Logout">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<nav class="navbar">
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-6">
 
-    <h2>
-        🎓 College Predictor
-    </h2>
+        <!-- Page Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Explore Colleges & Programs</h1>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-bold px-3 py-1.5 rounded-xl bg-white border border-sky-200 text-sky-700 shadow-2xs">
+                    {{ colleges|length }} Colleges Available
+                </span>
+            </div>
+        </div>
 
-    <div class="nav-links">
-
-        <a href="{{ url_for('dashboard') }}">
-            Dashboard
-        </a>
-
-        <a href="{{ url_for('colleges') }}">
-            Colleges
-        </a>
-
-        <a href="{{ url_for('predictor') }}">
-            Predictor
-        </a>
-
-        <a href="{{ url_for('saved_colleges') }}">
-            Saved
-        </a>
-
-        <a href="{{ url_for('compare_colleges') }}">
-            Compare
-        </a>
-
-        <a href="{{ url_for('profile') }}">
-            Profile
-        </a>
-
-        <a href="{{ url_for('logout') }}">
-            Logout
-        </a>
-
-    </div>
-
-</nav>
-
-
-<!-- =========================================
-     MAIN PAGE
-========================================= -->
-
-<div class="page-container">
-
-
-    <!-- PAGE HEADER -->
-
-    <div class="page-header">
-
-        <h1>
-            Explore Colleges
-        </h1>
-
-        <p>
-            Explore colleges, branches, cutoffs and fees.
-        </p>
-
-    </div>
-
-
-    <!-- =========================================
-         SEARCH
-    ========================================= -->
-
-    <div class="search-box">
-
-        <input
-            type="text"
-            id="searchInput"
-            class="search-input"
-            placeholder="Search college, branch or location..."
-            oninput="filterColleges()"
-        >
-
-    </div>
-
-
-    <!-- =========================================
-         FILTERS
-    ========================================= -->
-
-    <div class="filters">
-
-
-        <!-- EXAM -->
-
-        <div class="filter-group">
-
-            <label>
-                Entrance Exam
-            </label>
-
-            <select
-                id="examFilter"
-                onchange="filterColleges()"
+        <!-- Search Bar -->
+        <div class="sky-card rounded-2xl p-2.5 flex items-center gap-3">
+            <div class="pl-3 text-sky-500">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+            <input
+                type="text"
+                id="searchInput"
+                class="w-full bg-transparent border-0 text-slate-900 placeholder-slate-400 text-sm font-semibold focus:ring-0 focus:outline-none"
+                placeholder="Search by college name, engineering branch, city, or state..."
+                oninput="filterColleges()"
             >
+        </div>
 
-                <option value="ALL">
-                    All Exams
-                </option>
-
-                <option
-                    value="KCET"
-                    {% if selected_exam == "KCET" %}
-                        selected
-                    {% endif %}
+        <!-- Filter Controls -->
+        <div class="sky-card rounded-2xl p-5 sm:p-6 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-sky-100">
+                <span class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/>
+                    </svg>
+                    <span>Filter Criteria</span>
+                </span>
+                <button
+                    type="button"
+                    class="text-xs font-bold text-sky-600 hover:text-sky-700 hover:underline flex items-center gap-1 cursor-pointer"
+                    onclick="resetFilters()"
                 >
-                    KCET
-                </option>
+                    <span>Reset All Filters</span>
+                </button>
+            </div>
 
-                <option
-                    value="EAMCET"
-                    {% if selected_exam == "EAMCET" %}
-                        selected
-                    {% endif %}
-                >
-                    EAMCET
-                </option>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+                
+                <!-- Entrance Exam -->
+                <div class="space-y-1.5">
+                    <label for="examFilter" class="block text-xs font-bold text-slate-700">Entrance Exam</label>
+                    <select
+                        id="examFilter"
+                        onchange="filterColleges()"
+                        class="w-full px-3 py-2 rounded-xl border border-sky-200 bg-sky-50/30 text-slate-800 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition cursor-pointer"
+                    >
+                        <option value="ALL">All Exams</option>
+                        <option value="KCET" {% if selected_exam == "KCET" %}selected{% endif %}>KCET</option>
+                        <option value="EAMCET" {% if selected_exam == "EAMCET" %}selected{% endif %}>EAMCET</option>
+                    </select>
+                </div>
 
-            </select>
+                <!-- Branch -->
+                <div class="space-y-1.5">
+                    <label for="branchFilter" class="block text-xs font-bold text-slate-700">Branch / Specialization</label>
+                    <select
+                        id="branchFilter"
+                        onchange="filterColleges()"
+                        class="w-full px-3 py-2 rounded-xl border border-sky-200 bg-sky-50/30 text-slate-800 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition cursor-pointer"
+                    >
+                        <option value="ALL">All Branches</option>
+                        <option value="CSE">CSE</option>
+                        <option value="AIML">AIML</option>
+                        <option value="ISE">ISE</option>
+                        <option value="ECE">ECE</option>
+                        <option value="ME">ME</option>
+                        <option value="EEE">EEE</option>
+                        <option value="CIVIL">CIVIL</option>
+                    </select>
+                </div>
 
+                <!-- State -->
+                <div class="space-y-1.5">
+                    <label for="stateFilter" class="block text-xs font-bold text-slate-700">State</label>
+                    <select
+                        id="stateFilter"
+                        onchange="filterColleges()"
+                        class="w-full px-3 py-2 rounded-xl border border-sky-200 bg-sky-50/30 text-slate-800 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition cursor-pointer"
+                    >
+                        <option value="ALL">All States</option>
+                        <option value="karnataka">Karnataka</option>
+                        <option value="telangana">Telangana</option>
+                        <option value="andhra pradesh">Andhra Pradesh</option>
+                    </select>
+                </div>
+
+                <!-- Minimum Rating -->
+                <div class="space-y-1.5">
+                    <label for="ratingFilter" class="block text-xs font-bold text-slate-700">Minimum Rating</label>
+                    <select
+                        id="ratingFilter"
+                        onchange="filterColleges()"
+                        class="w-full px-3 py-2 rounded-xl border border-sky-200 bg-sky-50/30 text-slate-800 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition cursor-pointer"
+                    >
+                        <option value="0">Any Rating</option>
+                        <option value="3">3+ Stars</option>
+                        <option value="3.5">3.5+ Stars</option>
+                        <option value="4">4+ Stars</option>
+                        <option value="4.5">4.5+ Stars</option>
+                    </select>
+                </div>
+
+                <!-- Maximum Management Fees -->
+                <div class="space-y-1.5">
+                    <label for="feesFilter" class="block text-xs font-bold text-slate-700">Max Management Fees</label>
+                    <select
+                        id="feesFilter"
+                        onchange="filterColleges()"
+                        class="w-full px-3 py-2 rounded-xl border border-sky-200 bg-sky-50/30 text-slate-800 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition cursor-pointer"
+                    >
+                        <option value="999999999">Any Fees</option>
+                        <option value="100000">Up to ₹1 Lakh</option>
+                        <option value="200000">Up to ₹2 Lakhs</option>
+                        <option value="300000">Up to ₹3 Lakhs</option>
+                        <option value="500000">Up to ₹5 Lakhs</option>
+                        <option value="1000000">Up to ₹10 Lakhs</option>
+                    </select>
+                </div>
+
+                <!-- Reset Button -->
+                <div class="space-y-1.5 flex flex-col justify-end">
+                    <button
+                        type="button"
+                        class="w-full py-2 px-3 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 text-sky-700 font-bold text-xs transition flex items-center justify-center gap-1.5 h-[38px] cursor-pointer"
+                        onclick="resetFilters()"
+                    >
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        <span>Reset Filters</span>
+                    </button>
+                </div>
+
+            </div>
         </div>
 
-
-        <!-- BRANCH -->
-
-        <div class="filter-group">
-
-            <label>
-                Branch
-            </label>
-
-            <select
-                id="branchFilter"
-                onchange="filterColleges()"
-            >
-
-                <option value="ALL">
-                    All Branches
-                </option>
-
-                <option value="CSE">
-                    CSE
-                </option>
-
-                <option value="AIML">
-                    AIML
-                </option>
-
-                <option value="ISE">
-                    ISE
-                </option>
-
-                <option value="ECE">
-                    ECE
-                </option>
-
-                <option value="ME">
-                    ME
-                </option>
-
-                <option value="EEE">
-                    EEE
-                </option>
-
-                <option value="CIVIL">
-                    CIVIL
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <!-- STATE -->
-
-        <div class="filter-group">
-
-            <label>
-                State
-            </label>
-
-            <select
-                id="stateFilter"
-                onchange="filterColleges()"
-            >
-
-                <option value="ALL">
-                    All States
-                </option>
-
-                <option value="karnataka">
-                    Karnataka
-                </option>
-
-                <option value="telangana">
-                    Telangana
-                </option>
-
-                <option value="andhra pradesh">
-                    Andhra Pradesh
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <!-- RATING -->
-
-        <div class="filter-group">
-
-            <label>
-                Minimum Rating
-            </label>
-
-            <select
-                id="ratingFilter"
-                onchange="filterColleges()"
-            >
-
-                <option value="0">
-                    Any Rating
-                </option>
-
-                <option value="3">
-                    3+
-                </option>
-
-                <option value="3.5">
-                    3.5+
-                </option>
-
-                <option value="4">
-                    4+
-                </option>
-
-                <option value="4.5">
-                    4.5+
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <!-- FEES -->
-
-        <div class="filter-group">
-
-            <label>
-                Maximum Management Fees
-            </label>
-
-            <select
-                id="feesFilter"
-                onchange="filterColleges()"
-            >
-
-                <option value="999999999">
-                    Any Fees
-                </option>
-
-                <option value="100000">
-                    ₹1 Lakh
-                </option>
-
-                <option value="200000">
-                    ₹2 Lakhs
-                </option>
-
-                <option value="300000">
-                    ₹3 Lakhs
-                </option>
-
-                <option value="500000">
-                    ₹5 Lakhs
-                </option>
-
-                <option value="1000000">
-                    ₹10 Lakhs
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <!-- RESET -->
-
-        <div class="filter-group">
+        <!-- Sticky Compare Action Bar -->
+        <div class="sky-card rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 border border-sky-100 bg-gradient-to-r from-sky-50/70 via-white to-sky-50/50">
+            <div class="flex items-center gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 border border-sky-200 flex items-center justify-center shadow-xs">
+                    <svg class="w-5 h-5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Comparison Drawer</span>
+                    <span class="text-sm font-extrabold text-slate-900">
+                        Selected colleges: <span id="selectedCount" class="text-sky-600 font-black">0</span> / 3
+                    </span>
+                </div>
+            </div>
 
             <button
                 type="button"
-                class="reset-button"
-                onclick="resetFilters()"
+                id="compareButton"
+                class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 disabled:from-slate-200 disabled:to-slate-300 disabled:text-slate-400 disabled:cursor-not-allowed text-white font-extrabold text-xs shadow-md shadow-sky-600/20 active:scale-95 transition flex items-center justify-center gap-2 cursor-pointer"
+                disabled
+                onclick="compareSelected()"
             >
-                Reset Filters
+                <span>Compare Selected Colleges</span>
+                <svg class="w-4 h-4 font-bold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </button>
-
         </div>
 
-    </div>
-
-
-    <!-- =========================================
-         COMPARE BAR
-    ========================================= -->
-
-    <div class="compare-bar">
-
-        <div class="compare-info">
-
-            Selected colleges:
-
-            <span id="selectedCount">
-                0
-            </span>
-
-            / 3
-
-        </div>
-
-
-        <button
-            type="button"
-            id="compareButton"
-            class="compare-button"
-            disabled
-            onclick="compareSelected()"
+        <!-- College Cards Grid -->
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            id="collegeGrid"
         >
-            Compare Selected Colleges
-        </button>
-
-    </div>
-
-
-    <!-- =========================================
-         COLLEGE GRID
-    ========================================= -->
-
-    <div
-        class="college-grid"
-        id="collegeGrid"
-    >
-
-
-        {% for college in colleges %}
-
-
-        <article
-            class="college-card"
-
-            data-name="{{ college.get('College Name', '') | lower }}"
-
-            data-exam="{{ college.get('Exam', '') | upper }}"
-
-            data-branch="{% for branch in college.get('Branches', []) %}{{ branch.get('Branch', '') | upper }}|{% endfor %}"
-
-            data-state="{{ college.get('State', '') | lower }}"
-
-            data-location="{{ college.get('Location', '') | lower }}"
-
-            data-rating="{{ college.get('Rating', 0) }}"
-
-            data-fees="{% if college.get('Branches') %}{{ college.get('Branches')[0].get('Management Fees', 0) }}{% else %}0{% endif %}"
-        >
-
-
-            <!-- =================================
-                 COMPARE CHECKBOX
-            ================================= -->
-
-            <div class="compare-checkbox-wrapper">
-
-                <input
-                    type="checkbox"
-                    class="compare-checkbox"
-
-                    id="compare_{{ loop.index0 }}"
-
-                    data-exam="{{ college.get('Exam', 'KCET') | lower }}"
-
-                    data-index="{{ college.get('SourceIndex', 0) }}"
-
-                    data-name="{{ college.get('College Name', '') }}"
-
-                    onchange="handleCompareChange(this)"
-                >
-
-                <label
-                    for="compare_{{ loop.index0 }}"
-                    class="compare-label"
-                >
-                    Compare
-                </label>
-
-            </div>
-
-
-            <!-- =================================
-                 COLLEGE IMAGE
-            ================================= -->
-
-            <div class="college-image-wrapper">
-
-                {% set image_path =
-                    college.get(
-                        'Image',
-                        'static/images/default.jpg'
-                    )
-                %}
-
-                {% if image_path.startswith('static/') %}
-
-                    {% set image_path =
-                        image_path[7:]
-                    %}
-
-                {% endif %}
-
-
-                <img
-                    src="{{ url_for(
-                        'static',
-                        filename=image_path
-                    ) }}"
-
-                    alt="{{ college.get(
-                        'College Name',
-                        'College'
-                    ) }}"
-
-                    class="college-image"
-
-                    onerror="
-                        this.onerror=null;
-                        this.src='{{ url_for(
-                            'static',
-                            filename='images/default.jpg'
-                        ) }}';
-                    "
-                >
-
-            </div>
-
-
-            <!-- =================================
-                 COLLEGE CONTENT
-            ================================= -->
-
-            <div class="college-content">
-
-
-                <div class="top-row">
-
-                    <span class="exam-badge">
-
-                        {{ college.get(
-                            'Exam',
-                            'Exam'
-                        ) }}
-
-                    </span>
-
-
-                    <span class="rating">
-
-                        ⭐
-
-                        {{ college.get(
-                            'Rating',
-                            'N/A'
-                        ) }}
-
-                    </span>
-
-                </div>
-
-
-                <h3 class="college-name">
-
-                    {{ college.get(
-                        'College Name',
-                        'College'
-                    ) }}
-
-                </h3>
-
-
-                <!-- LOCATION -->
-
-                <div class="college-details">
-
-                    <div class="detail-row">
-
-                        <span class="detail-icon">
-                            📍
-                        </span>
-
-                        <span>
-                            {{ college.get(
-                                'Location',
-                                'N/A'
-                            ) }}
-                        </span>
-
-                    </div>
-
-
-                    <div class="detail-row">
-
-                        <span class="detail-icon">
-                            🗺️
-                        </span>
-
-                        <span>
-                            {{ college.get(
-                                'State',
-                                'N/A'
-                            ) }}
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- =================================
-                     BRANCHES
-                ================================= -->
-
-                <div class="college-branches">
-
-
-                    <div class="branch-heading">
-                        📚 Branches
-                    </div>
-
-
-                    <!-- BRANCH TABS -->
-
-                    <div class="branch-tabs">
-
-                        {% for branch in college.get(
-                            'Branches',
-                            []
-                        ) %}
-
-                            <span
-                                class="branch-tab"
-                                data-branch="{{
-                                    branch.get(
-                                        'Branch',
-                                        ''
-                                    ) | upper
-                                }}"
+            {% for college in colleges %}
+            <article
+                class="college-card sky-card rounded-3xl overflow-hidden flex flex-col justify-between"
+                data-name="{{ college.get('College Name', '') | lower }}"
+                data-exam="{{ college.get('Exam', '') | upper }}"
+                data-branch="{% for branch in college.get('Branches', []) %}{{ branch.get('Branch', '') | upper }}|{% endfor %}"
+                data-state="{{ college.get('State', '') | lower }}"
+                data-location="{{ college.get('Location', '') | lower }}"
+                data-rating="{{ college.get('Rating', 0) }}"
+                data-fees="{% if college.get('Branches') %}{{ college.get('Branches')[0].get('Management Fees', 0) }}{% else %}0{% endif %}"
+            >
+                <!-- Card Header with Image & Compare Checkbox Overlay -->
+                <div>
+                    <div class="relative w-full h-48 bg-slate-100 overflow-hidden">
+                        {% set image_path = college.get('Image', 'static/images/default.jpg') %}
+                        {% if image_path.startswith('static/') %}
+                            {% set image_path = image_path[7:] %}
+                        {% endif %}
+
+                        <img
+                            src="{{ url_for('static', filename=image_path) }}"
+                            alt="{{ college.get('College Name', 'College') }}"
+                            class="w-full h-full object-cover"
+                            onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/default.jpg') }}';"
+                        >
+
+                        <!-- Compare Checkbox Pill -->
+                        <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-xl border border-sky-100 shadow-sm flex items-center gap-2 cursor-pointer hover:bg-white transition select-none">
+                            <input
+                                type="checkbox"
+                                class="compare-checkbox w-4 h-4 rounded text-sky-600 focus:ring-sky-500 border-slate-300 cursor-pointer"
+                                id="compare_{{ loop.index0 }}"
+                                data-exam="{{ college.get('Exam', 'KCET') | lower }}"
+                                data-index="{{ college.get('SourceIndex', 0) }}"
+                                data-name="{{ college.get('College Name', '') }}"
+                                onchange="handleCompareChange(this)"
                             >
-
-                                {{ branch.get(
-                                    'Branch',
-                                    'N/A'
-                                ) }}
-
-                            </span>
-
-                        {% endfor %}
-
-                    </div>
-
-
-                    <!-- BRANCH DETAILS -->
-
-                    <div class="branch-details-list">
-
-
-                        {% for branch in college.get(
-                            'Branches',
-                            []
-                        ) %}
-
-
-                        <div class="branch-detail-card">
-
-
-                            <div class="branch-detail-name">
-
-                                {{ branch.get(
-                                    'Branch',
-                                    'N/A'
-                                ) }}
-
-                            </div>
-
-
-                            <div class="branch-detail-item">
-
-                                <span>
-                                    Cutoff:
-                                </span>
-
-                                <strong>
-
-                                    {{ branch.get(
-                                        'Cutoff Rank',
-                                        'N/A'
-                                    ) }}
-
-                                </strong>
-
-                            </div>
-
-
-                            <div class="branch-detail-item">
-
-                                <span>
-                                    Management:
-                                </span>
-
-                                <strong>
-
-                                    ₹{{ branch.get(
-                                        'Management Fees',
-                                        'N/A'
-                                    ) }}
-
-                                </strong>
-
-                            </div>
-
-
-                            <div class="branch-detail-item">
-
-                                <span>
-
-                                    {{ college.get(
-                                        'Exam',
-                                        'Exam'
-                                    ) }}
-
-                                    Fees:
-
-                                </span>
-
-                                <strong>
-
-                                    ₹{{ branch.get(
-                                        'Exam Fees',
-                                        'N/A'
-                                    ) }}
-
-                                </strong>
-
-                            </div>
-
-
+                            <label
+                                for="compare_{{ loop.index0 }}"
+                                class="text-xs font-bold text-slate-700 cursor-pointer select-none"
+                            >
+                                Compare
+                            </label>
                         </div>
 
-
-                        {% endfor %}
-
-
+                        <!-- Exam Pill & Star Rating -->
+                        <div class="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-sky-600/95 text-white shadow-sm backdrop-blur-xs">
+                                {{ college.get('Exam', 'Exam') }}
+                            </span>
+                            <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-white/95 text-slate-800 shadow-sm backdrop-blur-xs flex items-center gap-1">
+                                <svg class="w-3.5 h-3.5 text-amber-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                <span>{{ college.get('Rating', 'N/A') }}</span>
+                            </span>
+                        </div>
                     </div>
 
+                    <!-- Card Body -->
+                    <div class="p-5 space-y-4">
+                        <!-- College Title -->
+                        <h3 class="text-base font-extrabold text-slate-900 leading-snug line-clamp-2" title="{{ college.get('College Name', 'College') }}">
+                            {{ college.get('College Name', 'College') }}
+                        </h3>
+
+                        <!-- Location & State -->
+                        <div class="space-y-1 text-xs text-slate-500 font-medium">
+                            <div class="flex items-center gap-1.5 truncate">
+                                <svg class="w-3.5 h-3.5 text-sky-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                <span class="truncate">{{ college.get('Location', 'Location not specified') }}{% if college.get('State') %}, {{ college.get('State') }}{% endif %}</span>
+                            </div>
+                        </div>
+
+                        <!-- Branches Overview -->
+                        <div class="space-y-2 pt-2 border-t border-sky-100">
+                            <div class="flex items-center justify-between text-xs font-bold text-slate-700">
+                                <span class="flex items-center gap-1.5 text-slate-600">
+                                    <svg class="w-3.5 h-3.5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                                    <span>Offered Branches</span>
+                                </span>
+                                <span class="text-[11px] text-sky-600 font-bold">
+                                    {{ college.get('Branches', [])|length }} Streams
+                                </span>
+                            </div>
+
+                            <!-- Branch Pills -->
+                            <div class="flex flex-wrap gap-1.5 max-h-16 overflow-y-auto pr-1">
+                                {% for branch in college.get('Branches', []) %}
+                                    <span
+                                        class="branch-tab px-2 py-0.5 rounded-lg text-[11px] font-bold bg-sky-50 text-sky-700 border border-sky-200"
+                                        data-branch="{{ branch.get('Branch', '') | upper }}"
+                                    >
+                                        {{ branch.get('Branch', 'N/A') }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+
+                            <!-- Branch Details Preview List -->
+                            <div class="space-y-2 max-h-40 overflow-y-auto pr-1 pt-2">
+                                {% for branch in college.get('Branches', []) %}
+                                <div class="p-2.5 rounded-xl border border-sky-100 bg-sky-50/30 text-xs space-y-1">
+                                    <div class="font-extrabold text-sky-800 flex items-center justify-between">
+                                        <span>{{ branch.get('Branch', 'N/A') }}</span>
+                                        <span class="text-[11px] text-slate-500 font-semibold">
+                                            Cutoff: <strong class="text-sky-700">#{{ branch.get('Cutoff Rank', 'N/A') }}</strong>
+                                        </span>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2 text-[11px] text-slate-600 pt-1 border-t border-sky-100/60">
+                                        <div>
+                                            <span class="text-slate-400">Mgmt:</span>
+                                            <strong class="text-slate-700">₹{{ branch.get('Management Fees', 'N/A') }}</strong>
+                                        </div>
+                                        <div>
+                                            <span class="text-slate-400">{{ college.get('Exam', 'Exam') }}:</span>
+                                            <strong class="text-slate-700">₹{{ branch.get('Exam Fees', 'N/A') }}</strong>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
 
-
-                <!-- =================================
-                     ACTION BUTTONS
-                ================================= -->
-
-                <div class="action-buttons">
-
-
-                    <!-- VIEW DETAILS -->
-
+                <!-- Card Actions -->
+                <div class="p-5 pt-0 mt-4 flex items-center gap-2">
+                    <!-- View Details -->
                     <a
-                        href="{{ url_for(
-                            'college_details',
-
-                            exam=college.get(
-                                'Exam',
-                                'KCET'
-                            ) | lower,
-
-                            index=college.get(
-                                'SourceIndex',
-                                loop.index0
-                            )
-                        ) }}"
-
-                        class="details-button"
+                        href="{{ url_for('college_details', exam=college.get('Exam', 'KCET') | lower, index=college.get('SourceIndex', loop.index0)) }}"
+                        class="flex-1 py-2.5 px-4 rounded-xl bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 text-white font-extrabold text-xs shadow-sm shadow-sky-600/20 active:scale-95 transition text-center flex items-center justify-center gap-1.5 cursor-pointer"
                     >
-
-                        View Details →
-
+                        <span>View Details</span>
+                        <span>→</span>
                     </a>
 
-
-                    <!-- =================================
-                         SAVE COLLEGE
-                    ================================= -->
-
+                    <!-- Save College Form -->
                     <form
                         method="POST"
-
-                        action="{{ url_for(
-                            'save_college'
-                        ) }}"
-
-                        class="save-form"
+                        action="{{ url_for('save_college') }}"
+                        class="save-form m-0 inline"
                     >
-
-                        <input
-                            type="hidden"
-                            name="csrf_token"
-                            value="{{ csrf_token() }}"
-                        >
-
-
-                        <input
-                            type="hidden"
-                            name="exam"
-
-                            value="{{ college.get(
-                                'Exam',
-                                'KCET'
-                            ) | lower }}"
-                        >
-
-
-                        <input
-                            type="hidden"
-                            name="index"
-
-                            value="{{ college.get(
-                                'SourceIndex',
-                                0
-                            ) }}"
-                        >
-
-
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="exam" value="{{ college.get('Exam', 'KCET') | lower }}">
+                        <input type="hidden" name="index" value="{{ college.get('SourceIndex', 0) }}">
                         <button
                             type="submit"
-                            class="save-button"
+                            class="py-2.5 px-3.5 rounded-xl border border-sky-200 bg-white hover:bg-rose-50 hover:border-rose-200 text-slate-600 hover:text-rose-600 font-bold text-xs transition flex items-center gap-1.5 cursor-pointer"
+                            title="Save to My Shortlist"
                         >
-
-                            ❤️ Save
-
+                            <svg class="w-3.5 h-3.5 text-rose-500 fill-current" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
+                            <span class="hidden sm:inline">Save</span>
                         </button>
-
                     </form>
-
-
                 </div>
+            </article>
+            {% endfor %}
+        </div>
 
-
+        <!-- No Results Empty State -->
+        <div
+            id="noResults"
+            class="hidden text-center sky-card rounded-3xl p-12 space-y-4"
+        >
+            <div class="w-16 h-16 rounded-2xl bg-sky-50 border border-sky-200 text-sky-600 flex items-center justify-center mx-auto text-2xl shadow-xs">
+                <svg class="w-8 h-8 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
+            <div class="space-y-1">
+                <h3 class="text-lg font-extrabold text-slate-900">No colleges matched your filters</h3>
+                <p class="text-sm text-slate-500 max-w-md mx-auto">Try broadening your search term, clearing branch or fees constraints, or reset your filters.</p>
+            </div>
+            <div>
+                <button
+                    type="button"
+                    class="px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs transition shadow-xs cursor-pointer"
+                    onclick="resetFilters()"
+                >
+                    Reset All Filters
+                </button>
+            </div>
+        </div>
 
+    </main>
 
-        </article>
+    <!-- Footer -->
+    <footer class="bg-white border-t border-sky-100 mt-auto py-6 text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="font-extrabold text-slate-800">Edu<span class="text-sky-600">Predict</span></span>
+                <span>• College Directory</span>
+            </div>
+            <span>© 2026 EduPredict. KCET & EAMCET Calibrated Data.</span>
+        </div>
+    </footer>
 
-
-        {% endfor %}
-
-
-    </div>
-
-
-    <!-- =========================================
-         NO RESULTS
-    ========================================= -->
-
-    <div
-        id="noResults"
-        class="no-results"
-    >
-
-        <h3>
-            No colleges found
-        </h3>
-
-        <p>
-            Try changing your search or filters.
-        </p>
-
-    </div>
-
-
-</div>
-
-
-<!-- =========================================
-     JAVASCRIPT
-========================================= -->
-
-<script>
-
-
-/* =========================================
-   GET SELECTED COLLEGES
-========================================= */
-
-function getSelectedColleges() {
-
-    return Array.from(
-        document.querySelectorAll(
-            ".compare-checkbox:checked"
-        )
-    );
-
-}
-
-
-/* =========================================
-   HANDLE COMPARE CHECKBOX
-========================================= */
-
-function handleCompareChange(checkbox) {
-
-    const selected =
-        getSelectedColleges();
-
-
-    if (
-        selected.length > 3
-    ) {
-
-        checkbox.checked = false;
-
-        alert(
-            "You can compare a maximum of 3 colleges."
+    <!-- JavaScript Filter & Compare Logic (100% Preserved) -->
+    <script>
+    /* =========================================
+       GET SELECTED COLLEGES
+    ========================================= */
+    function getSelectedColleges() {
+        return Array.from(
+            document.querySelectorAll(".compare-checkbox:checked")
         );
-
     }
 
+    /* =========================================
+       HANDLE COMPARE CHECKBOX
+    ========================================= */
+    function handleCompareChange(checkbox) {
+        const selected = getSelectedColleges();
 
-    updateCompareUI();
-
-}
-
-
-/* =========================================
-   UPDATE COMPARE UI
-========================================= */
-
-function updateCompareUI() {
-
-    const selected =
-        getSelectedColleges();
-
-
-    const selectedCount =
-        selected.length;
-
-
-    const countElement =
-        document.getElementById(
-            "selectedCount"
-        );
-
-
-    if (countElement) {
-
-        countElement.textContent =
-            selectedCount;
-
-    }
-
-
-    const compareButton =
-        document.getElementById(
-            "compareButton"
-        );
-
-
-    if (compareButton) {
-
-        compareButton.disabled =
-            selectedCount < 2;
-
-    }
-
-
-    document
-        .querySelectorAll(
-            ".college-card"
-        )
-        .forEach(
-            card => {
-
-                const checkbox =
-                    card.querySelector(
-                        ".compare-checkbox"
-                    );
-
-
-                if (
-                    checkbox &&
-                    checkbox.checked
-                ) {
-
-                    card.classList.add(
-                        "selected"
-                    );
-
-                } else {
-
-                    card.classList.remove(
-                        "selected"
-                    );
-
-                }
-
-            }
-        );
-
-}
-
-
-/* =========================================
-   COMPARE SELECTED
-========================================= */
-
-function compareSelected() {
-
-
-    const selected =
-        getSelectedColleges();
-
-
-    if (
-        selected.length < 2
-    ) {
-
-        alert(
-            "Please select at least 2 colleges to compare."
-        );
-
-        return;
-
-    }
-
-
-    if (
-        selected.length > 3
-    ) {
-
-        alert(
-            "You can compare a maximum of 3 colleges."
-        );
-
-        return;
-
-    }
-
-
-    const params =
-        new URLSearchParams();
-
-
-    selected.forEach(
-        checkbox => {
-
-
-            const exam =
-                checkbox.dataset.exam;
-
-
-            const index =
-                checkbox.dataset.index;
-
-
-            /*
-             * IMPORTANT:
-             *
-             * Backend expects:
-             *
-             * kcet:123
-             *
-             * or
-             *
-             * eamcet:45
-             */
-
-            params.append(
-                "college",
-                exam
-                +
-                ":"
-                +
-                index
-            );
-
-
+        if (selected.length > 3) {
+            checkbox.checked = false;
+            alert("You can compare a maximum of 3 colleges.");
         }
-    );
-
-
-    window.location.href =
-        "{{ url_for(
-            'compare_colleges'
-        ) }}"
-        +
-        "?"
-        +
-        params.toString();
-
-}
-
-
-/* =========================================
-   FILTER COLLEGES
-========================================= */
-
-function filterColleges() {
-
-
-    const searchValue =
-        document
-            .getElementById(
-                "searchInput"
-            )
-            .value
-            .toLowerCase()
-            .trim();
-
-
-    const examValue =
-        document
-            .getElementById(
-                "examFilter"
-            )
-            .value
-            .toUpperCase();
-
-
-    const branchValue =
-        document
-            .getElementById(
-                "branchFilter"
-            )
-            .value
-            .toUpperCase();
-
-
-    const stateValue =
-        document
-            .getElementById(
-                "stateFilter"
-            )
-            .value
-            .toLowerCase();
-
-
-    const ratingValue =
-        parseFloat(
-            document
-                .getElementById(
-                    "ratingFilter"
-                )
-                .value
-        );
-
-
-    const feesValue =
-        parseFloat(
-            document
-                .getElementById(
-                    "feesFilter"
-                )
-                .value
-        );
-
-
-    const cards =
-        document.querySelectorAll(
-            ".college-card"
-        );
-
-
-    let visibleCount = 0;
-
-
-    cards.forEach(
-        card => {
-
-
-            const name =
-                card.dataset.name
-                || "";
-
-
-            const exam =
-                (
-                    card.dataset.exam
-                    || ""
-                ).toUpperCase();
-
-
-            const branch =
-                (
-                    card.dataset.branch
-                    || ""
-                ).toUpperCase();
-
-
-            const state =
-                (
-                    card.dataset.state
-                    || ""
-                ).toLowerCase();
-
-
-            const location =
-                (
-                    card.dataset.location
-                    || ""
-                ).toLowerCase();
-
-
-            const rating =
-                parseFloat(
-                    card.dataset.rating
-                )
-                || 0;
-
-
-            const fees =
-                parseFloat(
-                    card.dataset.fees
-                )
-                || 0;
-
-
-            /*
-             * GROUPED BRANCH FIX
-             *
-             * data-branch looks like:
-             *
-             * CSE|AIML|ISE|ECE|
-             *
-             * So we convert it into an array.
-             */
-
-            const branchList =
-                branch
-                    .split("|")
-                    .map(
-                        value =>
-                            value.trim()
-                    )
-                    .filter(
-                        value =>
-                            value.length > 0
-                    );
-
-
-            /* SEARCH */
-
-            const searchMatch =
-                searchValue === ""
-                ||
-                name.includes(
-                    searchValue
-                )
-                ||
-                branch.includes(
-                    searchValue
-                )
-                ||
-                location.includes(
-                    searchValue
-                )
-                ||
-                state.includes(
-                    searchValue
-                );
-
-
-            /* EXAM */
-
-            const examMatch =
-                examValue === "ALL"
-                ||
-                exam === examValue;
-
-
-            /* BRANCH */
-
-            const branchMatch =
-                branchValue === "ALL"
-                ||
-                branchList.includes(
-                    branchValue
-                );
-
-
-            /* STATE */
-
-            const stateMatch =
-                stateValue === "all"
-                ||
-                state.includes(
-                    stateValue
-                );
-
-
-            /* RATING */
-
-            const ratingMatch =
-                rating >= ratingValue;
-
-
-            /* FEES */
-
-            const feesMatch =
-                fees <= feesValue;
-
-
-            const shouldShow =
-                searchMatch
-                &&
-                examMatch
-                &&
-                branchMatch
-                &&
-                stateMatch
-                &&
-                ratingMatch
-                &&
-                feesMatch;
-
-
-            if (shouldShow) {
-
-                card.style.display =
-                    "";
-
-                visibleCount++;
-
-            } else {
-
-                card.style.display =
-                    "none";
-
-            }
-
-        }
-    );
-
-
-    const noResults =
-        document.getElementById(
-            "noResults"
-        );
-
-
-    if (noResults) {
-
-        if (
-            visibleCount === 0
-        ) {
-
-            noResults.style.display =
-                "block";
-
-        } else {
-
-            noResults.style.display =
-                "none";
-
-        }
-
-    }
-
-}
-
-
-/* =========================================
-   RESET FILTERS
-========================================= */
-
-function resetFilters() {
-
-
-    document
-        .getElementById(
-            "searchInput"
-        )
-        .value = "";
-
-
-    document
-        .getElementById(
-            "examFilter"
-        )
-        .value = "ALL";
-
-
-    document
-        .getElementById(
-            "branchFilter"
-        )
-        .value = "ALL";
-
-
-    document
-        .getElementById(
-            "stateFilter"
-        )
-        .value = "ALL";
-
-
-    document
-        .getElementById(
-            "ratingFilter"
-        )
-        .value = "0";
-
-
-    document
-        .getElementById(
-            "feesFilter"
-        )
-        .value = "999999999";
-
-
-    filterColleges();
-
-}
-
-
-/* =========================================
-   INITIALIZE
-========================================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
 
         updateCompareUI();
+    }
+
+    /* =========================================
+       UPDATE COMPARE UI
+    ========================================= */
+    function updateCompareUI() {
+        const selected = getSelectedColleges();
+        const selectedCount = selected.length;
+
+        const countElement = document.getElementById("selectedCount");
+        if (countElement) {
+            countElement.textContent = selectedCount;
+        }
+
+        const compareButton = document.getElementById("compareButton");
+        if (compareButton) {
+            compareButton.disabled = selectedCount < 2;
+        }
+
+        document.querySelectorAll(".college-card").forEach(card => {
+            const checkbox = card.querySelector(".compare-checkbox");
+            if (checkbox && checkbox.checked) {
+                card.classList.add("selected");
+            } else {
+                card.classList.remove("selected");
+            }
+        });
+    }
+
+    /* =========================================
+       COMPARE SELECTED
+    ========================================= */
+    function compareSelected() {
+        const selected = getSelectedColleges();
+
+        if (selected.length < 2) {
+            alert("Please select at least 2 colleges to compare.");
+            return;
+        }
+
+        if (selected.length > 3) {
+            alert("You can compare a maximum of 3 colleges.");
+            return;
+        }
+
+        const params = new URLSearchParams();
+
+        selected.forEach(checkbox => {
+            const exam = checkbox.dataset.exam;
+            const index = checkbox.dataset.index;
+            params.append("college", exam + ":" + index);
+        });
+
+        window.location.href = "{{ url_for('compare_colleges') }}?" + params.toString();
+    }
+
+    /* =========================================
+       FILTER COLLEGES
+    ========================================= */
+    function filterColleges() {
+        const searchValue = (document.getElementById("searchInput")?.value || "").toLowerCase().trim();
+        const examValue = (document.getElementById("examFilter")?.value || "ALL").toUpperCase();
+        const branchValue = (document.getElementById("branchFilter")?.value || "ALL").toUpperCase();
+        const stateValue = (document.getElementById("stateFilter")?.value || "ALL").toLowerCase();
+        const ratingValue = parseFloat(document.getElementById("ratingFilter")?.value || "0");
+        const feesValue = parseFloat(document.getElementById("feesFilter")?.value || "999999999");
+
+        const cards = document.querySelectorAll(".college-card");
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const name = (card.dataset.name || "").toLowerCase();
+            const exam = (card.dataset.exam || "").toUpperCase();
+            const branch = (card.dataset.branch || "").toUpperCase();
+            const state = (card.dataset.state || "").toLowerCase();
+            const location = (card.dataset.location || "").toLowerCase();
+            const rating = parseFloat(card.dataset.rating) || 0;
+            const fees = parseFloat(card.dataset.fees) || 0;
+
+            const branchList = branch
+                .split("|")
+                .map(v => v.trim())
+                .filter(v => v.length > 0);
+
+            /* SEARCH */
+            const searchMatch =
+                searchValue === "" ||
+                name.includes(searchValue) ||
+                branch.includes(searchValue) ||
+                location.includes(searchValue) ||
+                state.includes(searchValue);
+
+            /* EXAM */
+            const examMatch = examValue === "ALL" || exam === examValue;
+
+            /* BRANCH */
+            const branchMatch = branchValue === "ALL" || branchList.includes(branchValue);
+
+            /* STATE */
+            const stateMatch = stateValue === "all" || state.includes(stateValue);
+
+            /* RATING */
+            const ratingMatch = rating >= ratingValue;
+
+            /* FEES */
+            const feesMatch = fees <= feesValue;
+
+            const shouldShow =
+                searchMatch &&
+                examMatch &&
+                branchMatch &&
+                stateMatch &&
+                ratingMatch &&
+                feesMatch;
+
+            if (shouldShow) {
+                card.style.display = "";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        const noResults = document.getElementById("noResults");
+        if (noResults) {
+            if (visibleCount === 0) {
+                noResults.classList.remove("hidden");
+                noResults.style.display = "block";
+            } else {
+                noResults.classList.add("hidden");
+                noResults.style.display = "none";
+            }
+        }
+    }
+
+    /* =========================================
+       RESET FILTERS
+    ========================================= */
+    function resetFilters() {
+        const s = document.getElementById("searchInput");
+        if (s) s.value = "";
+
+        const e = document.getElementById("examFilter");
+        if (e) e.value = "ALL";
+
+        const b = document.getElementById("branchFilter");
+        if (b) b.value = "ALL";
+
+        const st = document.getElementById("stateFilter");
+        if (st) st.value = "ALL";
+
+        const r = document.getElementById("ratingFilter");
+        if (r) r.value = "0";
+
+        const f = document.getElementById("feesFilter");
+        if (f) f.value = "999999999";
 
         filterColleges();
-
     }
-);
 
-
-</script>
-
-
+    /* =========================================
+       INITIALIZE
+    ========================================= */
+    document.addEventListener("DOMContentLoaded", function () {
+        updateCompareUI();
+        filterColleges();
+    });
+    </script>
 </body>
-
 </html>
