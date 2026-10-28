@@ -44,6 +44,9 @@ Desktop.ini
 automation/output/
 automation/source_samples/
 
+# Local timestamped backups
+dataset/backup/
+
 # User uploads
 static/uploads/*
 !static/uploads/.gitkeep

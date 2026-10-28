@@ -1,0 +1,54 @@
+name: Yearly College Dataset Automation & Retraining
+
+on:
+  # 1. Automatic Annual Schedule: Runs every August 1st at 00:00 UTC (active counseling cutoff season)
+  schedule:
+    - cron: '0 0 1 8 *'
+
+  # 2. Manual One-Click Trigger from GitHub Actions Dashboard
+  workflow_dispatch:
+    inputs:
+      exam:
+        description: 'Target Examination (kcet, eamcet, or all)'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - kcet
+          - eamcet
+      year:
+        description: 'Academic Admission Year'
+        required: true
+        default: '2026'
+
+jobs:
+  update-dataset-and-retrain:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Yearly Dataset Automation & Reconciliation Pipeline
+        run: |
+          python automation/yearly_dataset_updater.py --exam ${{ github.event.inputs.exam || 'all' }} --year ${{ github.event.inputs.year || '2026' }} --retrain
+
+      - name: Commit and Push Updated Datasets & Models
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action Automation"
+          git add dataset/kcet_colleges.csv dataset/eamcet_colleges.csv dataset/history/ model/
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-Update: Annual college cutoffs, fees & retrained ML models [skip ci]" && git push origin main)
+
