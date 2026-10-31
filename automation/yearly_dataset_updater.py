@@ -1,6 +1,6 @@
 """
 =============================================================================
-EduPredict - Yearly College Dataset Automation System (KCET & EAMCET)
+Smart College Predictor - Yearly College Dataset Automation System (KCET & EAMCET)
 =============================================================================
 Automates the yearly collection, cleaning, reconciliation, validation,
 and backup of college counseling datasets across all 13 fields:
@@ -459,7 +459,7 @@ def trigger_model_retraining():
 
 
 def main():
-    parser = argparse.ArgumentParser(description="EduPredict Yearly College Dataset Automation System")
+    parser = argparse.ArgumentParser(description="Smart College Predictor Yearly College Dataset Automation System")
     parser.add_argument("--exam", choices=["kcet", "eamcet", "all"], default="all", help="Target examination dataset")
     parser.add_argument("--year", type=int, default=2026, help="Academic admission year (default: 2026)")
     parser.add_argument("--source", type=str, default=None, help="Path to incoming official CSV/Excel file")
@@ -470,7 +470,7 @@ def main():
 
     print()
     print("*" * 70)
-    print("      EDUPREDICT - YEARLY DATASET AUTOMATION & SYNC PIPELINE")
+    print("      SMART COLLEGE PREDICTOR - YEARLY DATASET AUTOMATION & SYNC PIPELINE")
     print("*" * 70)
     print()
 

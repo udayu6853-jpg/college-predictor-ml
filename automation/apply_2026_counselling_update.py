@@ -1,6 +1,6 @@
 """
 =============================================================================
-EduPredict - 2026 Official Counselling Calibration & Update Engine
+Smart College Predictor - 2026 Official Counselling Calibration & Update Engine
 =============================================================================
 Calibrates and updates the 2025 baseline dataset to reflect the actual
 2026 Academic Year counselling round cutoffs and revised tuition fees:
@@ -93,7 +93,7 @@ def calculate_2026_fees(prev_fee, exam_type="KCET"):
 def apply_2026_update():
     print()
     print("=" * 70)
-    print("   EDUPREDICT - APPLYING 2026 OFFICIAL COUNSELLING CALIBRATION")
+    print("   SMART COLLEGE PREDICTOR - APPLYING 2026 OFFICIAL COUNSELLING CALIBRATION")
     print("=" * 70)
     print()
 

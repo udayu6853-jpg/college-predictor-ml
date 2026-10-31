@@ -1,9 +1,9 @@
 @echo off
-title EduPredict - Yearly Dataset & Real-Time Counselling Automation
+title Smart College Predictor - Yearly Dataset & Real-Time Counselling Automation
 cls
 
 echo =====================================================================
-echo    EDUPREDICT - REAL-TIME COUNSELLING & COLLEGE WEBSITE AUTOMATION
+echo    SMART COLLEGE PREDICTOR - REAL-TIME COUNSELLING & COLLEGE WEBSITE AUTOMATION
 echo =====================================================================
 echo  Automates:
 echo   1. Official Counselling Portals (KEA for KCET, APSCHE for EAPCET)

@@ -1,6 +1,6 @@
 """
 =============================================================================
-EduPredict - Automation Verification & Self-Test Suite
+Smart College Predictor - Automation Verification & Self-Test Suite
 =============================================================================
 This test script demonstrates that the automation engine is genuinely working:
 1. Creates a simulated official yearly update circular with known changes.
@@ -41,7 +41,7 @@ from automation.yearly_dataset_updater import (
 def run_verification_test():
     print()
     print("=" * 70)
-    print("      EDUPREDICT AUTOMATION REAL-TIME VERIFICATION TEST")
+    print("      SMART COLLEGE PREDICTOR AUTOMATION REAL-TIME VERIFICATION TEST")
     print("=" * 70)
     print()
 

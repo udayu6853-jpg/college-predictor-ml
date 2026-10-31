@@ -2809,8 +2809,8 @@ def predict():
     # RANK FILTER: STUDENT RANK ± 3000
     # ========================================================
 
-    min_rank = max(1, rank - 500)
-    max_rank = rank + 500
+    min_rank = max(1, rank - 5000)
+    max_rank = rank + 5000
 
     branch_df["_CleanCutoff"] = (
         branch_df["Cutoff Rank"].apply(clean_rank)

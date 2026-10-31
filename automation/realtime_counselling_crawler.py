@@ -1,6 +1,6 @@
 """
 =============================================================================
-EduPredict - Real-Time Counselling & College Website Scraper
+Smart College Predictor - Real-Time Counselling & College Website Scraper
 =============================================================================
 Automates live updates from:
 1. Official Counselling Portals (KEA for KCET, APSCHE for EAPCET)
@@ -256,7 +256,7 @@ def main():
 
     print()
     print("*" * 70)
-    print("   EDUPREDICT - REAL-TIME COUNSELLING & COLLEGE WEBSITE AUTOMATION")
+    print("   SMART COLLEGE PREDICTOR - REAL-TIME COUNSELLING & COLLEGE WEBSITE AUTOMATION")
     print("*" * 70)
     print()
 
