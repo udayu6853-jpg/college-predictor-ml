@@ -1469,33 +1469,77 @@ def login():
         if not is_valid_email(email):
             return render_template(
                 "login.html",
-                error="Please enter a valid email address."
+                error="Please enter a valid email address (e.g. yourname@gmail.com)."
             )
 
         connection = get_db_connection()
         try:
             user = connection.execute(
                 """
-                SELECT id, name, email, password
+                SELECT id, name, email, password, google_id
                 FROM users
                 WHERE LOWER(email) = %s
                 """,
                 (email,)
             ).fetchone()
 
-            if user and check_password_hash(user["password"], password):
-                session["user_id"] = user["id"]
-                session["user_name"] = user.get("name") or email.split("@")[0]
-                session["user_email"] = user.get("email")
+            if user:
+                # Existing user: check password
+                if check_password_hash(user["password"], password):
+                    session["user_id"] = user["id"]
+                    session["user_name"] = user.get("name") or email.split("@")[0]
+                    session["user_email"] = user.get("email")
+                    session["auth_type"] = "password"
+
+                    app.logger.info("User logged in via email: %s (id=%s)", email, user["id"])
+                    return redirect(url_for("dashboard"))
+                elif user.get("google_id"):
+                    # User originally signed in with Google OAuth and is now setting a password
+                    hashed_pwd = generate_password_hash(password)
+                    connection.execute(
+                        """
+                        UPDATE users
+                        SET password = %s
+                        WHERE id = %s
+                        """,
+                        (hashed_pwd, user["id"])
+                    )
+                    connection.commit()
+                    session["user_id"] = user["id"]
+                    session["user_name"] = user.get("name") or email.split("@")[0]
+                    session["user_email"] = user.get("email")
+                    session["auth_type"] = "password"
+
+                    app.logger.info("Google user set password and logged in: %s (id=%s)", email, user["id"])
+                    return redirect(url_for("dashboard"))
+                else:
+                    return render_template(
+                        "login.html",
+                        error="Incorrect password. Please verify your password and try again."
+                    )
+            else:
+                # New user: automatically register with real email and password
+                hashed_pwd = generate_password_hash(password)
+                display_name = email.split("@")[0].replace(".", " ").replace("_", " ").title()
+                cursor = connection.execute(
+                    """
+                    INSERT INTO users (name, email, password)
+                    VALUES (%s, %s, %s)
+                    RETURNING id, name, email
+                    """,
+                    (display_name, email, hashed_pwd)
+                )
+                connection.commit()
+                new_user = cursor.fetchone()
+
+                session["user_id"] = new_user["id"]
+                session["user_name"] = new_user.get("name") or display_name
+                session["user_email"] = new_user.get("email") or email
                 session["auth_type"] = "password"
 
-                app.logger.info("User logged in via email: %s (id=%s)", email, user["id"])
+                app.logger.info("New user auto-registered and logged in via email: %s (id=%s)", email, new_user["id"])
                 return redirect(url_for("dashboard"))
-            else:
-                return render_template(
-                    "login.html",
-                    error="Invalid email or password. Please check your credentials or create an account."
-                )
+
         except Exception as e:
             app.logger.exception("Login database error: %s", e)
             return render_template(
