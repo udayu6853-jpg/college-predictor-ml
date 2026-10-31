@@ -3672,6 +3672,53 @@ def get_college_from_source_index(exam, source_index, selected_branch=None):
             college.get("Eamcet Fees", college.get("EAMCET Fees", 0))
         )
 
+    college["Management Fees"] = clean_numeric(
+        college.get("Management Fees", 0)
+    )
+
+    college["Website"] = clean_website(
+        college.get("Website", ""),
+        college_name
+    )
+    college["Image"] = clean_image(college.get("Image", ""))
+
+    # Fetch all branches offered by this college
+    all_matching_rows = dataframe[
+        dataframe["College Name"].astype(str).str.strip().str.casefold()
+        == college_name.casefold()
+    ]
+
+    branches = []
+    seen_branch_names = set()
+    for _, b_row in all_matching_rows.iterrows():
+        b_name = normalize_branch(b_row.get("Branch", ""))
+        if not b_name or b_name in seen_branch_names:
+            continue
+        seen_branch_names.add(b_name)
+
+        if exam == "KCET":
+            b_exam_fees = clean_numeric(
+                b_row.get("Kcet Fees", b_row.get("KCET Fees", 0))
+            )
+        else:
+            b_exam_fees = clean_numeric(
+                b_row.get("Eamcet Fees", b_row.get("EAMCET Fees", 0))
+            )
+
+        b_mgmt_fees = clean_numeric(b_row.get("Management Fees", 0))
+
+        branches.append({
+            "Branch": b_name,
+            "Cutoff Rank": clean_rank(b_row.get("Cutoff Rank", 0)),
+            "Exam Fees": b_exam_fees,
+            "Management Fees": b_mgmt_fees,
+            "Rating": clean_rating(b_row.get("Rating", 0)),
+        })
+
+    college["Branches"] = branches
+    college["BranchMap"] = {b["Branch"]: b for b in branches}
+    college["OfferedBranches"] = [b["Branch"] for b in branches]
+
     return college
 
 
@@ -4033,6 +4080,10 @@ def compare():
     if default_exam not in ALLOWED_EXAMS:
         default_exam = "KCET"
 
+    requested_branch = request.args.get("branch", "").strip().upper()
+    if requested_branch and requested_branch not in ALLOWED_BRANCHES:
+        requested_branch = ""
+
     colleges = []
     seen = set()
 
@@ -4044,7 +4095,7 @@ def compare():
 
         exam = default_exam
         index_text = value
-        selected_branch = ""
+        selected_branch = requested_branch
 
         # Parse exam:index or exam:index:branch.
         parts = value.split(":", 2)
@@ -4056,7 +4107,7 @@ def compare():
                 exam = possible_exam
                 index_text = parts[1].strip()
 
-                if len(parts) == 3:
+                if len(parts) == 3 and not requested_branch:
                     selected_branch = parts[2].strip()
 
         # Validate the source index.
@@ -4065,11 +4116,10 @@ def compare():
         except (TypeError, ValueError):
             continue
 
-        # Prevent duplicate selections of the same college and branch.
+        # Prevent duplicate selections of the same college.
         key = (
             exam,
-            college_index,
-            selected_branch.casefold()
+            college_index
         )
 
         if key in seen:
@@ -4092,12 +4142,33 @@ def compare():
         if len(colleges) >= 3:
             break
 
+    # Collect all available branches across compared colleges
+    available_branches = []
+    for col in colleges:
+        for b in col.get("Branches", []):
+            b_name = b.get("Branch")
+            if b_name and b_name not in available_branches:
+                available_branches.append(b_name)
+
+    active_branch = requested_branch if requested_branch in available_branches else (available_branches[0] if available_branches else "CSE")
+
+    # Sync active branch values to college top-level keys
+    for col in colleges:
+        b_map = col.get("BranchMap", {})
+        if active_branch in b_map:
+            col["Branch"] = active_branch
+            col["Cutoff Rank"] = b_map[active_branch]["Cutoff Rank"]
+            col["Exam Fees"] = b_map[active_branch]["Exam Fees"]
+            col["Management Fees"] = b_map[active_branch]["Management Fees"]
+
     # Display the comparison page.
     return render_template(
         "compare.html",
         colleges=colleges,
         saved_colleges=colleges,
-        selected_exam=default_exam
+        selected_exam=default_exam,
+        available_branches=available_branches,
+        active_branch=active_branch
     )
 
 
