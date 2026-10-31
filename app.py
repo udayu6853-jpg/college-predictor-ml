@@ -1094,6 +1094,27 @@ def init_database():
             """
         )
 
+        try:
+            demo_user = connection.execute(
+                "SELECT id FROM users WHERE LOWER(email) = %s",
+                ("student@smartpredictor.com",)
+            ).fetchone()
+            if not demo_user:
+                connection.execute(
+                    """
+                    INSERT INTO users (name, email, password)
+                    VALUES (%s, %s, %s)
+                    ON CONFLICT (email) DO NOTHING
+                    """,
+                    (
+                        "Student Demo",
+                        "student@smartpredictor.com",
+                        generate_password_hash("Student@123")
+                    )
+                )
+        except Exception:
+            pass
+
         connection.commit()
 
     except Exception:
@@ -1427,13 +1448,62 @@ def home():
 
 
 # ============================================================
-# LOGIN PAGE
+# LOGIN PAGE (Email/Password & Google OAuth)
 # ============================================================
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if session.get("user_id"):
         return redirect(url_for("dashboard"))
+
+    if request.method == "POST":
+        email = (request.form.get("email") or "").strip().lower()
+        password = (request.form.get("password") or "").strip()
+
+        if not email or not password:
+            return render_template(
+                "login.html",
+                error="Please enter both your email address and password."
+            )
+
+        if not is_valid_email(email):
+            return render_template(
+                "login.html",
+                error="Please enter a valid email address."
+            )
+
+        connection = get_db_connection()
+        try:
+            user = connection.execute(
+                """
+                SELECT id, name, email, password
+                FROM users
+                WHERE LOWER(email) = %s
+                """,
+                (email,)
+            ).fetchone()
+
+            if user and check_password_hash(user["password"], password):
+                session["user_id"] = user["id"]
+                session["user_name"] = user.get("name") or email.split("@")[0]
+                session["user_email"] = user.get("email")
+                session["auth_type"] = "password"
+
+                app.logger.info("User logged in via email: %s (id=%s)", email, user["id"])
+                return redirect(url_for("dashboard"))
+            else:
+                return render_template(
+                    "login.html",
+                    error="Invalid email or password. Please check your credentials or create an account."
+                )
+        except Exception as e:
+            app.logger.exception("Login database error: %s", e)
+            return render_template(
+                "login.html",
+                error="An error occurred while logging in. Please try again."
+            )
+        finally:
+            connection.close()
 
     return render_template("login.html")
 
@@ -1738,7 +1808,84 @@ def google_callback():
 
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-    return redirect(url_for("login"))
+    if session.get("user_id"):
+        return redirect(url_for("dashboard"))
+
+    if request.method == "POST":
+        name = (request.form.get("name") or "").strip()
+        email = (request.form.get("email") or "").strip().lower()
+        password = (request.form.get("password") or "").strip()
+        confirm_password = (request.form.get("confirm_password") or "").strip()
+
+        if not name or not email or not password:
+            return render_template(
+                "signup.html",
+                error="Please fill in all required fields."
+            )
+
+        if not is_valid_email(email):
+            return render_template(
+                "signup.html",
+                error="Please enter a valid email address."
+            )
+
+        if len(password) < 6:
+            return render_template(
+                "signup.html",
+                error="Password must contain at least 6 characters."
+            )
+
+        if password != confirm_password:
+            return render_template(
+                "signup.html",
+                error="Passwords do not match."
+            )
+
+        connection = get_db_connection()
+        try:
+            existing = connection.execute(
+                "SELECT id FROM users WHERE LOWER(email) = %s",
+                (email,)
+            ).fetchone()
+
+            if existing:
+                return render_template(
+                    "signup.html",
+                    error="An account with this email already exists. Please sign in."
+                )
+
+            hashed_password = generate_password_hash(password)
+
+            cursor = connection.execute(
+                """
+                INSERT INTO users (name, email, password)
+                VALUES (%s, %s, %s)
+                RETURNING id
+                """,
+                (name, email, hashed_password)
+            )
+            connection.commit()
+            new_user = cursor.fetchone()
+            user_id = new_user["id"]
+
+            session["user_id"] = user_id
+            session["user_name"] = name
+            session["user_email"] = email
+            session["auth_type"] = "password"
+
+            app.logger.info("New user registered: %s (id=%s)", email, user_id)
+            return redirect(url_for("dashboard"))
+
+        except Exception as e:
+            app.logger.exception("Signup database error: %s", e)
+            return render_template(
+                "signup.html",
+                error="An error occurred while creating your account. Please try again."
+            )
+        finally:
+            connection.close()
+
+    return render_template("signup.html")
 
 
 @app.route("/verify-otp", methods=["GET", "POST"])
