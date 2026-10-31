@@ -126,7 +126,6 @@
                     <span>Admission Prediction Output</span>
                 </div>
                 <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Predicted College Recommendations</h1>
-                <p class="text-sm text-slate-500">Based on entrance cutoff trends, reservation parameters, and official counseling datasets.</p>
             </div>
             <div class="flex items-center gap-2">
                 <a
@@ -139,7 +138,7 @@
         </div>
 
         <!-- Candidate Intake & Stats Summary Bar -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <!-- Rank & Exam Card -->
             <div class="sky-card rounded-2xl p-4 sm:p-5 flex items-center gap-4">
                 <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-700 border border-sky-200 flex items-center justify-center flex-shrink-0">
@@ -167,18 +166,6 @@
                 </div>
             </div>
 
-            <!-- Parameters Card -->
-            <div class="sky-card rounded-2xl p-4 sm:p-5 flex items-center gap-4">
-                <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                </div>
-                <div class="min-w-0">
-                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Quota / Category</span>
-                    <span class="text-sm font-extrabold text-slate-900 truncate block">{{ category or 'General Merit (GM)' }}</span>
-                    <span class="text-xs text-slate-500 truncate block">Gender: {{ gender or 'All' }}</span>
-                </div>
-            </div>
-
             <!-- Location Filter Card -->
             <div class="sky-card rounded-2xl p-4 sm:p-5 flex items-center gap-4">
                 <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center flex-shrink-0">
@@ -198,9 +185,9 @@
             <div class="flex items-center justify-between">
                 <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
                     <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-                    <span>Matched Institutional Recommendations (Ranked by Admission Confidence)</span>
+                    <span>Matched Institutional Recommendations</span>
                 </h2>
-                <span class="text-xs text-slate-400 font-medium">Sorted by High to Moderate Chance</span>
+                <span class="text-xs text-slate-400 font-medium">Sorted by Closing Cutoff</span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -226,25 +213,6 @@
                                 </div>
                             {% endif %}
 
-                            <!-- Admission Chance Badge (Floating on Image) -->
-                            {% set chance = college.get('Chance', college.get('Chance Percentage', 0)) | float %}
-                            <div class="absolute top-3 left-3">
-                                {% if chance >= 75 %}
-                                    <span class="px-3 py-1 rounded-full text-xs font-black bg-emerald-500 text-white shadow-sm flex items-center gap-1.5">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-                                        <span>SAFE BET: {{ chance }}%</span>
-                                    </span>
-                                {% elif chance >= 50 %}
-                                    <span class="px-3 py-1 rounded-full text-xs font-black bg-sky-600 text-white shadow-sm flex items-center gap-1.5">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
-                                        <span>TARGET: {{ chance }}%</span>
-                                    </span>
-                                {% else %}
-                                    <span class="px-3 py-1 rounded-full text-xs font-black bg-amber-500 text-white shadow-sm flex items-center gap-1.5">
-                                        <span>REACH: {{ chance }}%</span>
-                                    </span>
-                                {% endif %}
-                            </div>
 
                             <!-- Star Rating -->
                             <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-md px-2.5 py-1 rounded-xl border border-sky-100 shadow-sm flex items-center gap-1 text-xs font-bold text-slate-800">
