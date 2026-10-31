@@ -142,68 +142,6 @@
             </div>
         </div>
 
-        <!-- 4 Metric KPI Cards (Real Data) -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <!-- Total Colleges Tracked -->
-            <div class="sky-card p-5 rounded-2xl flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 border border-sky-100 flex items-center justify-center font-bold text-xl">
-                    <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                </div>
-                <div>
-                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Colleges Database</span>
-                    <h3 class="text-2xl font-black text-slate-900 mt-0.5">{{ total_colleges or 520 }}</h3>
-                    <div class="flex items-center gap-1.5 mt-1 text-[10px] text-slate-500 font-semibold">
-                        <span class="text-sky-600 font-bold">{{ kcet_colleges or 260 }} KCET</span>
-                        <span>•</span>
-                        <span class="text-indigo-600 font-bold">{{ eamcet_colleges or 260 }} EAMCET</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Total Predictions Done -->
-            <div class="sky-card p-5 rounded-2xl flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center font-bold text-xl">
-                    <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                </div>
-                <div>
-                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Your Predictions</span>
-                    <h3 class="text-2xl font-black text-slate-900 mt-0.5">{{ total_predictions or 0 }}</h3>
-                    <div class="flex items-center gap-1.5 mt-1 text-[10px] text-slate-500 font-semibold">
-                        <span class="text-sky-600 font-bold">{{ kcet_predictions or 0 }} KCET</span>
-                        <span>•</span>
-                        <span class="text-indigo-600 font-bold">{{ eamcet_predictions or 0 }} EAMCET</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Latest Inferred Rank -->
-            <div class="sky-card p-5 rounded-2xl flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 flex items-center justify-center font-bold text-xl">
-                    <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                </div>
-                <div class="min-w-0">
-                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Latest Search</span>
-                    <h3 class="text-2xl font-black text-slate-900 mt-0.5">
-                        {% if latest_rank %}{{ latest_rank }}{% else %}—{% endif %}
-                    </h3>
-                    <p class="text-[10px] text-slate-500 truncate mt-1 font-medium">
-                        {{ latest_exam or 'None' }} • {{ latest_branch or 'All' }}
-                    </p>
-                </div>
-            </div>
-
-            <!-- Model Precision Score -->
-            <div class="sky-card p-5 rounded-2xl flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center font-bold text-xl">
-                    <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
-                </div>
-                <div>
-                    <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Model Confidence</span>
-                    <h3 class="text-2xl font-black text-slate-900 mt-0.5">98.4%</h3>
-                    <span class="inline-block mt-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Historical Closing Data</span>
-                </div>
-            </div>
-        </div>
 
         <!-- Interactive Visual Analytics Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
