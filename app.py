@@ -1518,7 +1518,11 @@ def google_login():
         return redirect(url_for("dashboard"))
 
     try:
-        return google.authorize_redirect(GOOGLE_REDIRECT_URI)
+        login_hint = (request.args.get("login_hint") or "").strip()
+        extra_args = {}
+        if login_hint and is_valid_email(login_hint):
+            extra_args["login_hint"] = login_hint
+        return google.authorize_redirect(GOOGLE_REDIRECT_URI, **extra_args)
     except Exception as error:
         app.logger.exception(
             "Google OAuth start failed: %s",

@@ -137,6 +137,8 @@
 
         <!-- Google OAuth Button -->
         <a href="{{ url_for('google_login') }}"
+           id="googleLoginLink"
+           onclick="handleGoogleOAuth(event)"
            class="w-full flex items-center justify-center gap-3 px-5 py-3 rounded-xl border border-sky-200 bg-white hover:bg-sky-50/70 text-slate-800 font-bold text-sm shadow-xs transition-all duration-200 hover:border-sky-400 hover:shadow-sm transform hover:-translate-y-0.5">
             <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M21.35 12.27c0-.79-.07-1.55-.2-2.27H12v4.3h5.23a4.47 4.47 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.92-4.18 2.92-7.42z"/>
@@ -165,6 +167,15 @@
                 pwd.type = 'text';
             } else {
                 pwd.type = 'password';
+            }
+        }
+
+        function handleGoogleOAuth(e) {
+            const emailInput = document.getElementById('email');
+            const emailVal = emailInput ? emailInput.value.trim() : '';
+            if (emailVal && emailVal.includes('@')) {
+                e.preventDefault();
+                window.location.href = "{{ url_for('google_login') }}?login_hint=" + encodeURIComponent(emailVal);
             }
         }
     </script>
