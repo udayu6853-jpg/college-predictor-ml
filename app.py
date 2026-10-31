@@ -4354,10 +4354,14 @@ def old_compare_url(): return redirect(url_for("compare_colleges" if session.get
 
 @app.after_request
 def add_security_headers(response):
-    response.headers["X-Content-Type-Options"]="nosniff"
-    response.headers["X-Frame-Options"]="SAMEORIGIN"
-    response.headers["Referrer-Policy"]="strict-origin-when-cross-origin"
-    response.headers["Permissions-Policy"]="geolocation=(), microphone=(), camera=()"
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
+    if "text/html" in response.headers.get("Content-Type", ""):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, max-age=0"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
     return response
 
 @app.errorhandler(404)
