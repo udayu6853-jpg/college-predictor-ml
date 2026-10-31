@@ -184,7 +184,7 @@
                 <div class="min-w-0">
                     <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Latest Search</span>
                     <h3 class="text-2xl font-black text-slate-900 mt-0.5">
-                        {% if latest_rank %}#{{ latest_rank }}{% else %}—{% endif %}
+                        {% if latest_rank %}{{ latest_rank }}{% else %}—{% endif %}
                     </h3>
                     <p class="text-[10px] text-slate-500 truncate mt-1 font-medium">
                         {{ latest_exam or 'None' }} • {{ latest_branch or 'All' }}
@@ -286,7 +286,7 @@
                                         </span>
                                     </td>
                                     <td class="p-3.5 font-black text-slate-900 text-sm">
-                                        #{{ pred["rank"] }}
+                                        {{ pred["rank"] }}
                                     </td>
                                     <td class="p-3.5 font-semibold text-slate-700">
                                         {{ pred["branch"] or 'All Branches' }}
@@ -338,7 +338,7 @@
                     <div>
                         <div class="flex items-center justify-between gap-2">
                             <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-800 border border-sky-200">KCET • Top Rank</span>
-                            <span class="text-[11px] font-bold text-amber-600">NIRF #89</span>
+                            <span class="text-[11px] font-bold text-amber-600">NIRF 89</span>
                         </div>
                         <h3 class="text-sm font-bold text-slate-900 mt-2">RV College of Engineering (RVCE)</h3>
                         <p class="text-xs text-slate-500">Mysuru Road, Bengaluru, Karnataka</p>
@@ -354,7 +354,7 @@
                     <div>
                         <div class="flex items-center justify-between gap-2">
                             <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-sky-100 text-sky-800 border border-sky-200">KCET • Autonomous</span>
-                            <span class="text-[11px] font-bold text-amber-600">NIRF #98</span>
+                            <span class="text-[11px] font-bold text-amber-600">NIRF 98</span>
                         </div>
                         <h3 class="text-sm font-bold text-slate-900 mt-2">BMS College of Engineering (BMSCE)</h3>
                         <p class="text-xs text-slate-500">Basavanagudi, Bengaluru, Karnataka</p>

@@ -148,7 +148,7 @@
                 <div>
                     <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">Candidate Intake</span>
                     <div class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-                        <span>#{{ rank }}</span>
+                        <span>{{ rank }}</span>
                         <span class="text-xs px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 font-bold">{{ exam_name or exam|upper }}</span>
                     </div>
                     <span class="text-xs text-slate-500 block truncate">{{ branch }}</span>
@@ -277,7 +277,7 @@
                                 <!-- Cutoff Rank -->
                                 <div class="p-2.5 rounded-xl border border-sky-100 bg-sky-50/30">
                                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Historical Cutoff</span>
-                                    <span class="text-xs font-extrabold text-slate-800 block">#{{ college.get('Cutoff Rank', 'N/A') }}</span>
+                                    <span class="text-xs font-extrabold text-slate-800 block">{{ college.get('Cutoff Rank', 'N/A') }}</span>
                                 </div>
 
                                 <!-- Exam Fee -->

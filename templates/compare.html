@@ -203,7 +203,7 @@
 
                                 <div class="p-2.5 rounded-xl border border-sky-100 bg-sky-50/30">
                                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Cutoff Rank</span>
-                                    <span class="text-xs font-extrabold text-slate-800 block">#{{ college.get('Cutoff Rank', 'N/A') }}</span>
+                                    <span class="text-xs font-extrabold text-slate-800 block">{{ college.get('Cutoff Rank', 'N/A') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -286,7 +286,7 @@
                                 <td class="py-3.5 px-5 font-bold text-slate-500">Historical Cutoff Rank</td>
                                 {% for college in colleges %}
                                     <td class="py-3.5 px-5 font-black text-slate-900">
-                                        #{{ college.get('Cutoff Rank', 'N/A') }}
+                                        {{ college.get('Cutoff Rank', 'N/A') }}
                                     </td>
                                 {% endfor %}
                             </tr>
