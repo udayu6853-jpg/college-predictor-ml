@@ -21,11 +21,14 @@
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', -apple-system, sans-serif;
             background-color: #F0F7FE;
+        }
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
         }
     </style>
 </head>
@@ -43,7 +46,7 @@
                 </div>
                 <div>
                     <h1 class="text-lg sm:text-xl font-extrabold text-slate-900">PostgreSQL Database Records</h1>
-                    <p class="text-xs text-slate-500">Live storage inspection for Smart College Predictor</p>
+                    <p class="text-xs text-slate-500">Cloud Data Storage: <code class="text-sky-600 font-mono">Render Ohio Data Center (ohio-postgres.render.com)</code></p>
                 </div>
             </div>
             <a href="{{ url_for('dashboard') }}" class="px-4 py-2 rounded-xl bg-sky-50 border border-sky-200 text-sky-700 hover:bg-sky-100 text-xs font-bold transition flex items-center gap-1.5">
@@ -72,20 +75,54 @@
         </div>
 
         <!-- Table Selector Tabs -->
-        <div class="flex items-center gap-2 border-b border-sky-200 pb-2">
-            <button onclick="switchTab('users')" id="tab-users" class="px-4 py-2 rounded-xl text-xs font-extrabold bg-sky-600 text-white shadow-sm transition">
+        <div class="flex items-center gap-2 border-b border-sky-200 pb-2 overflow-x-auto">
+            <button onclick="switchTab('terminal')" id="tab-terminal" class="px-4 py-2 rounded-xl text-xs font-extrabold bg-sky-600 text-white shadow-sm transition whitespace-nowrap">
+                ★ Database Terminal View (Full ASCII Output)
+            </button>
+            <button onclick="switchTab('users')" id="tab-users" class="px-4 py-2 rounded-xl text-xs font-extrabold bg-white text-slate-600 border border-sky-100 hover:bg-sky-50 transition whitespace-nowrap">
                 1. Users Table ({{ users|length }})
             </button>
-            <button onclick="switchTab('history')" id="tab-history" class="px-4 py-2 rounded-xl text-xs font-extrabold bg-white text-slate-600 border border-sky-100 hover:bg-sky-50 transition">
+            <button onclick="switchTab('history')" id="tab-history" class="px-4 py-2 rounded-xl text-xs font-extrabold bg-white text-slate-600 border border-sky-100 hover:bg-sky-50 transition whitespace-nowrap">
                 2. Prediction History Table ({{ history|length }})
             </button>
-            <button onclick="switchTab('saved')" id="tab-saved" class="px-4 py-2 rounded-xl text-xs font-extrabold bg-white text-slate-600 border border-sky-100 hover:bg-sky-50 transition">
+            <button onclick="switchTab('saved')" id="tab-saved" class="px-4 py-2 rounded-xl text-xs font-extrabold bg-white text-slate-600 border border-sky-100 hover:bg-sky-50 transition whitespace-nowrap">
                 3. Saved Colleges Table ({{ saved|length }})
             </button>
         </div>
 
+        <!-- Panel 0: Terminal View (Exact requested output) -->
+        <div id="panel-terminal" class="bg-slate-900 rounded-2xl border border-slate-800 shadow-xl overflow-hidden p-6 text-slate-200 code-font text-xs leading-relaxed space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div class="flex items-center gap-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 inline-block"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                    <span class="text-slate-400 font-bold ml-2">SQL Database Console - Live Data</span>
+                </div>
+                <span class="text-slate-500 text-[11px]">host: dpg-db2do6e0tbcc738shvu0-a.ohio-postgres.render.com</span>
+            </div>
+
+            <pre class="overflow-x-auto text-emerald-400 font-mono text-xs whitespace-pre">============================================================
+SMART COLLEGE PREDICTOR - DATABASE VIEWER
+============================================================
+
+<span class="text-sky-300 font-bold">[TABLE 1: users]</span>
+------------------------------------------------------------
+{% for u in users %}ID: {{ u.id }} | Name: {{ u.name }} | Email: {{ u.email }} | Google ID: {{ u.google_id or 'None' }} | Created: {{ u.created_at }}
+{% endfor %}
+<span class="text-sky-300 font-bold">[TABLE 2: prediction_history (Recent Searches)]</span>
+------------------------------------------------------------
+{% for h in history %}Search #{{ h.id }} | User: {{ h.user_name }} ({{ h.user_email }}) | Exam: {{ h.exam }} | Rank: {{ h.rank }} | Branch: {{ h.branch }} | Category: {{ h.category }} | Date: {{ h.created_at }}
+{% endfor %}
+<span class="text-sky-300 font-bold">[TABLE 3: saved_colleges (Bookmarked Colleges)]</span>
+------------------------------------------------------------
+{% for s in saved %}Saved #{{ s.id }} | User: {{ s.user_name }} | Exam: {{ s.exam }} | College Index: {{ s.college_index }} | Date: {{ s.created_at }}
+{% endfor %}
+============================================================</pre>
+        </div>
+
         <!-- Panel 1: Users Table -->
-        <div id="panel-users" class="bg-white rounded-2xl border border-sky-100 shadow-sm overflow-hidden">
+        <div id="panel-users" class="bg-white rounded-2xl border border-sky-100 shadow-sm overflow-hidden hidden">
             <div class="px-6 py-4 border-b border-sky-100 bg-sky-50/30 flex items-center justify-between">
                 <div>
                     <h2 class="text-sm font-extrabold text-slate-900">Registered Accounts</h2>
@@ -188,15 +225,15 @@
 
     <script>
         function switchTab(name) {
-            ['users', 'history', 'saved'].forEach(t => {
+            ['terminal', 'users', 'history', 'saved'].forEach(t => {
                 const panel = document.getElementById('panel-' + t);
                 const btn = document.getElementById('tab-' + t);
                 if (t === name) {
                     panel.classList.remove('hidden');
-                    btn.className = 'px-4 py-2 rounded-xl text-xs font-extrabold bg-sky-600 text-white shadow-sm transition';
+                    btn.className = 'px-4 py-2 rounded-xl text-xs font-extrabold bg-sky-600 text-white shadow-sm transition whitespace-nowrap';
                 } else {
                     panel.classList.add('hidden');
-                    btn.className = 'px-4 py-2 rounded-xl text-xs font-extrabold bg-white text-slate-600 border border-sky-100 hover:bg-sky-50 transition';
+                    btn.className = 'px-4 py-2 rounded-xl text-xs font-extrabold bg-white text-slate-600 border border-sky-100 hover:bg-sky-50 transition whitespace-nowrap';
                 }
             });
         }

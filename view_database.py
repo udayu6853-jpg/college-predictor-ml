@@ -54,3 +54,4 @@ with psycopg.connect(db_url, row_factory=dict_row) as conn:
             print(f"Saved #{sc['id']} | User: {sc['name']} | Exam: {sc['exam']} | College Index: {sc['college_index']} | Date: {sc['created_at']}")
 
 print("\n" + "=" * 60)
+
