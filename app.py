@@ -2124,6 +2124,50 @@ def admin_contact():
     return render_template("admin.html")
 
 # ============================================================
+# DATABASE VIEWER (Inspect Stored User Data)
+# ============================================================
+
+@app.route("/admin/database")
+@app.route("/database-records")
+@login_required
+def admin_database_view():
+    connection = get_db_connection()
+    try:
+        users = connection.execute(
+            "SELECT id, name, email, google_id, created_at FROM users ORDER BY id ASC"
+        ).fetchall()
+        history = connection.execute(
+            """
+            SELECT p.id, p.user_id, u.name as user_name, u.email as user_email,
+                   p.exam, p.rank, p.branch, p.category, p.created_at
+            FROM prediction_history p
+            LEFT JOIN users u ON p.user_id = u.id
+            ORDER BY p.id DESC
+            LIMIT 100
+            """
+        ).fetchall()
+        saved = connection.execute(
+            """
+            SELECT s.id, s.user_id, u.name as user_name, s.exam, s.college_index, s.created_at
+            FROM saved_colleges s
+            LEFT JOIN users u ON s.user_id = u.id
+            ORDER BY s.id DESC
+            LIMIT 100
+            """
+        ).fetchall()
+        return render_template(
+            "admin_database.html",
+            users=users,
+            history=history,
+            saved=saved
+        )
+    except Exception as e:
+        app.logger.exception("Error loading database records: %s", e)
+        return "Failed to load database records", 500
+    finally:
+        connection.close()
+
+# ============================================================
 # COLLEGES
 # ============================================================
 
