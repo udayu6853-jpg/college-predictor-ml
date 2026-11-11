@@ -1,4 +1,4 @@
-﻿# ============================================================
+# ============================================================
 # COLLEGE PREDICTOR SYSTEM
 # Flask + Machine Learning
 # KCET + EAMCET
@@ -1005,10 +1005,14 @@ class CursorWrapper:
             return res
         return self._cur.fetchall()
 
+def sqlite_dict_factory(cursor, row):
+    fields = [column[0] for column in cursor.description]
+    return dict(zip(fields, row))
+
 class SQLiteConnectionWrapper:
     def __init__(self, db_path):
         self.conn = sqlite3.connect(db_path, check_same_thread=False)
-        self.conn.row_factory = sqlite3.Row
+        self.conn.row_factory = sqlite_dict_factory
 
     def execute(self, sql, params=None):
         translated_sql = sql.replace("%s", "?")
