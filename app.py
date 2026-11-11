@@ -978,23 +978,97 @@ except Exception as error:
 
 # DATABASE CONNECTION
 # ============================================================
+import sqlite3
+
+class CursorWrapper:
+    def __init__(self, cur, is_returning=False):
+        self._cur = cur
+        if is_returning:
+            self._rows = cur.fetchall()
+            self._idx = 0
+        else:
+            self._rows = None
+
+    def fetchone(self):
+        if self._rows is not None:
+            if self._idx < len(self._rows):
+                res = self._rows[self._idx]
+                self._idx += 1
+                return res
+            return None
+        return self._cur.fetchone()
+
+    def fetchall(self):
+        if self._rows is not None:
+            res = self._rows[self._idx:]
+            self._idx = len(self._rows)
+            return res
+        return self._cur.fetchall()
+
+class SQLiteConnectionWrapper:
+    def __init__(self, db_path):
+        self.conn = sqlite3.connect(db_path, check_same_thread=False)
+        self.conn.row_factory = sqlite3.Row
+
+    def execute(self, sql, params=None):
+        translated_sql = sql.replace("%s", "?")
+        translated_sql = re.sub(
+            r'INTEGER\s+GENERATED\s+BY\s+DEFAULT\s+AS\s+IDENTITY\s+PRIMARY\s+KEY',
+            'INTEGER PRIMARY KEY AUTOINCREMENT',
+            translated_sql,
+            flags=re.IGNORECASE
+        )
+        is_alter = "add column if not exists" in translated_sql.lower()
+        if is_alter:
+            translated_sql = re.sub(
+                r'ADD\s+COLUMN\s+IF\s+NOT\s+EXISTS',
+                'ADD COLUMN',
+                translated_sql,
+                flags=re.IGNORECASE
+            )
+        cur = self.conn.cursor()
+        try:
+            if params is not None:
+                cur.execute(translated_sql, params)
+            else:
+                cur.execute(translated_sql)
+        except sqlite3.OperationalError as e:
+            if is_alter and "duplicate column name" in str(e).lower():
+                pass
+            else:
+                raise
+        return CursorWrapper(cur, is_returning="returning" in translated_sql.lower())
+
+    def commit(self):
+        self.conn.commit()
+
+    def rollback(self):
+        self.conn.rollback()
+
+    def close(self):
+        self.conn.close()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
-
-if not DATABASE_URL:
-    raise RuntimeError(
-        "DATABASE_URL is missing."
-    )
-
+_USE_SQLITE_FALLBACK = False
 
 def get_db_connection():
+    global _USE_SQLITE_FALLBACK
+    if DATABASE_URL and not _USE_SQLITE_FALLBACK:
+        try:
+            connection = psycopg.connect(
+                DATABASE_URL,
+                row_factory=dict_row,
+                connect_timeout=3
+            )
+            return connection
+        except Exception as error:
+            _USE_SQLITE_FALLBACK = True
+            app.logger.warning("PostgreSQL connection failed (%s), switching to local SQLite fallback", error)
 
-    connection = psycopg.connect(
-        DATABASE_URL,
-        row_factory=dict_row
-    )
-
-    return connection
+    db_dir = os.path.join(os.path.dirname(__file__), "database")
+    os.makedirs(db_dir, exist_ok=True)
+    local_db = os.path.join(db_dir, "college_predictor.db")
+    return SQLiteConnectionWrapper(local_db)
 
 # ============================================================
 # INITIALIZE DATABASE
@@ -1110,6 +1184,23 @@ def init_database():
                         "Student Demo",
                         "student@smartpredictor.com",
                         generate_password_hash("Student@123")
+                    )
+                )
+            uday_user = connection.execute(
+                "SELECT id FROM users WHERE LOWER(email) = %s",
+                ("udayu6853@gmail.com",)
+            ).fetchone()
+            if not uday_user:
+                connection.execute(
+                    """
+                    INSERT INTO users (name, email, password)
+                    VALUES (%s, %s, %s)
+                    ON CONFLICT (email) DO NOTHING
+                    """,
+                    (
+                        "Uday",
+                        "udayu6853@gmail.com",
+                        generate_password_hash("Alludu@2004")
                     )
                 )
         except Exception:
