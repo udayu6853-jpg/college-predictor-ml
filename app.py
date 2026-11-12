@@ -1,4 +1,4 @@
-# ============================================================
+﻿# ============================================================
 # COLLEGE PREDICTOR SYSTEM
 # Flask + Machine Learning
 # KCET + EAMCET
@@ -1053,7 +1053,8 @@ class SQLiteConnectionWrapper:
         self.conn.close()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
-_USE_SQLITE_FALLBACK = False
+USE_LOCAL_DB = os.getenv("USE_LOCAL_DB", "false").strip().lower() in ("true", "1", "yes")
+_USE_SQLITE_FALLBACK = USE_LOCAL_DB
 
 def get_db_connection():
     global _USE_SQLITE_FALLBACK
@@ -1065,9 +1066,9 @@ def get_db_connection():
                 connect_timeout=3
             )
             return connection
-        except Exception as error:
+        except Exception:
             _USE_SQLITE_FALLBACK = True
-            app.logger.warning("PostgreSQL connection failed (%s), switching to local SQLite fallback", error)
+            app.logger.info("Cloud PostgreSQL unreachable. Using local SQLite database (database/college_predictor.db)")
 
     db_dir = os.path.join(os.path.dirname(__file__), "database")
     os.makedirs(db_dir, exist_ok=True)
