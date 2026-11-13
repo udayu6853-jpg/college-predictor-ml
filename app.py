@@ -1,4 +1,4 @@
-﻿# ============================================================
+# ============================================================
 # COLLEGE PREDICTOR SYSTEM
 # Flask + Machine Learning
 # KCET + EAMCET
@@ -11,11 +11,15 @@ from flask import (
     redirect,
     url_for,
     session,
-    flash
+    flash,
+    jsonify
 )
 
 import pandas as pd
 import os
+import json
+import urllib.request
+import urllib.error
 import joblib
 import psycopg
 from psycopg.rows import dict_row
@@ -4490,6 +4494,260 @@ def old_saved_url(): return redirect(url_for("saved_colleges" if session.get("us
 @app.route("/templates/compare")
 @app.route("/templates/compare.html")
 def old_compare_url(): return redirect(url_for("compare_colleges" if session.get("user_id") else "login"))
+
+
+# ============================================================
+# AI COLLEGE ASSISTANT (GEMINI + RAG CONTEXT)
+# ============================================================
+
+def retrieve_college_context(query, kcet_df_source, eamcet_df_source, max_results=8):
+    """
+    Fast keyword and rank-based context retriever from in-memory college datasets.
+    """
+    if not query:
+        return ""
+
+    query_lower = query.lower()
+    clean_words = re.sub(r"[^a-zA-Z0-9\s]", " ", query_lower).split()
+    stopwords = {
+        "the", "for", "what", "tell", "about", "and", "college", "colleges",
+        "engineering", "cut", "cutoff", "off", "rank", "ranks", "how", "much",
+        "is", "are", "in", "at", "to", "can", "get", "with", "my", "please",
+        "give", "show", "list", "good", "best", "top", "which"
+    }
+    keywords = [w for w in clean_words if len(w) >= 3 and w not in stopwords]
+
+    # Check for rank numbers (3 to 6 digits)
+    rank_matches = re.findall(r"\b\d{3,6}\b", query)
+    target_rank = int(rank_matches[0]) if rank_matches else None
+
+    # Check for branch keywords
+    branch_keywords = ["cse", "aiml", "ece", "eee", "mechanical", "civil", "ise", "information science", "data science"]
+    found_branches = [b for b in branch_keywords if b in query_lower]
+
+    results = []
+    seen = set()
+
+    # 1. Search by college name keywords
+    for kw in keywords:
+        if kcet_df_source is not None and not kcet_df_source.empty:
+            k_sub = kcet_df_source[kcet_df_source["College Name"].str.lower().str.contains(kw, na=False, regex=False)]
+            for _, row in k_sub.iterrows():
+                key = ("KCET", row["College Name"], row.get("Branch", ""))
+                if key not in seen:
+                    seen.add(key)
+                    results.append(("KCET", row))
+                    if len(results) >= max_results:
+                        break
+
+        if eamcet_df_source is not None and not eamcet_df_source.empty:
+            e_sub = eamcet_df_source[eamcet_df_source["College Name"].str.lower().str.contains(kw, na=False, regex=False)]
+            for _, row in e_sub.iterrows():
+                key = ("EAMCET", row["College Name"], row.get("Branch", ""))
+                if key not in seen:
+                    seen.add(key)
+                    results.append(("EAMCET", row))
+                    if len(results) >= max_results:
+                        break
+
+        if len(results) >= max_results:
+            break
+
+    # 2. If rank is mentioned and we have room for recommendations
+    if target_rank and len(results) < max_results:
+        min_rank = int(target_rank * 0.70)
+        max_rank = int(target_rank * 1.35)
+
+        if kcet_df_source is not None and not kcet_df_source.empty:
+            k_rank = kcet_df_source[(kcet_df_source["Cutoff Rank"] >= min_rank) & (kcet_df_source["Cutoff Rank"] <= max_rank)]
+            if found_branches:
+                br = found_branches[0].upper()
+                k_rank_br = k_rank[k_rank["Branch"].str.upper().str.contains(br, na=False)]
+                if not k_rank_br.empty:
+                    k_rank = k_rank_br
+            for _, row in k_rank.sort_values(by="Rating", ascending=False).head(4).iterrows():
+                key = ("KCET", row["College Name"], row.get("Branch", ""))
+                if key not in seen:
+                    seen.add(key)
+                    results.append(("KCET", row))
+
+        if eamcet_df_source is not None and not eamcet_df_source.empty:
+            e_rank = eamcet_df_source[(eamcet_df_source["Cutoff Rank"] >= min_rank) & (eamcet_df_source["Cutoff Rank"] <= max_rank)]
+            if found_branches:
+                br = found_branches[0].upper()
+                e_rank_br = e_rank[e_rank["Branch"].str.upper().str.contains(br, na=False)]
+                if not e_rank_br.empty:
+                    e_rank = e_rank_br
+            for _, row in e_rank.sort_values(by="Rating", ascending=False).head(4).iterrows():
+                key = ("EAMCET", row["College Name"], row.get("Branch", ""))
+                if key not in seen:
+                    seen.add(key)
+                    results.append(("EAMCET", row))
+
+    context_lines = []
+    for exam, row in results[:max_results]:
+        c_name = row.get("College Name", "Unknown")
+        branch = row.get("Branch", "General")
+        cutoff = row.get("Cutoff Rank", "N/A")
+        rating = row.get("Rating", "N/A")
+        loc = row.get("Location", "Karnataka/AP")
+        fees = row.get("Kcet Fees") or row.get("Eamcet Fees") or row.get("Exam Fees") or "N/A"
+        context_lines.append(
+            f"• [{exam}] {c_name} | Branch: {branch} | Cutoff Rank: ~{cutoff} | Rating: {rating}/5 | Location: {loc} | Fees: {fees}"
+        )
+
+    return "\n".join(context_lines)
+
+
+def generate_fallback_reply(message, context):
+    """
+    Context-aware intelligent response when Gemini API key is unset or external call fails.
+    """
+    msg_lower = message.lower()
+
+    if any(k in msg_lower for k in ["counseling", "counselling", "document", "documents", "procedure", "verification", "process"]):
+        return (
+            "📋 **Official Counseling & Document Verification Guide**\n\n"
+            "Here is the essential checklist for **KCET & EAMCET Counseling**:\n\n"
+            "**Mandatory Documents Required:**\n"
+            "1. **Admit Card & Rank Card** of KCET / EAMCET\n"
+            "2. **Class 10th (SSLC) Marks Card** (Proof of Date of Birth)\n"
+            "3. **Class 12th / 2nd PUC Marks Card** (Original + Attested copies)\n"
+            "4. **Study Certificate** (Minimum 7 years of schooling in state for domicile verification)\n"
+            "5. **Caste / Category / Income Certificate** (EWS, OBC, SC/ST, HK region if claiming reservation)\n"
+            "6. **Transfer Certificate (TC)** & Migration Certificate\n"
+            "7. **Passport-size Photographs** (Recent, at least 4-6 copies)\n\n"
+            "**Counseling Process Steps:**\n"
+            "• **Step 1:** Document Verification & Secret Key generation\n"
+            "• **Step 2:** Online Option Entry (arrange colleges by priority)\n"
+            "• **Step 3:** Mock Allotment & Option Editing\n"
+            "• **Step 4:** Round 1 Real Seat Allotment\n"
+            "• **Step 5:** Choice Selection (Accept & Freeze, Float/Hold, Reject) and Fee Payment\n\n"
+            "💡 *Tip: Put your dream colleges in higher priority ranks during option entry!*"
+        )
+
+    if context.strip():
+        lines = [line.strip() for line in context.strip().split("\n") if line.strip()]
+        formatted_colleges = "\n".join(lines)
+        return (
+            f"🎓 **College Database Search Results**\n\n"
+            f"Here are the most relevant colleges and cutoffs matching your query:\n\n"
+            f"{formatted_colleges}\n\n"
+            f"📌 **Key Recommendations:**\n"
+            f"• Cutoff ranks represent typical final-round closing ranks and may fluctuate ±5–10% each academic year.\n"
+            f"• High-demand branches like **CSE** and **AIML** generally close earlier than Core branches (ECE/Mechanical).\n"
+            f"• You can bookmark these institutions to your dashboard to compare them side-by-side!"
+        )
+
+    return (
+        "🤖 **AI College Assistant**\n\n"
+        "I'm here to help you navigate engineering admissions for **KCET (Karnataka)** and **EAMCET (Andhra Pradesh / Telangana)**.\n\n"
+        "**You can ask me:**\n"
+        "• Cutoff ranks for any college (e.g., *'What is the cutoff for RV College CSE?'*)\n"
+        "• College recommendations by rank (e.g., *'Best colleges for KCET rank 15000 CSE'*)\n"
+        "• Tuition and fee structure comparisons\n"
+        "• Counseling and document verification steps\n\n"
+        "Try asking one of the suggested prompts or enter a college name or rank above!"
+    )
+
+
+def call_gemini_api(api_key, message, history, context):
+    """
+    Call Google Gemini REST API with system instructions and dataset context.
+    """
+    models = ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-pro"]
+    system_instruction = (
+        "You are the Smart College Predictor AI Assistant, an empathetic, highly knowledgeable counselor for "
+        "engineering admissions in KCET (Karnataka) and EAMCET (Andhra Pradesh / Telangana).\n"
+        "Guidelines:\n"
+        "1. Give direct, accurate, encouraging responses about cutoffs, colleges, locations, fees, and branches.\n"
+        "2. When college records are provided in the Context, accurately cite their cutoffs, locations, and ratings.\n"
+        "3. Use structured markdown formatting with bullet points and bold highlights.\n"
+        "4. If asked about admissions or counseling procedures, outline clear, actionable steps.\n"
+        "5. Keep responses concise and easy to read on mobile or desktop."
+    )
+
+    full_prompt = f"Student Question: {message}\n"
+    if context:
+        full_prompt = f"Relevant Official College Records from Database:\n{context}\n\n" + full_prompt
+
+    contents = []
+    if history and isinstance(history, list):
+        for item in history[-6:]:
+            role = item.get("role")
+            content = str(item.get("content", "")).strip()
+            if not content:
+                continue
+            if role == "user":
+                contents.append({"role": "user", "parts": [{"text": content}]})
+            elif role == "assistant":
+                contents.append({"role": "model", "parts": [{"text": content}]})
+
+    contents.append({"role": "user", "parts": [{"text": full_prompt}]})
+
+    for model_name in models:
+        try:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+            payload = {
+                "contents": contents,
+                "systemInstruction": {
+                    "parts": [{"text": system_instruction}]
+                },
+                "generationConfig": {
+                    "temperature": 0.4,
+                    "maxOutputTokens": 700
+                }
+            }
+            req = urllib.request.Request(
+                url,
+                data=json.dumps(payload).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="POST"
+            )
+            with urllib.request.urlopen(req, timeout=10) as response:
+                result = json.loads(response.read().decode("utf-8"))
+                candidates = result.get("candidates", [])
+                if candidates:
+                    parts = candidates[0].get("content", {}).get("parts", [])
+                    if parts and "text" in parts[0]:
+                        return parts[0]["text"].strip()
+        except urllib.error.HTTPError as he:
+            if he.code == 404:
+                continue
+            break
+        except Exception:
+            break
+
+    return None
+
+
+@app.route("/api/chat", methods=["POST"])
+@csrf.exempt
+def api_chat():
+    """
+    JSON API endpoint for the AI College Assistant chatbot widget.
+    """
+    data = request.get_json(silent=True) or {}
+    message = str(data.get("message", "")).strip()
+    history = data.get("history", [])
+
+    if not message:
+        return jsonify({"status": "error", "error": "Message cannot be empty."}), 400
+
+    context = retrieve_college_context(message, kcet_df, eamcet_df)
+    api_key = os.getenv("GEMINI_API_KEY", "").strip()
+
+    reply = None
+    if api_key and api_key != "your_gemini_api_key_here":
+        try:
+            reply = call_gemini_api(api_key, message, history, context)
+        except Exception as exc:
+            app.logger.warning("Gemini API call error: %s", exc)
+
+    if not reply:
+        reply = generate_fallback_reply(message, context)
+
+    return jsonify({"status": "success", "reply": reply})
 
 
 # ============================================================
