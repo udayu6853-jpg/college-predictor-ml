@@ -116,12 +116,46 @@
         </div>
 
         <!-- Voice Listening Banner (Active during speech recognition) -->
-        <div id="aiVoiceBanner" class="hidden px-4 py-2.5 bg-gradient-to-r from-rose-50 via-pink-50 to-rose-50 border-t border-rose-100 flex items-center justify-between text-rose-600 text-[11px] font-semibold animate-pulse">
-            <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
-                <span id="aiVoiceBannerText">🎙️ Listening... speak your college question now</span>
+        <div id="aiVoiceBanner" class="hidden px-3.5 py-2.5 bg-gradient-to-r from-rose-50 via-pink-50 to-rose-50 border-t border-rose-200/70 flex flex-col gap-1.5 text-rose-700 text-xs shadow-inner">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 overflow-hidden">
+                    <!-- Animated Voice Sound-Wave Bars -->
+                    <div class="flex items-center gap-0.5 h-4 flex-shrink-0">
+                        <span class="w-1 h-3 bg-rose-500 rounded-full animate-pulse [animation-duration:500ms]"></span>
+                        <span class="w-1 h-4 bg-rose-600 rounded-full animate-bounce [animation-duration:400ms]"></span>
+                        <span class="w-1 h-2 bg-rose-400 rounded-full animate-pulse [animation-duration:600ms]"></span>
+                        <span class="w-1 h-3.5 bg-rose-500 rounded-full animate-bounce [animation-duration:450ms]"></span>
+                    </div>
+                    <span id="aiVoiceBannerText" class="font-medium text-[11px] truncate">🎙️ Listening... speak your college question now</span>
+                </div>
+                <!-- Action Buttons: Predict Now & Cancel -->
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                    <button
+                        type="button"
+                        id="aiVoiceSubmitBtn"
+                        onclick="submitVoiceQueryNow()"
+                        class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold shadow-xs transition active:scale-95 flex items-center gap-1 cursor-pointer"
+                        title="Submit recognized question now"
+                    >
+                        <span>⚡ Predict</span>
+                    </button>
+                    <button
+                        type="button"
+                        onclick="cancelVoiceRecognition()"
+                        class="px-2 py-1 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-800 text-[10px] font-semibold transition cursor-pointer"
+                        title="Cancel voice recording"
+                    >
+                        ✕
+                    </button>
+                </div>
             </div>
-            <button type="button" onclick="stopVoiceRecognition()" class="px-2.5 py-0.5 rounded-lg bg-rose-200 hover:bg-rose-300 text-rose-800 text-[10px] font-bold transition cursor-pointer">Stop</button>
+            <!-- Language Quick-Pills for Voice Recognition -->
+            <div class="flex items-center gap-1.5 text-[10px] text-slate-500 pt-1 border-t border-rose-100/60">
+                <span class="text-slate-400 font-medium">Voice Lang:</span>
+                <button type="button" onclick="setVoiceLanguage('en-IN')" id="voiceLang_en_IN" class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-200 text-rose-900 transition">🇮🇳 English (IN)</button>
+                <button type="button" onclick="setVoiceLanguage('te-IN')" id="voiceLang_te_IN" class="px-1.5 py-0.5 rounded text-[10px] hover:bg-rose-100 text-slate-600 transition">తెలుగు</button>
+                <button type="button" onclick="setVoiceLanguage('en-US')" id="voiceLang_en_US" class="px-1.5 py-0.5 rounded text-[10px] hover:bg-rose-100 text-slate-600 transition">🇺🇸 US</button>
+            </div>
         </div>
 
         <!-- Typing Indicator (Hidden by default) -->
@@ -258,62 +292,219 @@
     }
 
     // ============================================================
-    // MICROPHONE SPEECH-TO-TEXT ENGINE
+    // MICROPHONE SPEECH-TO-TEXT ENGINE (WEB SPEECH API)
     // ============================================================
 
-    function initSpeechRecognitionEngine() {
+    let speechRecognitionInstance = null;
+    let isRecordingSpeech = false;
+    let currentVoiceTranscript = '';
+    let speechSilenceTimer = null;
+    let currentVoiceLang = localStorage.getItem('aiChatVoiceLang') || 'en-IN';
+
+    function setVoiceLanguage(langCode) {
+        currentVoiceLang = langCode;
+        localStorage.setItem('aiChatVoiceLang', langCode);
+        updateVoiceLangUI();
+        if (isRecordingSpeech) {
+            cancelVoiceRecognition();
+            setTimeout(startVoiceRecognition, 200);
+        }
+    }
+
+    function updateVoiceLangUI() {
+        ['en_IN', 'te_IN', 'en_US'].forEach(id => {
+            const btn = document.getElementById('voiceLang_' + id);
+            if (!btn) return;
+            const code = id.replace('_', '-');
+            if (code === currentVoiceLang) {
+                btn.className = "px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-200 text-rose-900 shadow-2xs transition";
+            } else {
+                btn.className = "px-1.5 py-0.5 rounded text-[10px] hover:bg-rose-100 text-slate-600 transition";
+            }
+        });
+    }
+
+    function toggleVoiceRecognition() {
+        if (isRecordingSpeech) {
+            // If already recording and words were spoken, submit immediately!
+            const input = document.getElementById('aiChatInput');
+            const spoken = (currentVoiceTranscript || (input ? input.value : '')).trim();
+            if (spoken) {
+                submitVoiceQueryNow();
+            } else {
+                cancelVoiceRecognition();
+            }
+        } else {
+            startVoiceRecognition();
+        }
+    }
+
+    function startVoiceRecognition() {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SpeechRecognition) {
-            return null;
+            appendAiMessage("⚠️ Voice recognition is not supported in this browser. Please use Google Chrome or Microsoft Edge for microphone speech-to-text.");
+            return;
         }
 
-        const rec = new SpeechRecognition();
-        rec.continuous = false;
-        rec.interimResults = true;
-        rec.lang = 'en-IN'; // Optimized for Indian names & college accents
+        // Cancel ongoing TTS audio before listening
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+
+        clearTimeout(speechSilenceTimer);
+        currentVoiceTranscript = '';
+
+        // Cleanly discard any previous instance
+        if (speechRecognitionInstance) {
+            try { speechRecognitionInstance.abort(); } catch(e) {}
+            speechRecognitionInstance = null;
+        }
+
+        try {
+            speechRecognitionInstance = new SpeechRecognition();
+        } catch (err) {
+            console.error("Failed to instantiate SpeechRecognition:", err);
+            appendAiMessage("⚠️ Could not initialize microphone voice engine. Please reload the page.");
+            return;
+        }
+
+        const rec = speechRecognitionInstance;
+        rec.continuous = true;       // Live streaming transcription
+        rec.interimResults = true;   // Live word-by-word streaming
+        rec.maxAlternatives = 1;
+        rec.lang = currentVoiceLang; // Default 'en-IN' for KCET/EAMCET names and Indian accents
 
         rec.onstart = function() {
             isRecordingSpeech = true;
             updateMicUI(true);
+            updateVoiceLangUI();
+            const bannerText = document.getElementById('aiVoiceBannerText');
+            if (bannerText) {
+                bannerText.textContent = "🎙️ Listening... speak your college question now";
+            }
+        };
+
+        rec.onspeechstart = function() {
+            const bannerText = document.getElementById('aiVoiceBannerText');
+            if (bannerText) {
+                bannerText.textContent = "🎙️ Hearing your voice... keep speaking!";
+            }
         };
 
         rec.onresult = function(event) {
-            let transcript = '';
-            for (let i = event.resultIndex; i < event.results.length; ++i) {
-                transcript += event.results[i][0].transcript;
+            let interimTranscript = '';
+            let finalTranscript = '';
+
+            for (let i = 0; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) {
+                    finalTranscript += event.results[i][0].transcript + ' ';
+                } else {
+                    interimTranscript += event.results[i][0].transcript;
+                }
             }
-            const input = document.getElementById('aiChatInput');
-            if (input && transcript) {
-                input.value = transcript;
+
+            const liveSpoken = (finalTranscript + interimTranscript).trim();
+            if (liveSpoken) {
+                currentVoiceTranscript = liveSpoken;
+                const input = document.getElementById('aiChatInput');
+                if (input) {
+                    input.value = liveSpoken;
+                }
+                const bannerText = document.getElementById('aiVoiceBannerText');
+                if (bannerText) {
+                    const safeSpoken = liveSpoken.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    bannerText.innerHTML = `🎙️ Heard: <span class="font-bold text-rose-900 truncate max-w-[190px] inline-block align-bottom">"${safeSpoken}"</span>`;
+                }
+
+                // Smart auto-submit: 1.4 seconds of silence after speaking automatically submits!
+                clearTimeout(speechSilenceTimer);
+                speechSilenceTimer = setTimeout(() => {
+                    if (isRecordingSpeech && currentVoiceTranscript.trim().length > 0) {
+                        submitVoiceQueryNow();
+                    }
+                }, 1400);
+            }
+        };
+
+        rec.onspeechend = function() {
+            const bannerText = document.getElementById('aiVoiceBannerText');
+            if (bannerText && currentVoiceTranscript) {
+                bannerText.textContent = "⚡ Speech completed! Getting prediction...";
             }
         };
 
         rec.onerror = function(event) {
             console.warn('SpeechRecognition error:', event.error);
-            stopVoiceRecognition();
             if (event.error === 'not-allowed' || event.error === 'permission-denied') {
+                cancelVoiceRecognition();
                 showMicrophonePermissionHelp();
+            } else if (event.error === 'audio-capture') {
+                cancelVoiceRecognition();
+                appendAiMessage("⚠️ No microphone was detected on your device. Please plug in a microphone or check audio input settings.");
+            } else if (event.error === 'network') {
+                cancelVoiceRecognition();
+                appendAiMessage("⚠️ Voice recognition requires an active internet connection to contact speech services. Please check your network.");
+            } else if (event.error === 'no-speech') {
+                console.log('No speech detected in current time slice');
             }
         };
 
         rec.onend = function() {
-            stopVoiceRecognition();
-            const input = document.getElementById('aiChatInput');
-            if (input && input.value.trim().length > 0) {
-                // Short grace delay before auto-submitting the spoken query
-                setTimeout(() => {
-                    if (input && input.value.trim().length > 0) {
-                        handleAiChatSubmit(new Event('submit'));
-                    }
-                }, 400);
+            if (isRecordingSpeech) {
+                if (currentVoiceTranscript && currentVoiceTranscript.trim().length > 0) {
+                    submitVoiceQueryNow();
+                } else {
+                    cancelVoiceRecognition();
+                }
             }
         };
 
-        return rec;
+        try {
+            rec.start();
+        } catch (e) {
+            console.warn("SpeechRecognition start exception:", e);
+            cancelVoiceRecognition();
+        }
     }
 
+    function submitVoiceQueryNow() {
+        clearTimeout(speechSilenceTimer);
+        const input = document.getElementById('aiChatInput');
+        const textToSubmit = (currentVoiceTranscript || (input ? input.value : '')).trim();
+
+        // Stop recognition cleanly
+        isRecordingSpeech = false;
+        if (speechRecognitionInstance) {
+            try { speechRecognitionInstance.stop(); } catch(e) {}
+            speechRecognitionInstance = null;
+        }
+        updateMicUI(false);
+        currentVoiceTranscript = '';
+
+        if (textToSubmit && textToSubmit.length > 0) {
+            if (input) input.value = textToSubmit;
+            setTimeout(() => {
+                handleAiChatSubmit(new Event('submit'));
+            }, 100);
+        }
+    }
+
+    function cancelVoiceRecognition() {
+        clearTimeout(speechSilenceTimer);
+        isRecordingSpeech = false;
+        if (speechRecognitionInstance) {
+            try { speechRecognitionInstance.abort(); } catch(e) {}
+            speechRecognitionInstance = null;
+        }
+        currentVoiceTranscript = '';
+        updateMicUI(false);
+    }
+
+    // Alias for backward compatibility
+    const stopVoiceRecognition = cancelVoiceRecognition;
+
     function showMicrophonePermissionHelp() {
-        stopVoiceRecognition();
+        cancelVoiceRecognition();
         const msgContainer = document.getElementById('aiChatMessages');
         const bubble = document.createElement('div');
         bubble.className = 'flex items-start gap-2.5';
@@ -337,69 +528,19 @@
         scrollChatToBottom();
     }
 
-    async function toggleVoiceRecognition() {
-        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!SpeechRecognition) {
-            alert("Speech Recognition is not supported by your current browser. Please try Google Chrome or Microsoft Edge.");
-            return;
-        }
-
-        if (isRecordingSpeech) {
-            if (speechRecognitionInstance) {
-                try { speechRecognitionInstance.stop(); } catch(e) {}
-            }
-            stopVoiceRecognition();
-            return;
-        }
-
-        // Cancel any ongoing TTS audio before listening
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-        }
-
-        // Actively prompt for microphone permission via getUserMedia if needed
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                // Release audio track immediately so SpeechRecognition can take over
-                stream.getTracks().forEach(t => t.stop());
-            } catch (err) {
-                console.warn("Microphone access error:", err);
-                showMicrophonePermissionHelp();
-                return;
-            }
-        }
-
-        if (!speechRecognitionInstance) {
-            speechRecognitionInstance = initSpeechRecognitionEngine();
-        }
-
-        try {
-            speechRecognitionInstance.start();
-        } catch (e) {
-            try { speechRecognitionInstance.stop(); } catch(err) {}
-            setTimeout(() => {
-                try { speechRecognitionInstance.start(); } catch(err) {}
-            }, 250);
-        }
-    }
-
-    function stopVoiceRecognition() {
-        isRecordingSpeech = false;
-        updateMicUI(false);
-    }
-
     function updateMicUI(listening) {
         const btn = document.getElementById('aiChatMicBtn');
         const banner = document.getElementById('aiVoiceBanner');
+        const bannerText = document.getElementById('aiVoiceBannerText');
         const input = document.getElementById('aiChatInput');
 
         if (!btn) return;
 
         if (listening) {
-            btn.className = "p-2 rounded-xl bg-rose-500 text-white shadow-md shadow-rose-500/30 animate-pulse transition active:scale-95 focus:outline-none cursor-pointer";
-            btn.title = "Listening... click to stop";
+            btn.className = "p-2 rounded-xl bg-rose-500 text-white shadow-md shadow-rose-500/40 ring-4 ring-rose-300/50 animate-pulse transition active:scale-95 focus:outline-none cursor-pointer";
+            btn.title = "Listening... Click to Submit Query";
             if (banner) banner.classList.remove('hidden');
+            if (bannerText) bannerText.textContent = "🎙️ Listening... speak your college question now";
             if (input) input.placeholder = "🎙️ Listening... please speak your question now";
         } else {
             btn.className = "p-2 rounded-xl text-slate-500 hover:text-sky-600 hover:bg-sky-100/70 transition active:scale-95 focus:outline-none cursor-pointer";
