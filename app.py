@@ -4652,6 +4652,17 @@ def generate_fallback_reply(message, context):
     """
     msg_lower = message.lower()
 
+    if any(k in msg_lower for k in ["admin", "administrator", "system admin", "support phone", "admin phone", "developer phone", "contact admin", "contact number", "phone number"]):
+        return (
+            "👨‍💻 **Smart College Predictor - System Administrator Contact**\n\n"
+            "If you need technical assistance, portal support, or have platform inquiries, here are the direct contact details for our System Administration team:\n\n"
+            "• **System Administrator & Lead Developer:** Uday\n"
+            "• **Direct Phone:** [+91 8919221139](tel:8919221139)\n"
+            "• **Email:** [udayu6853@gmail.com](mailto:udayu6853@gmail.com)\n"
+            "• **Admin Portal:** Visit our official [System Administrator Support Page](/admin-contact)\n\n"
+            "💡 *Feel free to reach out directly if you experience any portal issues or need technical help!*"
+        )
+
     if any(k in msg_lower for k in ["counseling", "counselling", "document", "documents", "procedure", "verification", "process"]):
         return (
             "📋 **Official Counseling & Document Verification Guide**\n\n"
@@ -4722,7 +4733,13 @@ def call_gemini_api(api_key, message, history, context):
         "2. When college records are provided in the Context, accurately cite their cutoffs, locations, and ratings.\n"
         "3. Use structured markdown formatting with bullet points and bold highlights.\n"
         "4. If asked about admissions or counseling procedures, outline clear, actionable steps.\n"
-        "5. Keep responses concise and easy to read on mobile or desktop."
+        "5. System Administrator & Technical Support Contact:\n"
+        "   - System Administrator & Lead Developer: Uday\n"
+        "   - Phone Number: +91 8919221139\n"
+        "   - Email: udayu6853@gmail.com\n"
+        "   - Admin Portal: /admin-contact\n"
+        "   - If a student asks for the System Administrator, developer, technical support, or project contact details/phone number, share this official contact card directly and politely.\n"
+        "6. Keep responses concise and easy to read on mobile or desktop."
     )
 
     full_prompt = f"Student Question: {message}\n"
