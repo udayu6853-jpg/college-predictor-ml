@@ -292,7 +292,7 @@
             console.warn('SpeechRecognition error:', event.error);
             stopVoiceRecognition();
             if (event.error === 'not-allowed' || event.error === 'permission-denied') {
-                appendAiMessage("⚠️ Microphone permission was blocked. Please enable microphone permissions in your browser bar to speak.");
+                showMicrophonePermissionHelp();
             }
         };
 
@@ -312,35 +312,75 @@
         return rec;
     }
 
-    function toggleVoiceRecognition() {
+    function showMicrophonePermissionHelp() {
+        stopVoiceRecognition();
+        const msgContainer = document.getElementById('aiChatMessages');
+        const bubble = document.createElement('div');
+        bubble.className = 'flex items-start gap-2.5';
+        bubble.innerHTML = `
+            <div class="w-7 h-7 rounded-xl bg-amber-500 text-white flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs font-bold text-[10px]">
+                🎙️
+            </div>
+            <div class="bg-amber-50 border border-amber-200 rounded-2xl rounded-tl-sm p-3.5 shadow-xs max-w-[88%] text-amber-900 leading-relaxed text-xs space-y-2">
+                <p class="font-bold text-amber-950 flex items-center gap-1.5">
+                    <span>How to Enable Microphone in 2 Clicks:</span>
+                </p>
+                <ol class="list-decimal pl-4 space-y-1 text-[11px] text-amber-800">
+                    <li>Look at the top address bar next to <code>127.0.0.1:5000</code>.</li>
+                    <li>Click the <strong>view site info / tune icon (🎛️ or 🔒)</strong> or the crossed-out microphone icon.</li>
+                    <li>Toggle <strong>Microphone</strong> from <em>Blocked</em> to <strong>Allow</strong>.</li>
+                    <li>Click the <strong>🎙️ Mic</strong> button again to talk!</li>
+                </ol>
+            </div>
+        `;
+        msgContainer.appendChild(bubble);
+        scrollChatToBottom();
+    }
+
+    async function toggleVoiceRecognition() {
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SpeechRecognition) {
             alert("Speech Recognition is not supported by your current browser. Please try Google Chrome or Microsoft Edge.");
             return;
         }
 
+        if (isRecordingSpeech) {
+            if (speechRecognitionInstance) {
+                try { speechRecognitionInstance.stop(); } catch(e) {}
+            }
+            stopVoiceRecognition();
+            return;
+        }
+
+        // Cancel any ongoing TTS audio before listening
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+
+        // Actively prompt for microphone permission via getUserMedia if needed
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                // Release audio track immediately so SpeechRecognition can take over
+                stream.getTracks().forEach(t => t.stop());
+            } catch (err) {
+                console.warn("Microphone access error:", err);
+                showMicrophonePermissionHelp();
+                return;
+            }
+        }
+
         if (!speechRecognitionInstance) {
             speechRecognitionInstance = initSpeechRecognitionEngine();
         }
 
-        if (isRecordingSpeech) {
-            try {
-                speechRecognitionInstance.stop();
-            } catch(e) {}
-            stopVoiceRecognition();
-        } else {
-            // Cancel any ongoing TTS speech before listening
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
-            try {
-                speechRecognitionInstance.start();
-            } catch (e) {
-                speechRecognitionInstance.stop();
-                setTimeout(() => {
-                    try { speechRecognitionInstance.start(); } catch(err) {}
-                }, 200);
-            }
+        try {
+            speechRecognitionInstance.start();
+        } catch (e) {
+            try { speechRecognitionInstance.stop(); } catch(err) {}
+            setTimeout(() => {
+                try { speechRecognitionInstance.start(); } catch(err) {}
+            }, 250);
         }
     }
 
