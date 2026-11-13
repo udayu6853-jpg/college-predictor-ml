@@ -4646,82 +4646,94 @@ def retrieve_college_context(query, kcet_df_source, eamcet_df_source, max_result
     return "\n".join(context_lines)
 
 
-def generate_fallback_reply(message, context):
+def get_user_prediction_context(user_id):
     """
-    Context-aware intelligent response when Gemini API key is unset or external call fails.
+    Fetch logged-in student's recent prediction queries and entered ranks from database for both KCET & EAMCET.
+    """
+    if not user_id:
+        return ""
+    try:
+        conn = get_db_connection()
+        eamcet_rows = conn.execute(
+            "SELECT exam, rank, branch, category, created_at FROM prediction_history WHERE user_id = %s AND LOWER(exam) = 'eamcet' ORDER BY id DESC LIMIT 3",
+            (user_id,)
+        ).fetchall()
+        kcet_rows = conn.execute(
+            "SELECT exam, rank, branch, category, created_at FROM prediction_history WHERE user_id = %s AND LOWER(exam) = 'kcet' ORDER BY id DESC LIMIT 3",
+            (user_id,)
+        ).fetchall()
+        conn.close()
+
+        lines = ["Logged-in Student's Search History:"]
+        if eamcet_rows:
+            lines.append("Recent EAMCET Searches:")
+            for r in eamcet_rows:
+                lines.append(f"• EAMCET: Rank {r.get('rank')}, Branch {r.get('branch', 'General')} (Date: {str(r.get('created_at', ''))[:10]})")
+        if kcet_rows:
+            lines.append("Recent KCET Searches:")
+            for r in kcet_rows:
+                lines.append(f"• KCET: Rank {r.get('rank')}, Branch {r.get('branch', 'General')} (Date: {str(r.get('created_at', ''))[:10]})")
+
+        return "\n".join(lines)
+    except Exception as exc:
+        app.logger.warning("Error fetching user prediction context: %s", exc)
+        return ""
+
+
+def generate_fallback_reply(message, context, user_context=""):
+    """
+    Context-aware short intelligent response (2-4 lines) when Gemini API key is unset or external call fails.
     """
     msg_lower = message.lower()
 
+    # User asking about their entered rank or history
+    if any(k in msg_lower for k in ["my rank", "latest rank", "i entered", "entered in", "my search", "my history", "previous search"]):
+        if user_context and "•" in user_context:
+            first_line = user_context.split("•")[1].split("\n")[0].strip()
+            return f"Your latest entered search: **{first_line}**.\nYou can review your full history on your [Prediction History](/prediction_history) page."
+        return "I couldn't find any recent search entries in your account yet. Try using the [College Predictor](/predictor) to run your first prediction!"
+
+    # Admin inquiry
     if any(k in msg_lower for k in [
         "admin", "administrator", "system admin", "support phone", "admin phone",
         "developer", "developer phone", "contact admin", "contact number",
         "phone number", "linkedin", "linkdin", "github", "uday", "creator", "founder"
     ]):
         return (
-            "👨‍💻 **Smart College Predictor - System Administrator & Developer Profile**\n\n"
-            "Here are the official contact credentials and professional profiles for our System Administrator:\n\n"
-            "• **Name & Role:** Uday (System Administrator & Lead Developer)\n"
-            "• **LinkedIn Profile:** [linkedin.com/in/uday-uday-270441354](https://www.linkedin.com/in/uday-uday-270441354)\n"
-            "• **GitHub Repository:** [github.com/udayu6853-jpg](https://github.com/udayu6853-jpg)\n"
-            "• **Direct Phone:** [+91 8919221139](tel:8919221139)\n"
-            "• **Email Address:** [udayu6853@gmail.com](mailto:udayu6853@gmail.com)\n"
-            "• **Admin Portal:** Visit our official [System Administrator Support Page](/admin-contact)\n\n"
-            "💡 *Feel free to connect on LinkedIn or reach out directly for technical support or project collaborations!*"
+            "👨‍💻 **System Administrator & Lead Developer: Uday**\n"
+            "• **Phone:** [+91 8919221139](tel:8919221139) | **Email:** [udayu6853@gmail.com](mailto:udayu6853@gmail.com)\n"
+            "• **LinkedIn:** [Uday on LinkedIn](https://www.linkedin.com/in/uday-uday-270441354) | **Portal:** [/admin-contact](/admin-contact)"
         )
 
+    # Counseling inquiry
     if any(k in msg_lower for k in ["counseling", "counselling", "document", "documents", "procedure", "verification", "process"]):
         return (
-            "📋 **Official Counseling & Document Verification Guide**\n\n"
-            "Here is the essential checklist for **KCET & EAMCET Counseling**:\n\n"
-            "**Mandatory Documents Required:**\n"
-            "1. **Admit Card & Rank Card** of KCET / EAMCET\n"
-            "2. **Class 10th (SSLC) Marks Card** (Proof of Date of Birth)\n"
-            "3. **Class 12th / 2nd PUC Marks Card** (Original + Attested copies)\n"
-            "4. **Study Certificate** (Minimum 7 years of schooling in state for domicile verification)\n"
-            "5. **Caste / Category / Income Certificate** (EWS, OBC, SC/ST, HK region if claiming reservation)\n"
-            "6. **Transfer Certificate (TC)** & Migration Certificate\n"
-            "7. **Passport-size Photographs** (Recent, at least 4-6 copies)\n\n"
-            "**Counseling Process Steps:**\n"
-            "• **Step 1:** Document Verification & Secret Key generation\n"
-            "• **Step 2:** Online Option Entry (arrange colleges by priority)\n"
-            "• **Step 3:** Mock Allotment & Option Editing\n"
-            "• **Step 4:** Round 1 Real Seat Allotment\n"
-            "• **Step 5:** Choice Selection (Accept & Freeze, Float/Hold, Reject) and Fee Payment\n\n"
-            "💡 *Tip: Put your dream colleges in higher priority ranks during option entry!*"
+            "📋 **Key Counseling Documents Checklist:**\n"
+            "1. Rank Card & Admit Card (KCET / EAMCET)\n"
+            "2. 10th & 12th Marks Cards + Study Certificate\n"
+            "3. Category / Domicile Certificate (if claiming reservation)\n"
+            "Follow official portal instructions for online option entry."
         )
 
+    # College list inquiry
     if context.strip():
-        lines = [line.strip() for line in context.strip().split("\n") if line.strip()]
-        formatted_colleges = "\n".join(lines)
-        header = "🎓 **Top Recommended Colleges**" if any(w in msg_lower for w in ["best", "top", "good", "highest", "which"]) else "🎓 **College Search Results**"
-
+        lines = [line.strip() for line in context.strip().split("\n") if line.strip() and not line.startswith("Logged-in")]
+        top_colleges = "\n".join(lines[:3])
         return (
-            f"{header}\n\n"
-            f"Here are the most relevant institutions from our verified dataset (1,300+ colleges):\n\n"
-            f"{formatted_colleges}\n\n"
-            f"📌 **Key Admissions Guidance:**\n"
-            f"• **Cutoff Dynamics**: Lower cutoff ranks indicate higher demand and competition (e.g., CSE & AIML seats close earlier).\n"
-            f"• **Tuition Fees**: Merit/convener quota fees are shown where available; management quota fees may vary.\n"
-            f"• You can shortlist these colleges into your **Dashboard** and compare them side-by-side using the Compare tool!"
+            f"🎓 **Top Matching Colleges:**\n"
+            f"{top_colleges}\n"
+            f"💡 Bookmark these to your [Dashboard](/dashboard) to compare cutoffs and fees!"
         )
 
     return (
-        "🤖 **AI College Assistant**\n\n"
-        "I'm here to help you navigate engineering admissions for **KCET (Karnataka)** and **EAMCET (Andhra Pradesh / Telangana)**.\n\n"
-        "**You can ask me:**\n"
-        "• Cutoff ranks for any college (e.g., *'What is the cutoff for RV College CSE?'*)\n"
-        "• Best colleges in any city (e.g., *'Which college is best in Tirupati?'* or *'Top colleges in Bangalore'*)\n"
-        "• College recommendations by rank (e.g., *'Best colleges for KCET rank 15000 CSE'*)\n"
-        "• System Administrator and Support details (e.g., *'Give System Administrator LinkedIn profile'*)\n"
-        "• Tuition and fee structure comparisons\n"
-        "• Counseling and document verification steps\n\n"
-        "Try asking one of the suggested prompts or enter a college name, city, or rank above!"
+        "👋 Hi! I can help you with KCET/EAMCET cutoff ranks, top colleges by location, or your entered rank history.\n"
+        "What college, rank, or city would you like to check?"
     )
 
 
 def call_gemini_api(api_key, message, history, context):
     """
-    Call Google Gemini REST API with system instructions and dataset context.
+    Call Google Gemini REST API with strict conciseness rules and dataset context.
     """
     models = [
         "gemini-3.5-flash-lite",
@@ -4733,31 +4745,19 @@ def call_gemini_api(api_key, message, history, context):
         "gemini-pro-latest"
     ]
     system_instruction = (
-        "You are the Smart College Predictor AI Assistant, an empathetic, highly knowledgeable counselor for "
-        "engineering admissions in KCET (Karnataka) and EAMCET (Andhra Pradesh / Telangana).\n"
-        "Guidelines:\n"
-        "1. Give direct, accurate, encouraging responses about cutoffs, colleges, locations, fees, and branches.\n"
-        "2. When college records are provided in the Context, accurately cite their cutoffs, locations, and ratings.\n"
-        "3. Use structured markdown formatting with bullet points and bold highlights.\n"
-        "4. If asked about admissions or counseling procedures, outline clear, actionable steps.\n"
-        "5. Platform Administration & Developer Profiles:\n"
-        "   - System Administrator & Lead Developer: Uday\n"
-        "   - Direct Phone: +91 8919221139\n"
-        "   - Email: udayu6853@gmail.com\n"
-        "   - LinkedIn Profile: https://www.linkedin.com/in/uday-uday-270441354\n"
-        "   - GitHub Profile: https://github.com/udayu6853-jpg\n"
-        "   - Admin Contact Page: /admin-contact\n"
-        "   - If a student asks for the System Administrator, developer, LinkedIn profile, GitHub, phone number, email, or team information, share these official links and contact details directly.\n"
-        "6. Project Overview:\n"
-        "   - Platform: Smart College Predictor (KCET & EAMCET)\n"
-        "   - Database: 560 KCET and 771 EAMCET engineering colleges (1,300+ total).\n"
-        "   - Key Capabilities: Rank-based prediction, multi-college comparison, cutoff analysis, bookmarking, and counseling guidance.\n"
-        "7. Keep responses concise and easy to read on mobile or desktop."
+        "You are the Smart College Predictor AI Assistant for KCET and EAMCET.\n"
+        "MANDATORY CONCISENESS RULES:\n"
+        "1. Keep EVERY response STRICTLY SHORT: ONLY 2 TO 4 LINES MAXIMUM.\n"
+        "2. Never write long essays, questionnaires, or walls of text.\n"
+        "3. Answer the user's specific question directly with only the key facts.\n"
+        "4. If asked about the user's entered rank or search history, state it directly from User Context in 1-2 lines.\n"
+        "5. If listing colleges, show at most 2-3 top options in brief bullet points (Name, Branch, Cutoff, Rating).\n"
+        "6. System Administrator: Uday (+91 8919221139, udayu6853@gmail.com, https://www.linkedin.com/in/uday-uday-270441354). Only mention when specifically asked."
     )
 
     full_prompt = f"Student Question: {message}\n"
     if context:
-        full_prompt = f"Relevant Official College Records from Database:\n{context}\n\n" + full_prompt
+        full_prompt = f"Relevant Official Context from Database:\n{context}\n\n" + full_prompt
 
     contents = []
     # Avoid duplicate current message if widget already appended it to history
@@ -4766,7 +4766,7 @@ def call_gemini_api(api_key, message, history, context):
         if not (item.get("role") == "user" and str(item.get("content", "")).strip() == message)
     ]
 
-    for item in valid_history[-6:]:
+    for item in valid_history[-4:]:
         role = item.get("role")
         content = str(item.get("content", "")).strip()
         if not content:
@@ -4787,8 +4787,8 @@ def call_gemini_api(api_key, message, history, context):
                     "parts": [{"text": system_instruction}]
                 },
                 "generationConfig": {
-                    "temperature": 0.4,
-                    "maxOutputTokens": 700
+                    "temperature": 0.2,
+                    "maxOutputTokens": 160
                 }
             }
             req = urllib.request.Request(
@@ -4797,7 +4797,7 @@ def call_gemini_api(api_key, message, history, context):
                 headers={"Content-Type": "application/json"},
                 method="POST"
             )
-            with urllib.request.urlopen(req, timeout=15) as response:
+            with urllib.request.urlopen(req, timeout=12) as response:
                 result = json.loads(response.read().decode("utf-8"))
                 candidates = result.get("candidates", [])
                 if candidates:
@@ -4830,18 +4830,28 @@ def api_chat():
     if not message:
         return jsonify({"status": "error", "error": "Message cannot be empty."}), 400
 
-    context = retrieve_college_context(message, kcet_df, eamcet_df)
+    user_id = session.get("user_id")
+    user_context = get_user_prediction_context(user_id)
+    college_context = retrieve_college_context(message, kcet_df, eamcet_df)
+
+    context_parts = []
+    if user_context:
+        context_parts.append(user_context)
+    if college_context:
+        context_parts.append(college_context)
+    combined_context = "\n\n".join(context_parts)
+
     api_key = os.getenv("GEMINI_API_KEY", "").strip()
 
     reply = None
     if api_key and api_key != "your_gemini_api_key_here":
         try:
-            reply = call_gemini_api(api_key, message, history, context)
+            reply = call_gemini_api(api_key, message, history, combined_context)
         except Exception as exc:
             app.logger.warning("Gemini API call error: %s", exc)
 
     if not reply:
-        reply = generate_fallback_reply(message, context)
+        reply = generate_fallback_reply(message, combined_context, user_context)
 
     return jsonify({"status": "success", "reply": reply})
 
