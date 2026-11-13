@@ -4686,26 +4686,60 @@ def generate_fallback_reply(message, context, user_context=""):
     """
     msg_lower = message.lower()
 
-    # User asking about their entered rank or history
+    # 1. User asking about their entered rank or history
     if any(k in msg_lower for k in ["my rank", "latest rank", "i entered", "entered in", "my search", "my history", "previous search"]):
         if user_context and "•" in user_context:
             first_line = user_context.split("•")[1].split("\n")[0].strip()
             return f"Your latest entered search: **{first_line}**.\nYou can review your full history on your [Prediction History](/prediction_history) page."
         return "I couldn't find any recent search entries in your account yet. Try using the [College Predictor](/predictor) to run your first prediction!"
 
-    # Admin inquiry
+    # 2. Machine Learning Model & Accuracy questions
+    if any(k in msg_lower for k in ["ml model", "machine learning", "accuracy", "random forest", "algorithm", "model performance"]):
+        return (
+            "🤖 **Machine Learning Architecture:**\n"
+            "This project uses a Scikit-learn **Random Forest Classifier** (`model/college_predictor.pkl`) trained on historical round allotment distributions.\n"
+            "• **Accuracy:** **90.81%** | **Precision:** **93.02%** | **Recall:** **91.56%**"
+        )
+
+    # 3. Datasets & Total Colleges questions
+    if any(k in msg_lower for k in ["dataset", "datasets", "how many colleges", "records", "data in project", "attribute"]):
+        return (
+            "📊 **Project Datasets Overview:**\n"
+            "• **Total Programs:** **1,331 accredited offerings** across 13 standardized attributes.\n"
+            "• **KCET Dataset:** 560 engineering institutions in Karnataka (`dataset/kcet_colleges.csv`).\n"
+            "• **EAMCET Dataset:** 771 engineering institutions in AP/Telangana (`dataset/eamcet_colleges.csv`)."
+        )
+
+    # 4. Tech Stack & Technologies used
+    if any(k in msg_lower for k in ["tech stack", "technology", "technologies", "framework", "built with", "backend", "frontend"]):
+        return (
+            "⚙️ **System Tech Stack:**\n"
+            "• **Backend & ML:** Python 3, Flask framework, Scikit-learn Random Forest, Pandas.\n"
+            "• **Database & Cloud:** PostgreSQL on Render Cloud + SQLite local fallback (`college_predictor.db`).\n"
+            "• **Frontend & AI:** Responsive Tailwind CSS SaaS UI + Google Gemini 3.5 AI Assistant."
+        )
+
+    # 5. Automation & Real-time counseling updates
+    if any(k in msg_lower for k in ["automation", "yearly", "batch", "crawler", "update dataset"]):
+        return (
+            "🔄 **Yearly Automation Engine:**\n"
+            "The platform includes `run_yearly_automation.bat` and python crawler scripts in `automation/` to synchronize real-time KEA/APSCHE cutoffs, scrape NAAC ratings, and retrain ML models annually."
+        )
+
+    # 6. Admin, Developer & Team inquiries
     if any(k in msg_lower for k in [
         "admin", "administrator", "system admin", "support phone", "admin phone",
         "developer", "developer phone", "contact admin", "contact number",
-        "phone number", "linkedin", "linkdin", "github", "uday", "creator", "founder"
+        "phone number", "linkedin", "linkdin", "github", "uday", "creator", "founder", "team", "coordinator"
     ]):
         return (
             "👨‍💻 **System Administrator & Lead Developer: Uday**\n"
             "• **Phone:** [+91 8919221139](tel:8919221139) | **Email:** [udayu6853@gmail.com](mailto:udayu6853@gmail.com)\n"
-            "• **LinkedIn:** [Uday on LinkedIn](https://www.linkedin.com/in/uday-uday-270441354) | **Portal:** [/admin-contact](/admin-contact)"
+            "• **LinkedIn:** [Uday on LinkedIn](https://www.linkedin.com/in/uday-uday-270441354) | **GitHub:** [udayu6853-jpg](https://github.com/udayu6853-jpg)\n"
+            "• **Project Coordinators:** Varun, Prajwal, Pruthvi | **Portal:** [/admin-contact](/admin-contact)"
         )
 
-    # Counseling inquiry
+    # 7. Counseling inquiry
     if any(k in msg_lower for k in ["counseling", "counselling", "document", "documents", "procedure", "verification", "process"]):
         return (
             "📋 **Key Counseling Documents Checklist:**\n"
@@ -4715,7 +4749,7 @@ def generate_fallback_reply(message, context, user_context=""):
             "Follow official portal instructions for online option entry."
         )
 
-    # College list inquiry
+    # 8. College list inquiry
     if context.strip():
         lines = [line.strip() for line in context.strip().split("\n") if line.strip() and not line.startswith("Logged-in")]
         top_colleges = "\n".join(lines[:3])
@@ -4733,7 +4767,7 @@ def generate_fallback_reply(message, context, user_context=""):
 
 def call_gemini_api(api_key, message, history, context):
     """
-    Call Google Gemini REST API with strict conciseness rules and dataset context.
+    Call Google Gemini REST API with strict conciseness rules and comprehensive project knowledge.
     """
     models = [
         "gemini-3.5-flash-lite",
@@ -4745,14 +4779,24 @@ def call_gemini_api(api_key, message, history, context):
         "gemini-pro-latest"
     ]
     system_instruction = (
-        "You are the Smart College Predictor AI Assistant for KCET and EAMCET.\n"
-        "MANDATORY CONCISENESS RULES:\n"
-        "1. Keep EVERY response STRICTLY SHORT: ONLY 2 TO 4 LINES MAXIMUM.\n"
-        "2. Never write long essays, questionnaires, or walls of text.\n"
-        "3. Answer the user's specific question directly with only the key facts.\n"
-        "4. If asked about the user's entered rank or search history, state it directly from User Context in 1-2 lines.\n"
-        "5. If listing colleges, show at most 2-3 top options in brief bullet points (Name, Branch, Cutoff, Rating).\n"
-        "6. System Administrator: Uday (+91 8919221139, udayu6853@gmail.com, https://www.linkedin.com/in/uday-uday-270441354). Only mention when specifically asked."
+        "You are the official Smart College Predictor AI Assistant, an expert on this exact platform, its machine learning model, datasets, and architecture.\n"
+        "MANDATORY CONCISENESS RULE (CRITICAL):\n"
+        "- Keep EVERY answer STRICTLY SHORT: ONLY 2 TO 4 LINES MAXIMUM.\n"
+        "- Answer directly with precise facts. Never output long essays, surveys, or questionnaires.\n\n"
+        "KNOWLEDGE BASE ABOUT THIS PROJECT:\n"
+        "1. Project Overview: Smart College Predictor (Live at college-predictor-ml.onrender.com), an admission prediction system for KCET (Karnataka) and EAMCET (Andhra Pradesh/Telangana).\n"
+        "2. Datasets: 1,331 total college programs across 13 attributes:\n"
+        "   - KCET: 560 institutions in Karnataka (Bengaluru, Mysuru, Belgaum, etc.).\n"
+        "   - EAMCET: 771 institutions in AP/Telangana (Tirupati, Kadapa, Hyderabad, Vizag, etc.).\n"
+        "   - Attributes: College Name, Branch, Cutoff Rank, Rating (1.0-5.0 from NAAC/NIRF), Location, Management Fees, Exam Fees, Hostel Fees, State, Image, Lat, Long, Website.\n"
+        "3. Machine Learning Model: Trained with Scikit-learn RandomForestClassifier (train_model.py, saved at model/college_predictor.pkl) with 90.81% accuracy, 93.02% precision, 91.56% recall.\n"
+        "4. Technology Stack: Python 3, Flask framework, Scikit-learn, Tailwind CSS, PostgreSQL on Render cloud, SQLite local fallback, Google OAuth 2.0, CSRF protection.\n"
+        "5. Key Features & Routes: /predictor (ML rank predictor), /colleges (1,300+ directory), /compare (multi-college matrix), /saved-colleges (bookmarks), /prediction-history (search audit logs), /profile (avatar & details), /admin-contact (team governance), /database-records (viewer).\n"
+        "6. Automation Engine: run_yearly_automation.bat & automation/ scripts for real-time KEA/APSCHE counseling crawlers and annual dataset refresh.\n"
+        "7. Project Team & Leadership:\n"
+        "   - System Administrator & Lead Developer: Uday (Phone: +91 8919221139, Email: udayu6853@gmail.com, LinkedIn: https://www.linkedin.com/in/uday-uday-270441354, GitHub: https://github.com/udayu6853-jpg).\n"
+        "   - Project Coordinators: Varun, Prajwal, Pruthvi.\n"
+        "8. User Context & History: If the student asks about a rank they entered or their past search, cite it directly from the Logged-in Student's Search History in 1-2 lines."
     )
 
     full_prompt = f"Student Question: {message}\n"
