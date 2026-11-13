@@ -221,6 +221,7 @@
     let autoSpeakAnswers = false;
     let speechRecognitionInstance = null;
     let isRecordingSpeech = false;
+    let isSubmittingVoice = false;
     let currentVoiceTranscript = '';
     let speechSilenceTimer = null;
     let currentVoiceLang = localStorage.getItem('aiChatVoiceLang') || 'en-IN';
@@ -366,13 +367,14 @@
         }
 
         const rec = speechRecognitionInstance;
-        rec.continuous = true;       // Live streaming transcription
-        rec.interimResults = true;   // Live word-by-word streaming
+        rec.continuous = true;
+        rec.interimResults = true;
         rec.maxAlternatives = 1;
         rec.lang = currentVoiceLang; // Default 'en-IN' for KCET/EAMCET names and Indian accents
 
         rec.onstart = function() {
             isRecordingSpeech = true;
+            isSubmittingVoice = false;
             updateMicUI(true);
             updateVoiceLangUI();
             const bannerText = document.getElementById('aiVoiceBannerText');
@@ -383,7 +385,7 @@
 
         rec.onspeechstart = function() {
             const bannerText = document.getElementById('aiVoiceBannerText');
-            if (bannerText) {
+            if (bannerText && !isSubmittingVoice) {
                 bannerText.textContent = "🎙️ Hearing your voice... keep speaking!";
             }
         };
@@ -408,24 +410,30 @@
                     input.value = liveSpoken;
                 }
                 const bannerText = document.getElementById('aiVoiceBannerText');
-                if (bannerText) {
+                if (bannerText && !isSubmittingVoice) {
                     const safeSpoken = liveSpoken.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
                     bannerText.innerHTML = `🎙️ Heard: <span class="font-bold text-rose-900 truncate max-w-[190px] inline-block align-bottom">"${safeSpoken}"</span>`;
                 }
 
-                // Smart auto-submit: 1.4 seconds of silence after speaking automatically submits!
+                // If user clicked Predict while speaking, immediately submit as transcript arrives!
+                if (isSubmittingVoice) {
+                    finishAndSubmitVoiceQuery(liveSpoken);
+                    return;
+                }
+
+                // Smart auto-submit: 1.5 seconds of silence after speaking automatically submits!
                 clearTimeout(speechSilenceTimer);
                 speechSilenceTimer = setTimeout(() => {
                     if (isRecordingSpeech && currentVoiceTranscript.trim().length > 0) {
-                        submitVoiceQueryNow();
+                        finishAndSubmitVoiceQuery(currentVoiceTranscript);
                     }
-                }, 1400);
+                }, 1500);
             }
         };
 
         rec.onspeechend = function() {
             const bannerText = document.getElementById('aiVoiceBannerText');
-            if (bannerText && currentVoiceTranscript) {
+            if (bannerText && currentVoiceTranscript && !isSubmittingVoice) {
                 bannerText.textContent = "⚡ Speech completed! Getting prediction...";
             }
         };
@@ -447,12 +455,16 @@
         };
 
         rec.onend = function() {
-            if (isRecordingSpeech) {
-                if (currentVoiceTranscript && currentVoiceTranscript.trim().length > 0) {
-                    submitVoiceQueryNow();
+            const pendingText = (currentVoiceTranscript || (document.getElementById('aiChatInput') ? document.getElementById('aiChatInput').value : '')).trim();
+            if (isSubmittingVoice || (isRecordingSpeech && pendingText.length > 0)) {
+                if (pendingText) {
+                    finishAndSubmitVoiceQuery(pendingText);
                 } else {
                     cancelVoiceRecognition();
+                    appendAiMessage("⚠️ No speech was recognized. Please speak clearly into your mic or type your question below.");
                 }
+            } else if (isRecordingSpeech) {
+                cancelVoiceRecognition();
             }
         };
 
@@ -464,30 +476,80 @@
         }
     }
 
-    function submitVoiceQueryNow() {
+    function finishAndSubmitVoiceQuery(text) {
         clearTimeout(speechSilenceTimer);
-        const input = document.getElementById('aiChatInput');
-        const textToSubmit = (currentVoiceTranscript || (input ? input.value : '')).trim();
-
-        // Stop recognition cleanly
+        isSubmittingVoice = false;
         isRecordingSpeech = false;
+
         if (speechRecognitionInstance) {
             try { speechRecognitionInstance.stop(); } catch(e) {}
             speechRecognitionInstance = null;
         }
+
         updateMicUI(false);
+        const input = document.getElementById('aiChatInput');
+        const finalText = (text || currentVoiceTranscript || (input ? input.value : '')).trim();
         currentVoiceTranscript = '';
 
-        if (textToSubmit && textToSubmit.length > 0) {
-            if (input) input.value = textToSubmit;
+        if (finalText && finalText.length > 0) {
+            if (input) input.value = finalText;
             setTimeout(() => {
                 handleAiChatSubmit(new Event('submit'));
             }, 100);
         }
     }
 
+    function submitVoiceQueryNow() {
+        clearTimeout(speechSilenceTimer);
+        const input = document.getElementById('aiChatInput');
+        const existingText = (currentVoiceTranscript || (input ? input.value : '')).trim();
+
+        if (existingText) {
+            finishAndSubmitVoiceQuery(existingText);
+            return;
+        }
+
+        // If recognition is active, stop it and flush Chrome's pending speech buffer
+        if (speechRecognitionInstance && isRecordingSpeech) {
+            isSubmittingVoice = true;
+            const bannerText = document.getElementById('aiVoiceBannerText');
+            if (bannerText) {
+                bannerText.innerHTML = `⏳ <span class="font-bold text-rose-900">Processing speech... please wait</span>`;
+            }
+            try {
+                speechRecognitionInstance.stop();
+            } catch(e) {}
+
+            // Safety timeout in case no speech was detected by speech server
+            setTimeout(() => {
+                if (isSubmittingVoice) {
+                    isSubmittingVoice = false;
+                    const fallback = (currentVoiceTranscript || (input ? input.value : '')).trim();
+                    if (fallback) {
+                        finishAndSubmitVoiceQuery(fallback);
+                    } else {
+                        cancelVoiceRecognition();
+                        appendAiMessage("⚠️ No speech was recognized. Please speak clearly into your microphone or type your question below.");
+                    }
+                }
+            }, 1800);
+            return;
+        }
+
+        // Neither text nor active voice
+        if (input) {
+            input.placeholder = "⚠️ Please speak or type your college question first...";
+            input.classList.add('ring-2', 'ring-rose-400');
+            setTimeout(() => {
+                input.classList.remove('ring-2', 'ring-rose-400');
+                input.placeholder = "Ask about colleges, cutoffs, or click 🎙️ to talk...";
+            }, 2500);
+        }
+    }
+
     function cancelVoiceRecognition() {
         clearTimeout(speechSilenceTimer);
+        isSubmittingVoice = false;
         isRecordingSpeech = false;
         if (speechRecognitionInstance) {
             try { speechRecognitionInstance.abort(); } catch(e) {}
@@ -624,13 +686,29 @@
     async function handleAiChatSubmit(e) {
         if (e) e.preventDefault();
         const input = document.getElementById('aiChatInput');
-        const message = input.value.trim();
-        if (!message) return;
+        let message = (input ? input.value : '').trim();
+
+        // If input box is empty but voice recognition was running and captured speech:
+        if (!message && currentVoiceTranscript.trim()) {
+            message = currentVoiceTranscript.trim();
+            if (input) input.value = message;
+        }
+
+        if (!message) {
+            if (input) {
+                input.placeholder = "⚠️ Please speak or type your college question first...";
+                input.classList.add('ring-2', 'ring-rose-400');
+                setTimeout(() => {
+                    input.classList.remove('ring-2', 'ring-rose-400');
+                    input.placeholder = "Ask about colleges, cutoffs, or click 🎙️ to talk...";
+                }, 2500);
+            }
+            return;
+        }
 
         // If voice recording is still running, stop it
         if (isRecordingSpeech) {
-            try { speechRecognitionInstance.stop(); } catch(err) {}
-            stopVoiceRecognition();
+            cancelVoiceRecognition();
         }
 
         // Hide suggestions once user interacts
