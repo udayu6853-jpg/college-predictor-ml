@@ -1,5 +1,6 @@
 <!-- ============================================================ -->
 <!-- SMART AI COLLEGE ASSISTANT - FLOATING CHATBOT WIDGET -->
+<!-- WITH MICROPHONE VOICE RECOGNITION (SPEECH-TO-TEXT) -->
 <!-- ============================================================ -->
 
 <div id="aiChatbotContainer" class="fixed bottom-6 right-6 z-50 font-sans antialiased text-slate-800">
@@ -24,7 +25,7 @@
     <!-- 2. Chatbot Window Modal -->
     <div
         id="aiChatbotWindow"
-        class="hidden fixed sm:absolute bottom-0 right-0 sm:bottom-16 sm:right-0 w-full sm:w-[400px] h-[92vh] sm:h-[580px] max-h-[88vh] bg-white rounded-t-3xl sm:rounded-3xl border border-sky-100 shadow-2xl shadow-sky-900/15 flex flex-col overflow-hidden transition-all duration-300 z-50"
+        class="hidden fixed sm:absolute bottom-0 right-0 sm:bottom-16 sm:right-0 w-full sm:w-[420px] h-[92vh] sm:h-[600px] max-h-[90vh] bg-white rounded-t-3xl sm:rounded-3xl border border-sky-100 shadow-2xl shadow-sky-900/15 flex flex-col overflow-hidden transition-all duration-300 z-50"
     >
         <!-- Header -->
         <div class="px-5 py-4 bg-gradient-to-r from-sky-600 via-sky-500 to-cyan-600 text-white flex items-center justify-between shadow-md flex-shrink-0">
@@ -47,6 +48,17 @@
             </div>
             
             <div class="flex items-center gap-1">
+                <!-- Text-to-Speech Voice Readout Toggle -->
+                <button
+                    id="aiAutoSpeakBtn"
+                    onclick="toggleAutoSpeak()"
+                    class="p-2 rounded-xl hover:bg-white/15 text-sky-100 hover:text-white transition focus:outline-none opacity-60"
+                    title="Voice Readout: OFF (Click to turn ON voice output)"
+                >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                    </svg>
+                </button>
                 <button
                     onclick="clearAiChat()"
                     class="p-2 rounded-xl hover:bg-white/15 text-sky-100 hover:text-white transition focus:outline-none"
@@ -78,7 +90,7 @@
                 </div>
                 <div class="bg-white border border-sky-100 rounded-2xl rounded-tl-sm p-3.5 shadow-xs max-w-[85%] space-y-2 text-slate-700 leading-relaxed">
                     <p class="font-semibold text-slate-900">👋 Hi! I'm your AI College Assistant.</p>
-                    <p>I can help you find <strong>cutoff ranks</strong>, explore <strong>1,300+ KCET & EAMCET colleges</strong>, compare institutions, and explain counseling procedures.</p>
+                    <p>You can <strong>type</strong> or tap the <strong>🎙️ Microphone</strong> to easily talk! Ask for cutoffs, ratings, fees, or top colleges.</p>
                 </div>
             </div>
 
@@ -86,14 +98,14 @@
             <div id="aiChatSuggestions" class="space-y-1.5 pt-1">
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">Suggested Questions:</p>
                 <div class="flex flex-wrap gap-1.5">
-                    <button onclick="sendQuickPrompt('What is the cutoff for Reva University CSE?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
-                        ⚡ Cutoff for Reva University CSE?
+                    <button onclick="sendQuickPrompt('Which college is best in Tirupati?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
+                        🎓 Best college in Tirupati?
                     </button>
-                    <button onclick="sendQuickPrompt('Top 5 KCET engineering colleges in Bangalore?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
+                    <button onclick="sendQuickPrompt('Top KCET engineering colleges in Bangalore?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
                         🏫 Top KCET colleges in Bangalore?
                     </button>
-                    <button onclick="sendQuickPrompt('What documents are required for KCET counseling?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
-                        📋 KCET counseling documents needed?
+                    <button onclick="sendQuickPrompt('What is the hostel fee in Mohan Babu University?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
+                        🏨 Hostel fee in MBU?
                     </button>
                     <button onclick="sendQuickPrompt('Compare RV College vs BMS College for CSE')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
                         ⚖️ Compare RVCE vs BMSCE
@@ -101,6 +113,15 @@
                 </div>
             </div>
 
+        </div>
+
+        <!-- Voice Listening Banner (Active during speech recognition) -->
+        <div id="aiVoiceBanner" class="hidden px-4 py-2.5 bg-gradient-to-r from-rose-50 via-pink-50 to-rose-50 border-t border-rose-100 flex items-center justify-between text-rose-600 text-[11px] font-semibold animate-pulse">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+                <span id="aiVoiceBannerText">🎙️ Listening... speak your college question now</span>
+            </div>
+            <button type="button" onclick="stopVoiceRecognition()" class="px-2.5 py-0.5 rounded-lg bg-rose-200 hover:bg-rose-300 text-rose-800 text-[10px] font-bold transition cursor-pointer">Stop</button>
         </div>
 
         <!-- Typing Indicator (Hidden by default) -->
@@ -113,27 +134,45 @@
 
         <!-- Input Box -->
         <div class="p-3 bg-white border-t border-sky-100 flex-shrink-0">
-            <form onsubmit="handleAiChatSubmit(event)" class="relative flex items-center gap-2">
+            <form onsubmit="handleAiChatSubmit(event)" class="relative flex items-center">
                 <input
                     type="text"
                     id="aiChatInput"
-                    placeholder="Ask about colleges, cutoffs, fees..."
+                    placeholder="Ask about colleges, cutoffs, or click 🎙️ to talk..."
                     autocomplete="off"
-                    class="w-full px-4 py-3 rounded-2xl bg-sky-50/30 border border-sky-200 text-slate-900 placeholder-slate-400 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition pr-11"
+                    class="w-full pl-4 pr-24 py-3 rounded-2xl bg-sky-50/30 border border-sky-200 text-slate-900 placeholder-slate-400 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition shadow-xs"
                 >
-                <button
-                    type="submit"
-                    id="aiChatSendBtn"
-                    class="absolute right-1.5 p-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white shadow-sm transition active:scale-95 focus:outline-none cursor-pointer"
-                    title="Send Message"
-                >
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                    </svg>
-                </button>
+                <div class="absolute right-1.5 flex items-center gap-1">
+                    <!-- Microphone Speech-to-Text Button -->
+                    <button
+                        type="button"
+                        id="aiChatMicBtn"
+                        onclick="toggleVoiceRecognition()"
+                        class="p-2 rounded-xl text-slate-500 hover:text-sky-600 hover:bg-sky-100/70 transition active:scale-95 focus:outline-none cursor-pointer"
+                        title="Voice Search (Click to speak into chatbot)"
+                    >
+                        <svg id="aiChatMicIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                        </svg>
+                    </button>
+                    <!-- Send Button -->
+                    <button
+                        type="submit"
+                        id="aiChatSendBtn"
+                        class="p-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white shadow-sm transition active:scale-95 focus:outline-none cursor-pointer"
+                        title="Send Message"
+                    >
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                        </svg>
+                    </button>
+                </div>
             </form>
             <div class="mt-1.5 flex items-center justify-between text-[10px] text-slate-400 px-1">
-                <span>Google Gemini 1.5 • KCET & EAMCET</span>
+                <span class="flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    <span class="font-medium text-slate-500">Microphone & Voice Ready</span>
+                </span>
                 <span class="text-sky-600 font-semibold">1,300+ Institutions</span>
             </div>
         </div>
@@ -145,22 +184,35 @@
 <!-- Chatbot Client-Side Logic -->
 <script>
     let aiConversationHistory = [];
+    let speechRecognitionInstance = null;
+    let isRecordingSpeech = false;
+    let autoSpeakAnswers = false;
 
     function toggleAiChatbot() {
         const win = document.getElementById('aiChatbotWindow');
-        const btn = document.getElementById('aiChatbotToggleBtn');
         if (win.classList.contains('hidden')) {
             win.classList.remove('hidden');
             document.getElementById('aiChatInput').focus();
         } else {
             win.classList.add('hidden');
+            if (isRecordingSpeech) {
+                stopVoiceRecognition();
+            }
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
         }
     }
 
     function clearAiChat() {
         aiConversationHistory = [];
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+        }
+        if (isRecordingSpeech) {
+            stopVoiceRecognition();
+        }
         const msgContainer = document.getElementById('aiChatMessages');
-        // Reset to initial welcome message
         msgContainer.innerHTML = `
             <div class="flex items-start gap-2.5">
                 <div class="w-7 h-7 rounded-xl bg-sky-500 text-white flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs font-bold text-[10px]">
@@ -168,20 +220,17 @@
                 </div>
                 <div class="bg-white border border-sky-100 rounded-2xl rounded-tl-sm p-3.5 shadow-xs max-w-[85%] space-y-2 text-slate-700 leading-relaxed">
                     <p class="font-semibold text-slate-900">Chat history cleared! 🧹</p>
-                    <p>What would you like to know about colleges, cutoffs, or admissions?</p>
+                    <p>What would you like to know? You can type or click <strong>🎙️</strong> to speak.</p>
                 </div>
             </div>
             <div id="aiChatSuggestions" class="space-y-1.5 pt-1">
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">Suggested Questions:</p>
                 <div class="flex flex-wrap gap-1.5">
-                    <button onclick="sendQuickPrompt('What is the cutoff for Reva University CSE?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
-                        ⚡ Cutoff for Reva University CSE?
+                    <button onclick="sendQuickPrompt('Which college is best in Tirupati?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
+                        🎓 Best college in Tirupati?
                     </button>
-                    <button onclick="sendQuickPrompt('Top 5 KCET engineering colleges in Bangalore?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
+                    <button onclick="sendQuickPrompt('Top KCET colleges in Bangalore?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
                         🏫 Top KCET colleges in Bangalore?
-                    </button>
-                    <button onclick="sendQuickPrompt('What documents are required for KCET counseling?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
-                        📋 KCET counseling documents needed?
                     </button>
                 </div>
             </div>
@@ -195,7 +244,6 @@
 
     function formatAiResponse(text) {
         if (!text) return "";
-        // Basic Markdown parser for formatting
         let formatted = text
             .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") // XSS protection
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
@@ -209,11 +257,203 @@
         return `<p>${formatted}</p>`;
     }
 
+    // ============================================================
+    // MICROPHONE SPEECH-TO-TEXT ENGINE
+    // ============================================================
+
+    function initSpeechRecognitionEngine() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            return null;
+        }
+
+        const rec = new SpeechRecognition();
+        rec.continuous = false;
+        rec.interimResults = true;
+        rec.lang = 'en-IN'; // Optimized for Indian names & college accents
+
+        rec.onstart = function() {
+            isRecordingSpeech = true;
+            updateMicUI(true);
+        };
+
+        rec.onresult = function(event) {
+            let transcript = '';
+            for (let i = event.resultIndex; i < event.results.length; ++i) {
+                transcript += event.results[i][0].transcript;
+            }
+            const input = document.getElementById('aiChatInput');
+            if (input && transcript) {
+                input.value = transcript;
+            }
+        };
+
+        rec.onerror = function(event) {
+            console.warn('SpeechRecognition error:', event.error);
+            stopVoiceRecognition();
+            if (event.error === 'not-allowed' || event.error === 'permission-denied') {
+                appendAiMessage("⚠️ Microphone permission was blocked. Please enable microphone permissions in your browser bar to speak.");
+            }
+        };
+
+        rec.onend = function() {
+            stopVoiceRecognition();
+            const input = document.getElementById('aiChatInput');
+            if (input && input.value.trim().length > 0) {
+                // Short grace delay before auto-submitting the spoken query
+                setTimeout(() => {
+                    if (input && input.value.trim().length > 0) {
+                        handleAiChatSubmit(new Event('submit'));
+                    }
+                }, 400);
+            }
+        };
+
+        return rec;
+    }
+
+    function toggleVoiceRecognition() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            alert("Speech Recognition is not supported by your current browser. Please try Google Chrome or Microsoft Edge.");
+            return;
+        }
+
+        if (!speechRecognitionInstance) {
+            speechRecognitionInstance = initSpeechRecognitionEngine();
+        }
+
+        if (isRecordingSpeech) {
+            try {
+                speechRecognitionInstance.stop();
+            } catch(e) {}
+            stopVoiceRecognition();
+        } else {
+            // Cancel any ongoing TTS speech before listening
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            try {
+                speechRecognitionInstance.start();
+            } catch (e) {
+                speechRecognitionInstance.stop();
+                setTimeout(() => {
+                    try { speechRecognitionInstance.start(); } catch(err) {}
+                }, 200);
+            }
+        }
+    }
+
+    function stopVoiceRecognition() {
+        isRecordingSpeech = false;
+        updateMicUI(false);
+    }
+
+    function updateMicUI(listening) {
+        const btn = document.getElementById('aiChatMicBtn');
+        const banner = document.getElementById('aiVoiceBanner');
+        const input = document.getElementById('aiChatInput');
+
+        if (!btn) return;
+
+        if (listening) {
+            btn.className = "p-2 rounded-xl bg-rose-500 text-white shadow-md shadow-rose-500/30 animate-pulse transition active:scale-95 focus:outline-none cursor-pointer";
+            btn.title = "Listening... click to stop";
+            if (banner) banner.classList.remove('hidden');
+            if (input) input.placeholder = "🎙️ Listening... please speak your question now";
+        } else {
+            btn.className = "p-2 rounded-xl text-slate-500 hover:text-sky-600 hover:bg-sky-100/70 transition active:scale-95 focus:outline-none cursor-pointer";
+            btn.title = "Voice Search (Click to speak into chatbot)";
+            if (banner) banner.classList.add('hidden');
+            if (input) input.placeholder = "Ask about colleges, cutoffs, or click 🎙️ to talk...";
+        }
+    }
+
+    // ============================================================
+    // TEXT-TO-SPEECH (TTS) AUDIO READOUT
+    // ============================================================
+
+    function cleanForSpeech(text) {
+        if (!text) return "";
+        return text
+            .replace(/\[([^\]]+)\]\([^\)]+\)/g, '$1') // Extract link text
+            .replace(/https?:\/\/[^\s]+/g, 'link') // Shorten URLs
+            .replace(/[•\*#`_~]/g, ' ') // Strip markdown
+            .replace(/₹/g, 'Rupees ')
+            .replace(/~/g, 'approx ')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
+    function toggleSpeakText(btn, rawText) {
+        if (!('speechSynthesis' in window)) {
+            alert("Audio playback is not supported in this browser.");
+            return;
+        }
+
+        if (window.speechSynthesis.speaking) {
+            window.speechSynthesis.cancel();
+            resetSpeakerIcons();
+            return;
+        }
+
+        resetSpeakerIcons();
+
+        const clean = cleanForSpeech(rawText);
+        const utterance = new SpeechSynthesisUtterance(clean);
+        utterance.lang = 'en-IN';
+        utterance.rate = 1.0;
+
+        if (btn) {
+            btn.classList.add('text-sky-600', 'font-semibold');
+        }
+
+        utterance.onend = resetSpeakerIcons;
+        utterance.onerror = resetSpeakerIcons;
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function resetSpeakerIcons() {
+        document.querySelectorAll('.ai-speak-btn').forEach(b => {
+            b.classList.remove('text-sky-600', 'font-semibold');
+        });
+    }
+
+    function toggleAutoSpeak() {
+        autoSpeakAnswers = !autoSpeakAnswers;
+        const btn = document.getElementById('aiAutoSpeakBtn');
+        if (!btn) return;
+
+        if (autoSpeakAnswers) {
+            btn.classList.remove('opacity-60');
+            btn.classList.add('text-white', 'bg-white/20');
+            btn.title = "Voice Readout: ON (Click to mute)";
+        } else {
+            btn.classList.add('opacity-60');
+            btn.classList.remove('text-white', 'bg-white/20');
+            btn.title = "Voice Readout: OFF (Click to unmute)";
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+        }
+    }
+
+    // ============================================================
+    // CHAT SUBMIT & MESSAGE RENDERING
+    // ============================================================
+
     async function handleAiChatSubmit(e) {
         if (e) e.preventDefault();
         const input = document.getElementById('aiChatInput');
         const message = input.value.trim();
         if (!message) return;
+
+        // If voice recording is still running, stop it
+        if (isRecordingSpeech) {
+            try { speechRecognitionInstance.stop(); } catch(err) {}
+            stopVoiceRecognition();
+        }
 
         // Hide suggestions once user interacts
         const suggestions = document.getElementById('aiChatSuggestions');
@@ -276,15 +516,37 @@
         const msgContainer = document.getElementById('aiChatMessages');
         const bubble = document.createElement('div');
         bubble.className = 'flex items-start gap-2.5';
+        
+        const safeEncoded = encodeURIComponent(rawText);
+
         bubble.innerHTML = `
             <div class="w-7 h-7 rounded-xl bg-sky-500 text-white flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs font-bold text-[10px]">
                 AI
             </div>
-            <div class="bg-white border border-sky-100 rounded-2xl rounded-tl-sm p-3.5 shadow-xs max-w-[85%] text-slate-700 leading-relaxed text-xs">
+            <div class="group relative bg-white border border-sky-100 rounded-2xl rounded-tl-sm p-3.5 shadow-xs max-w-[85%] text-slate-700 leading-relaxed text-xs">
                 ${formatAiResponse(rawText)}
+                <div class="mt-2 pt-1 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400">
+                    <span class="font-mono text-[9px] text-sky-600/80">Gemini 3.5</span>
+                    <button
+                        type="button"
+                        onclick="toggleSpeakText(this, decodeURIComponent('${safeEncoded}'))"
+                        class="ai-speak-btn flex items-center gap-1 px-1.5 py-0.5 rounded-md hover:bg-sky-50 text-slate-400 hover:text-sky-600 transition cursor-pointer"
+                        title="Listen to response"
+                    >
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                        </svg>
+                        <span>Listen</span>
+                    </button>
+                </div>
             </div>
         `;
         msgContainer.appendChild(bubble);
+
+        // Auto-play voice if Voice Readout is enabled
+        if (autoSpeakAnswers) {
+            toggleSpeakText(null, rawText);
+        }
     }
 
     function scrollChatToBottom() {
