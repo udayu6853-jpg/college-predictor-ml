@@ -4500,150 +4500,241 @@ def old_compare_url(): return redirect(url_for("compare_colleges" if session.get
 # AI COLLEGE ASSISTANT (GEMINI + RAG CONTEXT)
 # ============================================================
 
-def retrieve_college_context(query, kcet_df_source, eamcet_df_source, max_results=8):
+COLLEGE_ACRONYMS = {
+    "rv": "rv college of engineering",
+    "rvce": "rv college of engineering",
+    "bms": "bms college of engineering",
+    "bmsce": "bms college of engineering",
+    "pes": "pes university",
+    "pesu": "pes university",
+    "pesit": "pes institute of technology",
+    "msrit": "ramaiah institute of technology",
+    "msr": "ramaiah institute of technology",
+    "ramaiah": "ramaiah institute of technology",
+    "dsce": "dayananda sagar college of engineering",
+    "dayananda": "dayananda sagar college of engineering",
+    "nhce": "new horizon college of engineering",
+    "new horizon": "new horizon college of engineering",
+    "bit": "bangalore institute of technology",
+    "uvce": "university visvesvaraya college of engineering",
+    "mbu": "mohan babu university",
+    "mohan babu": "mohan babu university",
+    "svce": "sv college of engineering",
+    "svu": "sri venkateswara university",
+    "svuce": "sri venkateswara university",
+    "cbit": "chaitanya bharathi institute of technology",
+    "aits": "annamacharya institute of technology",
+    "ksrm": "ksrm college of engineering",
+    "gvp": "gayatri vidya parishad college of engineering",
+    "gvpce": "gayatri vidya parishad college of engineering",
+    "mits": "madanapalli institute of technology",
+    "svecw": "shri vishnu engineering college",
+    "vishnu": "vishnu institute of technology",
+    "jntu": "jntua",
+    "jntua": "jntua ananthapur",
+    "jntuk": "jntu kakinada",
+    "rgm": "rajeev gandhi memorial college",
+    "rgmcet": "rajeev gandhi memorial college",
+    "gprec": "g pulla reddy engineering college",
+    "rvrjc": "rvr & jc college of engineering",
+    "srkr": "srkr engineering college",
+    "vrsec": "velagapudi ramakrishna siddhartha",
+    "siddhartha": "velagapudi ramakrishna siddhartha",
+    "vignan": "vignan's institute of information",
+    "klu": "kl university",
+    "gitam": "gitam university",
+    "reva": "reva university",
+    "jss": "jss science and technology university",
+    "sjce": "jss science and technology university",
+    "nie": "the national institute of engineering",
+    "kle": "kle technological university",
+    "oxford": "the oxford college of engineering",
+}
+
+def format_college_row(exam, row):
+    c_name = re.sub(r"\s+", " ", str(row.get("College Name", "Unknown"))).strip()
+    branch = str(row.get("Branch", "General")).strip()
+    cutoff = row.get("Cutoff Rank", "N/A")
+    rating = row.get("Rating", "N/A")
+    loc = str(row.get("Location", "Karnataka/AP")).strip()
+    state = str(row.get("State", "")).strip()
+    govt_fees = row.get("Kcet Fees") or row.get("Eamcet Fees") or row.get("Exam Fees") or "N/A"
+    mgmt_fees = row.get("Management Fees") or "N/A"
+    hostel_fees = row.get("Hostel Fees") or "N/A"
+    website = str(row.get("Website", "")).strip()
+
+    def fmt_cur(val):
+        try:
+            num = float(val)
+            return f"₹{num:,.0f}/yr" if num > 0 else "N/A"
+        except (ValueError, TypeError):
+            return str(val) if val else "N/A"
+
+    g_fmt = fmt_cur(govt_fees)
+    m_fmt = fmt_cur(mgmt_fees)
+    h_fmt = fmt_cur(hostel_fees)
+    loc_str = f"{loc}, {state}" if state and state.lower() not in loc.lower() else loc
+
+    parts = [
+        f"• [{exam}] {c_name} ({branch})",
+        f"Cutoff: ~{cutoff}",
+        f"Rating: {rating}/5",
+        f"Location: {loc_str}",
+        f"Govt Fees: {g_fmt}",
+        f"Mgmt Fees: {m_fmt}",
+        f"Hostel Fees: {h_fmt}"
+    ]
+    if website and website not in ("", "nan", "N/A"):
+        parts.append(f"Website: {website}")
+    return " | ".join(parts)
+
+
+GENERIC_COLLEGE_TERMS = {
+    "college", "colleges", "engineering", "institute", "institue", "institutes",
+    "university", "universities", "technology", "technologies", "school", "academy",
+    "group", "institutions", "autonomous"
+}
+
+COLLEGE_SEARCH_STOPWORDS = {
+    "the", "for", "what", "tell", "about", "and", "cut", "cutoff", "off", "rank", "ranks",
+    "how", "much", "is", "are", "in", "at", "to", "can", "get", "with", "my", "please",
+    "give", "show", "list", "good", "best", "top", "which", "there", "any", "fees", "fee",
+    "hostel", "management", "mgmt", "website", "compare", "versus", "vs", "better", "than",
+    "or", "between", "latest", "entered", "search"
+}
+
+def retrieve_college_context(query, kcet_df_source, eamcet_df_source, max_results=6):
     """
-    Fast keyword, location, and rank-based context retriever from in-memory college datasets.
+    Intelligent college context analyzer supporting acronyms, multi-college comparisons,
+    locations, branch filtering, cutoffs, and 13 standardized attributes.
     """
     if not query:
         return ""
 
-    query_lower = query.lower()
-    query_normalized = query_lower.replace("bangalore", "bengaluru").replace("vizag", "visakhapatnam")
-    clean_words = re.sub(r"[^a-zA-Z0-9\s]", " ", query_normalized).split()
-    stopwords = {
-        "the", "for", "what", "tell", "about", "and", "college", "colleges",
-        "engineering", "cut", "cutoff", "off", "rank", "ranks", "how", "much",
-        "is", "are", "in", "at", "to", "can", "get", "with", "my", "please",
-        "give", "show", "list", "good", "best", "top", "which", "there", "any"
-    }
-    keywords = [w for w in clean_words if len(w) >= 3 and w not in stopwords]
+    q_clean = re.sub(r"\s+", " ", str(query)).strip().lower()
+    q_norm = q_clean.replace("bangalore", "bengaluru").replace("vizag", "visakhapatnam").replace("tirupathi", "tirupati")
 
-    # Check for rank numbers (3 to 6 digits)
-    rank_matches = re.findall(r"\b\d{3,6}\b", query)
-    target_rank = int(rank_matches[0]) if rank_matches else None
-
-    # Check for branch keywords
-    branch_keywords = ["cse", "aiml", "ece", "eee", "mechanical", "civil", "ise", "information science", "data science"]
-    found_branches = [b for b in branch_keywords if b in query_lower]
-
-    is_asking_best = any(k in query_lower for k in ["best", "top", "highest", "ranking", "reputed", "famous", "good"])
-
-    results = []
-    seen = set()
-
-    def filter_and_sort(df, exam_name, mask):
-        if df is None or df.empty:
-            return []
-        matched = df[mask].copy()
-        if matched.empty:
-            return []
-
-        if found_branches:
-            br_search = found_branches[0].upper()
-            br_matched = matched[matched["Branch"].str.upper().str.contains(br_search, na=False)]
-            if not br_matched.empty:
-                matched = br_matched
-
-        if is_asking_best:
-            matched = matched.sort_values(by=["Rating", "Cutoff Rank"], ascending=[False, True])
-        else:
-            matched = matched.sort_values(by="Cutoff Rank", ascending=True)
-
-        return [(exam_name, row) for _, row in matched.iterrows()]
-
-    # 1. Search Location column first (e.g. Tirupati, Bengaluru, Kadapa, Hyderabad, etc.)
-    for kw in keywords:
-        if eamcet_df_source is not None and not eamcet_df_source.empty:
-            e_loc = filter_and_sort(eamcet_df_source, "EAMCET", eamcet_df_source["Location"].str.lower().str.contains(kw, na=False))
-            for item in e_loc:
-                key = (item[0], item[1]["College Name"], item[1].get("Branch", ""))
-                if key not in seen:
-                    seen.add(key)
-                    results.append(item)
-                    if len(results) >= max_results:
-                        break
-
-        if kcet_df_source is not None and not kcet_df_source.empty:
-            k_loc = filter_and_sort(kcet_df_source, "KCET", kcet_df_source["Location"].str.lower().str.contains(kw, na=False))
-            for item in k_loc:
-                key = (item[0], item[1]["College Name"], item[1].get("Branch", ""))
-                if key not in seen:
-                    seen.add(key)
-                    results.append(item)
-                    if len(results) >= max_results:
-                        break
-
-        if len(results) >= max_results:
+    # Detect branch filter if specified
+    branch_map = {"cse": "CSE", "aiml": "AIML", "ece": "ECE", "eee": "EEE", "me": "ME", "mechanical": "ME", "civil": "Civil", "ise": "ISE"}
+    found_branch = None
+    for b_key, b_val in branch_map.items():
+        if re.search(r"\b" + re.escape(b_key) + r"\b", q_norm):
+            found_branch = b_val
             break
 
-    # 2. Search College Name
+    # Detect rank range
+    rank_matches = re.findall(r"\b\d{3,6}\b", q_norm)
+    target_rank = int(rank_matches[0]) if rank_matches else None
+
+    is_asking_best = any(k in q_norm for k in ["best", "top", "highest", "ranking", "reputed", "famous", "good"])
+    is_comparison = any(k in q_norm for k in ["compare", " vs ", " versus ", " or ", "better than"])
+
+    def run_subsearch(sub_q, limit):
+        tokens = re.findall(r"[a-z0-9]+", sub_q)
+        acronym_targets = [COLLEGE_ACRONYMS[t] for t in tokens if t in COLLEGE_ACRONYMS]
+        search_terms = [t for t in tokens if t not in COLLEGE_SEARCH_STOPWORDS and t not in GENERIC_COLLEGE_TERMS and (len(t) >= 3 or t in ("rv", "ms", "sv", "au", "me"))]
+
+        sub_res = []
+        seen = set()
+
+        def add_matching_rows(df, exam, mask):
+            if df is None or df.empty:
+                return
+            matched = df[mask].copy()
+            if matched.empty:
+                return
+            if found_branch:
+                b_match = matched[matched["Branch"].str.upper() == found_branch.upper()]
+                if not b_match.empty:
+                    matched = b_match
+            if is_asking_best:
+                matched = matched.sort_values(by=["Rating", "Cutoff Rank"], ascending=[False, True])
+            else:
+                matched = matched.sort_values(by="Cutoff Rank", ascending=True)
+
+            for _, row in matched.iterrows():
+                key = (exam, row["College Name"], row.get("Branch", ""))
+                if key not in seen:
+                    seen.add(key)
+                    sub_res.append((exam, row))
+                    if len(sub_res) >= limit:
+                        return
+
+        def get_norm_series(df):
+            name_s = df["College Name"].astype(str).str.replace(r"\s+", " ", regex=True).str.lower()
+            loc_s = df["Location"].astype(str).str.replace(r"\s+", " ", regex=True).str.lower()
+            return name_s, loc_s
+
+        # 1. Acronym matches
+        for acr in acronym_targets:
+            for exam, df in [("EAMCET", eamcet_df_source), ("KCET", kcet_df_source)]:
+                if df is None or df.empty:
+                    continue
+                n_s, _ = get_norm_series(df)
+                add_matching_rows(df, exam, n_s.str.contains(acr, na=False))
+                if len(sub_res) >= limit:
+                    return sub_res
+
+        # 2. Multi-word phrase matches (e.g. 'mohan babu')
+        if len(search_terms) >= 2:
+            phrase = " ".join(search_terms)
+            for exam, df in [("EAMCET", eamcet_df_source), ("KCET", kcet_df_source)]:
+                if df is None or df.empty:
+                    continue
+                n_s, _ = get_norm_series(df)
+                add_matching_rows(df, exam, n_s.str.contains(phrase, na=False))
+                if len(sub_res) >= limit:
+                    return sub_res
+
+        # 3. Location matches
+        for term in search_terms:
+            pattern = r"\b" + re.escape(term) + r"\b" if len(term) <= 3 else term
+            for exam, df in [("EAMCET", eamcet_df_source), ("KCET", kcet_df_source)]:
+                if df is None or df.empty:
+                    continue
+                _, l_s = get_norm_series(df)
+                add_matching_rows(df, exam, l_s.str.contains(pattern, regex=True, na=False))
+                if len(sub_res) >= limit:
+                    return sub_res
+
+        # 4. College Name term match (using word boundary for short tokens)
+        for term in search_terms:
+            pattern = r"\b" + re.escape(term) + r"\b" if len(term) <= 3 else term
+            for exam, df in [("EAMCET", eamcet_df_source), ("KCET", kcet_df_source)]:
+                if df is None or df.empty:
+                    continue
+                n_s, _ = get_norm_series(df)
+                add_matching_rows(df, exam, n_s.str.contains(pattern, regex=True, na=False))
+                if len(sub_res) >= limit:
+                    return sub_res
+
+        # 5. Rank range match if specified
+        if target_rank and len(sub_res) < limit:
+            min_r = int(target_rank * 0.70)
+            max_r = int(target_rank * 1.35)
+            for exam, df in [("KCET", kcet_df_source), ("EAMCET", eamcet_df_source)]:
+                if df is None or df.empty:
+                    continue
+                add_matching_rows(df, exam, (df["Cutoff Rank"] >= min_r) & (df["Cutoff Rank"] <= max_r))
+                if len(sub_res) >= limit:
+                    return sub_res
+
+        return sub_res
+
+    results = []
+    if is_comparison:
+        parts = re.split(r"\b(?:vs|versus|and|or|better than|compared to)\b", q_norm, flags=re.IGNORECASE)
+        parts = [p.strip() for p in parts if p.strip()]
+        if len(parts) >= 2:
+            r1 = run_subsearch(parts[0], limit=2)
+            r2 = run_subsearch(parts[1], limit=2)
+            results = r1[:2] + r2[:2]
+
     if len(results) < max_results:
-        for kw in keywords:
-            if kcet_df_source is not None and not kcet_df_source.empty:
-                k_name = filter_and_sort(kcet_df_source, "KCET", kcet_df_source["College Name"].str.lower().str.contains(kw, na=False))
-                for item in k_name:
-                    key = (item[0], item[1]["College Name"], item[1].get("Branch", ""))
-                    if key not in seen:
-                        seen.add(key)
-                        results.append(item)
-                        if len(results) >= max_results:
-                            break
+        rem = run_subsearch(q_norm, limit=max_results - len(results))
+        results.extend(rem)
 
-            if eamcet_df_source is not None and not eamcet_df_source.empty:
-                e_name = filter_and_sort(eamcet_df_source, "EAMCET", eamcet_df_source["College Name"].str.lower().str.contains(kw, na=False))
-                for item in e_name:
-                    key = (item[0], item[1]["College Name"], item[1].get("Branch", ""))
-                    if key not in seen:
-                        seen.add(key)
-                        results.append(item)
-                        if len(results) >= max_results:
-                            break
-
-            if len(results) >= max_results:
-                break
-
-    # 3. If rank is mentioned and we have room for recommendations
-    if target_rank and len(results) < max_results:
-        min_rank = int(target_rank * 0.70)
-        max_rank = int(target_rank * 1.35)
-
-        if kcet_df_source is not None and not kcet_df_source.empty:
-            k_rank = filter_and_sort(kcet_df_source, "KCET", (kcet_df_source["Cutoff Rank"] >= min_rank) & (kcet_df_source["Cutoff Rank"] <= max_rank))
-            for item in k_rank:
-                key = (item[0], item[1]["College Name"], item[1].get("Branch", ""))
-                if key not in seen:
-                    seen.add(key)
-                    results.append(item)
-                    if len(results) >= max_results:
-                        break
-
-        if eamcet_df_source is not None and not eamcet_df_source.empty:
-            e_rank = filter_and_sort(eamcet_df_source, "EAMCET", (eamcet_df_source["Cutoff Rank"] >= min_rank) & (eamcet_df_source["Cutoff Rank"] <= max_rank))
-            for item in e_rank:
-                key = (item[0], item[1]["College Name"], item[1].get("Branch", ""))
-                if key not in seen:
-                    seen.add(key)
-                    results.append(item)
-                    if len(results) >= max_results:
-                        break
-
-    context_lines = []
-    for exam, row in results[:max_results]:
-        c_name = row.get("College Name", "Unknown")
-        branch = row.get("Branch", "General")
-        cutoff = row.get("Cutoff Rank", "N/A")
-        rating = row.get("Rating", "N/A")
-        loc = row.get("Location", "Karnataka/AP")
-        fees = row.get("Kcet Fees") or row.get("Eamcet Fees") or row.get("Exam Fees") or "N/A"
-        try:
-            fees_fmt = f"₹{float(fees):,.0f}/yr" if float(fees) > 0 else "N/A"
-        except (ValueError, TypeError):
-            fees_fmt = str(fees)
-        context_lines.append(
-            f"• [{exam}] {c_name} | Branch: {branch} | Cutoff Rank: ~{cutoff} | Rating: {rating}/5 | Location: {loc} | Fees: {fees_fmt}"
-        )
-
-    return "\n".join(context_lines)
+    return "\n".join([format_college_row(exam, row) for exam, row in results[:max_results]])
 
 
 def get_user_prediction_context(user_id):
@@ -4682,7 +4773,8 @@ def get_user_prediction_context(user_id):
 
 def generate_fallback_reply(message, context, user_context=""):
     """
-    Context-aware short intelligent response (2-4 lines) when Gemini API key is unset or external call fails.
+    Context-aware short intelligent response (2-4 lines) analyzing college attributes,
+    fees, cutoffs, websites, comparisons, and project data when external Gemini call is offline.
     """
     msg_lower = message.lower()
 
@@ -4749,25 +4841,95 @@ def generate_fallback_reply(message, context, user_context=""):
             "Follow official portal instructions for online option entry."
         )
 
-    # 8. College list inquiry
+    # 8. Detailed College Information Analysis from Context
     if context.strip():
-        lines = [line.strip() for line in context.strip().split("\n") if line.strip() and not line.startswith("Logged-in")]
-        top_colleges = "\n".join(lines[:3])
-        return (
-            f"🎓 **Top Matching Colleges:**\n"
-            f"{top_colleges}\n"
-            f"💡 Bookmark these to your [Dashboard](/dashboard) to compare cutoffs and fees!"
-        )
+        lines = [line.strip() for line in context.strip().split("\n") if line.strip().startswith("•")]
+        parsed_colleges = []
+        for l in lines:
+            p = {}
+            parts = [x.strip() for x in l.split("|")]
+            p["title"] = parts[0].replace("•", "").strip()
+            for pt in parts[1:]:
+                if ":" in pt:
+                    k, v = pt.split(":", 1)
+                    p[k.strip().lower()] = v.strip()
+            parsed_colleges.append(p)
+
+        if parsed_colleges:
+            top = parsed_colleges[0]
+
+            # A. Hostel fees analysis
+            if "hostel" in msg_lower:
+                h_fee = top.get("hostel fees", "N/A")
+                loc = top.get("location", "the campus region")
+                return (
+                    f"🏨 **Hostel Accommodation:**\n"
+                    f"• **{top['title']}:** Annual hostel fee is **{h_fee}** ({loc}).\n"
+                    f"Includes student boarding, dining/mess facilities, and 24/7 security."
+                )
+
+            # B. Management quota fees analysis
+            if any(k in msg_lower for k in ["management fee", "management fees", "mgmt fee", "mgmt fees"]):
+                m_fee = top.get("mgmt fees", "N/A")
+                g_fee = top.get("govt fees", "N/A")
+                return (
+                    f"💰 **Tuition & Quota Fees:**\n"
+                    f"• **{top['title']}:** Management Quota is **{m_fee}** vs Regular Govt Fee of **{g_fee}**."
+                )
+
+            # C. Official Website analysis
+            if any(k in msg_lower for k in ["website", "link", "portal", "url", "site"]):
+                web = top.get("website", "")
+                if web and web != "N/A":
+                    return (
+                        f"🌐 **Official Portal:**\n"
+                        f"• **{top['title']}:** [{web}]({web})\n"
+                        f"Visit the official institution portal above for application dates and syllabus."
+                    )
+
+            # D. Side-by-side College Comparison
+            if any(k in msg_lower for k in ["compare", " vs ", " versus ", " or ", "better than"]) and len(parsed_colleges) >= 2:
+                c1 = parsed_colleges[0]
+                c1_clean = c1["title"].split("(")[0].strip()
+                c2 = next((c for c in parsed_colleges[1:] if c["title"].split("(")[0].strip() != c1_clean), parsed_colleges[1])
+                return (
+                    f"⚖️ **College Comparison:**\n"
+                    f"• **{c1['title']}:** Rating {c1.get('rating', 'N/A')} | Cutoff {c1.get('cutoff', 'N/A')} | Govt {c1.get('govt fees', 'N/A')} | Hostel {c1.get('hostel fees', 'N/A')}\n"
+                    f"• **{c2['title']}:** Rating {c2.get('rating', 'N/A')} | Cutoff {c2.get('cutoff', 'N/A')} | Govt {c2.get('govt fees', 'N/A')} | Hostel {c2.get('hostel fees', 'N/A')}"
+                )
+
+            # E. Best / Top Institution in Location
+            if any(k in msg_lower for k in ["best", "top", "highest rating", "reputed"]):
+                return (
+                    f"🏆 **Top-Ranked Institution:**\n"
+                    f"• **{top['title']}:** Rating **{top.get('rating', 'N/A')}** | Cutoff: **{top.get('cutoff', 'N/A')}** | Govt Fees: {top.get('govt fees', 'N/A')}.\n"
+                    f"Ranked as the leading engineering choice in {top.get('location', 'the region')} based on NIRF/NAAC ratings and placement cutoffs."
+                )
+
+            # F. Specific branch cutoff inquiry
+            if any(k in msg_lower for k in ["cutoff", "cut off", "closing rank"]):
+                return (
+                    f"🎯 **Cutoff Information:**\n"
+                    f"• **{top['title']}:** Round cutoff closes at **{top.get('cutoff', 'N/A')}** (Rating: {top.get('rating', 'N/A')}, Govt Fees: {top.get('govt fees', 'N/A')})."
+                )
+
+            # G. General matched college list
+            top_colleges = "\n".join(lines[:3])
+            return (
+                f"🎓 **Top Matching Colleges:**\n"
+                f"{top_colleges}\n"
+                f"💡 Bookmark these to your [Dashboard](/dashboard) to compare cutoffs and fees!"
+            )
 
     return (
-        "👋 Hi! I can help you with KCET/EAMCET cutoff ranks, top colleges by location, or your entered rank history.\n"
-        "What college, rank, or city would you like to check?"
+        "👋 Hi! I can help you analyze KCET/EAMCET colleges: cutoffs, ratings, govt & management fees, hostel costs, or your search history.\n"
+        "What college, city, or branch would you like to explore?"
     )
 
 
 def call_gemini_api(api_key, message, history, context):
     """
-    Call Google Gemini REST API with strict conciseness rules and comprehensive project knowledge.
+    Call Google Gemini REST API with strict conciseness rules and deep college information analysis.
     """
     models = [
         "gemini-3.5-flash-lite",
@@ -4783,6 +4945,14 @@ def call_gemini_api(api_key, message, history, context):
         "MANDATORY CONCISENESS RULE (CRITICAL):\n"
         "- Keep EVERY answer STRICTLY SHORT: ONLY 2 TO 4 LINES MAXIMUM.\n"
         "- Answer directly with precise facts. Never output long essays, surveys, or questionnaires.\n\n"
+        "COLLEGE INFORMATION ANALYSIS GUIDELINES:\n"
+        "1. Cutoff Ranks: If asked about a college/branch cutoff, state the exact round cutoff rank (~XXXXX) and branch directly.\n"
+        "2. Best/Top Colleges in City: Name the #1 institution (highest rating and lowest cutoff) and summarize why (rating, CSE cutoff, fees) in 2 lines.\n"
+        "3. Fees Analysis: Distinguish between Govt/Convener fees, Management Quota fees, and Hostel fees clearly using the provided context.\n"
+        "4. Hostel Accommodation: If asked about hostel fees or accommodation, state the exact annual hostel fee (₹X/yr) and location in 1-2 lines.\n"
+        "5. College Comparison: If asked to compare two colleges, compare their ratings, CSE cutoffs, and fees side-by-side in 2-3 lines.\n"
+        "6. Official Websites: If asked for a website, provide the clickable markdown URL from the context.\n"
+        "7. User Search History: If the student asks about a rank they entered or past search, cite it directly from User Search History in 1-2 lines.\n\n"
         "KNOWLEDGE BASE ABOUT THIS PROJECT:\n"
         "1. Project Overview: Smart College Predictor (Live at college-predictor-ml.onrender.com), an admission prediction system for KCET (Karnataka) and EAMCET (Andhra Pradesh/Telangana).\n"
         "2. Datasets: 1,331 total college programs across 13 attributes:\n"
