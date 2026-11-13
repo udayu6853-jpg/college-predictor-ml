@@ -121,21 +121,16 @@
         <div class="sky-card rounded-3xl p-6 sm:p-8 relative overflow-hidden">
             <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div class="space-y-2 max-w-2xl">
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-50 border border-sky-200 text-sky-700 text-xs font-bold">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span>KCET & EAMCET 2026 Counseling Portal</span>
-                    </div>
+                    
                     <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                        Welcome back, {{ user_name or 'Student' }} 👋
+                        Welcome back, {{ user_name or 'Student' }}
                     </h1>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                        Explore cutoff predictions, compare engineering branches, and shortlist colleges from our database of 1,300+ accredited institutions.
-                    </p>
+                    
                 </div>
 
                 <!-- Quick Action Buttons -->
                 <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
-                    <a href="{{ url_for('predictor') }}" class="flex-1 md:flex-none px-6 py-3 rounded-xl bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 text-white font-bold text-xs shadow-md shadow-sky-600/25 transition flex items-center justify-center gap-2 active:scale-95">
+                    <a href="{{ url_for('predictor') }}" class="flex-1 md:flex-none px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md shadow-sky-600/20 transition flex items-center justify-center gap-2 active:scale-95">
                         <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                         <span>Predict Colleges</span>
                     </a>
@@ -143,68 +138,6 @@
                         <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                         <span>Colleges Directory</span>
                     </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Quick Insight Metrics Cards (SaaS Style) -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <!-- Metric 1: Verified Institutions -->
-            <div class="sky-card p-4 sm:p-5 rounded-2xl flex items-center gap-3.5 group hover:border-sky-300 transition">
-                <div class="w-11 h-11 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center flex-shrink-0 group-hover:bg-sky-600 group-hover:text-white transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                    </svg>
-                </div>
-                <div>
-                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Institutions</span>
-                    <span class="text-lg sm:text-xl font-extrabold text-slate-900">1,331</span>
-                    <span class="text-[10px] text-emerald-600 font-semibold block">KCET + EAMCET</span>
-                </div>
-            </div>
-
-            <!-- Metric 2: AI Cutoff Precision -->
-            <div class="sky-card p-4 sm:p-5 rounded-2xl flex items-center gap-3.5 group hover:border-sky-300 transition">
-                <div class="w-11 h-11 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center flex-shrink-0 group-hover:bg-sky-600 group-hover:text-white transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                </div>
-                <div>
-                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">AI Precision</span>
-                    <span class="text-lg sm:text-xl font-extrabold text-slate-900">98.4%</span>
-                    <span class="text-[10px] text-sky-600 font-semibold block">Multi-Year Data</span>
-                </div>
-            </div>
-
-            <!-- Metric 3: Active Counseling -->
-            <div class="sky-card p-4 sm:p-5 rounded-2xl flex items-center gap-3.5 group hover:border-sky-300 transition">
-                <div class="w-11 h-11 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center flex-shrink-0 group-hover:bg-sky-600 group-hover:text-white transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                </div>
-                <div>
-                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Season</span>
-                    <span class="text-lg sm:text-xl font-extrabold text-slate-900">2026 Live</span>
-                    <span class="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        <span>Verified Portal</span>
-                    </span>
-                </div>
-            </div>
-
-            <!-- Metric 4: Voice & Chat AI -->
-            <div class="sky-card p-4 sm:p-5 rounded-2xl flex items-center gap-3.5 group hover:border-sky-300 transition cursor-pointer" onclick="toggleAiChatbot()">
-                <div class="w-11 h-11 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center flex-shrink-0 group-hover:bg-sky-600 group-hover:text-white transition">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-                    </svg>
-                </div>
-                <div>
-                    <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">AI Assistant</span>
-                    <span class="text-lg sm:text-xl font-extrabold text-slate-900">Voice + Chat</span>
-                    <span class="text-[10px] text-sky-600 font-semibold block">Click to Ask →</span>
                 </div>
             </div>
         </div>
