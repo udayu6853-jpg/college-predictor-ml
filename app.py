@@ -4652,15 +4652,21 @@ def generate_fallback_reply(message, context):
     """
     msg_lower = message.lower()
 
-    if any(k in msg_lower for k in ["admin", "administrator", "system admin", "support phone", "admin phone", "developer phone", "contact admin", "contact number", "phone number"]):
+    if any(k in msg_lower for k in [
+        "admin", "administrator", "system admin", "support phone", "admin phone",
+        "developer", "developer phone", "contact admin", "contact number",
+        "phone number", "linkedin", "linkdin", "github", "uday", "creator", "founder"
+    ]):
         return (
-            "👨‍💻 **Smart College Predictor - System Administrator Contact**\n\n"
-            "If you need technical assistance, portal support, or have platform inquiries, here are the direct contact details for our System Administration team:\n\n"
-            "• **System Administrator & Lead Developer:** Uday\n"
+            "👨‍💻 **Smart College Predictor - System Administrator & Developer Profile**\n\n"
+            "Here are the official contact credentials and professional profiles for our System Administrator:\n\n"
+            "• **Name & Role:** Uday (System Administrator & Lead Developer)\n"
+            "• **LinkedIn Profile:** [linkedin.com/in/uday-uday-270441354](https://www.linkedin.com/in/uday-uday-270441354)\n"
+            "• **GitHub Repository:** [github.com/udayu6853-jpg](https://github.com/udayu6853-jpg)\n"
             "• **Direct Phone:** [+91 8919221139](tel:8919221139)\n"
-            "• **Email:** [udayu6853@gmail.com](mailto:udayu6853@gmail.com)\n"
+            "• **Email Address:** [udayu6853@gmail.com](mailto:udayu6853@gmail.com)\n"
             "• **Admin Portal:** Visit our official [System Administrator Support Page](/admin-contact)\n\n"
-            "💡 *Feel free to reach out directly if you experience any portal issues or need technical help!*"
+            "💡 *Feel free to connect on LinkedIn or reach out directly for technical support or project collaborations!*"
         )
 
     if any(k in msg_lower for k in ["counseling", "counselling", "document", "documents", "procedure", "verification", "process"]):
@@ -4706,6 +4712,7 @@ def generate_fallback_reply(message, context):
         "• Cutoff ranks for any college (e.g., *'What is the cutoff for RV College CSE?'*)\n"
         "• Best colleges in any city (e.g., *'Which college is best in Tirupati?'* or *'Top colleges in Bangalore'*)\n"
         "• College recommendations by rank (e.g., *'Best colleges for KCET rank 15000 CSE'*)\n"
+        "• System Administrator and Support details (e.g., *'Give System Administrator LinkedIn profile'*)\n"
         "• Tuition and fee structure comparisons\n"
         "• Counseling and document verification steps\n\n"
         "Try asking one of the suggested prompts or enter a college name, city, or rank above!"
@@ -4733,13 +4740,19 @@ def call_gemini_api(api_key, message, history, context):
         "2. When college records are provided in the Context, accurately cite their cutoffs, locations, and ratings.\n"
         "3. Use structured markdown formatting with bullet points and bold highlights.\n"
         "4. If asked about admissions or counseling procedures, outline clear, actionable steps.\n"
-        "5. System Administrator & Technical Support Contact:\n"
+        "5. Platform Administration & Developer Profiles:\n"
         "   - System Administrator & Lead Developer: Uday\n"
-        "   - Phone Number: +91 8919221139\n"
+        "   - Direct Phone: +91 8919221139\n"
         "   - Email: udayu6853@gmail.com\n"
-        "   - Admin Portal: /admin-contact\n"
-        "   - If a student asks for the System Administrator, developer, technical support, or project contact details/phone number, share this official contact card directly and politely.\n"
-        "6. Keep responses concise and easy to read on mobile or desktop."
+        "   - LinkedIn Profile: https://www.linkedin.com/in/uday-uday-270441354\n"
+        "   - GitHub Profile: https://github.com/udayu6853-jpg\n"
+        "   - Admin Contact Page: /admin-contact\n"
+        "   - If a student asks for the System Administrator, developer, LinkedIn profile, GitHub, phone number, email, or team information, share these official links and contact details directly.\n"
+        "6. Project Overview:\n"
+        "   - Platform: Smart College Predictor (KCET & EAMCET)\n"
+        "   - Database: 560 KCET and 771 EAMCET engineering colleges (1,300+ total).\n"
+        "   - Key Capabilities: Rank-based prediction, multi-college comparison, cutoff analysis, bookmarking, and counseling guidance.\n"
+        "7. Keep responses concise and easy to read on mobile or desktop."
     )
 
     full_prompt = f"Student Question: {message}\n"
