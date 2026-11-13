@@ -4841,7 +4841,7 @@ def generate_fallback_reply(message, context, user_context=""):
             "Follow official portal instructions for online option entry."
         )
 
-    # 8. Detailed College Information Analysis from Context
+    # 8. Detailed College Information Analysis from Context (ZERO UNWANTED TEXT)
     if context.strip():
         lines = [line.strip() for line in context.strip().split("\n") if line.strip().startswith("•")]
         parsed_colleges = []
@@ -4858,36 +4858,25 @@ def generate_fallback_reply(message, context, user_context=""):
         if parsed_colleges:
             top = parsed_colleges[0]
 
-            # A. Hostel fees analysis
+            # A. Hostel fees analysis (ONLY hostel fee)
             if "hostel" in msg_lower:
                 h_fee = top.get("hostel fees", "N/A")
                 loc = top.get("location", "the campus region")
-                return (
-                    f"🏨 **Hostel Accommodation:**\n"
-                    f"• **{top['title']}:** Annual hostel fee is **{h_fee}** ({loc}).\n"
-                    f"Includes student boarding, dining/mess facilities, and 24/7 security."
-                )
+                return f"🏨 **Hostel Fee:** **{top['title']}** is **{h_fee}** ({loc})."
 
-            # B. Management quota fees analysis
+            # B. Management quota fees analysis (ONLY management & govt fees)
             if any(k in msg_lower for k in ["management fee", "management fees", "mgmt fee", "mgmt fees"]):
                 m_fee = top.get("mgmt fees", "N/A")
                 g_fee = top.get("govt fees", "N/A")
-                return (
-                    f"💰 **Tuition & Quota Fees:**\n"
-                    f"• **{top['title']}:** Management Quota is **{m_fee}** vs Regular Govt Fee of **{g_fee}**."
-                )
+                return f"💰 **Management Quota Fee:** **{top['title']}** is **{m_fee}** (Govt Convener Fee: {g_fee})."
 
-            # C. Official Website analysis
+            # C. Official Website analysis (ONLY website link)
             if any(k in msg_lower for k in ["website", "link", "portal", "url", "site"]):
                 web = top.get("website", "")
                 if web and web != "N/A":
-                    return (
-                        f"🌐 **Official Portal:**\n"
-                        f"• **{top['title']}:** [{web}]({web})\n"
-                        f"Visit the official institution portal above for application dates and syllabus."
-                    )
+                    return f"🌐 **Official Website:** **{top['title']}**: [{web}]({web})"
 
-            # D. Side-by-side College Comparison
+            # D. Side-by-side College Comparison (ONLY comparative facts)
             if any(k in msg_lower for k in ["compare", " vs ", " versus ", " or ", "better than"]) and len(parsed_colleges) >= 2:
                 c1 = parsed_colleges[0]
                 c1_clean = c1["title"].split("(")[0].strip()
@@ -4898,38 +4887,30 @@ def generate_fallback_reply(message, context, user_context=""):
                     f"• **{c2['title']}:** Rating {c2.get('rating', 'N/A')} | Cutoff {c2.get('cutoff', 'N/A')} | Govt {c2.get('govt fees', 'N/A')} | Hostel {c2.get('hostel fees', 'N/A')}"
                 )
 
-            # E. Best / Top Institution in Location
+            # E. Best / Top Institution in Location (ONLY top college facts)
             if any(k in msg_lower for k in ["best", "top", "highest rating", "reputed"]):
                 return (
-                    f"🏆 **Top-Ranked Institution:**\n"
-                    f"• **{top['title']}:** Rating **{top.get('rating', 'N/A')}** | Cutoff: **{top.get('cutoff', 'N/A')}** | Govt Fees: {top.get('govt fees', 'N/A')}.\n"
-                    f"Ranked as the leading engineering choice in {top.get('location', 'the region')} based on NIRF/NAAC ratings and placement cutoffs."
+                    f"🏆 **Top College in {top.get('location', 'the region')}:** **{top['title']}**\n"
+                    f"• Rating: **{top.get('rating', 'N/A')}** | Cutoff: **{top.get('cutoff', 'N/A')}** | Govt Fees: **{top.get('govt fees', 'N/A')}** | Mgmt Fees: **{top.get('mgmt fees', 'N/A')}**"
                 )
 
-            # F. Specific branch cutoff inquiry
+            # F. Specific branch cutoff inquiry (ONLY cutoff rank)
             if any(k in msg_lower for k in ["cutoff", "cut off", "closing rank"]):
-                return (
-                    f"🎯 **Cutoff Information:**\n"
-                    f"• **{top['title']}:** Round cutoff closes at **{top.get('cutoff', 'N/A')}** (Rating: {top.get('rating', 'N/A')}, Govt Fees: {top.get('govt fees', 'N/A')})."
-                )
+                return f"🎯 **Cutoff Rank:** **{top['title']}** closes at **{top.get('cutoff', 'N/A')}** (Rating: {top.get('rating', 'N/A')})."
 
-            # G. General matched college list
+            # G. General matched college list (ONLY matched colleges)
             top_colleges = "\n".join(lines[:3])
-            return (
-                f"🎓 **Top Matching Colleges:**\n"
-                f"{top_colleges}\n"
-                f"💡 Bookmark these to your [Dashboard](/dashboard) to compare cutoffs and fees!"
-            )
+            return f"🎓 **Matching Colleges:**\n{top_colleges}"
 
     return (
-        "👋 Hi! I can help you analyze KCET/EAMCET colleges: cutoffs, ratings, govt & management fees, hostel costs, or your search history.\n"
+        "👋 Hi! I can help you with KCET/EAMCET cutoffs, ratings, govt & management fees, hostel fees, or your search history.\n"
         "What college, city, or branch would you like to explore?"
     )
 
 
 def call_gemini_api(api_key, message, history, context):
     """
-    Call Google Gemini REST API with strict conciseness rules and deep college information analysis.
+    Call Google Gemini REST API with strict rules against unwanted text, conversational filler, or unrequested info.
     """
     models = [
         "gemini-3.5-flash-lite",
@@ -4941,32 +4922,26 @@ def call_gemini_api(api_key, message, history, context):
         "gemini-pro-latest"
     ]
     system_instruction = (
-        "You are the official Smart College Predictor AI Assistant, an expert on this exact platform, its machine learning model, datasets, and architecture.\n"
-        "MANDATORY CONCISENESS RULE (CRITICAL):\n"
-        "- Keep EVERY answer STRICTLY SHORT: ONLY 2 TO 4 LINES MAXIMUM.\n"
-        "- Answer directly with precise facts. Never output long essays, surveys, or questionnaires.\n\n"
-        "COLLEGE INFORMATION ANALYSIS GUIDELINES:\n"
-        "1. Cutoff Ranks: If asked about a college/branch cutoff, state the exact round cutoff rank (~XXXXX) and branch directly.\n"
-        "2. Best/Top Colleges in City: Name the #1 institution (highest rating and lowest cutoff) and summarize why (rating, CSE cutoff, fees) in 2 lines.\n"
-        "3. Fees Analysis: Distinguish between Govt/Convener fees, Management Quota fees, and Hostel fees clearly using the provided context.\n"
-        "4. Hostel Accommodation: If asked about hostel fees or accommodation, state the exact annual hostel fee (₹X/yr) and location in 1-2 lines.\n"
-        "5. College Comparison: If asked to compare two colleges, compare their ratings, CSE cutoffs, and fees side-by-side in 2-3 lines.\n"
-        "6. Official Websites: If asked for a website, provide the clickable markdown URL from the context.\n"
-        "7. User Search History: If the student asks about a rank they entered or past search, cite it directly from User Search History in 1-2 lines.\n\n"
-        "KNOWLEDGE BASE ABOUT THIS PROJECT:\n"
-        "1. Project Overview: Smart College Predictor (Live at college-predictor-ml.onrender.com), an admission prediction system for KCET (Karnataka) and EAMCET (Andhra Pradesh/Telangana).\n"
-        "2. Datasets: 1,331 total college programs across 13 attributes:\n"
-        "   - KCET: 560 institutions in Karnataka (Bengaluru, Mysuru, Belgaum, etc.).\n"
-        "   - EAMCET: 771 institutions in AP/Telangana (Tirupati, Kadapa, Hyderabad, Vizag, etc.).\n"
-        "   - Attributes: College Name, Branch, Cutoff Rank, Rating (1.0-5.0 from NAAC/NIRF), Location, Management Fees, Exam Fees, Hostel Fees, State, Image, Lat, Long, Website.\n"
-        "3. Machine Learning Model: Trained with Scikit-learn RandomForestClassifier (train_model.py, saved at model/college_predictor.pkl) with 90.81% accuracy, 93.02% precision, 91.56% recall.\n"
-        "4. Technology Stack: Python 3, Flask framework, Scikit-learn, Tailwind CSS, PostgreSQL on Render cloud, SQLite local fallback, Google OAuth 2.0, CSRF protection.\n"
-        "5. Key Features & Routes: /predictor (ML rank predictor), /colleges (1,300+ directory), /compare (multi-college matrix), /saved-colleges (bookmarks), /prediction-history (search audit logs), /profile (avatar & details), /admin-contact (team governance), /database-records (viewer).\n"
-        "6. Automation Engine: run_yearly_automation.bat & automation/ scripts for real-time KEA/APSCHE counseling crawlers and annual dataset refresh.\n"
-        "7. Project Team & Leadership:\n"
-        "   - System Administrator & Lead Developer: Uday (Phone: +91 8919221139, Email: udayu6853@gmail.com, LinkedIn: https://www.linkedin.com/in/uday-uday-270441354, GitHub: https://github.com/udayu6853-jpg).\n"
-        "   - Project Coordinators: Varun, Prajwal, Pruthvi.\n"
-        "8. User Context & History: If the student asks about a rank they entered or their past search, cite it directly from the Logged-in Student's Search History in 1-2 lines."
+        "You are the official Smart College Predictor AI Assistant for KCET and EAMCET.\n"
+        "CRITICAL INSTRUCTION - ABSOLUTELY NO UNWANTED TEXT:\n"
+        "1. ANSWER ONLY WHAT WAS SPECIFICALLY ASKED: Output strictly the exact factual data requested. Never add unsolicited details, unwanted website links, extra fees, or unrequested information.\n"
+        "   - If asked for hostel fee -> Output ONLY the annual hostel fee (e.g. 'The annual hostel fee for [College] is ₹X/yr.'). Do NOT add website links, tuition fees, or campus descriptions.\n"
+        "   - If asked for website -> Output ONLY the official website URL. Do NOT add advice or syllabus info.\n"
+        "   - If asked for management fee -> Output ONLY the management quota fee (and govt fee). Do NOT add hostel or website links.\n"
+        "   - If asked for cutoff -> Output ONLY the cutoff rank and branch.\n"
+        "   - If asked for phone number -> Output ONLY the phone number.\n"
+        "   - If asked for LinkedIn -> Output ONLY the LinkedIn URL.\n"
+        "   - If asked for best college in a city -> Name the top institution, rating, cutoff, and fees in 1-2 lines.\n"
+        "2. ZERO CONVERSATIONAL FILLER & ZERO PLEASANTRIES: Never include greetings, pleasantries, or filler phrases (e.g. 'Certainly!', 'Sure!', 'Here is the information:', 'Hope this helps!', 'For more details visit...', 'Feel free to ask!'). Start immediately with the direct answer.\n"
+        "3. NO MARKETING / NO PROMPT SUGGESTIONS: Never tell the user to bookmark, visit dashboard, or check links unless explicitly asked.\n"
+        "4. STRICTLY 1 TO 2 LINES MAXIMUM: Provide clean, direct, factual answers.\n\n"
+        "KNOWLEDGE BASE:\n"
+        "• Project: Smart College Predictor (college-predictor-ml.onrender.com) for KCET & EAMCET.\n"
+        "• Datasets: 1,331 accredited college programs across 13 attributes (560 KCET, 771 EAMCET).\n"
+        "• ML Model: RandomForestClassifier (90.81% accuracy, 93.02% precision, 91.56% recall, model/college_predictor.pkl).\n"
+        "• Tech Stack: Python 3, Flask, Scikit-learn, PostgreSQL on Render + SQLite local fallback, Tailwind CSS.\n"
+        "• Administrator: Uday (Phone: +91 8919221139, Email: udayu6853@gmail.com, LinkedIn: https://www.linkedin.com/in/uday-uday-270441354, GitHub: https://github.com/udayu6853-jpg).\n"
+        "• User Search History: If asked about their entered rank or previous search, state it directly from User Search History in 1 short line without any follow-up questions."
     )
 
     full_prompt = f"Student Question: {message}\n"
@@ -5001,8 +4976,8 @@ def call_gemini_api(api_key, message, history, context):
                     "parts": [{"text": system_instruction}]
                 },
                 "generationConfig": {
-                    "temperature": 0.2,
-                    "maxOutputTokens": 160
+                    "temperature": 0.0,
+                    "maxOutputTokens": 95
                 }
             }
             req = urllib.request.Request(
