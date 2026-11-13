@@ -4730,16 +4730,21 @@ def call_gemini_api(api_key, message, history, context):
         full_prompt = f"Relevant Official College Records from Database:\n{context}\n\n" + full_prompt
 
     contents = []
-    if history and isinstance(history, list):
-        for item in history[-6:]:
-            role = item.get("role")
-            content = str(item.get("content", "")).strip()
-            if not content:
-                continue
-            if role == "user":
-                contents.append({"role": "user", "parts": [{"text": content}]})
-            elif role == "assistant":
-                contents.append({"role": "model", "parts": [{"text": content}]})
+    # Avoid duplicate current message if widget already appended it to history
+    valid_history = [
+        item for item in (history or [])
+        if not (item.get("role") == "user" and str(item.get("content", "")).strip() == message)
+    ]
+
+    for item in valid_history[-6:]:
+        role = item.get("role")
+        content = str(item.get("content", "")).strip()
+        if not content:
+            continue
+        if role == "user":
+            contents.append({"role": "user", "parts": [{"text": content}]})
+        elif role == "assistant":
+            contents.append({"role": "model", "parts": [{"text": content}]})
 
     contents.append({"role": "user", "parts": [{"text": full_prompt}]})
 
@@ -4787,6 +4792,7 @@ def api_chat():
     """
     JSON API endpoint for the AI College Assistant chatbot widget.
     """
+    load_dotenv(override=True)
     data = request.get_json(silent=True) or {}
     message = str(data.get("message", "")).strip()
     history = data.get("history", [])
