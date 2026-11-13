@@ -218,9 +218,12 @@
 <!-- Chatbot Client-Side Logic -->
 <script>
     let aiConversationHistory = [];
+    let autoSpeakAnswers = false;
     let speechRecognitionInstance = null;
     let isRecordingSpeech = false;
-    let autoSpeakAnswers = false;
+    let currentVoiceTranscript = '';
+    let speechSilenceTimer = null;
+    let currentVoiceLang = localStorage.getItem('aiChatVoiceLang') || 'en-IN';
 
     function toggleAiChatbot() {
         const win = document.getElementById('aiChatbotWindow');
@@ -294,12 +297,6 @@
     // ============================================================
     // MICROPHONE SPEECH-TO-TEXT ENGINE (WEB SPEECH API)
     // ============================================================
-
-    let speechRecognitionInstance = null;
-    let isRecordingSpeech = false;
-    let currentVoiceTranscript = '';
-    let speechSilenceTimer = null;
-    let currentVoiceLang = localStorage.getItem('aiChatVoiceLang') || 'en-IN';
 
     function setVoiceLanguage(langCode) {
         currentVoiceLang = langCode;
