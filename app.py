@@ -4502,18 +4502,19 @@ def old_compare_url(): return redirect(url_for("compare_colleges" if session.get
 
 def retrieve_college_context(query, kcet_df_source, eamcet_df_source, max_results=8):
     """
-    Fast keyword and rank-based context retriever from in-memory college datasets.
+    Fast keyword, location, and rank-based context retriever from in-memory college datasets.
     """
     if not query:
         return ""
 
     query_lower = query.lower()
-    clean_words = re.sub(r"[^a-zA-Z0-9\s]", " ", query_lower).split()
+    query_normalized = query_lower.replace("bangalore", "bengaluru").replace("vizag", "visakhapatnam")
+    clean_words = re.sub(r"[^a-zA-Z0-9\s]", " ", query_normalized).split()
     stopwords = {
         "the", "for", "what", "tell", "about", "and", "college", "colleges",
         "engineering", "cut", "cutoff", "off", "rank", "ranks", "how", "much",
         "is", "are", "in", "at", "to", "can", "get", "with", "my", "please",
-        "give", "show", "list", "good", "best", "top", "which"
+        "give", "show", "list", "good", "best", "top", "which", "there", "any"
     }
     keywords = [w for w in clean_words if len(w) >= 3 and w not in stopwords]
 
@@ -4525,64 +4526,106 @@ def retrieve_college_context(query, kcet_df_source, eamcet_df_source, max_result
     branch_keywords = ["cse", "aiml", "ece", "eee", "mechanical", "civil", "ise", "information science", "data science"]
     found_branches = [b for b in branch_keywords if b in query_lower]
 
+    is_asking_best = any(k in query_lower for k in ["best", "top", "highest", "ranking", "reputed", "famous", "good"])
+
     results = []
     seen = set()
 
-    # 1. Search by college name keywords
+    def filter_and_sort(df, exam_name, mask):
+        if df is None or df.empty:
+            return []
+        matched = df[mask].copy()
+        if matched.empty:
+            return []
+
+        if found_branches:
+            br_search = found_branches[0].upper()
+            br_matched = matched[matched["Branch"].str.upper().str.contains(br_search, na=False)]
+            if not br_matched.empty:
+                matched = br_matched
+
+        if is_asking_best:
+            matched = matched.sort_values(by=["Rating", "Cutoff Rank"], ascending=[False, True])
+        else:
+            matched = matched.sort_values(by="Cutoff Rank", ascending=True)
+
+        return [(exam_name, row) for _, row in matched.iterrows()]
+
+    # 1. Search Location column first (e.g. Tirupati, Bengaluru, Kadapa, Hyderabad, etc.)
     for kw in keywords:
-        if kcet_df_source is not None and not kcet_df_source.empty:
-            k_sub = kcet_df_source[kcet_df_source["College Name"].str.lower().str.contains(kw, na=False, regex=False)]
-            for _, row in k_sub.iterrows():
-                key = ("KCET", row["College Name"], row.get("Branch", ""))
+        if eamcet_df_source is not None and not eamcet_df_source.empty:
+            e_loc = filter_and_sort(eamcet_df_source, "EAMCET", eamcet_df_source["Location"].str.lower().str.contains(kw, na=False))
+            for item in e_loc:
+                key = (item[0], item[1]["College Name"], item[1].get("Branch", ""))
                 if key not in seen:
                     seen.add(key)
-                    results.append(("KCET", row))
+                    results.append(item)
                     if len(results) >= max_results:
                         break
 
-        if eamcet_df_source is not None and not eamcet_df_source.empty:
-            e_sub = eamcet_df_source[eamcet_df_source["College Name"].str.lower().str.contains(kw, na=False, regex=False)]
-            for _, row in e_sub.iterrows():
-                key = ("EAMCET", row["College Name"], row.get("Branch", ""))
+        if kcet_df_source is not None and not kcet_df_source.empty:
+            k_loc = filter_and_sort(kcet_df_source, "KCET", kcet_df_source["Location"].str.lower().str.contains(kw, na=False))
+            for item in k_loc:
+                key = (item[0], item[1]["College Name"], item[1].get("Branch", ""))
                 if key not in seen:
                     seen.add(key)
-                    results.append(("EAMCET", row))
+                    results.append(item)
                     if len(results) >= max_results:
                         break
 
         if len(results) >= max_results:
             break
 
-    # 2. If rank is mentioned and we have room for recommendations
+    # 2. Search College Name
+    if len(results) < max_results:
+        for kw in keywords:
+            if kcet_df_source is not None and not kcet_df_source.empty:
+                k_name = filter_and_sort(kcet_df_source, "KCET", kcet_df_source["College Name"].str.lower().str.contains(kw, na=False))
+                for item in k_name:
+                    key = (item[0], item[1]["College Name"], item[1].get("Branch", ""))
+                    if key not in seen:
+                        seen.add(key)
+                        results.append(item)
+                        if len(results) >= max_results:
+                            break
+
+            if eamcet_df_source is not None and not eamcet_df_source.empty:
+                e_name = filter_and_sort(eamcet_df_source, "EAMCET", eamcet_df_source["College Name"].str.lower().str.contains(kw, na=False))
+                for item in e_name:
+                    key = (item[0], item[1]["College Name"], item[1].get("Branch", ""))
+                    if key not in seen:
+                        seen.add(key)
+                        results.append(item)
+                        if len(results) >= max_results:
+                            break
+
+            if len(results) >= max_results:
+                break
+
+    # 3. If rank is mentioned and we have room for recommendations
     if target_rank and len(results) < max_results:
         min_rank = int(target_rank * 0.70)
         max_rank = int(target_rank * 1.35)
 
         if kcet_df_source is not None and not kcet_df_source.empty:
-            k_rank = kcet_df_source[(kcet_df_source["Cutoff Rank"] >= min_rank) & (kcet_df_source["Cutoff Rank"] <= max_rank)]
-            if found_branches:
-                br = found_branches[0].upper()
-                k_rank_br = k_rank[k_rank["Branch"].str.upper().str.contains(br, na=False)]
-                if not k_rank_br.empty:
-                    k_rank = k_rank_br
-            for _, row in k_rank.sort_values(by="Rating", ascending=False).head(4).iterrows():
-                key = ("KCET", row["College Name"], row.get("Branch", ""))
+            k_rank = filter_and_sort(kcet_df_source, "KCET", (kcet_df_source["Cutoff Rank"] >= min_rank) & (kcet_df_source["Cutoff Rank"] <= max_rank))
+            for item in k_rank:
+                key = (item[0], item[1]["College Name"], item[1].get("Branch", ""))
                 if key not in seen:
                     seen.add(key)
-                    results.append(("KCET", row))
+                    results.append(item)
+                    if len(results) >= max_results:
+                        break
 
         if eamcet_df_source is not None and not eamcet_df_source.empty:
-            e_rank = eamcet_df_source[(eamcet_df_source["Cutoff Rank"] >= min_rank) & (eamcet_df_source["Cutoff Rank"] <= max_rank)]
-            if found_branches:
-                br = found_branches[0].upper()
-                e_rank_br = e_rank[e_rank["Branch"].str.upper().str.contains(br, na=False)]
-                if not e_rank_br.empty:
-                    e_rank = e_rank_br
-            for _, row in e_rank.sort_values(by="Rating", ascending=False).head(4).iterrows():
-                key = ("EAMCET", row["College Name"], row.get("Branch", ""))
+            e_rank = filter_and_sort(eamcet_df_source, "EAMCET", (eamcet_df_source["Cutoff Rank"] >= min_rank) & (eamcet_df_source["Cutoff Rank"] <= max_rank))
+            for item in e_rank:
+                key = (item[0], item[1]["College Name"], item[1].get("Branch", ""))
                 if key not in seen:
                     seen.add(key)
-                    results.append(("EAMCET", row))
+                    results.append(item)
+                    if len(results) >= max_results:
+                        break
 
     context_lines = []
     for exam, row in results[:max_results]:
@@ -4592,8 +4635,12 @@ def retrieve_college_context(query, kcet_df_source, eamcet_df_source, max_result
         rating = row.get("Rating", "N/A")
         loc = row.get("Location", "Karnataka/AP")
         fees = row.get("Kcet Fees") or row.get("Eamcet Fees") or row.get("Exam Fees") or "N/A"
+        try:
+            fees_fmt = f"₹{float(fees):,.0f}/yr" if float(fees) > 0 else "N/A"
+        except (ValueError, TypeError):
+            fees_fmt = str(fees)
         context_lines.append(
-            f"• [{exam}] {c_name} | Branch: {branch} | Cutoff Rank: ~{cutoff} | Rating: {rating}/5 | Location: {loc} | Fees: {fees}"
+            f"• [{exam}] {c_name} | Branch: {branch} | Cutoff Rank: ~{cutoff} | Rating: {rating}/5 | Location: {loc} | Fees: {fees_fmt}"
         )
 
     return "\n".join(context_lines)
@@ -4629,14 +4676,16 @@ def generate_fallback_reply(message, context):
     if context.strip():
         lines = [line.strip() for line in context.strip().split("\n") if line.strip()]
         formatted_colleges = "\n".join(lines)
+        header = "🎓 **Top Recommended Colleges**" if any(w in msg_lower for w in ["best", "top", "good", "highest", "which"]) else "🎓 **College Search Results**"
+
         return (
-            f"🎓 **College Database Search Results**\n\n"
-            f"Here are the most relevant colleges and cutoffs matching your query:\n\n"
+            f"{header}\n\n"
+            f"Here are the most relevant institutions from our verified dataset (1,300+ colleges):\n\n"
             f"{formatted_colleges}\n\n"
-            f"📌 **Key Recommendations:**\n"
-            f"• Cutoff ranks represent typical final-round closing ranks and may fluctuate ±5–10% each academic year.\n"
-            f"• High-demand branches like **CSE** and **AIML** generally close earlier than Core branches (ECE/Mechanical).\n"
-            f"• You can bookmark these institutions to your dashboard to compare them side-by-side!"
+            f"📌 **Key Admissions Guidance:**\n"
+            f"• **Cutoff Dynamics**: Lower cutoff ranks indicate higher demand and competition (e.g., CSE & AIML seats close earlier).\n"
+            f"• **Tuition Fees**: Merit/convener quota fees are shown where available; management quota fees may vary.\n"
+            f"• You can shortlist these colleges into your **Dashboard** and compare them side-by-side using the Compare tool!"
         )
 
     return (
@@ -4644,10 +4693,11 @@ def generate_fallback_reply(message, context):
         "I'm here to help you navigate engineering admissions for **KCET (Karnataka)** and **EAMCET (Andhra Pradesh / Telangana)**.\n\n"
         "**You can ask me:**\n"
         "• Cutoff ranks for any college (e.g., *'What is the cutoff for RV College CSE?'*)\n"
+        "• Best colleges in any city (e.g., *'Which college is best in Tirupati?'* or *'Top colleges in Bangalore'*)\n"
         "• College recommendations by rank (e.g., *'Best colleges for KCET rank 15000 CSE'*)\n"
         "• Tuition and fee structure comparisons\n"
         "• Counseling and document verification steps\n\n"
-        "Try asking one of the suggested prompts or enter a college name or rank above!"
+        "Try asking one of the suggested prompts or enter a college name, city, or rank above!"
     )
 
 
@@ -4655,7 +4705,14 @@ def call_gemini_api(api_key, message, history, context):
     """
     Call Google Gemini REST API with system instructions and dataset context.
     """
-    models = ["gemini-1.5-flash", "gemini-2.0-flash", "gemini-1.5-pro"]
+    models = [
+        "gemini-1.5-flash",
+        "gemini-2.0-flash",
+        "gemini-2.5-flash",
+        "gemini-flash-latest",
+        "gemini-1.5-pro",
+        "gemini-pro-latest"
+    ]
     system_instruction = (
         "You are the Smart College Predictor AI Assistant, an empathetic, highly knowledgeable counselor for "
         "engineering admissions in KCET (Karnataka) and EAMCET (Andhra Pradesh / Telangana).\n"
@@ -4712,10 +4769,12 @@ def call_gemini_api(api_key, message, history, context):
                     if parts and "text" in parts[0]:
                         return parts[0]["text"].strip()
         except urllib.error.HTTPError as he:
+            app.logger.warning("Gemini model %s returned HTTP %s: %s", model_name, he.code, he.reason)
             if he.code == 404:
                 continue
             break
-        except Exception:
+        except Exception as exc:
+            app.logger.warning("Gemini model %s request exception: %s", model_name, exc)
             break
 
     return None
