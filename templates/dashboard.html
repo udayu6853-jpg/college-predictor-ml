@@ -87,12 +87,6 @@
                     <a href="{{ url_for('compare') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Compare</a>
                     <a href="{{ url_for('prediction_history') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">History</a>
                     <a href="{{ url_for('admin_contact') }}" class="px-3 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:text-sky-600 hover:bg-sky-50/60 transition">Contact Admin</a>
-                    {% if session.get('is_admin') %}
-                    <a href="{{ url_for('admin_dashboard') }}" class="px-3 py-2 text-xs font-bold rounded-xl text-rose-700 bg-rose-50 border border-rose-200 hover:bg-rose-100 transition flex items-center gap-1.5 shadow-2xs">
-                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
-                        <span>Admin Portal</span>
-                    </a>
-                    {% endif %}
                 </nav>
 
                 <!-- Profile / Auth Area -->
@@ -105,9 +99,6 @@
                             onerror="this.onerror=null; this.src='{{ url_for('static', filename='images/default.jpg') }}';"
                         >
                         <span class="text-xs font-bold text-slate-800 truncate max-w-[110px]">{{ user_name or 'Student' }}</span>
-                        {% if session.get('is_admin') %}
-                        <span class="text-[9px] font-black uppercase px-1.5 py-0.5 rounded-md bg-rose-100 text-rose-700 border border-rose-200">Admin</span>
-                        {% endif %}
                         <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-2xs" title="Active"></span>
                     </a>
 
