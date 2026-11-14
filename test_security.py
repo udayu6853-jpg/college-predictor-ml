@@ -2,15 +2,14 @@
 =============================================================================
 SMART COLLEGE PREDICTOR - SECURITY PENETRATION & HARDENING AUDIT TEST SUITE
 =============================================================================
-Run this script anytime to verify that all anti-hack defenses, RBAC permissions,
-and WAF intrusion shields are active and working.
+Run this script anytime to verify that all anti-hack defenses, WAF intrusion
+shields, and backend protections are active and working.
 
 Usage:
     python test_security.py
 """
 
-import sys
-from app import app, ADMIN_EMAIL
+from app import app
 
 def print_result(test_name, passed, detail=""):
     GREEN = "\033[92m"
@@ -24,7 +23,6 @@ def print_result(test_name, passed, detail=""):
 def run_security_audit():
     print("\n" + "=" * 70)
     print(" 🛡️  SMART COLLEGE PREDICTOR - AUTOMATED SECURITY PENETRATION AUDIT")
-    print(f" 👤 Designated System Administrator: {ADMIN_EMAIL}")
     print("=" * 70 + "\n")
 
     client = app.test_client()
@@ -49,31 +47,25 @@ def run_security_audit():
     print_result("Test 3: Directory / Path Traversal Hack (../../)", p3, f"Status: {r3.status_code} (Traversal prevented)")
     if p3: passed_tests += 1
 
-    # 4. Anonymous Admin Access Barrier
-    r4 = client.get('/admin/dashboard')
-    p4 = (r4.status_code == 302 and '/login' in r4.headers.get('Location', ''))
-    print_result("Test 4: Anonymous Access to Admin Portal", p4, f"Status: {r4.status_code} (Redirected to login)")
+    # 4. Unauthenticated AI Chatbot Abuse Protection
+    r4 = client.post('/api/chat', json={'message': 'hello'})
+    p4 = (r4.status_code == 401)
+    print_result("Test 4: Unauthenticated Gemini API Abuse Guard", p4, f"Status: {r4.status_code} (Unauthorized access blocked)")
     if p4: passed_tests += 1
 
-    # 5. Student Access to Admin Portal (Role-Based Access Control)
-    with client.session_transaction() as sess:
-        sess['user_id'] = 1
-        sess['user_email'] = 'student@smartpredictor.com'
-        sess['user_role'] = 'user'
-    r5 = client.get('/admin/dashboard')
-    p5 = (r5.status_code == 403)
-    print_result("Test 5: Student Account Attempting to Open Admin Dashboard", p5, f"Status: {r5.status_code} (403 Forbidden enforced)")
+    # 5. Legitimate Safe Login Endpoint
+    r5 = client.get('/login')
+    p5 = (r5.status_code == 200)
+    print_result("Test 5: Legitimate Login Endpoint Availability", p5, f"Status: {r5.status_code} (Service active)")
     if p5: passed_tests += 1
 
-    # 6. Primary System Administrator Access (Uday)
-    with client.session_transaction() as sess:
-        sess['user_id'] = 2
-        sess['user_email'] = ADMIN_EMAIL
-        sess['user_role'] = 'admin'
-        sess['is_admin'] = True
-    r6 = client.get('/admin/dashboard')
-    p6 = (r6.status_code == 200)
-    print_result("Test 6: Primary Administrator Access (Uday)", p6, f"Status: {r6.status_code} (Authorized successfully)")
+    # 6. HTTP Security Hardening Headers Enforced
+    p6 = (
+        r5.headers.get('X-Frame-Options') == 'SAMEORIGIN' and
+        r5.headers.get('X-Content-Type-Options') == 'nosniff' and
+        '1; mode=block' in (r5.headers.get('X-XSS-Protection') or '')
+    )
+    print_result("Test 6: OWASP Security Headers (Frame, Nosniff, XSS)", p6, "Headers verified on HTTP responses")
     if p6: passed_tests += 1
 
     print("\n" + "=" * 70)
