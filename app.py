@@ -2358,6 +2358,11 @@ def admin_contact():
 
     return render_template("admin.html")
 
+@app.route("/admin/dashboard")
+@app.route("/admin_dashboard")
+def redirect_admin_dashboard():
+    return redirect(url_for("dashboard"))
+
 # ============================================================
 # COLLEGES
 # ============================================================
