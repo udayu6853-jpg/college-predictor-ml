@@ -3894,6 +3894,7 @@ def profile():
 
 @app.route("/update-profile", methods=["POST"])
 @login_required
+@limiter.limit("10 per minute")
 def update_profile():
 
     name = request.form.get("name", "").strip()[:100]
@@ -3927,6 +3928,18 @@ def update_profile():
             or original_name.rsplit(".", 1)[1].lower()
             not in ALLOWED_PROFILE_IMAGE_EXTENSIONS
         ):
+            return redirect(url_for("profile", error="invalid_image"))
+
+        # Deep inspection: Verify binary magic bytes to block disguised executable scripts
+        header = uploaded_file.read(16)
+        uploaded_file.seek(0)
+        is_valid_magic = (
+            header.startswith(b"\x89PNG\r\n\x1a\n") or
+            header.startswith(b"\xff\xd8\xff") or
+            (header.startswith(b"RIFF") and b"WEBP" in header)
+        )
+        if not is_valid_magic:
+            app.logger.warning("Security Shield: Rejected file upload with invalid magic bytes: %s", original_name)
             return redirect(url_for("profile", error="invalid_image"))
 
         extension = original_name.rsplit(".", 1)[1].lower()
@@ -5285,15 +5298,22 @@ def api_chat():
     """
     JSON API endpoint for the AI College Assistant chatbot widget.
     """
+    user_id = session.get("user_id")
+    if not user_id:
+        return jsonify({"status": "error", "error": "Authentication required. Please sign in to consult the AI Assistant."}), 401
+
     load_dotenv(override=True)
     data = request.get_json(silent=True) or {}
-    message = str(data.get("message", "")).strip()
+    message = str(data.get("message", "")).strip()[:1000]
     history = data.get("history", [])
+    if isinstance(history, list):
+        history = history[-8:]
+    else:
+        history = []
 
     if not message:
         return jsonify({"status": "error", "error": "Message cannot be empty."}), 400
 
-    user_id = session.get("user_id")
     user_context = get_user_prediction_context(user_id)
     college_context = retrieve_college_context(message, kcet_df, eamcet_df)
 
@@ -5317,6 +5337,38 @@ def api_chat():
         reply = generate_fallback_reply(message, combined_context, user_context)
 
     return jsonify({"status": "success", "reply": reply})
+
+
+# ============================================================
+# ACTIVE INTRUSION & SCANNER SHIELD (WAF)
+# ============================================================
+
+BLOCKED_SCANNER_PATTERNS = (
+    ".env", ".git", ".aws", ".config", "wp-admin", "wp-login", "xmlrpc.php",
+    "phpmyadmin", "eval-stdin.php", "phpunit", "boaform", "cgi-bin",
+    ".sql", ".bak", "/etc/passwd", "win.ini"
+)
+
+@app.before_request
+def block_malicious_probes():
+    path_lower = request.path.lower()
+
+    # 1. Block common hacker reconnaissance scanners
+    for pattern in BLOCKED_SCANNER_PATTERNS:
+        if pattern in path_lower and not path_lower.endswith((".js", ".css", ".png", ".jpg", ".webp")):
+            app.logger.warning(
+                "Security Shield: Blocked malicious scan from IP=%s for path=%s",
+                request.remote_addr, request.path
+            )
+            return render_template("403.html"), 403
+
+    # 2. Block path traversal attempts
+    if ".." in request.path or "%2e%2e" in path_lower:
+        app.logger.warning(
+            "Security Shield: Blocked path traversal attempt from IP=%s: %s",
+            request.remote_addr, request.path
+        )
+        return render_template("403.html"), 403
 
 
 # ============================================================
@@ -5375,4 +5427,5 @@ def internal_server_error(error):
 # ============================================================
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1",port=5000,debug=True)
+    is_debug = os.getenv("FLASK_DEBUG", "false").strip().lower() in ("true", "1", "yes")
+    app.run(host="127.0.0.1", port=5000, debug=is_debug)
