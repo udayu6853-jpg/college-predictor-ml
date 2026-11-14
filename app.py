@@ -108,6 +108,11 @@ if len(SECRET_KEY) < 32:
     )
 
 
+ADMIN_EMAIL = os.getenv(
+    "ADMIN_EMAIL",
+    "udayu6853@gmail.com"
+).strip().lower()
+
 app.config["SECRET_KEY"] = SECRET_KEY
 
 app.config["SESSION_COOKIE_HTTPONLY"] = True
@@ -123,6 +128,8 @@ app.config["SESSION_COOKIE_SECURE"] = (
 )
 
 app.config["SESSION_COOKIE_PATH"] = "/"
+
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=2)
 
 app.config["MAX_CONTENT_LENGTH"] = (
     5 * 1024 * 1024
@@ -1097,7 +1104,11 @@ def init_database():
                 name TEXT NOT NULL,
                 email TEXT NOT NULL UNIQUE,
                 password TEXT NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                google_id TEXT,
+                phone TEXT,
+                profile_image TEXT,
+                role TEXT DEFAULT 'user'
             )
             """
         )
@@ -1388,6 +1399,48 @@ migrate_profile_fields()
 
 
 # ============================================================
+# ROLE-BASED ACCESS CONTROL (RBAC) MIGRATION
+# ============================================================
+
+def migrate_user_roles():
+
+    connection = get_db_connection()
+
+    try:
+        connection.execute(
+            """
+            ALTER TABLE users
+            ADD COLUMN IF NOT EXISTS role TEXT DEFAULT 'user'
+            """
+        )
+        connection.commit()
+    except Exception:
+        pass
+
+    try:
+        connection.execute(
+            """
+            UPDATE users
+            SET role = 'admin'
+            WHERE LOWER(email) = %s
+            """,
+            (ADMIN_EMAIL,)
+        )
+        connection.commit()
+        app.logger.info("User role RBAC migration completed successfully.")
+    except Exception:
+        pass
+    finally:
+        try:
+            connection.close()
+        except Exception:
+            pass
+
+
+migrate_user_roles()
+
+
+# ============================================================
 # LOAD MACHINE LEARNING MODEL
 # ============================================================
 
@@ -1477,7 +1530,7 @@ def login_required(
             user = connection.execute(
 
                 """
-                SELECT id
+                SELECT id, email, role
                 FROM users
                 WHERE id = %s
                 """,
@@ -1500,6 +1553,12 @@ def login_required(
                     )
                 )
 
+            user_role = (user.get("role") or ("admin" if (user.get("email") or "").lower() == ADMIN_EMAIL else "user")).lower().strip()
+            user_email = (user.get("email") or "").lower().strip()
+            is_admin = (user_role == "admin" or user_email == ADMIN_EMAIL)
+            session["user_role"] = "admin" if is_admin else "user"
+            session["is_admin"] = is_admin
+
         except Exception as error:
 
             app.logger.error(
@@ -1519,6 +1578,58 @@ def login_required(
             *args,
             **kwargs
         )
+
+    return wrapper
+
+
+# ============================================================
+# SYSTEM ADMINISTRATOR AUTHORIZATION DECORATOR (RBAC)
+# ============================================================
+
+def admin_required(function):
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+        user_id = session.get("user_id")
+        if not user_id:
+            flash("Please sign in as System Administrator to access this area.", "warning")
+            return redirect(url_for("login"))
+
+        try:
+            connection = get_db_connection()
+            user = connection.execute(
+                """
+                SELECT id, email, role
+                FROM users
+                WHERE id = %s
+                """,
+                (user_id,)
+            ).fetchone()
+            connection.close()
+
+            if user is None:
+                session.clear()
+                flash("Session expired. Please sign in again.", "warning")
+                return redirect(url_for("login"))
+
+            user_role = (user.get("role") or ("admin" if (user.get("email") or "").lower() == ADMIN_EMAIL else "user")).lower().strip()
+            user_email = (user.get("email") or "").lower().strip()
+            is_admin = (user_role == "admin" or user_email == ADMIN_EMAIL)
+
+            if not is_admin:
+                app.logger.warning(
+                    "Security: Unauthorized administrative access attempt by user_id=%s, email=%s on path=%s",
+                    user_id, user_email, request.path
+                )
+                return render_template("403.html"), 403
+
+            session["user_role"] = "admin"
+            session["is_admin"] = True
+
+        except Exception as error:
+            app.logger.error("Admin validation error: %s", error)
+            return render_template("403.html"), 403
+
+        return function(*args, **kwargs)
 
     return wrapper
 
@@ -1552,6 +1663,7 @@ def home():
 # ============================================================
 
 @app.route("/login", methods=["GET", "POST"])
+@limiter.limit("5 per minute", methods=["POST"])
 def login():
     if session.get("user_id"):
         return redirect(url_for("dashboard"))
@@ -1576,7 +1688,7 @@ def login():
         try:
             user = connection.execute(
                 """
-                SELECT id, name, email, password, google_id
+                SELECT id, name, email, password, google_id, role
                 FROM users
                 WHERE LOWER(email) = %s
                 """,
@@ -1584,14 +1696,20 @@ def login():
             ).fetchone()
 
             if user:
+                user_role = (user.get("role") or ("admin" if email == ADMIN_EMAIL else "user")).lower().strip()
+                is_admin = (user_role == "admin" or email == ADMIN_EMAIL)
+
                 # Existing user: check password
                 if check_password_hash(user["password"], password):
+                    session.clear()
                     session["user_id"] = user["id"]
                     session["user_name"] = user.get("name") or email.split("@")[0]
                     session["user_email"] = user.get("email")
+                    session["user_role"] = "admin" if is_admin else "user"
+                    session["is_admin"] = is_admin
                     session["auth_type"] = "password"
 
-                    app.logger.info("User logged in via email: %s (id=%s)", email, user["id"])
+                    app.logger.info("User logged in via email: %s (id=%s, role=%s)", email, user["id"], session["user_role"])
                     return redirect(url_for("dashboard"))
                 elif user.get("google_id"):
                     # User originally signed in with Google OAuth and is now setting a password
@@ -1605,12 +1723,15 @@ def login():
                         (hashed_pwd, user["id"])
                     )
                     connection.commit()
+                    session.clear()
                     session["user_id"] = user["id"]
                     session["user_name"] = user.get("name") or email.split("@")[0]
                     session["user_email"] = user.get("email")
+                    session["user_role"] = "admin" if is_admin else "user"
+                    session["is_admin"] = is_admin
                     session["auth_type"] = "password"
 
-                    app.logger.info("Google user set password and logged in: %s (id=%s)", email, user["id"])
+                    app.logger.info("Google user set password and logged in: %s (id=%s, role=%s)", email, user["id"], session["user_role"])
                     return redirect(url_for("dashboard"))
                 else:
                     return render_template(
@@ -1621,23 +1742,27 @@ def login():
                 # New user: automatically register with real email and password
                 hashed_pwd = generate_password_hash(password)
                 display_name = email.split("@")[0].replace(".", " ").replace("_", " ").title()
+                new_role = "admin" if email == ADMIN_EMAIL else "user"
                 cursor = connection.execute(
                     """
-                    INSERT INTO users (name, email, password)
-                    VALUES (%s, %s, %s)
-                    RETURNING id, name, email
+                    INSERT INTO users (name, email, password, role)
+                    VALUES (%s, %s, %s, %s)
+                    RETURNING id, name, email, role
                     """,
-                    (display_name, email, hashed_pwd)
+                    (display_name, email, hashed_pwd, new_role)
                 )
                 connection.commit()
                 new_user = cursor.fetchone()
 
+                session.clear()
                 session["user_id"] = new_user["id"]
                 session["user_name"] = new_user.get("name") or display_name
                 session["user_email"] = new_user.get("email") or email
+                session["user_role"] = new_role
+                session["is_admin"] = (new_role == "admin")
                 session["auth_type"] = "password"
 
-                app.logger.info("New user auto-registered and logged in via email: %s (id=%s)", email, new_user["id"])
+                app.logger.info("New user auto-registered and logged in: %s (id=%s, role=%s)", email, new_user["id"], new_role)
                 return redirect(url_for("dashboard"))
 
         except Exception as e:
@@ -1912,6 +2037,11 @@ def google_callback():
 
         session["user_email"] = user["email"]
 
+        user_role = (user.get("role") or ("admin" if (user.get("email") or "").lower() == ADMIN_EMAIL else "user")).lower().strip()
+        is_admin = (user_role == "admin" or (user.get("email") or "").lower() == ADMIN_EMAIL)
+        session["user_role"] = "admin" if is_admin else "user"
+        session["is_admin"] = is_admin
+
         session["google_id"] = google_id
 
         session["google_picture"] = picture
@@ -1955,6 +2085,7 @@ def google_callback():
 # so an old signup link cannot open the previous password/OTP form.
 
 @app.route("/signup", methods=["GET", "POST"])
+@limiter.limit("3 per minute", methods=["POST"])
 def signup():
     if session.get("user_id"):
         return redirect(url_for("dashboard"))
@@ -2003,25 +2134,29 @@ def signup():
                 )
 
             hashed_password = generate_password_hash(password)
+            new_role = "admin" if email == ADMIN_EMAIL else "user"
 
             cursor = connection.execute(
                 """
-                INSERT INTO users (name, email, password)
-                VALUES (%s, %s, %s)
+                INSERT INTO users (name, email, password, role)
+                VALUES (%s, %s, %s, %s)
                 RETURNING id
                 """,
-                (name, email, hashed_password)
+                (name, email, hashed_password, new_role)
             )
             connection.commit()
             new_user = cursor.fetchone()
             user_id = new_user["id"]
 
+            session.clear()
             session["user_id"] = user_id
             session["user_name"] = name
             session["user_email"] = email
+            session["user_role"] = new_role
+            session["is_admin"] = (new_role == "admin")
             session["auth_type"] = "password"
 
-            app.logger.info("New user registered: %s (id=%s)", email, user_id)
+            app.logger.info("New user registered: %s (id=%s, role=%s)", email, user_id, new_role)
             return redirect(url_for("dashboard"))
 
         except Exception as e:
@@ -2222,6 +2357,144 @@ def dashboard():
 def admin_contact():
 
     return render_template("admin.html")
+
+
+# ============================================================
+# SYSTEM ADMINISTRATOR CONTROL CENTER (ADMIN ONLY - RBAC)
+# ============================================================
+
+@app.route("/admin/dashboard")
+@admin_required
+def admin_dashboard():
+    connection = get_db_connection()
+    try:
+        total_users = connection.execute("SELECT COUNT(*) AS count FROM users").fetchone()["count"]
+        total_predictions = connection.execute("SELECT COUNT(*) AS count FROM prediction_history").fetchone()["count"]
+        total_saved = connection.execute("SELECT COUNT(*) AS count FROM saved_colleges").fetchone()["count"]
+
+        users_list = connection.execute(
+            """
+            SELECT id, name, email, role, phone, created_at, google_id
+            FROM users
+            ORDER BY id ASC
+            """
+        ).fetchall()
+
+        recent_predictions = connection.execute(
+            """
+            SELECT ph.id, ph.exam, ph.rank, ph.branch, ph.created_at,
+                   u.name AS user_name, u.email AS user_email
+            FROM prediction_history ph
+            LEFT JOIN users u ON ph.user_id = u.id
+            ORDER BY ph.created_at DESC
+            LIMIT 15
+            """
+        ).fetchall()
+
+        db_type = "PostgreSQL Cloud (Render)" if not _USE_SQLITE_FALLBACK else "Local SQLite"
+
+        return render_template(
+            "admin_dashboard.html",
+            total_users=total_users,
+            total_predictions=total_predictions,
+            total_saved=total_saved,
+            users=users_list,
+            recent_predictions=recent_predictions,
+            db_type=db_type,
+            admin_email=ADMIN_EMAIL
+        )
+    except Exception as e:
+        app.logger.exception("Admin dashboard load error: %s", e)
+        flash("An error occurred while loading administrative metrics.", "danger")
+        return redirect(url_for("dashboard"))
+    finally:
+        connection.close()
+
+
+@app.route("/admin/delete-user/<int:target_user_id>", methods=["POST"])
+@admin_required
+def admin_delete_user(target_user_id):
+    current_admin_id = session.get("user_id")
+    if target_user_id == current_admin_id:
+        flash("Security Protection: You cannot delete your own Administrator account.", "danger")
+        return redirect(url_for("admin_dashboard"))
+
+    connection = get_db_connection()
+    try:
+        user_to_delete = connection.execute(
+            "SELECT id, email, role FROM users WHERE id = %s",
+            (target_user_id,)
+        ).fetchone()
+
+        if not user_to_delete:
+            flash("User not found.", "warning")
+            return redirect(url_for("admin_dashboard"))
+
+        if (user_to_delete.get("email") or "").lower() == ADMIN_EMAIL:
+            flash("Security Protection: Primary System Administrator cannot be deleted.", "danger")
+            return redirect(url_for("admin_dashboard"))
+
+        connection.execute("DELETE FROM users WHERE id = %s", (target_user_id,))
+        connection.commit()
+        app.logger.warning(
+            "Security Audit: Admin %s deleted user_id=%s (email=%s)",
+            session.get("user_email"), target_user_id, user_to_delete.get("email")
+        )
+        flash(f"User account #{target_user_id} ({user_to_delete.get('email')}) successfully removed.", "success")
+    except Exception as e:
+        connection.rollback()
+        app.logger.exception("Admin delete user error: %s", e)
+        flash("Failed to delete user account.", "danger")
+    finally:
+        connection.close()
+
+    return redirect(url_for("admin_dashboard"))
+
+
+@app.route("/admin/toggle-role/<int:target_user_id>", methods=["POST"])
+@admin_required
+def admin_toggle_role(target_user_id):
+    current_admin_id = session.get("user_id")
+    if target_user_id == current_admin_id:
+        flash("Security Protection: You cannot demote your own Administrator status.", "warning")
+        return redirect(url_for("admin_dashboard"))
+
+    connection = get_db_connection()
+    try:
+        target_user = connection.execute(
+            "SELECT id, email, role FROM users WHERE id = %s",
+            (target_user_id,)
+        ).fetchone()
+
+        if not target_user:
+            flash("User not found.", "warning")
+            return redirect(url_for("admin_dashboard"))
+
+        if (target_user.get("email") or "").lower() == ADMIN_EMAIL:
+            flash("Security Protection: Primary System Administrator role cannot be modified.", "danger")
+            return redirect(url_for("admin_dashboard"))
+
+        current_role = (target_user.get("role") or "user").lower().strip()
+        new_role = "user" if current_role == "admin" else "admin"
+
+        connection.execute(
+            "UPDATE users SET role = %s WHERE id = %s",
+            (new_role, target_user_id)
+        )
+        connection.commit()
+        app.logger.warning(
+            "Security Audit: Admin %s changed user_id=%s role from %s to %s",
+            session.get("user_email"), target_user_id, current_role, new_role
+        )
+        flash(f"User #{target_user_id} role updated to '{new_role}'.", "success")
+    except Exception as e:
+        connection.rollback()
+        app.logger.exception("Admin toggle role error: %s", e)
+        flash("Failed to update user role.", "danger")
+    finally:
+        connection.close()
+
+    return redirect(url_for("admin_dashboard"))
 
 # ============================================================
 # COLLEGES
@@ -2876,7 +3149,7 @@ def normalize_branch(branch):
     methods=["POST"]
 )
 @login_required
-
+@limiter.limit("15 per minute")
 def predict():
 
     # ========================================================
@@ -5007,6 +5280,7 @@ def call_gemini_api(api_key, message, history, context):
 
 @app.route("/api/chat", methods=["POST"])
 @csrf.exempt
+@limiter.limit("20 per minute")
 def api_chat():
     """
     JSON API endpoint for the AI College Assistant chatbot widget.
@@ -5053,26 +5327,47 @@ def api_chat():
 def add_security_headers(response):
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    response.headers["X-XSS-Protection"] = "1; mode=block"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     response.headers["Permissions-Policy"] = "geolocation=(), microphone=(self), camera=()"
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self' 'unsafe-inline' 'unsafe-eval' https: http: data: blob:; "
+        "frame-ancestors 'self';"
+    )
     if "text/html" in response.headers.get("Content-Type", ""):
         response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, max-age=0"
         response.headers["Pragma"] = "no-cache"
         response.headers["Expires"] = "0"
     return response
 
+@app.errorhandler(403)
+def forbidden(error):
+    return render_template("403.html"), 403
+
 @app.errorhandler(404)
 def page_not_found(error):
-    return redirect(url_for("dashboard" if session.get("user_id") else "login"))
+    return render_template("404.html"), 404
 
 @app.errorhandler(413)
 def request_entity_too_large(error):
     return ("Request is too large. Please upload an image smaller than 5 MB.", 413)
 
+@app.errorhandler(429)
+def ratelimit_handler(e):
+    if request.path.startswith("/api/"):
+        return jsonify({
+            "status": "error",
+            "reply": "Rate limit reached. For security and anti-spam protection, please wait a minute before sending another query."
+        }), 429
+    return render_template(
+        "429.html",
+        message="Too many requests detected. For your security and server protection against brute-force attacks, please wait a minute before trying again."
+    ), 429
+
 @app.errorhandler(500)
 def internal_server_error(error):
-    app.logger.exception("Unhandled server error")
-    return "An unexpected server error occurred.",500
+    app.logger.exception("Unhandled server error: %s", error)
+    return render_template("500.html"), 500
 
 
 # ============================================================
