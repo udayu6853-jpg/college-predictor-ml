@@ -144,7 +144,9 @@
                         </div>
                         <div>
                             <h4 class="font-bold text-slate-800 text-xs">Chat History</h4>
-                            <p class="text-[10px] text-slate-400">Questions previously asked in this session</p>
+                            <p class="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
+                                <span>🕒 Auto-deletes after 1 week (7 days)</span>
+                            </p>
                         </div>
                     </div>
                     <button
@@ -962,10 +964,44 @@
         }
     }
 
-    function renderChatHistoryBadge() {
+    // -------------------------------------------------------------
+    // CHAT HISTORY STORAGE & 7-DAY AUTO-CLEANUP
+    // -------------------------------------------------------------
+    const ONE_WEEK_MS = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+
+    function getCleanedChatHistory() {
         try {
             const raw = localStorage.getItem('smartPredictor_aiChatHistory_v1');
-            const history = raw ? JSON.parse(raw) : [];
+            if (!raw) return [];
+            const history = JSON.parse(raw);
+            if (!Array.isArray(history)) return [];
+
+            const now = Date.now();
+            // Auto delete any chat message older than 1 week (7 days)
+            const freshHistory = history.filter(item => {
+                if (!item.timestamp) return true; // keep legacy message if timestamp missing
+                return (now - item.timestamp) < ONE_WEEK_MS;
+            });
+
+            // If any messages expired after 1 week, update localStorage
+            if (freshHistory.length !== history.length) {
+                if (freshHistory.length > 0) {
+                    localStorage.setItem('smartPredictor_aiChatHistory_v1', JSON.stringify(freshHistory));
+                } else {
+                    localStorage.removeItem('smartPredictor_aiChatHistory_v1');
+                }
+            }
+
+            return freshHistory;
+        } catch (e) {
+            console.warn('Failed to parse or clean chat history:', e);
+            return [];
+        }
+    }
+
+    function renderChatHistoryBadge() {
+        try {
+            const history = getCleanedChatHistory();
             const userCount = history.filter(item => item.role === 'user').length;
             const badge = document.getElementById('aiChatHistoryBadge');
             if (badge) {
@@ -981,8 +1017,7 @@
 
     function renderRecentQuestionsChips() {
         try {
-            const raw = localStorage.getItem('smartPredictor_aiChatHistory_v1');
-            const history = raw ? JSON.parse(raw) : [];
+            const history = getCleanedChatHistory();
             const userQuestions = history.filter(item => item.role === 'user');
             const container = document.getElementById('aiRecentQuestionsContainer');
             const chips = document.getElementById('aiRecentQuestionsChips');
@@ -1027,8 +1062,7 @@
 
         renderChatHistoryBadge();
 
-        const raw = localStorage.getItem('smartPredictor_aiChatHistory_v1');
-        const history = raw ? JSON.parse(raw) : [];
+        const history = getCleanedChatHistory();
         const userQuestions = history.filter(item => item.role === 'user');
 
         if (userQuestions.length === 0) {
@@ -1040,7 +1074,7 @@
                         </svg>
                     </div>
                     <p class="font-bold text-slate-700 text-xs">No chat history yet</p>
-                    <p class="text-[11px] text-slate-400 max-w-[240px] mx-auto">Ask any question in the chat and your questions will be safely saved here.</p>
+                    <p class="text-[11px] text-slate-400 max-w-[240px] mx-auto">Ask any question in the chat and your questions will be safely saved here for 1 week.</p>
                 </div>
             `;
             return;
@@ -1085,18 +1119,15 @@
         }).join('');
     }
 
-    // -------------------------------------------------------------
-    // CHAT HISTORY STORAGE & RESTORATION
-    // -------------------------------------------------------------
     function saveMessageToHistory(role, content) {
         try {
-            const raw = localStorage.getItem('smartPredictor_aiChatHistory_v1');
-            const history = raw ? JSON.parse(raw) : [];
+            const history = getCleanedChatHistory();
             const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             history.push({
                 role: role,
                 content: content,
-                time: timeStr
+                time: timeStr,
+                timestamp: Date.now() // Enables 1-week auto-deletion
             });
             // Keep up to 50 latest messages
             if (history.length > 50) {
@@ -1115,9 +1146,7 @@
             renderChatHistoryBadge();
             renderRecentQuestionsChips();
 
-            const raw = localStorage.getItem('smartPredictor_aiChatHistory_v1');
-            if (!raw) return;
-            const history = JSON.parse(raw);
+            const history = getCleanedChatHistory();
             if (!Array.isArray(history) || history.length === 0) return;
 
             // Sync with memory for /api/chat payload
