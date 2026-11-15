@@ -159,7 +159,23 @@
             <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-bounce"></span>
             <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-bounce [animation-delay:0.2s]"></span>
             <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-bounce [animation-delay:0.4s]"></span>
-            <span class="ml-1 text-slate-400 font-medium">AI Assistant is thinking...</span>
+            <span class="ml-1 text-slate-400 font-medium">AI College Assistant is thinking...</span>
+        </div>
+
+        <!-- Editing Query Banner (Hidden by default) -->
+        <div id="aiChatEditingBanner" class="hidden px-4 py-2 bg-sky-50/95 border-t border-sky-100 flex items-center justify-between text-xs text-sky-800 shadow-inner">
+            <div class="flex items-center gap-2 overflow-hidden mr-2">
+                <span class="flex-shrink-0 text-sky-600 font-bold text-xs">✏️ Editing:</span>
+                <span id="aiChatEditingPreview" class="truncate font-medium text-slate-700 text-[11px]"></span>
+            </div>
+            <button
+                type="button"
+                onclick="cancelEditUserQuery()"
+                class="px-2 py-0.5 rounded-md hover:bg-sky-200/60 text-slate-500 hover:text-slate-800 text-[10px] font-semibold transition cursor-pointer flex-shrink-0"
+                title="Cancel edit"
+            >
+                Cancel ✕
+            </button>
         </div>
 
         <!-- Input Box -->
@@ -233,6 +249,12 @@
 
     function clearAiChat() {
         aiConversationHistory = [];
+        try {
+            localStorage.removeItem('smartPredictor_aiChatHistory_v1');
+        } catch (e) {
+            console.warn(e);
+        }
+        cancelEditUserQuery();
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
         }
@@ -700,12 +722,15 @@
             cancelVoiceRecognition();
         }
 
+        // Cancel editing banner if active
+        cancelEditUserQuery();
+
         // Hide suggestions once user interacts
         const suggestions = document.getElementById('aiChatSuggestions');
         if (suggestions) suggestions.style.display = 'none';
 
-        // Append User Message to Chat Window
-        appendUserMessage(message);
+        // Append User Message to Chat Window and save to history
+        appendUserMessage(message, true);
         input.value = '';
 
         // Show typing indicator
@@ -732,36 +757,163 @@
             typing.classList.add('hidden');
 
             if (data.status === 'success' && data.reply) {
-                appendAiMessage(data.reply);
+                appendAiMessage(data.reply, true);
                 aiConversationHistory.push({ role: 'assistant', content: data.reply });
             } else {
-                appendAiMessage(data.error || "Sorry, I couldn't process that request right now. Please try again.");
+                appendAiMessage(data.error || "Sorry, I couldn't process that request right now. Please try again.", true);
             }
         } catch (err) {
             typing.classList.add('hidden');
-            appendAiMessage("Network error: Unable to reach the AI assistant. Please check your connection.");
+            appendAiMessage("Network error: Unable to reach the AI assistant. Please check your connection.", false);
         }
 
         scrollChatToBottom();
     }
 
-    function appendUserMessage(text) {
+    // -------------------------------------------------------------
+    // EDIT QUESTION FEATURE
+    // -------------------------------------------------------------
+    function editUserQuery(text) {
+        if (!text) return;
+        const input = document.getElementById('aiChatInput');
+        const banner = document.getElementById('aiChatEditingBanner');
+        const preview = document.getElementById('aiChatEditingPreview');
+
+        if (preview) {
+            preview.textContent = text.length > 55 ? text.substring(0, 52) + '...' : text;
+        }
+        if (banner) {
+            banner.classList.remove('hidden');
+        }
+
+        if (input) {
+            input.value = text;
+            input.focus();
+            const len = input.value.length;
+            input.setSelectionRange(len, len);
+            input.classList.add('ring-2', 'ring-sky-500');
+            setTimeout(() => {
+                input.classList.remove('ring-2', 'ring-sky-500');
+            }, 1200);
+        }
+
+        const win = document.getElementById('aiChatbotWindow');
+        if (win && win.classList.contains('hidden')) {
+            win.classList.remove('hidden');
+        }
+        scrollChatToBottom();
+    }
+
+    function cancelEditUserQuery() {
+        const banner = document.getElementById('aiChatEditingBanner');
+        if (banner) banner.classList.add('hidden');
+    }
+
+    // -------------------------------------------------------------
+    // CHAT HISTORY STORAGE & RESTORATION
+    // -------------------------------------------------------------
+    function saveMessageToHistory(role, content) {
+        try {
+            const raw = localStorage.getItem('smartPredictor_aiChatHistory_v1');
+            const history = raw ? JSON.parse(raw) : [];
+            const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            history.push({
+                role: role,
+                content: content,
+                time: timeStr
+            });
+            // Keep up to 50 latest messages
+            if (history.length > 50) {
+                history.splice(0, history.length - 50);
+            }
+            localStorage.setItem('smartPredictor_aiChatHistory_v1', JSON.stringify(history));
+        } catch (e) {
+            console.warn('Failed to save message to localStorage', e);
+        }
+    }
+
+    function loadStoredChatHistory() {
+        try {
+            const raw = localStorage.getItem('smartPredictor_aiChatHistory_v1');
+            if (!raw) return;
+            const history = JSON.parse(raw);
+            if (!Array.isArray(history) || history.length === 0) return;
+
+            // Sync with memory for /api/chat payload
+            aiConversationHistory = history.map(item => ({
+                role: item.role,
+                content: item.content
+            }));
+
+            // Hide initial suggestions
+            const suggestions = document.getElementById('aiChatSuggestions');
+            if (suggestions) suggestions.style.display = 'none';
+
+            // Insert restored divider
+            const msgContainer = document.getElementById('aiChatMessages');
+            const divider = document.createElement('div');
+            divider.className = 'flex items-center gap-2 my-2 text-[10px] text-slate-400 select-none';
+            divider.innerHTML = `
+                <div class="flex-1 border-t border-slate-200"></div>
+                <span class="px-1 text-slate-400 font-medium">Chat History Restored</span>
+                <div class="flex-1 border-t border-slate-200"></div>
+            `;
+            msgContainer.appendChild(divider);
+
+            // Append stored messages
+            history.forEach(item => {
+                if (item.role === 'user') {
+                    appendUserMessage(item.content, false, item.time || '');
+                } else if (item.role === 'assistant') {
+                    appendAiMessage(item.content, false, item.time || '');
+                }
+            });
+
+            scrollChatToBottom();
+        } catch (e) {
+            console.warn('Failed to restore chat history', e);
+        }
+    }
+
+    function appendUserMessage(text, saveToStorage = true, time = null) {
         const msgContainer = document.getElementById('aiChatMessages');
         const bubble = document.createElement('div');
-        bubble.className = 'flex items-start justify-end gap-2';
+        bubble.className = 'flex items-start justify-end gap-1.5 group mb-1';
+        
+        const displayTime = time || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        const safeEncoded = encodeURIComponent(text);
+        const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
         bubble.innerHTML = `
-            <div class="bg-gradient-to-r from-sky-600 to-sky-500 text-white rounded-2xl rounded-tr-sm p-3 shadow-xs max-w-[85%] text-left leading-relaxed">
-                ${text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}
+            <button
+                type="button"
+                onclick="editUserQuery(decodeURIComponent('${safeEncoded}'))"
+                class="p-1.5 rounded-lg text-slate-400 hover:text-sky-600 hover:bg-sky-100 transition-all flex-shrink-0 self-center cursor-pointer opacity-70 group-hover:opacity-100 focus:opacity-100"
+                title="Edit what you asked (loads question into input)"
+                aria-label="Edit question"
+            >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                </svg>
+            </button>
+            <div class="bg-gradient-to-r from-sky-600 to-sky-500 text-white rounded-2xl rounded-tr-sm p-3 shadow-xs max-w-[85%] text-left leading-relaxed text-xs">
+                <div>${escapedText}</div>
+                <div class="text-[9px] text-sky-100/75 text-right mt-1 font-mono">${displayTime}</div>
             </div>
         `;
         msgContainer.appendChild(bubble);
+
+        if (saveToStorage) {
+            saveMessageToHistory('user', text);
+        }
     }
 
-    function appendAiMessage(rawText) {
+    function appendAiMessage(rawText, saveToStorage = true, time = null) {
         const msgContainer = document.getElementById('aiChatMessages');
         const bubble = document.createElement('div');
         bubble.className = 'flex items-start gap-2.5';
         
+        const displayTime = time || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const safeEncoded = encodeURIComponent(rawText);
 
         bubble.innerHTML = `
@@ -771,7 +923,10 @@
             <div class="group relative bg-white border border-sky-100 rounded-2xl rounded-tl-sm p-3.5 shadow-xs max-w-[85%] text-slate-700 leading-relaxed text-xs">
                 ${formatAiResponse(rawText)}
                 <div class="mt-2 pt-1 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400">
-                    <span class="font-mono text-[9px] text-sky-600/80">Gemini 3.5</span>
+                    <div class="flex items-center gap-2">
+                        <span class="font-mono text-[9px] text-sky-600/80">Gemini 3.5</span>
+                        <span class="text-[9px] text-slate-400 font-mono">${displayTime}</span>
+                    </div>
                     <button
                         type="button"
                         onclick="toggleSpeakText(this, decodeURIComponent('${safeEncoded}'))"
@@ -788,14 +943,27 @@
         `;
         msgContainer.appendChild(bubble);
 
+        if (saveToStorage) {
+            saveMessageToHistory('assistant', rawText);
+        }
+
         // Auto-play voice if Voice Readout is enabled
-        if (autoSpeakAnswers) {
+        if (autoSpeakAnswers && saveToStorage) {
             toggleSpeakText(null, rawText);
         }
     }
 
     function scrollChatToBottom() {
         const msgContainer = document.getElementById('aiChatMessages');
-        msgContainer.scrollTop = msgContainer.scrollHeight;
+        if (msgContainer) {
+            msgContainer.scrollTop = msgContainer.scrollHeight;
+        }
+    }
+
+    // Auto load chat history when page loads
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadStoredChatHistory);
+    } else {
+        loadStoredChatHistory();
     }
 </script>
