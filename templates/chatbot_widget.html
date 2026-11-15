@@ -825,6 +825,31 @@
             return;
         }
 
+        // Reject gibberish / nonsense (e.g. "gg", "asdf", "...", random repeated keys)
+        const cleanMsg = message.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
+        const validShortAbbrs = ['cs', 'ce', 'ee', 'me', 'ec', 'ai', 'is', 'it', 'bt'];
+        let isGibberish = false;
+        if (cleanMsg.length < 3 && !validShortAbbrs.includes(cleanMsg)) {
+            isGibberish = true;
+        } else if (new Set(cleanMsg.replace(/\s+/g, '')).size <= 1) {
+            isGibberish = true;
+        } else if (/^[bcdfghjklmnpqrstvwxyz]{3,}$/.test(cleanMsg)) {
+            isGibberish = true;
+        }
+
+        if (isGibberish) {
+            if (input) {
+                input.value = '';
+                input.placeholder = "⚠️ Please ask a valid question about colleges, cutoffs, or fees...";
+                input.classList.add('ring-2', 'ring-rose-400');
+                setTimeout(() => {
+                    input.classList.remove('ring-2', 'ring-rose-400');
+                    input.placeholder = "Ask about colleges, cutoffs, or click 🎙️ to talk...";
+                }, 2500);
+            }
+            return;
+        }
+
         // If voice recording is still running, stop it
         if (isRecordingSpeech) {
             cancelVoiceRecognition();
@@ -977,9 +1002,16 @@
             if (!Array.isArray(history)) return [];
 
             const now = Date.now();
-            // Auto delete any chat message older than 1 week (7 days)
+            // Auto delete any chat message older than 1 week (7 days) and purge meaningless entries like "gg"
             const freshHistory = history.filter(item => {
-                if (!item.timestamp) return true; // keep legacy message if timestamp missing
+                if (!item.content) return false;
+                if (item.role === 'user') {
+                    const clean = item.content.replace(/[^a-zA-Z0-9\s]/g, '').trim().toLowerCase();
+                    if (clean.length < 3 && !['cs', 'ce', 'ee', 'me', 'ec', 'ai', 'is', 'it', 'bt'].includes(clean)) return false;
+                    if (new Set(clean.replace(/\s+/g, '')).size <= 1) return false;
+                    if (/^[bcdfghjklmnpqrstvwxyz]{3,}$/.test(clean)) return false;
+                }
+                if (!item.timestamp) return true;
                 return (now - item.timestamp) < ONE_WEEK_MS;
             });
 

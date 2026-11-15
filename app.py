@@ -5095,7 +5095,7 @@ def call_gemini_api(api_key, message, history, context):
         "• ML Model: RandomForestClassifier (90.81% accuracy, 93.02% precision, 91.56% recall, model/college_predictor.pkl).\n"
         "• Tech Stack: Python 3, Flask, Scikit-learn, PostgreSQL on Render + SQLite local fallback, Tailwind CSS.\n"
         "• Administrator: Uday (Phone: +91 8919221139, Email: udayu6853@gmail.com, LinkedIn: https://www.linkedin.com/in/uday-uday-270441354, GitHub: https://github.com/udayu6853-jpg).\n"
-        "• User Search History: If asked about their entered rank or previous search, state it directly from User Search History in 1 short line without any follow-up questions."
+        "• User Search History: ONLY state past search history if the student explicitly asks 'what is my rank', 'what was my search', or 'my history'. If the user did not explicitly ask for their search history, NEVER mention past rank, exam, or search records."
     )
 
     full_prompt = f"Student Question: {message}\n"
@@ -5182,12 +5182,39 @@ def api_chat():
     if not message:
         return jsonify({"status": "error", "error": "Message cannot be empty."}), 400
 
+    # 1. Reject gibberish / nonsense (e.g. "gg", "asdf", "...", random repeated keys)
+    clean_msg = re.sub(r"[^a-zA-Z0-9\s]", "", message).strip().lower()
+    valid_short_abbrs = {"cs", "ce", "ee", "me", "ec", "ai", "is", "it", "bt"}
+    is_gibberish = False
+    if len(clean_msg) < 3 and clean_msg not in valid_short_abbrs:
+        is_gibberish = True
+    elif len(set(clean_msg.replace(" ", ""))) <= 1:
+        is_gibberish = True
+    elif re.match(r"^[bcdfghjklmnpqrstvwxyz]{3,}$", clean_msg):
+        is_gibberish = True
+
+    if is_gibberish:
+        return jsonify({
+            "status": "success",
+            "reply": "Please ask a specific question about colleges, cutoffs, fees, or rankings (e.g. *'Best college in Tirupati'* or *'Top KCET colleges for CSE'*)."
+        })
+
     user_context = get_user_prediction_context(user_id)
     college_context = retrieve_college_context(message, kcet_df, eamcet_df)
 
     context_parts = []
-    if user_context:
+    # ONLY inject user prediction history if student EXPLICITLY asks about their rank or previous search!
+    is_asking_user_history = any(
+        k in message.lower()
+        for k in [
+            "my rank", "my search", "my history", "entered rank", "latest rank",
+            "previous search", "past search", "what did i search", "what was my rank",
+            "i entered", "searched before"
+        ]
+    )
+    if is_asking_user_history and user_context:
         context_parts.append(user_context)
+
     if college_context:
         context_parts.append(college_context)
     combined_context = "\n\n".join(context_parts)
