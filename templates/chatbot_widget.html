@@ -43,7 +43,21 @@
                 </div>
             </div>
             
-            <div class="flex items-center gap-1">
+            <div class="flex items-center gap-1.5">
+                <!-- Chat History View Button -->
+                <button
+                    id="aiHistoryBtn"
+                    onclick="toggleChatHistoryView()"
+                    class="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-[11px] transition focus:outline-none cursor-pointer shadow-2xs"
+                    title="View Chat History"
+                >
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span>History</span>
+                    <span id="aiChatHistoryBadge" class="hidden px-1.5 py-0.2 rounded-full text-[9px] bg-white text-sky-700 font-extrabold">0</span>
+                </button>
+
                 <!-- Text-to-Speech Voice Readout Toggle -->
                 <button
                     id="aiAutoSpeakBtn"
@@ -92,6 +106,13 @@
 
             <!-- Suggested Quick-Prompt Pills -->
             <div id="aiChatSuggestions" class="space-y-1.5 pt-1">
+                <div id="aiRecentQuestionsContainer" class="hidden space-y-1.5 pb-2 border-b border-slate-200">
+                    <p class="text-[10px] font-bold text-sky-600 uppercase tracking-wider px-1 flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span>Recent Questions History:</span>
+                    </p>
+                    <div id="aiRecentQuestionsChips" class="flex flex-wrap gap-1.5"></div>
+                </div>
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">Suggested Questions:</p>
                 <div class="flex flex-wrap gap-1.5">
                     <button onclick="sendQuickPrompt('Which college is best in Tirupati?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
@@ -111,109 +132,164 @@
 
         </div>
 
-        <!-- Voice Listening Banner (Active during speech recognition) -->
-        <div id="aiVoiceBanner" class="hidden px-3.5 py-2.5 bg-gradient-to-r from-rose-50 via-pink-50 to-rose-50 border-t border-rose-200/70 flex flex-col gap-1.5 text-rose-700 text-xs shadow-inner">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2 overflow-hidden">
-                    <!-- Animated Voice Sound-Wave Bars -->
-                    <div class="flex items-center gap-0.5 h-4 flex-shrink-0">
-                        <span class="w-1 h-3 bg-rose-500 rounded-full animate-pulse [animation-duration:500ms]"></span>
-                        <span class="w-1 h-4 bg-rose-600 rounded-full animate-bounce [animation-duration:400ms]"></span>
-                        <span class="w-1 h-2 bg-rose-400 rounded-full animate-pulse [animation-duration:600ms]"></span>
-                        <span class="w-1 h-3.5 bg-rose-500 rounded-full animate-bounce [animation-duration:450ms]"></span>
+        <!-- Chat History Panel (View your past questions & conversations) -->
+        <div id="aiChatHistoryPanel" class="hidden flex-1 overflow-y-auto p-4 bg-slate-50/90 text-xs flex flex-col justify-between space-y-3">
+            <div class="space-y-3">
+                <div class="flex items-center justify-between pb-2.5 border-b border-slate-200">
+                    <div class="flex items-center gap-1.5">
+                        <div class="w-6 h-6 rounded-lg bg-sky-500 text-white flex items-center justify-center">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-xs">Chat History</h4>
+                            <p class="text-[10px] text-slate-400">Questions previously asked in this session</p>
+                        </div>
                     </div>
-                    <span id="aiVoiceBannerText" class="font-medium text-[11px] truncate">🎙️ Listening... speak your college question now</span>
-                </div>
-                <!-- Action Buttons: Predict Now & Cancel -->
-                <div class="flex items-center gap-1.5 flex-shrink-0">
                     <button
                         type="button"
-                        id="aiVoiceSubmitBtn"
-                        onclick="submitVoiceQueryNow()"
-                        class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold shadow-xs transition active:scale-95 flex items-center gap-1 cursor-pointer"
-                        title="Submit recognized question now"
+                        onclick="toggleChatHistoryView()"
+                        class="text-sky-600 hover:text-sky-800 font-bold text-[11px] px-2.5 py-1 rounded-lg hover:bg-sky-50 border border-sky-200 transition cursor-pointer flex items-center gap-1"
                     >
-                        <span>⚡ Predict</span>
-                    </button>
-                    <button
-                        type="button"
-                        onclick="cancelVoiceRecognition()"
-                        class="px-2 py-1 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-800 text-[10px] font-semibold transition cursor-pointer"
-                        title="Cancel voice recording"
-                    >
-                        ✕
+                        <span>← Back to Chat</span>
                     </button>
                 </div>
-            </div>
-            <!-- Language Quick-Pills for Voice Recognition -->
-            <div class="flex items-center gap-1.5 text-[10px] text-slate-500 pt-1 border-t border-rose-100/60">
-                <span class="text-slate-400 font-medium">Voice Lang:</span>
-                <button type="button" onclick="setVoiceLanguage('en-IN')" id="voiceLang_en_IN" class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-200 text-rose-900 transition">🇮🇳 English (IN)</button>
-                <button type="button" onclick="setVoiceLanguage('te-IN')" id="voiceLang_te_IN" class="px-1.5 py-0.5 rounded text-[10px] hover:bg-rose-100 text-slate-600 transition">తెలుగు</button>
-                <button type="button" onclick="setVoiceLanguage('en-US')" id="voiceLang_en_US" class="px-1.5 py-0.5 rounded text-[10px] hover:bg-rose-100 text-slate-600 transition">🇺🇸 US</button>
-            </div>
-        </div>
 
-        <!-- Typing Indicator (Hidden by default) -->
-        <div id="aiChatTyping" class="hidden px-5 py-2 bg-slate-50 border-t border-slate-100 flex items-center gap-2 text-slate-500 text-[11px]">
-            <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-bounce"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-bounce [animation-delay:0.2s]"></span>
-            <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-bounce [animation-delay:0.4s]"></span>
-            <span class="ml-1 text-slate-400 font-medium">AI College Assistant is thinking...</span>
-        </div>
-
-        <!-- Editing Query Banner (Hidden by default) -->
-        <div id="aiChatEditingBanner" class="hidden px-4 py-2 bg-sky-50/95 border-t border-sky-100 flex items-center justify-between text-xs text-sky-800 shadow-inner">
-            <div class="flex items-center gap-2 overflow-hidden mr-2">
-                <span class="flex-shrink-0 text-sky-600 font-bold text-xs">✏️ Editing:</span>
-                <span id="aiChatEditingPreview" class="truncate font-medium text-slate-700 text-[11px]"></span>
+                <!-- List of Questions in History -->
+                <div id="aiChatHistoryList" class="space-y-2">
+                    <!-- Injected dynamically by renderChatHistoryList() -->
+                </div>
             </div>
-            <button
-                type="button"
-                onclick="cancelEditUserQuery()"
-                class="px-2 py-0.5 rounded-md hover:bg-sky-200/60 text-slate-500 hover:text-slate-800 text-[10px] font-semibold transition cursor-pointer flex-shrink-0"
-                title="Cancel edit"
-            >
-                Cancel ✕
-            </button>
-        </div>
 
-        <!-- Input Box -->
-        <div class="p-3 bg-white border-t border-sky-100 flex-shrink-0">
-            <form onsubmit="handleAiChatSubmit(event)" class="relative flex items-center">
-                <input
-                    type="text"
-                    id="aiChatInput"
-                    placeholder="Ask about colleges, cutoffs, or click 🎙️ to talk..."
-                    autocomplete="off"
-                    class="w-full pl-4 pr-24 py-3 rounded-2xl bg-sky-50/30 border border-sky-200 text-slate-900 placeholder-slate-400 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition shadow-xs"
+            <!-- Footer of History Panel -->
+            <div class="pt-3 border-t border-slate-200 flex items-center justify-between mt-auto">
+                <button
+                    type="button"
+                    onclick="clearAiChat()"
+                    class="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold transition cursor-pointer flex items-center gap-1"
                 >
-                <div class="absolute right-1.5 flex items-center gap-1">
-                    <!-- Microphone Speech-to-Text Button -->
-                    <button
-                        type="button"
-                        id="aiChatMicBtn"
-                        onclick="toggleVoiceRecognition()"
-                        class="p-2 rounded-xl text-slate-500 hover:text-sky-600 hover:bg-sky-100/70 transition active:scale-95 focus:outline-none cursor-pointer"
-                        title="Voice Search (Click to speak into chatbot)"
-                    >
-                        <svg id="aiChatMicIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
-                        </svg>
-                    </button>
-                    <!-- Send Button -->
-                    <button
-                        type="submit"
-                        id="aiChatSendBtn"
-                        class="p-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white shadow-sm transition active:scale-95 focus:outline-none cursor-pointer"
-                        title="Send Message"
-                    >
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-                        </svg>
-                    </button>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                    <span>Clear All History</span>
+                </button>
+                <button
+                    type="button"
+                    onclick="toggleChatHistoryView()"
+                    class="px-3 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold transition cursor-pointer"
+                >
+                    Resume Chat
+                </button>
+            </div>
+        </div>
+
+        <!-- Input Area Container (Toggled during history view) -->
+        <div id="aiChatInputArea" class="flex flex-col flex-shrink-0">
+            <!-- Voice Listening Banner (Active during speech recognition) -->
+            <div id="aiVoiceBanner" class="hidden px-3.5 py-2.5 bg-gradient-to-r from-rose-50 via-pink-50 to-rose-50 border-t border-rose-200/70 flex flex-col gap-1.5 text-rose-700 text-xs shadow-inner">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2 overflow-hidden">
+                        <!-- Animated Voice Sound-Wave Bars -->
+                        <div class="flex items-center gap-0.5 h-4 flex-shrink-0">
+                            <span class="w-1 h-3 bg-rose-500 rounded-full animate-pulse [animation-duration:500ms]"></span>
+                            <span class="w-1 h-4 bg-rose-600 rounded-full animate-bounce [animation-duration:400ms]"></span>
+                            <span class="w-1 h-2 bg-rose-400 rounded-full animate-pulse [animation-duration:600ms]"></span>
+                            <span class="w-1 h-3.5 bg-rose-500 rounded-full animate-bounce [animation-duration:450ms]"></span>
+                        </div>
+                        <span id="aiVoiceBannerText" class="font-medium text-[11px] truncate">🎙️ Listening... speak your college question now</span>
+                    </div>
+                    <!-- Action Buttons: Predict Now & Cancel -->
+                    <div class="flex items-center gap-1.5 flex-shrink-0">
+                        <button
+                            type="button"
+                            id="aiVoiceSubmitBtn"
+                            onclick="submitVoiceQueryNow()"
+                            class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold shadow-xs transition active:scale-95 flex items-center gap-1 cursor-pointer"
+                            title="Submit recognized question now"
+                        >
+                            <span>⚡ Predict</span>
+                        </button>
+                        <button
+                            type="button"
+                            onclick="cancelVoiceRecognition()"
+                            class="px-2 py-1 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-800 text-[10px] font-semibold transition cursor-pointer"
+                            title="Cancel voice recording"
+                        >
+                            ✕
+                        </button>
+                    </div>
                 </div>
-            </form>
+                <!-- Language Quick-Pills for Voice Recognition -->
+                <div class="flex items-center gap-1.5 text-[10px] text-slate-500 pt-1 border-t border-rose-100/60">
+                    <span class="text-slate-400 font-medium">Voice Lang:</span>
+                    <button type="button" onclick="setVoiceLanguage('en-IN')" id="voiceLang_en_IN" class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-rose-200 text-rose-900 transition">🇮🇳 English (IN)</button>
+                    <button type="button" onclick="setVoiceLanguage('te-IN')" id="voiceLang_te_IN" class="px-1.5 py-0.5 rounded text-[10px] hover:bg-rose-100 text-slate-600 transition">తెలుగు</button>
+                    <button type="button" onclick="setVoiceLanguage('en-US')" id="voiceLang_en_US" class="px-1.5 py-0.5 rounded text-[10px] hover:bg-rose-100 text-slate-600 transition">🇺🇸 US</button>
+                </div>
+            </div>
+
+            <!-- Typing Indicator (Hidden by default) -->
+            <div id="aiChatTyping" class="hidden px-5 py-2 bg-slate-50 border-t border-slate-100 flex items-center gap-2 text-slate-500 text-[11px]">
+                <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-bounce"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-bounce [animation-delay:0.2s]"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-sky-500 animate-bounce [animation-delay:0.4s]"></span>
+                <span class="ml-1 text-slate-400 font-medium">AI College Assistant is thinking...</span>
+            </div>
+
+            <!-- Editing Query Banner (Hidden by default) -->
+            <div id="aiChatEditingBanner" class="hidden px-4 py-2 bg-sky-50/95 border-t border-sky-100 flex items-center justify-between text-xs text-sky-800 shadow-inner">
+                <div class="flex items-center gap-2 overflow-hidden mr-2">
+                    <span class="flex-shrink-0 text-sky-600 font-bold text-xs">✏️ Editing:</span>
+                    <span id="aiChatEditingPreview" class="truncate font-medium text-slate-700 text-[11px]"></span>
+                </div>
+                <button
+                    type="button"
+                    onclick="cancelEditUserQuery()"
+                    class="px-2 py-0.5 rounded-md hover:bg-sky-200/60 text-slate-500 hover:text-slate-800 text-[10px] font-semibold transition cursor-pointer flex-shrink-0"
+                    title="Cancel edit"
+                >
+                    Cancel ✕
+                </button>
+            </div>
+
+            <!-- Input Box -->
+            <div class="p-3 bg-white border-t border-sky-100 flex-shrink-0">
+                <form onsubmit="handleAiChatSubmit(event)" class="relative flex items-center">
+                    <input
+                        type="text"
+                        id="aiChatInput"
+                        placeholder="Ask about colleges, cutoffs, or click 🎙️ to talk..."
+                        autocomplete="off"
+                        class="w-full pl-4 pr-24 py-3 rounded-2xl bg-sky-50/30 border border-sky-200 text-slate-900 placeholder-slate-400 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 transition shadow-xs"
+                    >
+                    <div class="absolute right-1.5 flex items-center gap-1">
+                        <!-- Microphone Speech-to-Text Button -->
+                        <button
+                            type="button"
+                            id="aiChatMicBtn"
+                            onclick="toggleVoiceRecognition()"
+                            class="p-2 rounded-xl text-slate-500 hover:text-sky-600 hover:bg-sky-100/70 transition active:scale-95 focus:outline-none cursor-pointer"
+                            title="Voice Search (Click to speak into chatbot)"
+                        >
+                            <svg id="aiChatMicIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+                            </svg>
+                        </button>
+                        <!-- Send Button -->
+                        <button
+                            type="submit"
+                            id="aiChatSendBtn"
+                            class="p-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white shadow-sm transition active:scale-95 focus:outline-none cursor-pointer"
+                            title="Send Message"
+                        >
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
 
     </div>
@@ -235,6 +311,9 @@
         const win = document.getElementById('aiChatbotWindow');
         if (win.classList.contains('hidden')) {
             win.classList.remove('hidden');
+            loadStoredChatHistory();
+            renderChatHistoryBadge();
+            renderRecentQuestionsChips();
             document.getElementById('aiChatInput').focus();
         } else {
             win.classList.add('hidden');
@@ -255,6 +334,12 @@
             console.warn(e);
         }
         cancelEditUserQuery();
+        renderChatHistoryBadge();
+        renderRecentQuestionsChips();
+        const historyPanel = document.getElementById('aiChatHistoryPanel');
+        if (historyPanel && !historyPanel.classList.contains('hidden')) {
+            renderChatHistoryList();
+        }
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
         }
@@ -273,6 +358,13 @@
                 </div>
             </div>
             <div id="aiChatSuggestions" class="space-y-1.5 pt-1">
+                <div id="aiRecentQuestionsContainer" class="hidden space-y-1.5 pb-2 border-b border-slate-200">
+                    <p class="text-[10px] font-bold text-sky-600 uppercase tracking-wider px-1 flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <span>Recent Questions History:</span>
+                    </p>
+                    <div id="aiRecentQuestionsChips" class="flex flex-wrap gap-1.5"></div>
+                </div>
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-1">Suggested Questions:</p>
                 <div class="flex flex-wrap gap-1.5">
                     <button onclick="sendQuickPrompt('Which college is best in Tirupati?')" class="px-2.5 py-1.5 bg-white hover:bg-sky-50 border border-sky-200 text-sky-700 rounded-xl text-[11px] font-medium transition text-left shadow-2xs">
@@ -287,6 +379,20 @@
     }
 
     function sendQuickPrompt(promptText) {
+        // If history view was open, switch back to chat view
+        const historyPanel = document.getElementById('aiChatHistoryPanel');
+        const msgContainer = document.getElementById('aiChatMessages');
+        const inputArea = document.getElementById('aiChatInputArea');
+        const histBtn = document.getElementById('aiHistoryBtn');
+        if (historyPanel && !historyPanel.classList.contains('hidden')) {
+            historyPanel.classList.add('hidden');
+            if (msgContainer) msgContainer.classList.remove('hidden');
+            if (inputArea) inputArea.classList.remove('hidden');
+            if (histBtn) {
+                histBtn.classList.remove('bg-white', 'text-sky-700');
+                histBtn.classList.add('bg-white/20', 'text-white');
+            }
+        }
         document.getElementById('aiChatInput').value = promptText;
         handleAiChatSubmit(new Event('submit'));
     }
@@ -771,10 +877,25 @@
     }
 
     // -------------------------------------------------------------
-    // EDIT QUESTION FEATURE
+    // EDIT QUESTION FEATURE (Placed directly BELOW what was asked)
     // -------------------------------------------------------------
     function editUserQuery(text) {
         if (!text) return;
+        // If history view was open, switch back to chat view
+        const historyPanel = document.getElementById('aiChatHistoryPanel');
+        const msgContainer = document.getElementById('aiChatMessages');
+        const inputArea = document.getElementById('aiChatInputArea');
+        const histBtn = document.getElementById('aiHistoryBtn');
+        if (historyPanel && !historyPanel.classList.contains('hidden')) {
+            historyPanel.classList.add('hidden');
+            if (msgContainer) msgContainer.classList.remove('hidden');
+            if (inputArea) inputArea.classList.remove('hidden');
+            if (histBtn) {
+                histBtn.classList.remove('bg-white', 'text-sky-700');
+                histBtn.classList.add('bg-white/20', 'text-white');
+            }
+        }
+
         const input = document.getElementById('aiChatInput');
         const banner = document.getElementById('aiChatEditingBanner');
         const preview = document.getElementById('aiChatEditingPreview');
@@ -810,6 +931,161 @@
     }
 
     // -------------------------------------------------------------
+    // CHAT HISTORY PANEL & VIEW TOGGLE
+    // -------------------------------------------------------------
+    function toggleChatHistoryView() {
+        const historyPanel = document.getElementById('aiChatHistoryPanel');
+        const msgContainer = document.getElementById('aiChatMessages');
+        const inputArea = document.getElementById('aiChatInputArea');
+        const histBtn = document.getElementById('aiHistoryBtn');
+
+        if (!historyPanel || !msgContainer) return;
+
+        if (historyPanel.classList.contains('hidden')) {
+            renderChatHistoryList();
+            historyPanel.classList.remove('hidden');
+            msgContainer.classList.add('hidden');
+            if (inputArea) inputArea.classList.add('hidden');
+            if (histBtn) {
+                histBtn.classList.add('bg-white', 'text-sky-700');
+                histBtn.classList.remove('bg-white/20', 'text-white');
+            }
+        } else {
+            historyPanel.classList.add('hidden');
+            msgContainer.classList.remove('hidden');
+            if (inputArea) inputArea.classList.remove('hidden');
+            if (histBtn) {
+                histBtn.classList.remove('bg-white', 'text-sky-700');
+                histBtn.classList.add('bg-white/20', 'text-white');
+            }
+            scrollChatToBottom();
+        }
+    }
+
+    function renderChatHistoryBadge() {
+        try {
+            const raw = localStorage.getItem('smartPredictor_aiChatHistory_v1');
+            const history = raw ? JSON.parse(raw) : [];
+            const userCount = history.filter(item => item.role === 'user').length;
+            const badge = document.getElementById('aiChatHistoryBadge');
+            if (badge) {
+                if (userCount > 0) {
+                    badge.textContent = userCount;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            }
+        } catch (e) {}
+    }
+
+    function renderRecentQuestionsChips() {
+        try {
+            const raw = localStorage.getItem('smartPredictor_aiChatHistory_v1');
+            const history = raw ? JSON.parse(raw) : [];
+            const userQuestions = history.filter(item => item.role === 'user');
+            const container = document.getElementById('aiRecentQuestionsContainer');
+            const chips = document.getElementById('aiRecentQuestionsChips');
+            if (!container || !chips) return;
+
+            if (userQuestions.length === 0) {
+                container.classList.add('hidden');
+                return;
+            }
+
+            // Get unique recent questions (up to 4)
+            const unique = [];
+            for (let i = userQuestions.length - 1; i >= 0 && unique.length < 4; i--) {
+                const q = userQuestions[i].content.trim();
+                if (!unique.includes(q)) unique.push(q);
+            }
+
+            chips.innerHTML = unique.map(q => {
+                const safeEncoded = encodeURIComponent(q);
+                const displayQ = q.length > 32 ? q.substring(0, 30) + '...' : q;
+                const escaped = displayQ.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                return `
+                    <button
+                        type="button"
+                        onclick="sendQuickPrompt(decodeURIComponent('${safeEncoded}'))"
+                        class="px-2.5 py-1 bg-white hover:bg-sky-50 border border-sky-300 text-sky-800 rounded-xl text-[11px] font-medium transition shadow-2xs flex items-center gap-1 cursor-pointer"
+                        title="${q.replace(/"/g, '&quot;')}"
+                    >
+                        <span>🕒</span>
+                        <span>${escaped}</span>
+                    </button>
+                `;
+            }).join('');
+
+            container.classList.remove('hidden');
+        } catch (e) {}
+    }
+
+    function renderChatHistoryList() {
+        const list = document.getElementById('aiChatHistoryList');
+        if (!list) return;
+
+        renderChatHistoryBadge();
+
+        const raw = localStorage.getItem('smartPredictor_aiChatHistory_v1');
+        const history = raw ? JSON.parse(raw) : [];
+        const userQuestions = history.filter(item => item.role === 'user');
+
+        if (userQuestions.length === 0) {
+            list.innerHTML = `
+                <div class="text-center py-10 text-slate-400 space-y-2">
+                    <div class="w-12 h-12 mx-auto rounded-2xl bg-sky-50 flex items-center justify-center text-sky-500 shadow-2xs">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <p class="font-bold text-slate-700 text-xs">No chat history yet</p>
+                    <p class="text-[11px] text-slate-400 max-w-[240px] mx-auto">Ask any question in the chat and your questions will be safely saved here.</p>
+                </div>
+            `;
+            return;
+        }
+
+        // Render questions in reverse order (newest first)
+        list.innerHTML = userQuestions.slice().reverse().map((item) => {
+            const safeEncoded = encodeURIComponent(item.content);
+            const escapedContent = item.content.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            return `
+                <div class="p-3 bg-white border border-sky-100 rounded-2xl shadow-2xs hover:border-sky-300 transition space-y-2">
+                    <div class="flex items-start justify-between gap-2">
+                        <p class="font-semibold text-slate-800 text-xs leading-snug break-words">"${escapedContent}"</p>
+                        <span class="text-[9px] text-slate-400 font-mono flex-shrink-0 bg-slate-100 px-1.5 py-0.5 rounded">${item.time || 'Recent'}</span>
+                    </div>
+                    <div class="flex items-center gap-2 pt-1 border-t border-slate-100">
+                        <button
+                            type="button"
+                            onclick="editUserQuery(decodeURIComponent('${safeEncoded}'))"
+                            class="flex items-center gap-1 text-[11px] text-sky-600 hover:text-sky-800 font-bold px-2.5 py-1 rounded-lg bg-sky-50 hover:bg-sky-100 transition cursor-pointer"
+                            title="Edit this question in input"
+                        >
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                            </svg>
+                            <span>Edit</span>
+                        </button>
+                        <button
+                            type="button"
+                            onclick="sendQuickPrompt(decodeURIComponent('${safeEncoded}'))"
+                            class="flex items-center gap-1 text-[11px] text-emerald-600 hover:text-emerald-800 font-bold px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 transition cursor-pointer"
+                            title="Ask this question again"
+                        >
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                            <span>Ask Again</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // -------------------------------------------------------------
     // CHAT HISTORY STORAGE & RESTORATION
     // -------------------------------------------------------------
     function saveMessageToHistory(role, content) {
@@ -827,6 +1103,8 @@
                 history.splice(0, history.length - 50);
             }
             localStorage.setItem('smartPredictor_aiChatHistory_v1', JSON.stringify(history));
+            renderChatHistoryBadge();
+            renderRecentQuestionsChips();
         } catch (e) {
             console.warn('Failed to save message to localStorage', e);
         }
@@ -834,6 +1112,9 @@
 
     function loadStoredChatHistory() {
         try {
+            renderChatHistoryBadge();
+            renderRecentQuestionsChips();
+
             const raw = localStorage.getItem('smartPredictor_aiChatHistory_v1');
             if (!raw) return;
             const history = JSON.parse(raw);
@@ -849,13 +1130,21 @@
             const suggestions = document.getElementById('aiChatSuggestions');
             if (suggestions) suggestions.style.display = 'none';
 
-            // Insert restored divider
             const msgContainer = document.getElementById('aiChatMessages');
+            if (!msgContainer) return;
+
+            // Check if already restored to avoid duplicating elements
+            if (msgContainer.querySelector('[data-history-restored="true"]')) {
+                return;
+            }
+
+            // Insert restored divider
             const divider = document.createElement('div');
+            divider.setAttribute('data-history-restored', 'true');
             divider.className = 'flex items-center gap-2 my-2 text-[10px] text-slate-400 select-none';
             divider.innerHTML = `
                 <div class="flex-1 border-t border-slate-200"></div>
-                <span class="px-1 text-slate-400 font-medium">Chat History Restored</span>
+                <span class="px-1 text-slate-400 font-medium">📜 Chat History Restored</span>
                 <div class="flex-1 border-t border-slate-200"></div>
             `;
             msgContainer.appendChild(divider);
@@ -875,30 +1164,37 @@
         }
     }
 
+    // -------------------------------------------------------------
+    // MESSAGE RENDERING
+    // -------------------------------------------------------------
     function appendUserMessage(text, saveToStorage = true, time = null) {
         const msgContainer = document.getElementById('aiChatMessages');
         const bubble = document.createElement('div');
-        bubble.className = 'flex items-start justify-end gap-1.5 group mb-1';
+        bubble.className = 'flex flex-col items-end mb-2 w-full';
         
         const displayTime = time || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const safeEncoded = encodeURIComponent(text);
         const escapedText = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
         bubble.innerHTML = `
-            <button
-                type="button"
-                onclick="editUserQuery(decodeURIComponent('${safeEncoded}'))"
-                class="p-1.5 rounded-lg text-slate-400 hover:text-sky-600 hover:bg-sky-100 transition-all flex-shrink-0 self-center cursor-pointer opacity-70 group-hover:opacity-100 focus:opacity-100"
-                title="Edit what you asked (loads question into input)"
-                aria-label="Edit question"
-            >
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
-                </svg>
-            </button>
-            <div class="bg-gradient-to-r from-sky-600 to-sky-500 text-white rounded-2xl rounded-tr-sm p-3 shadow-xs max-w-[85%] text-left leading-relaxed text-xs">
-                <div>${escapedText}</div>
-                <div class="text-[9px] text-sky-100/75 text-right mt-1 font-mono">${displayTime}</div>
+            <div class="bg-gradient-to-r from-sky-600 to-sky-500 text-white rounded-2xl rounded-tr-sm p-3.5 shadow-xs max-w-[85%] text-left leading-relaxed text-xs">
+                <div class="text-white text-xs font-normal break-words">${escapedText}</div>
+                <!-- Action row directly BELOW what was asked in chat -->
+                <div class="mt-2 pt-1.5 border-t border-white/20 flex items-center justify-between gap-3 text-[10px]">
+                    <span class="text-sky-100/80 font-mono text-[9px]">${displayTime}</span>
+                    <button
+                        type="button"
+                        onclick="editUserQuery(decodeURIComponent('${safeEncoded}'))"
+                        class="flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/20 hover:bg-white/35 active:scale-95 text-white transition-all cursor-pointer font-semibold text-[10px]"
+                        title="Edit what you asked (loads into chat input)"
+                        aria-label="Edit question"
+                    >
+                        <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                        </svg>
+                        <span>Edit</span>
+                    </button>
+                </div>
             </div>
         `;
         msgContainer.appendChild(bubble);
