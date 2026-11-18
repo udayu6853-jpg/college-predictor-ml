@@ -41,13 +41,20 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid #E0F2FE;
+            border-bottom: 1.5px solid #E0F2FE;
+            box-shadow: 0 10px 30px -4px rgba(2, 132, 199, 0.10), 0 2px 6px rgba(0, 0, 0, 0.03), inset 0 -2.5px 0 rgba(186, 230, 253, 0.6);
         }
         .sky-card {
             background: #FFFFFF;
             border: 1px solid #E0F2FE;
-            box-shadow: 0 4px 20px -2px rgba(2, 132, 199, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.02);
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 2px 4px rgba(2, 132, 199, 0.04), 0 8px 18px -2px rgba(2, 132, 199, 0.08), 0 20px 34px -4px rgba(2, 132, 199, 0.10), inset 0 1.5px 0 rgba(255, 255, 255, 0.95), inset 0 -3px 0 rgba(186, 230, 253, 0.50);
+            transform: perspective(1000px) translateZ(0);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .sky-card:hover {
+            border-color: #7DD3FC;
+            box-shadow: 0 4px 8px rgba(2, 132, 199, 0.06), 0 16px 32px -4px rgba(2, 132, 199, 0.16), 0 28px 52px -6px rgba(2, 132, 199, 0.20), inset 0 1.5px 0 #ffffff, inset 0 -3.5px 0 #bae6fd;
+            transform: perspective(1000px) translateY(-5px) translateZ(8px);
         }
     </style>
 </head>

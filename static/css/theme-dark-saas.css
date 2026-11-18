@@ -1,20 +1,23 @@
 /**
  * ============================================================
- * EduPredict AI - Sky Blue Intelligent SaaS Design System
+ * EduPredict AI - Sky Blue 3D Tactile SaaS Design System
  * Canvas: #F0F7FE (Crisp Sky Mist / Ice Canvas)
- * Surfaces: #FFFFFF (Pure Crisp White)
+ * Surfaces: #FFFFFF (Pure Crisp White with 3D Specular Highlight)
  * Brand Primary: #0284C7 (Electric Sky Blue)
+ * Brand Primary Deep / Extrusion: #0369a1 / #075985
  * Brand Accent: #0EA5E9 (Azure Cyan)
- * Borders: #E0F2FE / #BAE6FD (Soft Sky Border)
+ * Borders & 3D Shelves: #BAE6FD / #E0F2FE
  * Text: #0F172A (Deep Slate Navy)
  * ============================================================
  */
 
 :root {
+    /* Exact Color Palette - Strictly Preserved */
     --bg-canvas: #f0f7fe;
     --bg-surface: #ffffff;
     --brand-primary: #0284c7;
     --brand-primary-hover: #0369a1;
+    --brand-primary-deep: #075985;
     --brand-accent: #0ea5e9;
     --brand-tint: #e0f2fe;
     --brand-tint-light: #f0f9ff;
@@ -27,17 +30,77 @@
     --success-tint: #ecfdf5;
     --warning: #f59e0b;
     --warning-tint: #fef3c7;
-    --card-shadow: 0 8px 24px -4px rgba(2, 132, 199, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
-    --card-shadow-hover: 0 16px 36px -6px rgba(2, 132, 199, 0.16), 0 4px 12px -2px rgba(0, 0, 0, 0.06);
+
+    /* 3D Physical Lighting & Elevation Tokens */
+    --3d-specular-edge: inset 0 1.5px 0 rgba(255, 255, 255, 0.95);
+    --3d-bottom-rim: inset 0 -3px 0 rgba(186, 230, 253, 0.55);
+    --3d-bottom-rim-solid: inset 0 -3.5px 0 #bae6fd;
+    
+    /* 3D Card Elevations */
+    --3d-card-shadow: 
+        0 2px 4px rgba(2, 132, 199, 0.04),
+        0 8px 18px -2px rgba(2, 132, 199, 0.08),
+        0 20px 34px -4px rgba(2, 132, 199, 0.10),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -3px 0 rgba(186, 230, 253, 0.50);
+
+    --3d-card-shadow-hover: 
+        0 4px 8px rgba(2, 132, 199, 0.06),
+        0 16px 32px -4px rgba(2, 132, 199, 0.16),
+        0 28px 52px -6px rgba(2, 132, 199, 0.20),
+        inset 0 1.5px 0 #ffffff,
+        inset 0 -3.5px 0 #bae6fd;
+
+    /* 3D Tactile Pushable Button Shadows */
+    --3d-btn-primary-shadow: 
+        0 4.5px 0 #0369a1,
+        0 8px 18px rgba(2, 132, 199, 0.35),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.40);
+        
+    --3d-btn-primary-hover-shadow: 
+        0 6px 0 #0369a1,
+        0 14px 26px rgba(2, 132, 199, 0.45),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.55);
+
+    --3d-btn-primary-active-shadow: 
+        0 1px 0 #0369a1,
+        0 3px 6px rgba(2, 132, 199, 0.25),
+        inset 0 2px 4px rgba(0, 0, 0, 0.22);
+
+    --3d-btn-secondary-shadow: 
+        0 3.5px 0 #bae6fd,
+        0 6px 14px rgba(2, 132, 199, 0.08),
+        inset 0 1.5px 0 #ffffff;
+
+    --3d-btn-secondary-hover-shadow: 
+        0 5px 0 #7dd3fc,
+        0 10px 20px rgba(2, 132, 199, 0.14),
+        inset 0 1.5px 0 #ffffff;
+
+    --3d-btn-secondary-active-shadow: 
+        0 1px 0 #bae6fd,
+        0 2px 4px rgba(2, 132, 199, 0.05),
+        inset 0 1.5px 3px rgba(186, 230, 253, 0.4);
+
+    /* 3D Inset Cavity Input Shadows */
+    --3d-input-shadow: 
+        inset 0 2.5px 5px rgba(15, 23, 42, 0.06),
+        inset 0 1px 2px rgba(2, 132, 199, 0.08),
+        0 1px 0 #ffffff;
+
+    --3d-input-focus-shadow: 
+        inset 0 2px 4px rgba(15, 23, 42, 0.04),
+        0 0 0 3px rgba(14, 165, 233, 0.22),
+        0 4px 14px rgba(2, 132, 199, 0.12);
 }
 
-/* Base Body Canvas */
+/* Base Body Canvas with Deep Atmosphere */
 body {
     background-color: #f0f7fe !important;
     background-image:
-        radial-gradient(circle at 10% 12%, rgba(14, 165, 233, 0.08) 0%, transparent 45%),
-        radial-gradient(circle at 90% 18%, rgba(2, 132, 199, 0.06) 0%, transparent 45%),
-        radial-gradient(circle at 50% 88%, rgba(56, 189, 248, 0.05) 0%, transparent 50%) !important;
+        radial-gradient(circle at 10% 12%, rgba(14, 165, 233, 0.09) 0%, transparent 45%),
+        radial-gradient(circle at 90% 18%, rgba(2, 132, 199, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 50% 88%, rgba(56, 189, 248, 0.06) 0%, transparent 50%) !important;
     background-attachment: fixed !important;
     color: #334155 !important;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
@@ -51,34 +114,43 @@ body {
     color: #0369a1 !important;
 }
 
-/* Custom Sleek Sky Scrollbar */
+/* Custom Sleek Sky 3D Scrollbar */
 ::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
     background: #f0f7fe;
+    box-shadow: inset 0 0 4px rgba(2, 132, 199, 0.06);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #bae6fd;
+    background: linear-gradient(180deg, #bae6fd, #7dd3fc);
     border-radius: 9999px;
-    border: 1px solid #f0f7fe;
+    border: 2px solid #f0f7fe;
+    box-shadow: 0 1px 2px rgba(2, 132, 199, 0.2);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #7dd3fc;
+    background: linear-gradient(180deg, #7dd3fc, #38bdf8);
 }
 
-/* Glass Header */
-.dark-glass-header, header.glass-header, .navbar, header.navbar, nav.navbar {
-    background: rgba(255, 255, 255, 0.92) !important;
+/* 3D Floating Glass Header */
+.sky-header,
+.dark-glass-header,
+header.glass-header,
+.navbar,
+header.navbar,
+nav.navbar {
+    background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
-    border-bottom: 1px solid #e0f2fe !important;
-    box-shadow: 0 4px 20px -2px rgba(2, 132, 199, 0.05) !important;
+    border-bottom: 1.5px solid #e0f2fe !important;
+    box-shadow: 0 10px 30px -4px rgba(2, 132, 199, 0.10), 0 2px 6px rgba(0, 0, 0, 0.03), inset 0 -2.5px 0 rgba(186, 230, 253, 0.6) !important;
     color: #0f172a !important;
+    position: relative;
+    z-index: 40;
 }
 
 .navbar .logo, .navbar h2 {
@@ -89,20 +161,23 @@ body {
 .navbar .nav-links a, .nav-btn {
     color: #475569 !important;
     background: transparent !important;
-    transition: all 0.2s ease !important;
-    border-radius: 10px !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    border-radius: 12px !important;
     font-weight: 600 !important;
 }
 
 .navbar .nav-links a:hover, .nav-btn:hover {
     color: #0284c7 !important;
     background: #f0f9ff !important;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.08), inset 0 1px 0 #ffffff !important;
+    transform: translateY(-1px) !important;
 }
 
 .navbar .nav-links a.active, .nav-btn.active {
     color: #0284c7 !important;
     background: #e0f2fe !important;
     border: 1px solid #bae6fd !important;
+    box-shadow: 0 3px 0 #bae6fd, inset 0 1px 0 #ffffff !important;
     font-weight: 700 !important;
 }
 
@@ -114,7 +189,10 @@ body {
     box-shadow: none !important;
 }
 
-/* Cards & Surfaces: Pure White on Sky Canvas with Soft Sky Border */
+/* ============================================================ */
+/* 3D CARDS & SURFACES - REALISTIC ELEVATION & BEVEL LEDGES     */
+/* ============================================================ */
+.sky-card,
 .dark-card,
 .college-card,
 .card,
@@ -131,23 +209,35 @@ body {
 .info-card,
 .saved-branch-card,
 .comparison-section,
-.empty-state {
+.empty-state,
+.chart-card,
+.admin-card {
     background: #ffffff !important;
     border: 1px solid #e0f2fe !important;
-    box-shadow: 0 4px 20px -2px rgba(2, 132, 199, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.02) !important;
+    box-shadow: var(--3d-card-shadow) !important;
     border-radius: 20px !important;
     color: #1e293b !important;
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transform: perspective(1000px) translateZ(0);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease !important;
+    position: relative;
+    overflow: visible;
 }
 
+.sky-card:hover,
 .dark-card:hover,
 .college-card:hover,
 .card:hover,
 .compare-card:hover,
-.saved-branch-card:hover {
-    border-color: #bae6fd !important;
-    box-shadow: 0 12px 28px -4px rgba(2, 132, 199, 0.12), 0 4px 10px -2px rgba(0, 0, 0, 0.04) !important;
-    transform: translateY(-2px) !important;
+.saved-branch-card:hover,
+.stat-card:hover {
+    border-color: #7dd3fc !important;
+    box-shadow: var(--3d-card-shadow-hover) !important;
+    transform: perspective(1000px) translateY(-5px) translateZ(8px) !important;
+}
+
+.college-card.selected {
+    border-color: #0284c7 !important;
+    box-shadow: 0 0 0 2px #0284c7, 0 16px 36px -4px rgba(2, 132, 199, 0.25), inset 0 1.5px 0 #ffffff, inset 0 -3.5px 0 #0284c7 !important;
 }
 
 .college-name {
@@ -159,16 +249,24 @@ body {
     color: #64748b !important;
 }
 
-/* Info Box Components */
+/* 3D Sub-components & Info Boxes */
 .info-box,
 .student-item,
 .stat-item,
-.metric-box,
-.branch-pill {
+.metric-box {
     background: #f8fafc !important;
-    border: 1px solid #f1f5f9 !important;
+    border: 1px solid #e0f2fe !important;
     color: #334155 !important;
-    border-radius: 12px !important;
+    border-radius: 14px !important;
+    box-shadow: 0 2px 4px rgba(2, 132, 199, 0.04), inset 0 1px 0 #ffffff, inset 0 -1.5px 0 #bae6fd !important;
+    transition: all 0.2s ease !important;
+}
+
+.info-box:hover,
+.stat-item:hover,
+.metric-box:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.08), inset 0 1px 0 #ffffff, inset 0 -2px 0 #7dd3fc !important;
 }
 
 .info-box span, .student-item span {
@@ -179,7 +277,9 @@ body {
     color: #0284c7 !important;
 }
 
-/* Form Controls */
+/* ============================================================ */
+/* 3D CARVED CAVITY FORM INPUTS & SELECTS                       */
+/* ============================================================ */
 input,
 select,
 textarea,
@@ -188,11 +288,12 @@ textarea,
 .filter-group select,
 .dark-input {
     background-color: #f8fafc !important;
-    border: 1px solid #bae6fd !important;
+    border: 1.5px solid #bae6fd !important;
     color: #0f172a !important;
     border-radius: 12px !important;
     padding: 10px 14px !important;
-    transition: all 0.2s ease !important;
+    box-shadow: var(--3d-input-shadow) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 input:focus,
@@ -203,7 +304,7 @@ textarea:focus,
 .dark-input:focus {
     background-color: #ffffff !important;
     border-color: #0ea5e9 !important;
-    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18) !important;
+    box-shadow: var(--3d-input-focus-shadow) !important;
     outline: none !important;
 }
 
@@ -217,7 +318,26 @@ label {
     font-size: 13px !important;
 }
 
-/* Buttons */
+/* 3D Radio Cards (e.g., KCET vs EAMCET) */
+#label-kcet, #label-eamcet {
+    box-shadow: 0 4px 0 rgba(186, 230, 253, 0.7), 0 8px 18px rgba(2, 132, 199, 0.08), inset 0 1.5px 0 #ffffff !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    border-radius: 16px !important;
+}
+
+#label-kcet:hover, #label-eamcet:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 0 rgba(186, 230, 253, 0.9), 0 12px 24px rgba(2, 132, 199, 0.14), inset 0 1.5px 0 #ffffff !important;
+}
+
+#label-kcet:active, #label-eamcet:active {
+    transform: translateY(2px) !important;
+    box-shadow: 0 1px 0 rgba(186, 230, 253, 0.7), 0 3px 6px rgba(2, 132, 199, 0.08) !important;
+}
+
+/* ============================================================ */
+/* 3D TACTILE PUSHABLE BUTTONS                                 */
+/* ============================================================ */
 button,
 .btn,
 .predict-btn,
@@ -230,49 +350,86 @@ button,
 .browse-button {
     border-radius: 12px !important;
     font-weight: 700 !important;
-    transition: all 0.2s ease !important;
     cursor: pointer !important;
+    user-select: none !important;
 }
 
+/* Primary 3D Pushable Buttons */
 .predict-btn,
 .view-button,
 .details-button,
 .btn-primary,
 .submit-btn,
 .compare-button,
-.browse-button {
-    background: linear-gradient(135deg, #0284c7, #0ea5e9) !important;
+.browse-button,
+a.bg-sky-600,
+button.bg-sky-600,
+a.bg-sky-500,
+button.bg-sky-500 {
+    background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%) !important;
     color: #ffffff !important;
-    border: none !important;
-    box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25) !important;
+    border: 1px solid #0284c7 !important;
+    border-bottom: 1px solid #075985 !important;
+    box-shadow: var(--3d-btn-primary-shadow) !important;
+    transform: translateY(0);
+    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
     text-decoration: none !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+    position: relative;
 }
 
 .predict-btn:hover,
 .view-button:hover,
 .details-button:hover,
 .btn-primary:hover,
+.submit-btn:hover,
 .compare-button:hover,
-.browse-button:hover {
-    box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4) !important;
-    filter: brightness(1.05) !important;
-    transform: translateY(-1px) !important;
+.browse-button:hover,
+a.bg-sky-600:hover,
+button.bg-sky-600:hover,
+a.bg-sky-500:hover,
+button.bg-sky-500:hover {
+    box-shadow: var(--3d-btn-primary-hover-shadow) !important;
+    transform: translateY(-2px) !important;
+    filter: brightness(1.04) !important;
     color: #ffffff !important;
 }
 
+.predict-btn:active,
+.view-button:active,
+.details-button:active,
+.btn-primary:active,
+.submit-btn:active,
+.compare-button:active,
+.browse-button:active,
+a.bg-sky-600:active,
+button.bg-sky-600:active,
+a.bg-sky-500:active,
+button.bg-sky-500:active {
+    box-shadow: var(--3d-btn-primary-active-shadow) !important;
+    transform: translateY(3px) !important;
+    filter: brightness(0.96) !important;
+}
+
+/* Secondary 3D Pushable Buttons */
 .save-button,
 .btn-secondary,
 .back-btn,
 .reset-btn,
 .reset-button,
 .back-button,
-.back-link {
+.back-link,
+a.bg-sky-50,
+button.bg-sky-50 {
     background: #ffffff !important;
     border: 1px solid #bae6fd !important;
+    border-bottom: 1px solid #7dd3fc !important;
     color: #0284c7 !important;
+    box-shadow: var(--3d-btn-secondary-shadow) !important;
+    transform: translateY(0);
+    transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
     text-decoration: none !important;
 }
 
@@ -281,32 +438,63 @@ button,
 .reset-button:hover,
 .reset-btn:hover,
 .back-button:hover,
-.back-link:hover {
+.back-link:hover,
+a.bg-sky-50:hover,
+button.bg-sky-50:hover {
     background: #f0f9ff !important;
     border-color: #0284c7 !important;
     color: #0369a1 !important;
+    box-shadow: var(--3d-btn-secondary-hover-shadow) !important;
+    transform: translateY(-1.5px) !important;
+}
+
+.save-button:active,
+.btn-secondary:active,
+.reset-button:active,
+.reset-btn:active,
+.back-button:active,
+.back-link:active,
+a.bg-sky-50:active,
+button.bg-sky-50:active {
+    box-shadow: var(--3d-btn-secondary-active-shadow) !important;
+    transform: translateY(2.5px) !important;
 }
 
 .remove-button {
     background: #fef2f2 !important;
     border: 1px solid #fecaca !important;
+    border-bottom: 1px solid #f87171 !important;
     color: #dc2626 !important;
     border-radius: 10px !important;
     font-weight: 700 !important;
+    box-shadow: 0 3px 0 #fca5a5, 0 4px 10px rgba(220, 38, 38, 0.1) !important;
+    transition: all 0.15s ease !important;
 }
 
 .remove-button:hover {
     background: #fee2e2 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 0 #f87171, 0 6px 14px rgba(220, 38, 38, 0.15) !important;
 }
 
-/* Tables */
+.remove-button:active {
+    transform: translateY(2px) !important;
+    box-shadow: 0 1px 0 #f87171 !important;
+}
+
+/* ============================================================ */
+/* 3D TABLES & DATA GRIDS                                      */
+/* ============================================================ */
 table, .dark-table, .comparison-table {
-    border-collapse: collapse !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
     background: #ffffff !important;
     color: #334155 !important;
     width: 100% !important;
     border-radius: 16px !important;
     overflow: hidden !important;
+    box-shadow: var(--3d-card-shadow) !important;
+    border: 1px solid #e0f2fe !important;
 }
 
 th, .dark-table th, .comparison-table th {
@@ -314,39 +502,54 @@ th, .dark-table th, .comparison-table th {
     color: #0f172a !important;
     border-bottom: 2px solid #bae6fd !important;
     font-weight: 700 !important;
-    padding: 12px 16px !important;
+    padding: 14px 16px !important;
     text-transform: uppercase !important;
     font-size: 11px !important;
     letter-spacing: 0.05em !important;
+    box-shadow: inset 0 1px 0 #ffffff !important;
 }
 
 td, .dark-table td, .comparison-table td {
     border-bottom: 1px solid #f1f5f9 !important;
     padding: 12px 16px !important;
     color: #1e293b !important;
+    transition: background 0.15s ease !important;
 }
 
 tr:hover td, .dark-table tr:hover td, .comparison-table tr:hover td {
     background: #f0f9ff !important;
 }
 
-/* Badges & Branch Tabs */
+/* ============================================================ */
+/* 3D CONVEX ACRYLIC BADGES, CHIPS & BRANCH PILLS               */
+/* ============================================================ */
 .badge,
 .tag,
 .cutoff-badge,
 .exam-tag,
 .exam-badge,
 .branch-tab,
-.branch-pill {
-    background: #e0f2fe !important;
+.branch-pill,
+.preset-chip {
+    background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%) !important;
     color: #0284c7 !important;
     border: 1px solid #bae6fd !important;
     border-radius: 9999px !important;
-    padding: 4px 10px !important;
+    padding: 4px 11px !important;
     font-size: 11px !important;
     font-weight: 700 !important;
     display: inline-flex !important;
     align-items: center !important;
+    box-shadow: 0 2.5px 5px rgba(2, 132, 199, 0.10), inset 0 1px 0 #ffffff, inset 0 -1.5px 0 #bae6fd !important;
+    transition: all 0.2s ease !important;
+}
+
+.branch-tab:hover,
+.preset-chip:hover {
+    background: linear-gradient(180deg, #0284c7 0%, #0369a1 100%) !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 10px rgba(2, 132, 199, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+    transform: translateY(-1px) !important;
 }
 
 .branch-detail-card,
@@ -354,7 +557,8 @@ tr:hover td, .dark-table tr:hover td, .comparison-table tr:hover td {
 .info-item {
     background: #f8fafc !important;
     border: 1px solid #e0f2fe !important;
-    border-radius: 12px !important;
+    border-radius: 14px !important;
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.05), inset 0 1px 0 #ffffff, inset 0 -2px 0 #bae6fd !important;
 }
 
 .branch-detail-name {
@@ -362,7 +566,7 @@ tr:hover td, .dark-table tr:hover td, .comparison-table tr:hover td {
     font-weight: 800 !important;
 }
 
-/* Headings */
+/* Headings with crisp depth */
 h1, h2, h3, h4, h5, h6 {
     color: #0f172a !important;
     font-weight: 700 !important;
@@ -373,22 +577,38 @@ p {
     color: #475569 !important;
 }
 
-/* Footer */
-footer, .footer {
-    background: #ffffff !important;
-    border-top: 1px solid #e0f2fe !important;
-    color: #64748b !important;
-    padding: 24px 0 !important;
+/* ============================================================ */
+/* 3D FLOATING CHATBOT LAUNCHER & MODAL WINDOW                 */
+/* ============================================================ */
+#aiChatbotToggleBtn {
+    background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 50%, #06b6d4 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.45) !important;
+    border-bottom: 2px solid #0369a1 !important;
+    box-shadow: 0 6px 0 #0284c7, 0 14px 28px rgba(14, 165, 233, 0.40), inset 0 1.5px 0 rgba(255, 255, 255, 0.6) !important;
+    transform: translateY(0);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-p {
-    color: #475569 !important;
+#aiChatbotToggleBtn:hover {
+    box-shadow: 0 8px 0 #0284c7, 0 18px 36px rgba(14, 165, 233, 0.50), inset 0 1.5px 0 rgba(255, 255, 255, 0.75) !important;
+    transform: translateY(-2.5px) scale(1.02) !important;
 }
 
-/* Footer */
+#aiChatbotToggleBtn:active {
+    box-shadow: 0 2px 0 #0284c7, 0 4px 8px rgba(14, 165, 233, 0.3) !important;
+    transform: translateY(4px) scale(0.98) !important;
+}
+
+#aiChatbotWindow {
+    box-shadow: 0 26px 65px -6px rgba(2, 132, 199, 0.32), 0 12px 28px -4px rgba(15, 23, 42, 0.16), inset 0 1.5px 0 #ffffff, inset 0 -3px 0 #bae6fd !important;
+    border: 1.5px solid #bae6fd !important;
+}
+
+/* Footer with 3D top bevel */
 footer, .footer {
     background: #ffffff !important;
-    border-top: 1px solid #e0f2fe !important;
+    border-top: 1.5px solid #e0f2fe !important;
+    box-shadow: 0 -4px 16px rgba(2, 132, 199, 0.04), inset 0 1.5px 0 rgba(255, 255, 255, 0.9) !important;
     color: #64748b !important;
     padding: 24px 0 !important;
 }
