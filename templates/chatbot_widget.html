@@ -1329,15 +1329,20 @@
     }
 
     // =============================================================
-    // DYNAMIC 3D PERSPECTIVE TILT ENGINE FOR ALL CARDS
+    // DYNAMIC 3D PERSPECTIVE TILT ENGINE FOR DISPLAY CARDS ONLY
+    // (Excludes forms, inputs, buttons, and interactive selectors)
     // =============================================================
     (function init3DTiltEngine() {
         if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
         function attach3DTilt() {
-            const targets = document.querySelectorAll('.sky-card, .college-card, .stat-card, .compare-card, .saved-card, .details-card, .chart-card, #label-kcet, #label-eamcet');
+            // Target only display cards, never form cards or controls
+            const targets = document.querySelectorAll('.college-card, .stat-card, .compare-card, .saved-card, .saved-branch-card');
             targets.forEach(el => {
                 if (el.dataset.tilt3dReady) return;
+                // Double safety: skip if card contains any form elements
+                if (el.querySelector('form, input, select, textarea, button, label')) return;
+
                 el.dataset.tilt3dReady = 'true';
                 el.style.transformStyle = 'preserve-3d';
                 el.style.transition = 'transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease';
@@ -1365,6 +1370,6 @@
         } else {
             attach3DTilt();
         }
-        setInterval(attach3DTilt, 1200);
+        setInterval(attach3DTilt, 1500);
     })();
 </script>

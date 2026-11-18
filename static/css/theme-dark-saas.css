@@ -235,6 +235,27 @@ nav.navbar {
     transform: perspective(1000px) translateY(-5px) translateZ(8px) !important;
 }
 
+/* Ensure cards containing forms or inputs never shift coordinates */
+.sky-card:has(form),
+.sky-card:has(input),
+.sky-card.form-card,
+form,
+form * {
+    transform-style: flat !important;
+}
+
+.sky-card:has(form),
+.sky-card:has(input),
+.sky-card.form-card {
+    transform: none !important;
+}
+
+.sky-card:has(form):hover,
+.sky-card:has(input):hover,
+.sky-card.form-card:hover {
+    transform: none !important;
+}
+
 .college-card.selected {
     border-color: #0284c7 !important;
     box-shadow: 0 0 0 2px #0284c7, 0 16px 36px -4px rgba(2, 132, 199, 0.25), inset 0 1.5px 0 #ffffff, inset 0 -3.5px 0 #0284c7 !important;
@@ -356,6 +377,7 @@ button,
 
 /* Primary 3D Pushable Buttons */
 .predict-btn,
+#predictBtn,
 .view-button,
 .details-button,
 .btn-primary,
@@ -381,6 +403,7 @@ button.bg-sky-500 {
 }
 
 .predict-btn:hover,
+#predictBtn:hover,
 .view-button:hover,
 .details-button:hover,
 .btn-primary:hover,
@@ -398,6 +421,7 @@ button.bg-sky-500:hover {
 }
 
 .predict-btn:active,
+#predictBtn:active,
 .view-button:active,
 .details-button:active,
 .btn-primary:active,

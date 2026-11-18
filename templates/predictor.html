@@ -49,13 +49,12 @@
             background: #FFFFFF;
             border: 1px solid #E0F2FE;
             box-shadow: 0 2px 4px rgba(2, 132, 199, 0.04), 0 8px 18px -2px rgba(2, 132, 199, 0.08), 0 20px 34px -4px rgba(2, 132, 199, 0.10), inset 0 1.5px 0 rgba(255, 255, 255, 0.95), inset 0 -3px 0 rgba(186, 230, 253, 0.50);
-            transform: perspective(1000px) translateZ(0);
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 24px;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
         .sky-card:hover {
             border-color: #7DD3FC;
             box-shadow: 0 4px 8px rgba(2, 132, 199, 0.06), 0 16px 32px -4px rgba(2, 132, 199, 0.16), 0 28px 52px -6px rgba(2, 132, 199, 0.20), inset 0 1.5px 0 #ffffff, inset 0 -3.5px 0 #bae6fd;
-            transform: perspective(1000px) translateY(-5px) translateZ(8px);
         }
         .preset-chip {
             background: linear-gradient(180deg, #F0F9FF 0%, #E0F2FE 100%);
@@ -170,13 +169,19 @@
                     </label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <!-- KCET Radio Card -->
-                        <label class="relative flex items-center gap-3.5 p-4 rounded-2xl border cursor-pointer transition select-none {% if selected_exam == 'EAMCET' %}border-slate-200 bg-white hover:border-sky-300{% else %}border-sky-500 bg-sky-50/70 ring-2 ring-sky-200{% endif %}" id="label-kcet">
+                        <div
+                            id="label-kcet"
+                            role="button"
+                            tabindex="0"
+                            onclick="selectExam('KCET')"
+                            class="relative flex items-center gap-3.5 p-4 rounded-2xl border cursor-pointer transition select-none {% if selected_exam == 'EAMCET' %}border-slate-200 bg-white hover:border-sky-300{% else %}border-sky-500 bg-sky-50/70 ring-2 ring-sky-200{% endif %}"
+                        >
                             <input
                                 type="radio"
                                 name="exam"
                                 id="kcet"
                                 value="KCET"
-                                class="hidden"
+                                class="sr-only"
                                 {% if selected_exam != 'EAMCET' %}checked{% endif %}
                             >
                             <div class="w-11 h-11 rounded-xl bg-sky-100 text-sky-700 border border-sky-200 flex items-center justify-center font-bold text-lg">
@@ -186,16 +191,22 @@
                                 <span class="text-sm font-extrabold text-slate-900 block">KCET</span>
                                 <span class="text-[11px] text-slate-500 font-medium">Karnataka Common Entrance Test</span>
                             </div>
-                        </label>
+                        </div>
 
                         <!-- EAMCET Radio Card -->
-                        <label class="relative flex items-center gap-3.5 p-4 rounded-2xl border cursor-pointer transition select-none {% if selected_exam == 'EAMCET' %}border-sky-500 bg-sky-50/70 ring-2 ring-sky-200{% else %}border-slate-200 bg-white hover:border-sky-300{% endif %}" id="label-eamcet">
+                        <div
+                            id="label-eamcet"
+                            role="button"
+                            tabindex="0"
+                            onclick="selectExam('EAMCET')"
+                            class="relative flex items-center gap-3.5 p-4 rounded-2xl border cursor-pointer transition select-none {% if selected_exam == 'EAMCET' %}border-sky-500 bg-sky-50/70 ring-2 ring-sky-200{% else %}border-slate-200 bg-white hover:border-sky-300{% endif %}"
+                        >
                             <input
                                 type="radio"
                                 name="exam"
                                 id="eamcet"
                                 value="EAMCET"
-                                class="hidden"
+                                class="sr-only"
                                 {% if selected_exam == 'EAMCET' %}checked{% endif %}
                             >
                             <div class="w-11 h-11 rounded-xl bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center justify-center font-bold text-lg">
@@ -205,7 +216,7 @@
                                 <span class="text-sm font-extrabold text-slate-900 block">EAMCET</span>
                                 <span class="text-[11px] text-slate-500 font-medium">Andhra Pradesh Engineering</span>
                             </div>
-                        </label>
+                        </div>
                     </div>
                 </div>
 
@@ -257,7 +268,7 @@
                     <button
                         type="submit"
                         id="predictBtn"
-                        class="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-sky-600 via-sky-500 to-sky-600 hover:from-sky-700 hover:to-sky-600 text-white font-extrabold text-sm shadow-md shadow-sky-600/25 active:scale-[0.99] transition flex items-center justify-center gap-2 group cursor-pointer"
+                        class="predict-btn w-full py-4 px-6 rounded-2xl text-white font-extrabold text-sm transition flex items-center justify-center gap-2 group cursor-pointer"
                     >
                         <svg class="w-5 h-5 group-hover:scale-110 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                         <span>Predict College Admissions</span>
@@ -289,10 +300,11 @@
         };
 
         const branchSelect = document.getElementById("branch");
-                const predictorForm = document.getElementById("predictorForm");
+        const predictorForm = document.getElementById("predictorForm");
         const rankInput = document.getElementById("rank");
         const labelKcet = document.getElementById("label-kcet");
         const labelEamcet = document.getElementById("label-eamcet");
+        const predictBtn = document.getElementById("predictBtn");
         const formError = document.getElementById("formError");
         const formErrorMessage = document.getElementById("formErrorMessage");
 
@@ -301,6 +313,20 @@
         function getSelectedExam() {
             const checked = document.querySelector('input[name="exam"]:checked');
             return checked ? checked.value.toUpperCase() : "KCET";
+        }
+
+        function selectExam(examType) {
+            const radioKcet = document.getElementById("kcet");
+            const radioEamcet = document.getElementById("eamcet");
+            if (examType === "EAMCET") {
+                radioEamcet.checked = true;
+                radioKcet.checked = false;
+            } else {
+                radioKcet.checked = true;
+                radioEamcet.checked = false;
+            }
+            updateExamStyles();
+            updateBranches();
         }
 
         function updateExamStyles() {
@@ -317,19 +343,18 @@
         function updateBranches() {
             const exam = getSelectedExam();
             const branches = examBranches[exam] || [];
+            const previousVal = branchSelect.value;
             
             branchSelect.innerHTML = '<option value="">Select Branch</option>';
             branches.forEach(branch => {
                 const opt = document.createElement("option");
                 opt.value = branch;
                 opt.textContent = branch;
-                if (branch === selectedBranchInitial) {
+                if (branch === previousVal || branch === selectedBranchInitial) {
                     opt.selected = true;
                 }
                 branchSelect.appendChild(opt);
             });
-
-
         }
 
         document.querySelectorAll('input[name="exam"]').forEach(radio => {
@@ -343,27 +368,36 @@
         updateExamStyles();
         updateBranches();
 
-        // Client Form Validation
-        predictorForm.addEventListener("submit", function(e) {
-            const rank = parseInt(rankInput.value, 10);
-            const branch = branchSelect.value;
+        // Guaranteed Form Validation and Submission
+        function handlePredictSubmit(e) {
+            if (e) e.preventDefault();
+            const rankVal = (rankInput ? rankInput.value : "").trim();
+            const rank = parseInt(rankVal, 10);
+            const branch = branchSelect ? branchSelect.value : "";
 
-            if (isNaN(rank) || rank < 1) {
-                e.preventDefault();
+            if (!rankVal || isNaN(rank) || rank < 1) {
                 showError("Please enter a valid entrance rank greater than 0.");
-                rankInput.focus();
-                return;
+                if (rankInput) rankInput.focus();
+                return false;
             }
 
             if (!branch) {
-                e.preventDefault();
                 showError("Please select your preferred engineering branch.");
-                branchSelect.focus();
-                return;
+                if (branchSelect) branchSelect.focus();
+                return false;
             }
 
             hideError();
-        });
+            predictorForm.submit();
+            return true;
+        }
+
+        if (predictorForm) {
+            predictorForm.addEventListener("submit", handlePredictSubmit);
+        }
+        if (predictBtn) {
+            predictBtn.addEventListener("click", handlePredictSubmit);
+        }
 
         function showError(msg) {
             formErrorMessage.textContent = msg;
